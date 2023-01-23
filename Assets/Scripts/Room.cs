@@ -1,13 +1,19 @@
 using UnityEngine.Tilemaps;
 using UnityEngine;
 
+[RequireComponent(typeof(Building))]
 public class Room : MonoBehaviour {
+
+  
+
     Vector2Int origin; //bottom-left vertex
 
     bool playerInRoom;
 
     new TilemapCollider2D collider;
     Tilemap tilemap;
+
+
     public void Initialize(Vector2Int origin) {
         this.origin = origin;
         //get world position of bottom middle cell, world position of top middle cell
