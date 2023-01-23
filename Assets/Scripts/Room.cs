@@ -1,18 +1,33 @@
 using UnityEngine.Tilemaps;
 using UnityEngine;
+using System;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Building))]
 public class Room : MonoBehaviour {
 
-  
+    [SerializeField] bool CompleteRoom;
+
+    public event Action<Room> OnRoomCompletion;
+
 
     Vector2Int origin; //bottom-left vertex
-
     bool playerInRoom;
-
     new TilemapCollider2D collider;
     Tilemap tilemap;
+    int EnemiesLeft;
 
+    void Awake() {
+        CompleteRoom = false;
+
+    }
+
+    void Update() {
+        if (CompleteRoom) {
+            OnRoomCompletion?.Invoke(this);
+            CompleteRoom = false;
+        }
+    }
 
     public void Initialize(Vector2Int origin) {
         this.origin = origin;

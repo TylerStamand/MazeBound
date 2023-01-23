@@ -11,8 +11,10 @@ public class DungeonGenerator : MonoBehaviour {
 
     [SerializeField] Grid dungeonGrid;
     [SerializeField] Room roomPrefab;
+    [SerializeField] LayerMask buildingLayer;
     [SerializeField] Building vertHallPrefab;
     [SerializeField] Building horzHallPrefab;
+
 
     public static DungeonGenerator Instance { get; private set; }
 
@@ -39,27 +41,8 @@ public class DungeonGenerator : MonoBehaviour {
         room.Initialize(Vector2Int.zero);
         Building roomBuilding = room.GetComponent<Building>();
 
-        Vector2 roomNorthWorldPos = roomBuilding.Tilemap.GetCellCenterWorld((Vector3Int)roomBuilding.North);
+        room.OnRoomCompletion += HandleRoomCompletion;
 
-
-        //Setup North hall/room
-        Building nHall = SpawnBuilding(roomBuilding, vertHallPrefab, Direction.North);
-        SpawnBuilding(nHall, roomBuilding, Direction.North);
-
-        //Setup South hall/room
-        Building sHall = SpawnBuilding(roomBuilding, vertHallPrefab, Direction.South);
-        Building sRoom = SpawnBuilding(sHall, roomBuilding, Direction.South);
-        Building ssHall = SpawnBuilding(sRoom, vertHallPrefab, Direction.South);
-        Building ssRoom = SpawnBuilding(ssHall, roomBuilding, Direction.South);
-
-        //Setup West hall/room
-        Building wHall = SpawnBuilding(roomBuilding, horzHallPrefab, Direction.West);
-        Building wRoom = SpawnBuilding(wHall, roomBuilding, Direction.West);
-
-
-        //Setup East hall/room
-        Building eHall = SpawnBuilding(roomBuilding, horzHallPrefab, Direction.East);
-        Building eRoom = SpawnBuilding(eHall, roomBuilding, Direction.East);
     }
 
     Building SpawnBuilding(Building baseBuilding, Building addedBuildingPrefab, Direction direction) {
@@ -67,13 +50,11 @@ public class DungeonGenerator : MonoBehaviour {
         Vector2 baseConnection = baseBuilding.Tilemap.GetCellCenterWorld((Vector3Int)baseBuilding.GetConnectionPosition(direction));
 
         Vector2 addedBuildingCenter = baseBuilding.Tilemap.GetCellCenterWorld(Vector3Int.zero);
-        Debug.Log($"Center: {addedBuildingCenter}");
-        Vector2 addedBuildingConnectionWorldPos = baseBuilding.Tilemap.GetCellCenterWorld(addedBuildingPrefab.GetConnectionPosition(Utilities.GetOppDirection(direction)));
-        Debug.Log($"ConnectionPos: {addedBuildingPrefab.GetConnectionPosition(Utilities.GetOppDirection(direction))}");
-        Debug.Log($"ConnectionWorldPos: {addedBuildingConnectionWorldPos}");
 
+
+        Vector2 addedBuildingConnectionWorldPos = baseBuilding.Tilemap.GetCellCenterWorld(addedBuildingPrefab.GetConnectionPosition(Utilities.GetOppDirection(direction)));
         Vector2 diff = Building.GetBuildingOffset(addedBuildingCenter, addedBuildingConnectionWorldPos);
-        Debug.Log($"Diff: {diff}");
+
         if (direction == Direction.North) {
             spawnedAddition = Instantiate(addedBuildingPrefab, new Vector3(baseConnection.x + diff.x - .5f, baseConnection.y + diff.y + .5f, 0), Quaternion.identity, dungeonGrid.transform);
         } else if (direction == Direction.South) {
@@ -84,6 +65,43 @@ public class DungeonGenerator : MonoBehaviour {
             spawnedAddition = Instantiate(addedBuildingPrefab, new Vector3(baseConnection.x + diff.x - 1.5f, baseConnection.y + diff.y - .5f, 0), Quaternion.identity, dungeonGrid.transform);
         }
 
+        //Check for already spawned buildings in the area it would be spawned
+        TilemapCollider2D tilemapCollider = spawnedAddition.GetComponent<TilemapCollider2D>();
+        Vector2 bottomLeft = new Vector2(tilemapCollider.bounds.center.x - tilemapCollider.bounds.extents.x, tilemapCollider.bounds.center.y - tilemapCollider.bounds.extents.y);
+        Debug.Log($"Bottom left: {bottomLeft}");
+        Vector2 topRight = new Vector2 (tilemapCollider.bounds.center.x + tilemapCollider.bounds.extents.x, tilemapCollider.bounds.center.y + tilemapCollider.bounds.extents.y);
+        Debug.Log($"Top Right: {topRight}");
+        Collider2D collider = Physics2D.OverlapArea(bottomLeft, topRight, buildingLayer);
+        if (collider != null) {
+            Destroy(spawnedAddition.gameObject);
+            return null;
+        }
+
         return spawnedAddition;
+
+
+    }
+
+    void HandleRoomCompletion(Room room) {
+        Building hall;
+        Building roomSpawn;
+        Building roomBuilding = room.GetComponent<Building>();
+        Building roomBuildingPrefab = roomPrefab.GetComponent<Building>();
+            hall = SpawnBuilding(roomBuilding, horzHallPrefab, Direction.East);
+            roomSpawn = SpawnBuilding(hall, roomBuildingPrefab, Direction.East);
+            roomSpawn.GetComponent<Room>().OnRoomCompletion += HandleRoomCompletion;
+            hall = SpawnBuilding(roomBuilding, horzHallPrefab, Direction.West);
+            roomSpawn = SpawnBuilding(hall, roomBuildingPrefab, Direction.West);
+            roomSpawn.GetComponent<Room>().OnRoomCompletion += HandleRoomCompletion;
+            hall = SpawnBuilding(roomBuilding, vertHallPrefab, Direction.North);
+            roomSpawn = SpawnBuilding(hall, roomBuildingPrefab, Direction.North);
+            roomSpawn.GetComponent<Room>().OnRoomCompletion += HandleRoomCompletion;
+            
+            hall = SpawnBuilding(roomBuilding, vertHallPrefab, Direction.South);
+            roomSpawn = SpawnBuilding(hall, roomBuildingPrefab, Direction.South);
+            roomSpawn.GetComponent<Room>().OnRoomCompletion += HandleRoomCompletion;
+           
+
+
     }
 }

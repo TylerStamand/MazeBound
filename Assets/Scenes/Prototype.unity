@@ -728,8 +728,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dungeonGrid: {fileID: 583224667}
   roomPrefab: {fileID: 384430485695785473, guid: 37b054d0dc58c204c9591149a6e9b5c4, type: 3}
-  vertHallPrefab: {fileID: 2645936582450745298, guid: 5ab01c0b3461fe64b94e2c4495a0dcc2, type: 3}
-  horzHallPrefab: {fileID: 537094515004793593, guid: 3d16603586867794b9acc9b1872e58ef, type: 3}
+  buildingLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  vertHallPrefab: {fileID: 1177589042753499478, guid: 5ab01c0b3461fe64b94e2c4495a0dcc2, type: 3}
+  horzHallPrefab: {fileID: 6546925377051259868, guid: 75e8a905d9ec8f9449af96ad74aa6053, type: 3}
 --- !u!4 &1410699962
 Transform:
   m_ObjectHideFlags: 0
