@@ -1,5 +1,6 @@
 using UnityEngine.Tilemaps;
 using UnityEngine;
+using System.Collections.Generic;
 
 public enum Direction {
     North, South, East, West
@@ -30,22 +31,18 @@ public class DungeonGenerator : MonoBehaviour {
 
     }
 
-
-    void Update() {
-
-    }
-
     void Initialize() {
         Debug.Log("Initializing Dungeon");
         Room room = Instantiate(roomPrefab, Vector3.zero, Quaternion.identity, dungeonGrid.transform);
-        room.Initialize(Vector2Int.zero);
-        Building roomBuilding = room.GetComponent<Building>();
+
+        List<Tilemap> tilemaps = new List<Tilemap>(room.GetComponentsInChildren<Tilemap>());
 
         room.OnRoomCompletion += HandleRoomCompletion;
-
     }
 
     Building SpawnBuilding(Building baseBuilding, Building addedBuildingPrefab, Direction direction) {
+        if (baseBuilding == null || addedBuildingPrefab == null) return null;
+
         Building spawnedAddition = null;
         Vector2 baseConnection = baseBuilding.Tilemap.GetCellCenterWorld((Vector3Int)baseBuilding.GetConnectionPosition(direction));
 
@@ -66,18 +63,53 @@ public class DungeonGenerator : MonoBehaviour {
         }
 
         //Check for already spawned buildings in the area it would be spawned
-        TilemapCollider2D tilemapCollider = spawnedAddition.GetComponent<TilemapCollider2D>();
-        Vector2 bottomLeft = new Vector2(tilemapCollider.bounds.center.x - tilemapCollider.bounds.extents.x, tilemapCollider.bounds.center.y - tilemapCollider.bounds.extents.y);
-        Debug.Log($"Bottom left: {bottomLeft}");
-        Vector2 topRight = new Vector2 (tilemapCollider.bounds.center.x + tilemapCollider.bounds.extents.x, tilemapCollider.bounds.center.y + tilemapCollider.bounds.extents.y);
-        Debug.Log($"Top Right: {topRight}");
-        Collider2D collider = Physics2D.OverlapArea(bottomLeft, topRight, buildingLayer);
-        if (collider != null) {
-            Destroy(spawnedAddition.gameObject);
-            return null;
-        }
+        List<Tilemap> tilemaps = new List<Tilemap>(spawnedAddition.GetComponentsInChildren<Tilemap>());
+        foreach (Tilemap tilemap in tilemaps) {
 
+            BoundsInt bounds = tilemap.cellBounds;
+            TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
+
+            for (int x = 0; x < bounds.size.x; x++) {
+                for (int y = 0; y < bounds.size.y; y++) {
+                    TileBase tile = allTiles[x + y * bounds.size.x];
+                    if (tile != null) {
+
+                        Vector2 cellPos = tilemap.CellToWorld(new Vector3Int(x + bounds.xMin, y + bounds.yMin));
+                        Vector2 topRight = new Vector2(cellPos.x + .99f, cellPos.y + .99f);
+                        Vector2 bottomLeft = new Vector2(cellPos.x + .01f, cellPos.y + .01f);
+                        Collider2D collider = Physics2D.OverlapArea(bottomLeft, topRight, buildingLayer);
+                        if (collider != null && !tilemaps.Contains(collider.GetComponent<Tilemap>())) {
+                            Debug.Log($"Collided with {collider.name} at {topRight} and {bottomLeft}");
+                            Debug.Log($"Destroy {spawnedAddition.name}");
+                            Destroy(spawnedAddition.gameObject);
+                            return null;
+                        }
+
+                    }
+                }
+
+
+                // Vector2 bottomLeft = tilemap.transform.TransformPoint(tilemap.localBounds.min);
+                // Vector2 topRight = tilemap.transform.TransformPoint(tilemap.localBounds.max);
+
+                // topRight.x -= .5f;
+                // topRight.y -= .5f;
+                // bottomLeft.x += .5f;
+                // bottomLeft.y += .5f;
+                // Debug.Log($"Top Right: {topRight}");
+                // Debug.Log($"Bottom left: {bottomLeft}");
+                // Collider2D collider = Physics2D.OverlapArea(bottomLeft, topRight, buildingLayer);
+                // if (collider != null && !tilemaps.Contains(collider.GetComponent<Tilemap>())) {
+                //     Debug.Log($"Destroy {spawnedAddition.name}");
+                //     Destroy(spawnedAddition.gameObject);
+                //     return null;
+                // }
+            }
+
+        }
         return spawnedAddition;
+
+
 
 
     }
@@ -87,20 +119,25 @@ public class DungeonGenerator : MonoBehaviour {
         Building roomSpawn;
         Building roomBuilding = room.GetComponent<Building>();
         Building roomBuildingPrefab = roomPrefab.GetComponent<Building>();
-            hall = SpawnBuilding(roomBuilding, horzHallPrefab, Direction.East);
-            roomSpawn = SpawnBuilding(hall, roomBuildingPrefab, Direction.East);
+        hall = SpawnBuilding(roomBuilding, horzHallPrefab, Direction.East);
+        roomSpawn = SpawnBuilding(hall, roomBuildingPrefab, Direction.East);
+        if (roomSpawn != null)
             roomSpawn.GetComponent<Room>().OnRoomCompletion += HandleRoomCompletion;
-            hall = SpawnBuilding(roomBuilding, horzHallPrefab, Direction.West);
-            roomSpawn = SpawnBuilding(hall, roomBuildingPrefab, Direction.West);
+
+        hall = SpawnBuilding(roomBuilding, horzHallPrefab, Direction.West);
+        roomSpawn = SpawnBuilding(hall, roomBuildingPrefab, Direction.West);
+        if (roomSpawn != null)
             roomSpawn.GetComponent<Room>().OnRoomCompletion += HandleRoomCompletion;
-            hall = SpawnBuilding(roomBuilding, vertHallPrefab, Direction.North);
-            roomSpawn = SpawnBuilding(hall, roomBuildingPrefab, Direction.North);
+        hall = SpawnBuilding(roomBuilding, vertHallPrefab, Direction.North);
+        roomSpawn = SpawnBuilding(hall, roomBuildingPrefab, Direction.North);
+        if (roomSpawn != null)
             roomSpawn.GetComponent<Room>().OnRoomCompletion += HandleRoomCompletion;
-            
-            hall = SpawnBuilding(roomBuilding, vertHallPrefab, Direction.South);
-            roomSpawn = SpawnBuilding(hall, roomBuildingPrefab, Direction.South);
+
+        hall = SpawnBuilding(roomBuilding, vertHallPrefab, Direction.South);
+        roomSpawn = SpawnBuilding(hall, roomBuildingPrefab, Direction.South);
+        if (roomSpawn != null)
             roomSpawn.GetComponent<Room>().OnRoomCompletion += HandleRoomCompletion;
-           
+
 
 
     }
