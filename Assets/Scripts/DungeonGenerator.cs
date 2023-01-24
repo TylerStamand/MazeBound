@@ -75,8 +75,8 @@ public class DungeonGenerator : MonoBehaviour {
                     if (tile != null) {
 
                         Vector2 cellPos = tilemap.CellToWorld(new Vector3Int(x + bounds.xMin, y + bounds.yMin));
-                        Vector2 topRight = new Vector2(cellPos.x + .99f, cellPos.y + .99f);
-                        Vector2 bottomLeft = new Vector2(cellPos.x + .01f, cellPos.y + .01f);
+                        Vector2 topRight = new Vector2(cellPos.x + .5f, cellPos.y + .5f);
+                        Vector2 bottomLeft = new Vector2(cellPos.x + .5f, cellPos.y + .5f);
                         Collider2D collider = Physics2D.OverlapArea(bottomLeft, topRight, buildingLayer);
                         if (collider != null && !tilemaps.Contains(collider.GetComponent<Tilemap>())) {
                             Debug.Log($"Collided with {collider.name} at {topRight} and {bottomLeft}");
@@ -87,23 +87,6 @@ public class DungeonGenerator : MonoBehaviour {
 
                     }
                 }
-
-
-                // Vector2 bottomLeft = tilemap.transform.TransformPoint(tilemap.localBounds.min);
-                // Vector2 topRight = tilemap.transform.TransformPoint(tilemap.localBounds.max);
-
-                // topRight.x -= .5f;
-                // topRight.y -= .5f;
-                // bottomLeft.x += .5f;
-                // bottomLeft.y += .5f;
-                // Debug.Log($"Top Right: {topRight}");
-                // Debug.Log($"Bottom left: {bottomLeft}");
-                // Collider2D collider = Physics2D.OverlapArea(bottomLeft, topRight, buildingLayer);
-                // if (collider != null && !tilemaps.Contains(collider.GetComponent<Tilemap>())) {
-                //     Debug.Log($"Destroy {spawnedAddition.name}");
-                //     Destroy(spawnedAddition.gameObject);
-                //     return null;
-                // }
             }
 
         }
