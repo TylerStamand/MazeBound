@@ -71,59 +71,42 @@ public class DungeonGenerator : MonoBehaviour {
         BoundsInt baseBounds = baseBuilding.Tilemap.cellBounds;
         BoundsInt addBounds = addedBuildingPrefab.Tilemap.cellBounds;
 
+        Vector3Int basePoint;
+        Vector3Int additionConnectionPoint;
+        Vector3Int additionCellPoint;
         if (direction == Direction.North) {
-            // Debug.Log($"Add Bounds Y Diff: {addBounds.size.y}");
-            // Debug.Log($"Add Bounds Y Other Meth: {addBounds.yMax - addBounds.yMin}");
-            Vector3Int basePoint = new Vector3Int(Random.Range(baseBounds.xMin, baseBounds.xMax), baseBounds.yMax - 1);
-            // Debug.Log($"Base Bounds: {baseBounds}");
-            // Debug.Log($"Base Point: {basePoint}");
-            Vector3Int additionCenter = new Vector3Int(basePoint.x, basePoint.y + minimumRoomDistance + Random.Range((addBounds.size.y) / 2, addBounds.size.y));
-            // Debug.Log($"Addition Center: {additionCenter}");
-            Vector3 additionCenterWorld = baseBuilding.Tilemap.GetCellCenterWorld(additionCenter);
+            basePoint = new Vector3Int(baseBounds.xMax - baseBounds.size.x / 2, baseBounds.yMax - 1);
+            Debug.Log($"Base point {basePoint}");
+            //use this as an offset
+            additionConnectionPoint = new Vector3Int(addBounds.xMax - addBounds.size.x / 2, addBounds.yMin);
+            Debug.Log($"Addition connection point {additionConnectionPoint}");
+            additionCellPoint = new Vector3Int(basePoint.x - additionConnectionPoint.x, basePoint.y + minimumRoomDistance - additionConnectionPoint.y);
+            Debug.Log($"Addition Cell point {additionCellPoint}");
 
-            // Debug.Log($"Addition Center World: {additionCenterWorld}");
-
-
-            Vector2 addedBuildingCenter = baseBuilding.Tilemap.GetCellCenterWorld(Vector3Int.zero);
-            Vector3 diff = Building.GetBuildingOffset(addedBuildingCenter, additionCenterWorld);
-            additionCenterWorld.y += .5f;
-            additionCenterWorld.x -= .5f;
-            // Debug.Log($"Diff: {diff}");
-            spawnedAddition = Instantiate(addedBuildingPrefab, additionCenterWorld - diff, Quaternion.identity, dungeonGrid.transform);
         } else if (direction == Direction.South) {
-            Vector3Int basePoint = new Vector3Int(Random.Range(baseBounds.xMin, baseBounds.xMax), baseBounds.yMin);
-            Debug.Log($"Base Point: {basePoint}");
-            Vector3Int additionCenter = new Vector3Int(basePoint.x, basePoint.y - minimumRoomDistance - Random.Range((addBounds.size.y) / 2, addBounds.size.y));
-            Debug.Log($"Addition Center: {additionCenter}");
-            Vector3 additionCenterWorld = baseBuilding.Tilemap.GetCellCenterWorld(additionCenter);
-            Debug.Log($"Addition Center World: {additionCenterWorld}");
+            basePoint = new Vector3Int(baseBounds.xMax - baseBounds.size.x / 2, baseBounds.yMin);
+            //use this as an offset
+            additionConnectionPoint = new Vector3Int(addBounds.xMax - addBounds.size.x / 2, addBounds.yMax + 1);
+            additionCellPoint = new Vector3Int(basePoint.x - additionConnectionPoint.x, basePoint.y - minimumRoomDistance - additionConnectionPoint.y);
 
-            Vector2 addedBuildingCenter = baseBuilding.Tilemap.GetCellCenterWorld(Vector3Int.zero);
-            Vector3 diff = Building.GetBuildingOffset(addedBuildingCenter, additionCenterWorld);
-            Debug.Log($"Diff: {diff}");
-            additionCenterWorld.y += .5f;
-            additionCenterWorld.x -= 1.5f;
-            spawnedAddition = Instantiate(addedBuildingPrefab, additionCenterWorld, Quaternion.identity, dungeonGrid.transform);
 
         } else if (direction == Direction.East) {
-            // Vector3Int basePoint = new Vector3Int(Random.Range(baseBounds.xMin, baseBounds.xMax), baseBounds.yMax - 1);
-            // Vector3Int additionCenter = new Vector3Int(basePoint.x, basePoint.y + minimumRoomDistance + Random.Range((addBounds.size.y) / 2, addBounds.size.y));
-            // Vector3 additionCenterWorld = baseBuilding.Tilemap.GetCellCenterWorld(additionCenter);
-            // Vector2 addedBuildingCenter = baseBuilding.Tilemap.GetCellCenterWorld(Vector3Int.zero);
-            // Vector3 diff = Building.GetBuildingOffset(addedBuildingCenter, additionCenterWorld);
-            // additionCenterWorld.y -= .5f;
-            // additionCenterWorld.x -= .5f;
-            // spawnedAddition = Instantiate(addedBuildingPrefab, additionCenterWorld - diff, Quaternion.identity, dungeonGrid.transform);
+            basePoint = new Vector3Int(baseBounds.xMax, baseBounds.yMax - baseBounds.size.y / 2);
+            //use this as an offset
+            additionConnectionPoint = new Vector3Int(addBounds.xMin, addBounds.yMax - addBounds.size.y / 2 + 1);
+            additionCellPoint = new Vector3Int(basePoint.x + minimumRoomDistance - additionConnectionPoint.x, basePoint.y - additionConnectionPoint.y);
         } else {
-            // Vector3Int basePoint = new Vector3Int(Random.Range(baseBounds.xMin, baseBounds.xMax), baseBounds.yMax - 1);
-            // Vector3Int additionCenter = new Vector3Int(basePoint.x, basePoint.y + minimumRoomDistance + Random.Range((addBounds.size.y) / 2, addBounds.size.y));
-            // Vector3 additionCenterWorld = baseBuilding.Tilemap.GetCellCenterWorld(additionCenter);
-            // Vector2 addedBuildingCenter = baseBuilding.Tilemap.GetCellCenterWorld(Vector3Int.zero);
-            // Vector3 diff = Building.GetBuildingOffset(addedBuildingCenter, additionCenterWorld);
-            // additionCenterWorld.y -= 1.5f;
-            // additionCenterWorld.x -= .5f;
-            // spawnedAddition = Instantiate(addedBuildingPrefab, additionCenterWorld - diff, Quaternion.identity, dungeonGrid.transform);
+            basePoint = new Vector3Int(baseBounds.xMin, baseBounds.yMax - baseBounds.size.y / 2);
+            //use this as an offset
+            additionConnectionPoint = new Vector3Int(addBounds.xMax, addBounds.yMax - addBounds.size.y / 2 + 1);
+            additionCellPoint = new Vector3Int(basePoint.x - minimumRoomDistance - additionConnectionPoint.x, basePoint.y - additionConnectionPoint.y);
         }
+
+        //This cell coordinates based on the tilemap of the current base building, not of the original spawned building. Meaning they are all relative 
+        Vector3 additionCenterWorld = baseBuilding.Tilemap.GetCellCenterWorld(additionCellPoint);
+        additionCenterWorld.y += .5f;
+        additionCenterWorld.x -= .5f;
+        spawnedAddition = Instantiate(addedBuildingPrefab, additionCenterWorld, Quaternion.identity, dungeonGrid.transform);
 
         //Check for already spawned buildings in the area it would be spawned
         // List<Tilemap> tilemaps = new List<Tilemap>(spawnedAddition.GetComponentsInChildren<Tilemap>());
