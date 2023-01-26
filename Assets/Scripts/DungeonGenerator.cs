@@ -27,8 +27,7 @@ public class DungeonGenerator : MonoBehaviour {
     public static DungeonGenerator Instance { get; private set; }
 
     public Dictionary<RoomRarity, List<Room>> roomDic;
-    List<Tilemap> tilemapsList = new List<Tilemap>();
-    List<Tilemap> tilemapsList1 = new List<Tilemap>();
+
     void Awake() {
 
         if (Instance == null) {
@@ -77,19 +76,15 @@ public class DungeonGenerator : MonoBehaviour {
         Vector3Int additionCellPoint;
         if (direction == Direction.North) {
             basePoint = new Vector3Int(baseBounds.xMax - baseBounds.size.x / 2, baseBounds.yMax - 1);
-            Debug.Log($"Base point {basePoint}");
             //use this as an offset
             additionConnectionPoint = new Vector3Int(addBounds.xMax - addBounds.size.x / 2, addBounds.yMin);
-            Debug.Log($"Addition connection point {additionConnectionPoint}");
             additionCellPoint = new Vector3Int(basePoint.x - additionConnectionPoint.x, basePoint.y + minimumRoomDistance - additionConnectionPoint.y);
-            Debug.Log($"Addition Cell point {additionCellPoint}");
 
         } else if (direction == Direction.South) {
             basePoint = new Vector3Int(baseBounds.xMax - baseBounds.size.x / 2, baseBounds.yMin);
             //use this as an offset
             additionConnectionPoint = new Vector3Int(addBounds.xMax - addBounds.size.x / 2, addBounds.yMax + 1);
             additionCellPoint = new Vector3Int(basePoint.x - additionConnectionPoint.x, basePoint.y - minimumRoomDistance - additionConnectionPoint.y);
-
 
         } else if (direction == Direction.East) {
             basePoint = new Vector3Int(baseBounds.xMax, baseBounds.yMax - baseBounds.size.y / 2);
@@ -109,14 +104,13 @@ public class DungeonGenerator : MonoBehaviour {
         additionCenterWorld.x -= .5f;
         spawnedAddition = Instantiate(addedBuildingPrefab, additionCenterWorld, Quaternion.identity, dungeonGrid.transform);
 
-
+        //Turns colliders off to avoid messing with collision detection of already existing room
         foreach (Collider2D collider2D in spawnedAddition.GetComponentsInChildren<Collider2D>()) {
             collider2D.enabled = false;
         }
         //Check for already spawned buildings in the area it would be spawned
         List<Tilemap> tilemaps = new List<Tilemap>(spawnedAddition.GetComponentsInChildren<Tilemap>());
         foreach (Tilemap tilemap in tilemaps) {
-            tilemapsList.Add(tilemap);
             BoundsInt bounds = tilemap.cellBounds;
             TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
 
@@ -127,13 +121,16 @@ public class DungeonGenerator : MonoBehaviour {
 
                         Vector2 cellPos = tilemap.CellToWorld(new Vector3Int(x + bounds.xMin, y + bounds.yMin));
                         Vector2 worldCellPos = new Vector2(cellPos.x - .5f + 1, cellPos.y + .5f);
-                        Collider2D collider = Physics2D.OverlapBox(worldCellPos, new Vector2(1.1f, 1.1f), buildingLayer);
+                        Collider2D collider = Physics2D.OverlapPoint(worldCellPos, buildingLayer);
 
                         if (collider != null && !tilemaps.Contains(collider.GetComponent<Tilemap>())) {
                             Debug.Log($"Collided with {collider.name} at {worldCellPos}");
 
                             Debug.Log($"Destroy {spawnedAddition.name}");
                             Destroy(spawnedAddition.gameObject);
+
+                            //Connect base with hit building
+                            ConnectRooms(baseBuilding.Tilemap, collider.GetComponent<Building>().Tilemap, direction);
                             return null;
                         }
                     }
@@ -141,9 +138,14 @@ public class DungeonGenerator : MonoBehaviour {
             }
         }
 
+        //Turns colliders back on for new room
         foreach (Collider2D collider2D in spawnedAddition.GetComponentsInChildren<Collider2D>()) {
             collider2D.enabled = true;
         }
+
+        //Connect base with new addition
+        ConnectRooms(baseBuilding.Tilemap, spawnedAddition.Tilemap, direction);
+
         return spawnedAddition;
 
 
@@ -154,17 +156,13 @@ public class DungeonGenerator : MonoBehaviour {
 
 
     void HandleRoomCompletion(Room room) {
-        Building hall;
+
         Building roomSpawn;
         Building roomBuilding = room.GetComponent<Building>();
 
         foreach (Direction direction in Enum.GetValues(typeof(Direction))) {
             Building roomBuildingPrefab = GetNextRoom(room.RoomLevel + 1).GetComponent<Building>();
-            // if (direction == Direction.East || direction == Direction.West) {
-            //     hall = SpawnBuilding(roomBuilding, horzHallPrefab, direction);
-            // } else {
-            //     hall = SpawnBuilding(roomBuilding, vertHallPrefab, direction);
-            // }
+
 
             roomSpawn = SpawnBuilding(roomBuilding, roomBuildingPrefab, direction);
             if (roomSpawn != null) {
@@ -186,28 +184,24 @@ public class DungeonGenerator : MonoBehaviour {
         return commonRooms[Random.Range(0, commonRooms.Count)];
     }
 
-    // void OnDrawGizmos() {
-    //     tilemapsList1 = tilemapsList;
-    //     foreach (Tilemap tilemap in tilemapsList1) {
-    //         tilemapsList1.Add(tilemap);
-    //         BoundsInt bounds = tilemap.cellBounds;
-    //         TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
 
-    //         for (int x = 0; x < bounds.size.x; x++) {
-    //             for (int y = 0; y < bounds.size.y; y++) {
-    //                 TileBase tile = allTiles[x + y * bounds.size.x];
-    //                 if (tile != null) {
+    void ConnectRooms(Tilemap tilemap, Tilemap tilemap2, Direction direction) {
 
-    //                     Vector2 cellPos = tilemap.CellToWorld(new Vector3Int(x + bounds.xMin + 1, y + bounds.yMin));
-    //                     Vector2 topRight = new Vector2(cellPos.x - .5f, cellPos.y + .5f);
-    //                     Vector2 bottomLeft = new Vector2(cellPos.x - .5f, cellPos.y + .5f);
-    //                     Gizmos.DrawCube(topRight, new Vector3(1, 1));
+    }
 
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+    void DrawHallway(Tilemap tilemap, Vector3Int start, Vector3Int end) {
+        Vector3Int current = start;
+        Vector3Int difference = new Vector3Int(end.x - start.x, end.y - start.y);
+        int xInc = (start.x - difference.x) < start.x ? -1 : 1;
+        int yInc = (start.y - difference.y) < start.y ? -1 : 1;
+        for (; current.x < start.x - difference.x; current.x += xInc) {
+            for (; current.y < start.y - difference.y; current.y += xInc) {
+                tilemap.SetTile(current, testHallTile);
+            }
+        }
+
+    }
+
 
 }
 

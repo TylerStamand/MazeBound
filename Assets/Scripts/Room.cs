@@ -44,11 +44,6 @@ public class Room : MonoBehaviour {
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision) {
-        Debug.Log(collision.gameObject.name);
-    }
-
-
     void OnTriggerExit2D(Collider2D collider) {
         PlayerCharacter player = collider.GetComponent<PlayerCharacter>();
         if (player != null) {
