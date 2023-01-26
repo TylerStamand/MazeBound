@@ -27,7 +27,8 @@ public class DungeonGenerator : MonoBehaviour {
     public static DungeonGenerator Instance { get; private set; }
 
     public Dictionary<RoomRarity, List<Room>> roomDic;
-
+    List<Tilemap> tilemapsList = new List<Tilemap>();
+    List<Tilemap> tilemapsList1 = new List<Tilemap>();
     void Awake() {
 
         if (Instance == null) {
@@ -108,38 +109,49 @@ public class DungeonGenerator : MonoBehaviour {
         additionCenterWorld.x -= .5f;
         spawnedAddition = Instantiate(addedBuildingPrefab, additionCenterWorld, Quaternion.identity, dungeonGrid.transform);
 
+
+        foreach (Collider2D collider2D in spawnedAddition.GetComponentsInChildren<Collider2D>()) {
+            collider2D.enabled = false;
+        }
         //Check for already spawned buildings in the area it would be spawned
-        // List<Tilemap> tilemaps = new List<Tilemap>(spawnedAddition.GetComponentsInChildren<Tilemap>());
-        // foreach (Tilemap tilemap in tilemaps) {
+        List<Tilemap> tilemaps = new List<Tilemap>(spawnedAddition.GetComponentsInChildren<Tilemap>());
+        foreach (Tilemap tilemap in tilemaps) {
+            tilemapsList.Add(tilemap);
+            BoundsInt bounds = tilemap.cellBounds;
+            TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
 
-        //     BoundsInt bounds = tilemap.cellBounds;
-        //     TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
+            for (int x = 0; x < bounds.size.x; x++) {
+                for (int y = 0; y < bounds.size.y; y++) {
+                    TileBase tile = allTiles[x + y * bounds.size.x];
+                    if (tile != null) {
 
-        //     for (int x = 0; x < bounds.size.x; x++) {
-        //         for (int y = 0; y < bounds.size.y; y++) {
-        //             TileBase tile = allTiles[x + y * bounds.size.x];
-        //             if (tile != null) {
+                        Vector2 cellPos = tilemap.CellToWorld(new Vector3Int(x + bounds.xMin, y + bounds.yMin));
+                        Vector2 worldCellPos = new Vector2(cellPos.x - .5f + 1, cellPos.y + .5f);
+                        Collider2D collider = Physics2D.OverlapBox(worldCellPos, new Vector2(1.1f, 1.1f), buildingLayer);
 
-        //                 Vector2 cellPos = tilemap.CellToWorld(new Vector3Int(x + bounds.xMin, y + bounds.yMin));
-        //                 Vector2 topRight = new Vector2(cellPos.x + .5f, cellPos.y + .5f);
-        //                 Vector2 bottomLeft = new Vector2(cellPos.x + .5f, cellPos.y + .5f);
-        //                 Collider2D collider = Physics2D.OverlapArea(bottomLeft, topRight, buildingLayer);
-        //                 if (collider != null && !tilemaps.Contains(collider.GetComponent<Tilemap>())) {
-        //                     Debug.Log($"Collided with {collider.name} at {topRight} and {bottomLeft}");
-        //                     Debug.Log($"Destroy {spawnedAddition.name}");
-        //                     Destroy(spawnedAddition.gameObject);
-        //                     return null;
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+                        if (collider != null && !tilemaps.Contains(collider.GetComponent<Tilemap>())) {
+                            Debug.Log($"Collided with {collider.name} at {worldCellPos}");
+
+                            Debug.Log($"Destroy {spawnedAddition.name}");
+                            Destroy(spawnedAddition.gameObject);
+                            return null;
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach (Collider2D collider2D in spawnedAddition.GetComponentsInChildren<Collider2D>()) {
+            collider2D.enabled = true;
+        }
         return spawnedAddition;
 
 
 
 
     }
+
+
 
     void HandleRoomCompletion(Room room) {
         Building hall;
@@ -173,5 +185,31 @@ public class DungeonGenerator : MonoBehaviour {
         List<Room> commonRooms = roomDic[RoomRarity.Common];
         return commonRooms[Random.Range(0, commonRooms.Count)];
     }
+
+    // void OnDrawGizmos() {
+    //     tilemapsList1 = tilemapsList;
+    //     foreach (Tilemap tilemap in tilemapsList1) {
+    //         tilemapsList1.Add(tilemap);
+    //         BoundsInt bounds = tilemap.cellBounds;
+    //         TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
+
+    //         for (int x = 0; x < bounds.size.x; x++) {
+    //             for (int y = 0; y < bounds.size.y; y++) {
+    //                 TileBase tile = allTiles[x + y * bounds.size.x];
+    //                 if (tile != null) {
+
+    //                     Vector2 cellPos = tilemap.CellToWorld(new Vector3Int(x + bounds.xMin + 1, y + bounds.yMin));
+    //                     Vector2 topRight = new Vector2(cellPos.x - .5f, cellPos.y + .5f);
+    //                     Vector2 bottomLeft = new Vector2(cellPos.x - .5f, cellPos.y + .5f);
+    //                     Gizmos.DrawCube(topRight, new Vector3(1, 1));
+
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+
 }
+
+
 
