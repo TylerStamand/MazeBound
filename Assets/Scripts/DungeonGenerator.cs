@@ -17,6 +17,7 @@ public class DungeonGenerator : MonoBehaviour {
     // [SerializeField] PlayerCharacter playerObject;
 
     [SerializeField] Grid dungeonGrid;
+    [SerializeField] Tilemap hallTilemap;
     [SerializeField] Tile testHallTile;
     [SerializeField] Room initalRoomPrefab;
     [SerializeField] LayerMask buildingLayer;
@@ -27,6 +28,7 @@ public class DungeonGenerator : MonoBehaviour {
     public static DungeonGenerator Instance { get; private set; }
 
     public Dictionary<RoomRarity, List<Room>> roomDic;
+
 
     void Awake() {
 
@@ -66,41 +68,28 @@ public class DungeonGenerator : MonoBehaviour {
     Building SpawnBuilding(Building baseBuilding, Building addedBuildingPrefab, Direction direction) {
         if (baseBuilding == null || addedBuildingPrefab == null) return null;
 
-        Building spawnedAddition = null;
+        Building spawnedAddition;
 
         BoundsInt baseBounds = baseBuilding.Tilemap.cellBounds;
         BoundsInt addBounds = addedBuildingPrefab.Tilemap.cellBounds;
 
-        Vector3Int basePoint;
-        Vector3Int additionConnectionPoint;
-        Vector3Int additionCellPoint;
+        Vector3Int baseConnectionPoint = GetConnectionPoint(baseBounds, direction);
+        Vector3Int additionConnectionPoint = GetConnectionPoint(addBounds, Utilities.GetOppDirection(direction));
+        Vector3Int additionCellCenterPoint;
+
         if (direction == Direction.North) {
-            basePoint = new Vector3Int(baseBounds.xMax - baseBounds.size.x / 2, baseBounds.yMax - 1);
-            //use this as an offset
-            additionConnectionPoint = new Vector3Int(addBounds.xMax - addBounds.size.x / 2, addBounds.yMin);
-            additionCellPoint = new Vector3Int(basePoint.x - additionConnectionPoint.x, basePoint.y + minimumRoomDistance - additionConnectionPoint.y);
-
+            additionCellCenterPoint = new Vector3Int(baseConnectionPoint.x - additionConnectionPoint.x, baseConnectionPoint.y + minimumRoomDistance - additionConnectionPoint.y);
         } else if (direction == Direction.South) {
-            basePoint = new Vector3Int(baseBounds.xMax - baseBounds.size.x / 2, baseBounds.yMin);
-            //use this as an offset
-            additionConnectionPoint = new Vector3Int(addBounds.xMax - addBounds.size.x / 2, addBounds.yMax + 1);
-            additionCellPoint = new Vector3Int(basePoint.x - additionConnectionPoint.x, basePoint.y - minimumRoomDistance - additionConnectionPoint.y);
-
+            additionCellCenterPoint = new Vector3Int(baseConnectionPoint.x - additionConnectionPoint.x, baseConnectionPoint.y - minimumRoomDistance - additionConnectionPoint.y);
         } else if (direction == Direction.East) {
-            basePoint = new Vector3Int(baseBounds.xMax, baseBounds.yMax - baseBounds.size.y / 2);
-            //use this as an offset
-            additionConnectionPoint = new Vector3Int(addBounds.xMin, addBounds.yMax - addBounds.size.y / 2 + 1);
-            additionCellPoint = new Vector3Int(basePoint.x + minimumRoomDistance - additionConnectionPoint.x, basePoint.y - additionConnectionPoint.y);
+            additionCellCenterPoint = new Vector3Int(baseConnectionPoint.x + minimumRoomDistance - additionConnectionPoint.x, baseConnectionPoint.y - additionConnectionPoint.y);
         } else {
-            basePoint = new Vector3Int(baseBounds.xMin, baseBounds.yMax - baseBounds.size.y / 2);
-            //use this as an offset
-            additionConnectionPoint = new Vector3Int(addBounds.xMax, addBounds.yMax - addBounds.size.y / 2 + 1);
-            additionCellPoint = new Vector3Int(basePoint.x - minimumRoomDistance - additionConnectionPoint.x, basePoint.y - additionConnectionPoint.y);
+            additionCellCenterPoint = new Vector3Int(baseConnectionPoint.x - minimumRoomDistance - additionConnectionPoint.x, baseConnectionPoint.y - additionConnectionPoint.y);
         }
 
         //This cell coordinates based on the tilemap of the current base building, not of the original spawned building. Meaning they are all relative 
-        Vector3 additionCenterWorld = baseBuilding.Tilemap.GetCellCenterWorld(additionCellPoint);
-        additionCenterWorld.y += .5f;
+        Vector3 additionCenterWorld = baseBuilding.Tilemap.GetCellCenterWorld(additionCellCenterPoint);
+        additionCenterWorld.y -= .5f;
         additionCenterWorld.x -= .5f;
         spawnedAddition = Instantiate(addedBuildingPrefab, additionCenterWorld, Quaternion.identity, dungeonGrid.transform);
 
@@ -120,17 +109,21 @@ public class DungeonGenerator : MonoBehaviour {
                     if (tile != null) {
 
                         Vector2 cellPos = tilemap.CellToWorld(new Vector3Int(x + bounds.xMin, y + bounds.yMin));
-                        Vector2 worldCellPos = new Vector2(cellPos.x - .5f + 1, cellPos.y + .5f);
+                        Vector2 worldCellPos = new Vector2(cellPos.x - .5f + 1, cellPos.y - .5f);
                         Collider2D collider = Physics2D.OverlapPoint(worldCellPos, buildingLayer);
 
-                        if (collider != null && !tilemaps.Contains(collider.GetComponent<Tilemap>())) {
-                            Debug.Log($"Collided with {collider.name} at {worldCellPos}");
 
-                            Debug.Log($"Destroy {spawnedAddition.name}");
+                        //Building already exists where the new one is to be placed
+                        if (collider != null && !tilemaps.Contains(collider.GetComponent<Tilemap>())) {
+                            // Debug.Log($"Collided with {collider.name} at {worldCellPos}");
+
+                            // Debug.Log($"Destroy {spawnedAddition.name}");
                             Destroy(spawnedAddition.gameObject);
 
-                            //Connect base with hit building
-                            ConnectRooms(baseBuilding.Tilemap, collider.GetComponent<Building>().Tilemap, direction);
+
+                            //Draw a hallway to the collided room
+                            Vector3Int collidedConnectionPoint = GetConnectionPoint(collider.GetComponentInParent<Building>().Tilemap.cellBounds, Utilities.GetOppDirection(direction));
+                            //DrawHallway(baseBuilding.Tilemap, baseConnectionPoint, collidedConnectionPoint);
                             return null;
                         }
                     }
@@ -144,7 +137,22 @@ public class DungeonGenerator : MonoBehaviour {
         }
 
         //Connect base with new addition
-        ConnectRooms(baseBuilding.Tilemap, spawnedAddition.Tilemap, direction);
+        Vector3Int hallStart = hallTilemap.WorldToCell(baseBuilding.Tilemap.CellToWorld(baseConnectionPoint));
+        //second needs to be in reference 
+        Vector3Int hallEnd = hallTilemap.WorldToCell(spawnedAddition.Tilemap.CellToWorld(additionConnectionPoint));
+
+
+        //LOOK FOR REASON THIS IS HAPPENING
+        if (direction == Direction.North || direction == Direction.South) {
+            hallStart.x--;
+            hallEnd.x--;
+        }
+        if (direction == Direction.East || direction == Direction.West) {
+            hallStart.y--;
+            hallEnd.y--;
+        }
+
+        DrawHallway(hallStart, hallEnd);
 
         return spawnedAddition;
 
@@ -185,19 +193,52 @@ public class DungeonGenerator : MonoBehaviour {
     }
 
 
-    void ConnectRooms(Tilemap tilemap, Tilemap tilemap2, Direction direction) {
+    //Change this in the future to get more varied spawns
+    Vector3Int GetConnectionPoint(BoundsInt bounds, Direction direction) {
 
+        if (direction == Direction.North) {
+            return new Vector3Int(bounds.xMax - bounds.size.x / 2, bounds.yMax);
+
+        } else if (direction == Direction.South) {
+            return new Vector3Int(bounds.xMax - bounds.size.x / 2, bounds.yMin);
+        } else if (direction == Direction.East) {
+            return new Vector3Int(bounds.xMax, bounds.yMax - bounds.size.y / 2);
+        } else {
+            return new Vector3Int(bounds.xMin, bounds.yMax - bounds.size.y / 2);
+
+        }
     }
 
-    void DrawHallway(Tilemap tilemap, Vector3Int start, Vector3Int end) {
+    //Needs to be in hallmap coordinates
+    void DrawHallway(Vector3Int start, Vector3Int end) {
+
+
+        //Maybe have a way where the hallway keeps going till it hits the room
+
+        Debug.Log("Draw hallway");
         Vector3Int current = start;
         Vector3Int difference = new Vector3Int(end.x - start.x, end.y - start.y);
-        int xInc = (start.x - difference.x) < start.x ? -1 : 1;
-        int yInc = (start.y - difference.y) < start.y ? -1 : 1;
-        for (; current.x < start.x - difference.x; current.x += xInc) {
-            for (; current.y < start.y - difference.y; current.y += xInc) {
-                tilemap.SetTile(current, testHallTile);
-            }
+        Debug.Log($"Start: {start}");
+        Debug.Log($"End: {end}");
+        Debug.Log($"Diff: {difference}");
+        int xInc = end.x < start.x ? -1 : 1;
+        int yInc = end.y < start.y ? -1 : 1;
+
+        if (xInc < 0) {
+            current.x--;
+            end.x--;
+        } else if (yInc < 0) {
+            current.y--;
+            end.y--;
+        }
+        Debug.Log($"{current.x} {end.x} {xInc}");
+        Debug.Log($"{current.y} {end.y} {yInc}");
+        for (; current.x != end.x; current.x += xInc) {
+            hallTilemap.SetTile(current, testHallTile);
+
+        }
+        for (; current.y != end.y; current.y += yInc) {
+            hallTilemap.SetTile(current, testHallTile);
         }
 
     }
