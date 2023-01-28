@@ -596,7 +596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1093603392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -793,15 +793,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dungeonGrid: {fileID: 583224667}
   hallTilemap: {fileID: 1613930230}
-  testHallTile: {fileID: 11400000, guid: 78d1bf4ba0d703f41b4d3c68ad85e908, type: 2}
   initalRoomPrefab: {fileID: 384430485695785473, guid: 1ca7485b22b826e4094a0b09a768e178, type: 3}
   buildingLayer:
     serializedVersion: 2
     m_Bits: 64
   vertHallPrefab: {fileID: 1177589042753499478, guid: 5ab01c0b3461fe64b94e2c4495a0dcc2, type: 3}
   horzHallPrefab: {fileID: 6546925377051259868, guid: 75e8a905d9ec8f9449af96ad74aa6053, type: 3}
-  hallRadius: 1
+  hallRadius: 2
   minimumRoomDistance: 5
+  testHallTile: {fileID: 11400000, guid: 78d1bf4ba0d703f41b4d3c68ad85e908, type: 2}
+  leftVertical: {fileID: 11400000, guid: e0bbcee135ae36c46a8216318e51846f, type: 2}
+  rightVertical: {fileID: 11400000, guid: 912797d0a43dd684ab3de5a412037f5e, type: 2}
+  bottomHorizontal: {fileID: 11400000, guid: 94a288edf44bcde47bf7d3e469c6f017, type: 2}
+  topHorizontal: {fileID: 11400000, guid: 774d6671b35952346b7a3fb1aa66cfbf, type: 2}
+  LeftExterior: {fileID: 11400000, guid: 409f87bebaf0cc94f9f87288754d7057, type: 2}
+  LeftInterior: {fileID: 11400000, guid: 8be4c4d6f442c814ea2ef363434da30f, type: 2}
+  RightExterior: {fileID: 11400000, guid: 612c0d8dfb02ba34ab5c5ae88b281dfc, type: 2}
+  RightInterior: {fileID: 11400000, guid: 2691ed88afa30904ea1f4604c0f6aa0b, type: 2}
 --- !u!4 &1410699962
 Transform:
   m_ObjectHideFlags: 0
