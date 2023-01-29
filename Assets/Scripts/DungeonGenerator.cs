@@ -410,10 +410,6 @@ public class DungeonGenerator : MonoBehaviour {
                     else
                         hallTilemap.SetTile(currentOffset, testHallTile);
 
-
-
-
-
                 }
             }
 
@@ -468,7 +464,12 @@ public class DungeonGenerator : MonoBehaviour {
                             }
                         }
                     }
-                    hallTilemap.SetTile(currentOffset, testHallTile);
+                    if (j == 0)
+                        hallTilemap.SetTile(currentOffset, topHorizontal);
+                    else if (j == activeLanes.Length - 1)
+                        hallTilemap.SetTile(currentOffset, bottomHorizontal);
+                    else
+                        hallTilemap.SetTile(currentOffset, testHallTile);
                 }
             }
 
@@ -557,17 +558,6 @@ public class DungeonGenerator : MonoBehaviour {
                                 continue;
 
                             }
-                            // Tilemap collidedTilemap = collider.GetComponent<Tilemap>();
-                            // collidedTilemap.SetTile(collidedTilemap.WorldToCell(worldCellPos), null);
-                            // if (i == 0) {
-                            //     if (direction == Direction.East)
-                            //         hallTilemap.SetTile(currentOffset, LeftExterior);
-                            //     else
-                            //         hallTilemap.SetTile(currentOffset, RightExterior);
-                            // } else if (i == activeLanes.Length - 1)
-                            //     hallTilemap.SetTile(currentOffset, topHorizontal);
-                            // else
-                            //     hallTilemap.SetTile(currentOffset, testHallTile);
                         }
                     }
 
