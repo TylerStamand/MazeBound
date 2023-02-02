@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
 public class Enemy : MonoBehaviour, IDamageable {
 
     [field: SerializeField] public float MaxHealth { get; private set; }
@@ -21,7 +22,9 @@ public class Enemy : MonoBehaviour, IDamageable {
     public void TakeDamage(float damageDealt) {
         CurrentHealth -= damageDealt;
 
-        //Do check for death
+        if (CurrentHealth <= 0) {
+            Destroy(gameObject);
+        }
     }
 
 

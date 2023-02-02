@@ -10,6 +10,9 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour {
 
+    [SerializeField] protected float AnimationLength = 0.3f;
+
+    [field: Header("Stats")]
     [field: SerializeField] public float CoolDown { get; private set; }
     [field: SerializeField] public float BaseDamage { get; private set; }
 
@@ -18,21 +21,48 @@ public abstract class Weapon : MonoBehaviour {
 
     protected SpriteRenderer spriteRenderer;
     protected new Collider2D collider;
+    protected bool playerWeapon;
+    protected bool initialized;
+    protected bool inUse;
 
-    bool initialized;
+    void OnValidate() {
+
+        if (GetComponentInChildren<SpriteRenderer>() == null) {
+            Debug.LogWarning("No SpriteRenderer for " + gameObject.name + " found");
+        }
+    }
 
     void Awake() {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        collider = GetComponent<Collider2D>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        collider = GetComponentInChildren<Collider2D>();
         initialized = false;
+        inUse = false;
+
+        spriteRenderer.enabled = false;
+        collider.enabled = false;
     }
 
     //Handle CoolDown and stats to determine if use works
-    public abstract void Use(Direction direction);
+    public virtual bool Use(Direction direction) {
+        if (!initialized) {
+            Debug.LogError("Weapon not initialized, please initialize before using weapon");
+            return false;
+        }
 
-    public virtual void Initialize() {
+        if (inUse || timeLastUsed + CoolDown > Time.time) {
+            Debug.Log("InUse: " + inUse);
+            return false;
+        }
+
+        timeLastUsed = Time.time;
+        return true;
+    }
+
+
+    public virtual void Initialize(bool playerWeapon) {
         if (initialized) return;
 
+        this.playerWeapon = playerWeapon;
         //Set stats and other stuff
 
         initialized = true;

@@ -23,7 +23,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void OnFire(InputAction.CallbackContext context) {
-        OnAttack?.Invoke();
+        if (context.performed)
+            OnAttack?.Invoke();
     }
 
     void Update() {

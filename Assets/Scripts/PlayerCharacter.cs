@@ -11,25 +11,29 @@ using UnityEngine;
 //Eventually Add inventory to hold weapon and other items
 
 public class PlayerCharacter : MonoBehaviour {
-    [SerializeField] Weapon weapon;
+    [SerializeField] Weapon weaponPrefab;
     [SerializeField] GameObject weaponHolder;
     PlayerController controller;
 
+    Weapon currentWeapon;
+
 
     //4-Directional
-    Direction currentDirection;
+    Direction currentDirection = Direction.West;
 
     void Awake() {
         controller = GetComponent<PlayerController>();
         controller.OnAttack += HandleAttack;
+        EquipWeapon(weaponPrefab);
     }
 
     void HandleAttack() {
-        weapon.Use(currentDirection);
+        currentWeapon.Use(currentDirection);
     }
 
     void EquipWeapon(Weapon weapon) {
-        Instantiate(weapon, Vector3.zero, Quaternion.identity, weaponHolder.transform);
+        currentWeapon = Instantiate(weapon, Vector3.zero, Quaternion.identity, weaponHolder.transform);
+        currentWeapon.Initialize(true);
     }
 
 }
