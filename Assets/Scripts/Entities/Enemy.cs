@@ -46,9 +46,9 @@ public class Enemy : MonoBehaviour, IDamageable {
     }
 
 
-    protected virtual void Update() {
-        Move();
-    }
+    // protected virtual void Update() {
+    //     Move();
+    // }
 
 
     protected virtual void FixedUpdate() {
@@ -61,6 +61,7 @@ public class Enemy : MonoBehaviour, IDamageable {
                 spriteRenderer.flipX = true;
             }
         }
+        Move();
     }
 
     public void TakeDamage(float damageDealt) {
@@ -78,14 +79,14 @@ public class Enemy : MonoBehaviour, IDamageable {
             target = collider.GetComponent<PlayerCharacter>();
 
             if (Vector2.Distance(target.transform.position, transform.position) >= stopDistance) {
-                Vector2 positionToMoveTowards = Vector2.MoveTowards(transform.position, target.transform.position, moveSpeed * Time.deltaTime);
+                Vector2 positionToMoveTowards = Vector2.MoveTowards(transform.position, target.transform.position, moveSpeed );
                 Vector2 differenceInPosition = new Vector2(positionToMoveTowards.x - transform.position.x, positionToMoveTowards.y - transform.position.y);
 
 
                 RaycastHit2D[] results = new RaycastHit2D[1];
 
                 //Casts the collider to position to see if it can move without collisions
-                int numOfHits = collider.Cast(differenceInPosition.normalized, contactFilter, results, moveSpeed * Time.deltaTime);
+                int numOfHits = collider.Cast(differenceInPosition.normalized, contactFilter, results, moveSpeed);
 
                 if (numOfHits == 0) {
                     rigidbody.MovePosition(transform.position + (Vector3)differenceInPosition);

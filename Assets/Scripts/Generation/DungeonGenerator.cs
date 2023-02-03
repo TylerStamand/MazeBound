@@ -17,11 +17,10 @@ public class DungeonGenerator : MonoBehaviour {
     // [SerializeField] PlayerCharacter playerObject;
 
     [SerializeField] Grid dungeonGrid;
-    [SerializeField] Tilemap hallTilemap;
+    [SerializeField] Tilemap hallTilemapFloors;
+    [SerializeField] Tilemap hallTilemapWalls;
     [SerializeField] Room initalRoomPrefab;
     [SerializeField] LayerMask buildingLayer;
-    [SerializeField] Room vertHallPrefab;
-    [SerializeField] Room horzHallPrefab;
     [SerializeField] int hallRadius;
     [SerializeField] int minimumRoomDistance;
 
@@ -150,9 +149,9 @@ public class DungeonGenerator : MonoBehaviour {
         }
 
         //Connect base with new addition
-        Vector3Int hallStart = hallTilemap.WorldToCell(baseBuilding.FloorTileSet.CellToWorld(baseConnectionPoint));
+        Vector3Int hallStart = hallTilemapFloors.WorldToCell(baseBuilding.FloorTileSet.CellToWorld(baseConnectionPoint));
         //second needs to be in reference 
-        Vector3Int hallEnd = hallTilemap.WorldToCell(spawnedAddition.FloorTileSet.CellToWorld(additionConnectionPoint));
+        Vector3Int hallEnd = hallTilemapFloors.WorldToCell(spawnedAddition.FloorTileSet.CellToWorld(additionConnectionPoint));
 
 
         //LOOK FOR REASON THIS IS HAPPENING
@@ -255,7 +254,7 @@ public class DungeonGenerator : MonoBehaviour {
                     if (!activeLanes[j]) continue;
 
                     Vector3Int currentOffset = new Vector3Int(current.x + offset, current.y - yInc * i);
-                    Vector3 worldCellPos = hallTilemap.CellToWorld(currentOffset);
+                    Vector3 worldCellPos = hallTilemapFloors.CellToWorld(currentOffset);
                     //IDK WHY THE OFFSET FOR THIS IS DIFFERENT THAN THE OTHER ONE, LOOK AT THIS LATER
                     worldCellPos = new Vector2(worldCellPos.x - .5f + 1, worldCellPos.y + .5f);
                     Collider2D collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
@@ -275,19 +274,19 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log($"Detected Floor tile {worldCellPos}");
                                 if (j == 0) {
                                     if (Utilities.GetOppDirection(direction) == Direction.North)
-                                        hallTilemap.SetTile(currentOffset, LeftExterior);
+                                        hallTilemapWalls.SetTile(currentOffset, LeftExterior);
                                     else {
-                                        hallTilemap.SetTile(currentOffset, topHorizontal);
+                                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
                                     }
 
                                 } else if (j == activeLanes.Length - 1) {
                                     if (Utilities.GetOppDirection(direction) == Direction.North)
-                                        hallTilemap.SetTile(currentOffset, RightExterior);
+                                        hallTilemapWalls.SetTile(currentOffset, RightExterior);
                                     else {
-                                        hallTilemap.SetTile(currentOffset, topHorizontal);
+                                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
                                     }
                                 } else
-                                    hallTilemap.SetTile(currentOffset, testHallTile);
+                                    hallTilemapFloors.SetTile(currentOffset, testHallTile);
 
                                 continue;
 
@@ -297,11 +296,11 @@ public class DungeonGenerator : MonoBehaviour {
                     }
 
                     if (j == 0)
-                        hallTilemap.SetTile(currentOffset, leftVertical);
+                        hallTilemapWalls.SetTile(currentOffset, leftVertical);
                     else if (j == activeLanes.Length - 1)
-                        hallTilemap.SetTile(currentOffset, rightVertical);
+                        hallTilemapWalls.SetTile(currentOffset, rightVertical);
                     else
-                        hallTilemap.SetTile(currentOffset, testHallTile);
+                        hallTilemapFloors.SetTile(currentOffset, testHallTile);
 
                 }
             }
@@ -323,11 +322,11 @@ public class DungeonGenerator : MonoBehaviour {
                     Vector3Int currentOffset = new Vector3Int(current.x + offset, current.y);
 
                     if (i == 0)
-                        hallTilemap.SetTile(currentOffset, leftVertical);
+                        hallTilemapWalls.SetTile(currentOffset, leftVertical);
                     else if (i == activeLanes.Length - 1)
-                        hallTilemap.SetTile(currentOffset, rightVertical);
+                        hallTilemapWalls.SetTile(currentOffset, rightVertical);
                     else
-                        hallTilemap.SetTile(currentOffset, testHallTile);
+                        hallTilemapFloors.SetTile(currentOffset, testHallTile);
                 }
 
             }
@@ -341,11 +340,11 @@ public class DungeonGenerator : MonoBehaviour {
 
                     Vector3Int currentOffset = new Vector3Int(current.x, current.y + offset);
                     if (i == 0)
-                        hallTilemap.SetTile(currentOffset, bottomHorizontal);
+                        hallTilemapWalls.SetTile(currentOffset, bottomHorizontal);
                     else if (i == activeLanes.Length - 1)
-                        hallTilemap.SetTile(currentOffset, topHorizontal);
+                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
                     else
-                        hallTilemap.SetTile(currentOffset, testHallTile);
+                        hallTilemapFloors.SetTile(currentOffset, testHallTile);
                 }
 
             }
@@ -358,7 +357,7 @@ public class DungeonGenerator : MonoBehaviour {
                     //Check if one of the lanes collided with the room
                     if (!activeLanes[i]) continue;
 
-                    Vector3 worldCellPos = hallTilemap.CellToWorld(new Vector3Int(current.x + offset, current.y));
+                    Vector3 worldCellPos = hallTilemapFloors.CellToWorld(new Vector3Int(current.x + offset, current.y));
                     //IDK WHY THE OFFSET FOR THIS IS DIFFERENT THAN THE OTHER ONE, LOOK AT THIS LATER
                     worldCellPos = new Vector2(worldCellPos.x - .5f + 1, worldCellPos.y + .5f);
                     Collider2D collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
@@ -383,19 +382,19 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log($"Detected Floor tile {worldCellPos}");
                                 if (i == 0) {
                                     if (direction == Direction.North)
-                                        hallTilemap.SetTile(currentOffset, LeftExterior);
+                                        hallTilemapWalls.SetTile(currentOffset, LeftExterior);
                                     else {
-                                        hallTilemap.SetTile(currentOffset, topHorizontal);
+                                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
                                     }
 
                                 } else if (i == activeLanes.Length - 1) {
                                     if (direction == Direction.North)
-                                        hallTilemap.SetTile(currentOffset, RightExterior);
+                                        hallTilemapWalls.SetTile(currentOffset, RightExterior);
                                     else {
-                                        hallTilemap.SetTile(currentOffset, topHorizontal);
+                                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
                                     }
                                 } else
-                                    hallTilemap.SetTile(currentOffset, testHallTile);
+                                    hallTilemapFloors.SetTile(currentOffset, testHallTile);
 
                                 continue;
 
@@ -404,11 +403,11 @@ public class DungeonGenerator : MonoBehaviour {
                         }
                     }
                     if (i == 0)
-                        hallTilemap.SetTile(currentOffset, leftVertical);
+                        hallTilemapWalls.SetTile(currentOffset, leftVertical);
                     else if (i == activeLanes.Length - 1)
-                        hallTilemap.SetTile(currentOffset, rightVertical);
+                        hallTilemapWalls.SetTile(currentOffset, rightVertical);
                     else
-                        hallTilemap.SetTile(currentOffset, testHallTile);
+                        hallTilemapFloors.SetTile(currentOffset, testHallTile);
 
                 }
             }
@@ -426,7 +425,7 @@ public class DungeonGenerator : MonoBehaviour {
                     if (!activeLanes[j]) continue;
 
                     Vector3Int currentOffset = new Vector3Int(current.x - xInc * i, current.y - offset);
-                    Vector3 worldCellPos = hallTilemap.CellToWorld(currentOffset);
+                    Vector3 worldCellPos = hallTilemapFloors.CellToWorld(currentOffset);
                     //IDK WHY THE OFFSET FOR THIS IS DIFFERENT THAN THE OTHER ONE, LOOK AT THIS LATER
                     worldCellPos = new Vector2(worldCellPos.x - .5f + 1, worldCellPos.y + .5f);
                     Collider2D collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
@@ -446,30 +445,30 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log($"Detected Floor tile {worldCellPos}");
                                 if (j == 0) {
                                     if (Utilities.GetOppDirection(direction) == Direction.East)
-                                        hallTilemap.SetTile(currentOffset, topHorizontal);
+                                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
                                     else {
-                                        hallTilemap.SetTile(currentOffset, topHorizontal);
+                                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
                                     }
 
                                 } else if (j == activeLanes.Length - 1) {
                                     if (Utilities.GetOppDirection(direction) == Direction.East)
-                                        hallTilemap.SetTile(currentOffset, LeftExterior);
+                                        hallTilemapWalls.SetTile(currentOffset, LeftExterior);
                                     else {
-                                        hallTilemap.SetTile(currentOffset, RightExterior);
+                                        hallTilemapWalls.SetTile(currentOffset, RightExterior);
                                     }
                                 } else
-                                    hallTilemap.SetTile(currentOffset, testHallTile);
+                                    hallTilemapFloors.SetTile(currentOffset, testHallTile);
 
                                 continue;
                             }
                         }
                     }
                     if (j == 0)
-                        hallTilemap.SetTile(currentOffset, topHorizontal);
+                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
                     else if (j == activeLanes.Length - 1)
-                        hallTilemap.SetTile(currentOffset, bottomHorizontal);
+                        hallTilemapWalls.SetTile(currentOffset, bottomHorizontal);
                     else
-                        hallTilemap.SetTile(currentOffset, testHallTile);
+                        hallTilemapFloors.SetTile(currentOffset, testHallTile);
                 }
             }
 
@@ -489,11 +488,11 @@ public class DungeonGenerator : MonoBehaviour {
 
                     Vector3Int currentOffset = new Vector3Int(current.x, current.y + offset);
                     if (i == 0)
-                        hallTilemap.SetTile(currentOffset, bottomHorizontal);
+                        hallTilemapWalls.SetTile(currentOffset, bottomHorizontal);
                     else if (i == activeLanes.Length - 1)
-                        hallTilemap.SetTile(currentOffset, topHorizontal);
+                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
                     else
-                        hallTilemap.SetTile(currentOffset, testHallTile);
+                        hallTilemapFloors.SetTile(currentOffset, testHallTile);
                 }
 
             }
@@ -506,7 +505,7 @@ public class DungeonGenerator : MonoBehaviour {
                     if (!activeLanes[i]) continue;
 
                     Vector3Int currentOffset = new Vector3Int(current.x + offset, current.y);
-                    hallTilemap.SetTile(currentOffset, testHallTile);
+                    hallTilemapFloors.SetTile(currentOffset, testHallTile);
                 }
 
             }
@@ -520,7 +519,7 @@ public class DungeonGenerator : MonoBehaviour {
                     //Check if one of the lanes collided with the room
                     if (!activeLanes[i]) continue;
 
-                    Vector3 worldCellPos = hallTilemap.CellToWorld(new Vector3Int(current.x, current.y + offset));
+                    Vector3 worldCellPos = hallTilemapFloors.CellToWorld(new Vector3Int(current.x, current.y + offset));
                     //IDK WHY THE OFFSET FOR THIS IS DIFFERENT THAN THE OTHER ONE, LOOK AT THIS LATER
                     worldCellPos = new Vector2(worldCellPos.x - .5f + 1, worldCellPos.y + .5f);
                     Collider2D collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
@@ -541,19 +540,19 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log($"Detected Floor tile {worldCellPos}");
                                 if (i == 0) {
                                     if (direction == Direction.East)
-                                        hallTilemap.SetTile(currentOffset, LeftExterior);
+                                        hallTilemapWalls.SetTile(currentOffset, LeftExterior);
                                     else {
-                                        hallTilemap.SetTile(currentOffset, RightExterior);
+                                        hallTilemapWalls.SetTile(currentOffset, RightExterior);
                                     }
 
                                 } else if (i == activeLanes.Length - 1) {
                                     if (direction == Direction.East)
-                                        hallTilemap.SetTile(currentOffset, topHorizontal);
+                                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
                                     else {
-                                        hallTilemap.SetTile(currentOffset, topHorizontal);
+                                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
                                     }
                                 } else
-                                    hallTilemap.SetTile(currentOffset, testHallTile);
+                                    hallTilemapFloors.SetTile(currentOffset, testHallTile);
 
                                 continue;
 
@@ -562,11 +561,11 @@ public class DungeonGenerator : MonoBehaviour {
                     }
 
                     if (i == 0)
-                        hallTilemap.SetTile(currentOffset, bottomHorizontal);
+                        hallTilemapWalls.SetTile(currentOffset, bottomHorizontal);
                     else if (i == activeLanes.Length - 1)
-                        hallTilemap.SetTile(currentOffset, topHorizontal);
+                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
                     else
-                        hallTilemap.SetTile(currentOffset, testHallTile);
+                        hallTilemapFloors.SetTile(currentOffset, testHallTile);
 
 
 
