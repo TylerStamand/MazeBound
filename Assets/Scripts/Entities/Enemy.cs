@@ -40,7 +40,8 @@ public class Enemy : MonoBehaviour, IDamageable {
         rigidbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        currentWeapon = Instantiate(weaponPrefab, Vector3.zero, Quaternion.identity, weaponHolder.transform);
+        currentWeapon = Instantiate(weaponPrefab, weaponHolder.transform);
+        currentWeapon.transform.localPosition = Vector3.zero;
         currentWeapon.Initialize(false);
     }
 

@@ -26,7 +26,15 @@ public class PlayerCharacter : MonoBehaviour {
     }
 
     void HandleAttack() {
-        currentWeapon.Use(controller.CurrentDirection);
+
+        Vector2 difference = Room.GetRoomOffset(controller.MousePos, transform.position);
+        float angle = (int)Vector2.Angle(difference, Vector2.right);
+        if (difference.y < 0) {
+            angle = -angle;
+        }
+        Debug.Log(angle);
+        Direction direction = Utilities.GetDirectionFromAngle(angle);
+        currentWeapon.Use(direction);
     }
 
     void EquipWeapon(Weapon weapon) {

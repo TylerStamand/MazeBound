@@ -35,6 +35,18 @@ public class Utilities {
     }
 
 
+    public static Direction GetDirectionFromAngle(float angle) {
+        if ((angle >= -45 && angle < 45) || (angle >= 270 && angle < -325)) {
+            return Direction.East;
+        } else if ((angle >= 45 && angle < 135) || (angle >= -315 && angle < -225)) {
+            return Direction.North;
+        } else if ((angle >= 135 && angle < 225) || ( angle >= -225 && angle < -135)) {
+            return Direction.West;
+        } else {
+            return Direction.South;
+        }
+    }
+
     public static Vector3 GetAngleFromDirection(Direction direction) {
         Vector3 eulerAngles = Vector3.zero;
 

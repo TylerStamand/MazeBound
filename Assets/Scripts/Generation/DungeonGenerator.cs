@@ -20,8 +20,8 @@ public class DungeonGenerator : MonoBehaviour {
     [SerializeField] Tilemap hallTilemap;
     [SerializeField] Room initalRoomPrefab;
     [SerializeField] LayerMask buildingLayer;
-    [SerializeField] Building vertHallPrefab;
-    [SerializeField] Building horzHallPrefab;
+    [SerializeField] Room vertHallPrefab;
+    [SerializeField] Room horzHallPrefab;
     [SerializeField] int hallRadius;
     [SerializeField] int minimumRoomDistance;
 
@@ -78,13 +78,13 @@ public class DungeonGenerator : MonoBehaviour {
     //make the other axis a random value from floor tile +- length of room in that axis
     //Check if spawning the room conflicts with already placed rooms
     //If not, Build connection to it
-    Building SpawnBuilding(Building baseBuilding, Building addedBuildingPrefab, Direction direction) {
+    Room SpawnBuilding(Room baseBuilding, Room addedBuildingPrefab, Direction direction) {
         if (baseBuilding == null || addedBuildingPrefab == null) return null;
 
-        Building spawnedAddition;
+        Room spawnedAddition;
 
-        BoundsInt baseBounds = baseBuilding.Tilemap.cellBounds;
-        BoundsInt addBounds = addedBuildingPrefab.Tilemap.cellBounds;
+        BoundsInt baseBounds = baseBuilding.FloorTileSet.cellBounds;
+        BoundsInt addBounds = addedBuildingPrefab.FloorTileSet.cellBounds;
 
         Vector3Int baseConnectionPoint = GetConnectionPoint(baseBounds, direction);
         Vector3Int additionConnectionPoint = GetConnectionPoint(addBounds, Utilities.GetOppDirection(direction));
@@ -100,8 +100,8 @@ public class DungeonGenerator : MonoBehaviour {
             additionCellCenterPoint = new Vector3Int(baseConnectionPoint.x - minimumRoomDistance - additionConnectionPoint.x, baseConnectionPoint.y - additionConnectionPoint.y);
         }
 
-        //This cell coordinates based on the tilemap of the current base building, not of the original spawned building. Meaning they are all relative 
-        Vector3 additionCenterWorld = baseBuilding.Tilemap.GetCellCenterWorld(additionCellCenterPoint);
+        //This cell coordinates based on the tilemap of the current base Room, not of the original spawned Room. Meaning they are all relative 
+        Vector3 additionCenterWorld = baseBuilding.FloorTileSet.GetCellCenterWorld(additionCellCenterPoint);
         additionCenterWorld.y -= .5f;
         additionCenterWorld.x -= .5f;
         spawnedAddition = Instantiate(addedBuildingPrefab, additionCenterWorld, Quaternion.identity, dungeonGrid.transform);
@@ -126,7 +126,7 @@ public class DungeonGenerator : MonoBehaviour {
                         Collider2D collider = Physics2D.OverlapBox(worldCellPos, Vector2.one, buildingLayer);
 
 
-                        //Building already exists where the new one is to be placed
+                        //Room already exists where the new one is to be placed
                         if (collider != null && !tilemaps.Contains(collider.GetComponent<Tilemap>())) {
                             // Debug.Log($"Collided with {collider.name} at {worldCellPos}");
 
@@ -135,7 +135,7 @@ public class DungeonGenerator : MonoBehaviour {
 
 
                             //Draw a hallway to the collided room
-                            Vector3Int collidedConnectionPoint = GetConnectionPoint(collider.GetComponentInParent<Building>().Tilemap.cellBounds, Utilities.GetOppDirection(direction));
+                            Vector3Int collidedConnectionPoint = GetConnectionPoint(collider.GetComponentInParent<Room>().FloorTileSet.cellBounds, Utilities.GetOppDirection(direction));
                             //DrawHallway(baseBuilding.Tilemap, baseConnectionPoint, collidedConnectionPoint);
                             return null;
                         }
@@ -150,9 +150,9 @@ public class DungeonGenerator : MonoBehaviour {
         }
 
         //Connect base with new addition
-        Vector3Int hallStart = hallTilemap.WorldToCell(baseBuilding.Tilemap.CellToWorld(baseConnectionPoint));
+        Vector3Int hallStart = hallTilemap.WorldToCell(baseBuilding.FloorTileSet.CellToWorld(baseConnectionPoint));
         //second needs to be in reference 
-        Vector3Int hallEnd = hallTilemap.WorldToCell(spawnedAddition.Tilemap.CellToWorld(additionConnectionPoint));
+        Vector3Int hallEnd = hallTilemap.WorldToCell(spawnedAddition.FloorTileSet.CellToWorld(additionConnectionPoint));
 
 
         //LOOK FOR REASON THIS IS HAPPENING
@@ -178,11 +178,11 @@ public class DungeonGenerator : MonoBehaviour {
 
     void HandleRoomCompletion(Room room) {
 
-        Building roomSpawn;
-        Building roomBuilding = room.GetComponent<Building>();
+        Room roomSpawn;
+        Room roomBuilding = room.GetComponent<Room>();
 
         foreach (Direction direction in Enum.GetValues(typeof(Direction))) {
-            Building roomBuildingPrefab = GetNextRoom(room.RoomLevel + 1).GetComponent<Building>();
+            Room roomBuildingPrefab = GetNextRoom(room.RoomLevel + 1).GetComponent<Room>();
 
 
             roomSpawn = SpawnBuilding(roomBuilding, roomBuildingPrefab, direction);
@@ -511,7 +511,7 @@ public class DungeonGenerator : MonoBehaviour {
 
             }
 
-            //Add xInc * 5 to ensure the path goes as deep as needed into the building
+            //Add xInc * 5 to ensure the path goes as deep as needed into the Room
             for (; current.x != end.x + (xInc * 5); current.x += xInc) {
                 //Minus one to let me add one to it before it checks active lanes so it updates regardless
                 int offset = -hallRadius - 1;

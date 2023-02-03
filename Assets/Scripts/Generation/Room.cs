@@ -3,10 +3,10 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(Building))]
 public class Room : MonoBehaviour {
 
     [field: SerializeField] public RoomRarity Rarity { get; private set; }
+    [field: SerializeField] public Tilemap FloorTileSet { get; private set; }
 
     [SerializeField] bool CompleteRoom;
     [SerializeField] bool TrapRoom;
@@ -19,6 +19,10 @@ public class Room : MonoBehaviour {
     List<Enemy> roomEnemies;
     bool playerEnteredRoom;
     int EnemiesLeft;
+
+    public static Vector2 GetRoomOffset(Vector2 a, Vector2 b) {
+        return new Vector2(a.x - b.x, a.y - b.y);
+    }
 
     void Awake() {
         roomEnemies = new List<Enemy>();
@@ -59,6 +63,9 @@ public class Room : MonoBehaviour {
 
         }
     }
+
+
+
 
 
 

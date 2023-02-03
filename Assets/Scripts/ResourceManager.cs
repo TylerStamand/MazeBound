@@ -37,7 +37,9 @@ public class ResourceManager {
         foreach (Room room in roomPrefabList) {
             roomDataDic[room.Rarity].Add(room);
         }
-        List<Enemy> enemiesList = Resources.LoadAll<Enemy>("Entities/Enemies").ToList();
+        enemiesList = Resources.LoadAll<Enemy>("Entities/Enemies").ToList();
+        Debug.Log($"Enemies Found: {enemiesList.Count}");
+
     }
 
     public Dictionary<RoomRarity, List<Room>> GetRoomDic() {
