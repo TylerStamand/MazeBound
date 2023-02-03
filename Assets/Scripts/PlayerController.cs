@@ -11,8 +11,11 @@ public class PlayerController : MonoBehaviour {
 
     public event Action OnAttack;
 
+    public Direction CurrentDirection { get => Utilities.DirectionFromVector2(inputVector); }
+
     new Rigidbody2D rigidbody;
     Vector2 inputVector;
+
     void Awake() {
         rigidbody = GetComponent<Rigidbody2D>();
     }

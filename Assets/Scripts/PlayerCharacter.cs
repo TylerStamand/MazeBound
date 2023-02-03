@@ -18,8 +18,6 @@ public class PlayerCharacter : MonoBehaviour {
     Weapon currentWeapon;
 
 
-    //4-Directional
-    Direction currentDirection = Direction.West;
 
     void Awake() {
         controller = GetComponent<PlayerController>();
@@ -28,7 +26,7 @@ public class PlayerCharacter : MonoBehaviour {
     }
 
     void HandleAttack() {
-        currentWeapon.Use(currentDirection);
+        currentWeapon.Use(controller.CurrentDirection);
     }
 
     void EquipWeapon(Weapon weapon) {

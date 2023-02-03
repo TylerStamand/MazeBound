@@ -15,7 +15,6 @@ public class Utilities {
         }
     }
     public static Direction DirectionFromVector2(Vector2 vector) {
-        Vector3 eulerAngles = Vector3.zero;
         if (vector.x != 0) {
             if (vector.x > 0) {
                 return Direction.East;

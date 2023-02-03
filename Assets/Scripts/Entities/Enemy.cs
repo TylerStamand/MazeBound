@@ -25,12 +25,12 @@ public class Enemy : MonoBehaviour, IDamageable {
 
     public Action<Enemy> OnDie;
 
+
     protected new Collider2D collider;
     protected new Rigidbody2D rigidbody;
     protected SpriteRenderer spriteRenderer;
     protected PlayerCharacter target;
     protected Weapon currentWeapon;
-
 
 
     protected virtual void Awake() {

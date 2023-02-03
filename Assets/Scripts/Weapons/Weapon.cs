@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 //Weapon Stats
@@ -42,6 +43,11 @@ public abstract class Weapon : MonoBehaviour {
         collider.enabled = false;
     }
 
+
+    void OnDestroy() {
+        transform.parent.DOKill();
+    }
+
     //Handle CoolDown and stats to determine if use works
     public virtual bool Use(Direction direction) {
         if (!initialized) {
@@ -50,7 +56,6 @@ public abstract class Weapon : MonoBehaviour {
         }
 
         if (inUse || timeLastUsed + CoolDown > Time.time) {
-            Debug.Log("InUse: " + inUse);
             return false;
         }
 
