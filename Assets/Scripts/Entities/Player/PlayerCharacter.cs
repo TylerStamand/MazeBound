@@ -10,19 +10,19 @@ using UnityEngine;
 
 //Eventually Add inventory to hold weapon and other items
 
-public class PlayerCharacter : MonoBehaviour {
+public class PlayerCharacter : MonoBehaviour, IDamageable {
     [SerializeField] Weapon weaponPrefab;
     [SerializeField] GameObject weaponHolder;
     PlayerController controller;
 
-    Weapon currentWeapon;
-
-
+    Inventory inventory;
 
     void Awake() {
         controller = GetComponent<PlayerController>();
         controller.OnAttack += HandleAttack;
+        inventory = new Inventory();
         EquipWeapon(weaponPrefab);
+
     }
 
     void HandleAttack() {
@@ -34,13 +34,17 @@ public class PlayerCharacter : MonoBehaviour {
         }
         Debug.Log(angle);
         Direction direction = Utilities.GetDirectionFromAngle(angle);
-        currentWeapon.Use(direction);
+        inventory.CurrentWeapon.Use(direction);
     }
 
     void EquipWeapon(Weapon weapon) {
-        currentWeapon = Instantiate(weapon, Vector3.zero, Quaternion.identity, weaponHolder.transform);
-        currentWeapon.Initialize(true);
+        inventory.CurrentWeapon = Instantiate(weapon, Vector3.zero, Quaternion.identity, weaponHolder.transform);
+        inventory.CurrentWeapon.Initialize(true);
     }
 
+    public void TakeDamage(float damageDealt)
+    {
+        throw new System.NotImplementedException();
+    }
 }
 

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
@@ -9,13 +6,15 @@ using UnityEngine;
 //Attack
 //Critical change (Defense doesnt count)
 
-public abstract class Weapon : MonoBehaviour {
+public abstract class Weapon : Item, ICanLevel {
 
     [SerializeField] protected float AnimationLength = 0.3f;
 
     [field: Header("Stats")]
     [field: SerializeField] public float CoolDown { get; private set; }
     [field: SerializeField] public float BaseDamage { get; private set; }
+    [field: SerializeField] public int Level { get; private set; }
+
 
     protected float timeLastUsed;
 
@@ -68,8 +67,29 @@ public abstract class Weapon : MonoBehaviour {
         if (initialized) return;
 
         this.playerWeapon = playerWeapon;
+
         //Set stats and other stuff
 
         initialized = true;
+    }
+
+    public int GetCurrentLevel()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public int GetMaxLevel()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public bool CanLevel()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void IncreaseLevel()
+    {
+        throw new System.NotImplementedException();
     }
 }
