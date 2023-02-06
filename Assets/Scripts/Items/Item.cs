@@ -1,8 +1,26 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class Item : MonoBehaviour {
-    [field: SerializeField] public string Name { get; private set; }
-    [field: SerializeField] public string Description { get; private set; }
+
+[Serializable]
+public class Item {
+
+    public string ItemName;
+
+    public string ItemID { get; private set; }
+
+    public Item(string itemName) {
+        ItemID = Guid.NewGuid().ToString();
+        ItemName = itemName;
+    }
+
+    public virtual string GetDescription() {
+        return $"This is {ItemName} with the id {ItemID}";
+    }
+
+
+    // public virtual void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
+    //     serializer.SerializeValue(ref itemName);
+
+    // }
 }

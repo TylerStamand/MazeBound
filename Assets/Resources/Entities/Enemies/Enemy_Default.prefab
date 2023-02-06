@@ -107,15 +107,12 @@ MonoBehaviour:
   moveSpeed: 0.05
   alertRadius: 4
   stopDistance: 2
-  layersToStopFrom:
-    serializedVersion: 2
-    m_Bits: 384
   contactFilter:
     useTriggers: 0
     useLayerMask: 1
     useDepth: 0
     useOutsideDepth: 0
-    useNormalAngle: 0
+    useNormalAngle: 1
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
@@ -179,7 +176,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 1840855721305959833}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0

@@ -17,6 +17,8 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
 
     Inventory inventory;
 
+    Weapon weaponInstance;
+
     void Awake() {
         controller = GetComponent<PlayerController>();
         controller.OnAttack += HandleAttack;
@@ -34,17 +36,16 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         }
         Debug.Log(angle);
         Direction direction = Utilities.GetDirectionFromAngle(angle);
-        inventory.CurrentWeapon.Use(direction);
+        weaponInstance.Use(direction);
     }
 
     void EquipWeapon(Weapon weapon) {
-        inventory.CurrentWeapon = Instantiate(weapon, Vector3.zero, Quaternion.identity, weaponHolder.transform);
-        inventory.CurrentWeapon.Initialize(true);
+        weaponInstance = Instantiate(weapon, Vector3.zero, Quaternion.identity, weaponHolder.transform);
+        weaponInstance.Initialize(true);
     }
 
-    public void TakeDamage(float damageDealt)
-    {
-        throw new System.NotImplementedException();
+    public void TakeDamage(float damageDealt) {
+
     }
 }
 

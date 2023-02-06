@@ -14,11 +14,9 @@ public class Enemy : MonoBehaviour, IDamageable {
     [field: SerializeField] public float MaxHealth { get; private set; }
 
     [Header("Movement")]
-    [SerializeField] float unitCollisionDistance;
     [SerializeField] float moveSpeed = 1;
     [SerializeField] float alertRadius = 1;
     [SerializeField] float stopDistance = 2;
-    [SerializeField] LayerMask layersToStopFrom;
     [SerializeField] ContactFilter2D contactFilter;
 
     public float CurrentHealth { get; private set; }
@@ -46,9 +44,6 @@ public class Enemy : MonoBehaviour, IDamageable {
     }
 
 
-    // protected virtual void Update() {
-    //     Move();
-    // }
 
 
     protected virtual void FixedUpdate() {

@@ -6,7 +6,7 @@ using UnityEngine;
 //Attack
 //Critical change (Defense doesnt count)
 
-public abstract class Weapon : Item, ICanLevel {
+public abstract class Weapon : MonoBehaviour {
 
     [SerializeField] protected float AnimationLength = 0.3f;
 
@@ -73,23 +73,5 @@ public abstract class Weapon : Item, ICanLevel {
         initialized = true;
     }
 
-    public int GetCurrentLevel()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public int GetMaxLevel()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public bool CanLevel()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void IncreaseLevel()
-    {
-        throw new System.NotImplementedException();
-    }
+   
 }
