@@ -23,6 +23,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         controller = GetComponent<PlayerController>();
         controller.OnAttack += HandleAttack;
         inventory = new Inventory();
+        inventory.OnWeaponChange += HandleWeaponChange;
         EquipWeapon(weaponPrefab);
 
     }
@@ -39,7 +40,14 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         weaponInstance.Use(direction);
     }
 
+    void HandleWeaponChange(WeaponItem weaponItem) {
+        WeaponData weaponData = (WeaponData)ResourceManager.Instance.GetItem(weaponItem.ItemName);
+        EquipWeapon(weaponData.WeaponPrefab);
+    }
+
     void EquipWeapon(Weapon weapon) {
+
+        //Add some way of setting stats
         weaponInstance = Instantiate(weapon, Vector3.zero, Quaternion.identity, weaponHolder.transform);
         weaponInstance.Initialize(true);
     }

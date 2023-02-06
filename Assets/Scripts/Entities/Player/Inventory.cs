@@ -7,7 +7,7 @@ public class Inventory {
 
     public static int InventorySize = 35;
 
-    public event Action<ItemInfo> OnItemAdded;
+    public event Action<Item> OnItemAdded;
     public event Action<WeaponItem> OnWeaponChange;
 
     Dictionary<string, Item> itemLookup { get; set; } = new Dictionary<string, Item>();

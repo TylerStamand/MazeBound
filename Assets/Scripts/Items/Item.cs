@@ -9,6 +9,7 @@ public class Item {
 
     public string ItemID { get; private set; }
 
+
     public Item(string itemName) {
         ItemID = Guid.NewGuid().ToString();
         ItemName = itemName;
@@ -18,9 +19,4 @@ public class Item {
         return $"This is {ItemName} with the id {ItemID}";
     }
 
-
-    // public virtual void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
-    //     serializer.SerializeValue(ref itemName);
-
-    // }
 }

@@ -19,7 +19,7 @@ public class ResourceManager {
     }
 
     private Dictionary<RoomRarity, List<Room>> roomDataDic = new Dictionary<RoomRarity, List<Room>>();
-
+    private Dictionary<string, ItemData> itemDataDic;
     private List<Enemy> enemiesList = new List<Enemy>();
 
     private ResourceManager() {
@@ -40,6 +40,20 @@ public class ResourceManager {
         enemiesList = Resources.LoadAll<Enemy>("Entities/Enemies").ToList();
         Debug.Log($"Enemies Found: {enemiesList.Count}");
 
+
+        List<ItemData> itemDataList = Resources.LoadAll<ItemData>("Items").ToList();
+
+        itemDataDic = itemDataList.ToDictionary(r => {
+            if (r.Name != ItemData.DefaultName) {
+                return r.Name;
+            } else {
+                Debug.LogError("Weapon not given a name");
+                return "";
+            }
+        },
+            r => r
+        );
+
     }
 
     public Dictionary<RoomRarity, List<Room>> GetRoomDic() {
@@ -48,5 +62,11 @@ public class ResourceManager {
 
     public List<Enemy> GetEnemies() {
         return enemiesList;
+    }
+
+    public ItemData GetItem(string itemName) {
+        itemDataDic.TryGetValue(itemName, out ItemData value);
+        return value;
+
     }
 }
