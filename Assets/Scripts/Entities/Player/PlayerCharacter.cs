@@ -41,15 +41,14 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     }
 
     void HandleWeaponChange(WeaponItem weaponItem) {
-        WeaponData weaponData = (WeaponData)ResourceManager.Instance.GetItem(weaponItem.ItemName);
-        EquipWeapon(weaponData.WeaponPrefab);
+        weaponInstance = Instantiate(weaponItem.ItemData.WeaponPrefab, Vector3.zero, Quaternion.identity, weaponHolder.transform);
+        weaponInstance.Initialize(true, weaponItem.Damage, weaponItem.CoolDown, weaponItem.CriticalChance);
     }
 
     void EquipWeapon(Weapon weapon) {
 
         //Add some way of setting stats
-        weaponInstance = Instantiate(weapon, Vector3.zero, Quaternion.identity, weaponHolder.transform);
-        weaponInstance.Initialize(true);
+
     }
 
     public void TakeDamage(float damageDealt) {

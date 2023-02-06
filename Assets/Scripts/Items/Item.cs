@@ -5,18 +5,17 @@ using System.Collections;
 [Serializable]
 public class Item {
 
-    public string ItemName;
-
     public string ItemID { get; private set; }
 
+    public ItemData ItemData { get; private set; }
 
-    public Item(string itemName) {
+    public Item(ItemData itemData) {
         ItemID = Guid.NewGuid().ToString();
-        ItemName = itemName;
+        ItemData = itemData;
     }
 
     public virtual string GetDescription() {
-        return $"This is {ItemName} with the id {ItemID}";
+        return $"Description";
     }
 
 }

@@ -2,22 +2,21 @@ using UnityEngine;
 
 
 
-[CreateAssetMenu(fileName ="WeaponData", menuName = "ScriptableObjects/WeaponData" )]
-public class WeaponData : ItemData
-{
+[CreateAssetMenu(fileName = "WeaponData", menuName = "ScriptableObjects/WeaponData")]
+public class WeaponData : ItemData {
     public Weapon WeaponPrefab;
-    
+
     public WeaponType WeaponType;
     public MinMaxFloat Damage;
     public MinMaxFloat CoolDown;
-    public MinMaxFloat ProjectileSpeed;
+    public MinMaxFloat CriticalChance;
 
     public override Item CreateItem() {
-        return new WeaponItem(Name, Damage.GetRandomValue(), CoolDown.GetRandomValue(), ProjectileSpeed.GetRandomValue());
+        return new WeaponItem(this, Damage.GetRandomValue(), CoolDown.GetRandomValue(), CriticalChance.GetRandomValue());
     }
 }
 
 
 public enum WeaponType {
-    Sword, Projectile
+    Sword, Dagger, Hammer
 }

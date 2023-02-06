@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer), typeof(Rigidbody2D))]
 public class Enemy : MonoBehaviour, IDamageable {
 
-    [SerializeField] Weapon weaponPrefab;
+    [SerializeField] WeaponData weaponData;
     [SerializeField] GameObject weaponHolder;
 
     [field: Header("Stats")]
@@ -38,9 +38,9 @@ public class Enemy : MonoBehaviour, IDamageable {
         rigidbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        currentWeapon = Instantiate(weaponPrefab, weaponHolder.transform);
+        currentWeapon = Instantiate(weaponData.WeaponPrefab, weaponHolder.transform);
         currentWeapon.transform.localPosition = Vector3.zero;
-        currentWeapon.Initialize(false);
+        currentWeapon.Initialize(false, weaponData.Damage.GetRandomValue(), weaponData.CoolDown.GetRandomValue(), weaponData.CriticalChance.GetRandomValue());
     }
 
 
@@ -74,7 +74,7 @@ public class Enemy : MonoBehaviour, IDamageable {
             target = collider.GetComponent<PlayerCharacter>();
 
             if (Vector2.Distance(target.transform.position, transform.position) >= stopDistance) {
-                Vector2 positionToMoveTowards = Vector2.MoveTowards(transform.position, target.transform.position, moveSpeed );
+                Vector2 positionToMoveTowards = Vector2.MoveTowards(transform.position, target.transform.position, moveSpeed);
                 Vector2 differenceInPosition = new Vector2(positionToMoveTowards.x - transform.position.x, positionToMoveTowards.y - transform.position.y);
 
 
