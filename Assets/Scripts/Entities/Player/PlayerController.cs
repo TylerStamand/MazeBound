@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] float moveSpeed;
 
     public event Action OnAttack;
+    public event Action OnInventory;
 
     public Direction CurrentDirection { get => Utilities.DirectionFromVector2(inputVector); }
     public Vector2 MousePos { get; private set; }
@@ -32,6 +33,13 @@ public class PlayerController : MonoBehaviour {
     public void OnFire(InputAction.CallbackContext context) {
         if (context.performed) {
             OnAttack?.Invoke();
+        }
+    }
+
+    public void OnToggleInventory(InputAction.CallbackContext context) {
+        if (context.performed) {
+            Debug.Log("Toggle");
+            OnInventory?.Invoke();
         }
     }
 

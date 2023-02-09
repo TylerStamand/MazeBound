@@ -27,6 +27,16 @@ public class Inventory {
 
     public bool IsFull => itemLookup.Count == InventorySize;
 
+    public Inventory() {
+        items = new List<Item>();
+        itemLookup = new Dictionary<string, Item>();
+        for (int i = 0; i < InventorySize; i++) {
+            items.Add(null);
+        }
+        Debug.Log(items.Count);
+    }
+
+
     public float GetDefenseFromArmor() {
         return 0;
     }
@@ -62,9 +72,8 @@ public class Inventory {
     }
 
 
-    public void SetWeapon(string itemID) {
+    public void SetWeapon(Item item) {
         Debug.Log("Setting Weapon");
-        Item item = itemLookup[itemID];
 
         if (item == null) {
             Debug.LogWarning("Trying to set weapon but item was not found in inventory");
@@ -83,9 +92,9 @@ public class Inventory {
         }
 
         //Removes item from item list but does not drop it from the lookup
-        Item itemToRemove = itemLookup[itemID];
-        if (items.IndexOf(itemToRemove) != -1) {
-            items[items.IndexOf(itemToRemove)] = null;
+        //Item itemToRemove = itemLookup[itemID];
+        if (items.IndexOf(newWeapon) != -1) {
+            items[items.IndexOf(newWeapon)] = null;
         }
 
         CurrentWeapon = newWeapon;
@@ -93,10 +102,17 @@ public class Inventory {
 
     }
 
-    public void SetItemOrder(int itemIndexFrom, int itemIndexTo) {
-        Item itemTemp = items[itemIndexTo];
-        items[itemIndexTo] = items[itemIndexFrom];
-        items[itemIndexFrom] = itemTemp;
+    public void SetItemOrder(List<string> itemIDs) {
+        items.Clear();
+        foreach (String id in itemIDs) {
+            if (id != null) {
+                itemLookup.TryGetValue(id, out Item item);
+                items.Add(item);
+            } else {
+
+                items.Add(null);
+            }
+        }
 
     }
 
