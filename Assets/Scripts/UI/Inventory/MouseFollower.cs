@@ -11,21 +11,20 @@ public class MouseFollower : MonoBehaviour {
     RectTransform rectTransform;
     Vector3 newPosition;
 
+    PlayerController playerController;
+
     void Awake() {
         mainCamera = Camera.main;
         rectTransform = GetComponent<RectTransform>();
-
+        playerController = FindObjectOfType<PlayerController>();
     }
 
     void Update() {
-        newPosition = new Vector3(newPosition.x + offset.x, newPosition.y + offset.y, 0);
+        Debug.Log(playerController.ScreenMousePos);
+        rectTransform.position = new Vector3(playerController.ScreenMousePos.x + offset.x, playerController.ScreenMousePos.y + offset.y, 0);
 
-        rectTransform.position = newPosition;
-
-    }
-
-    public void OnMouseMove(InputAction.CallbackContext context) {
-        newPosition = context.ReadValue<Vector2>();
 
     }
+
+
 }

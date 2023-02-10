@@ -35,7 +35,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
 
     void HandleAttack() {
 
-        Vector2 difference = Room.GetRoomOffset(controller.MousePos, transform.position);
+        Vector2 difference = Room.GetRoomOffset(controller.WorldMousePos, transform.position);
         float angle = (int)Vector2.Angle(difference, Vector2.right);
         if (difference.y < 0) {
             angle = -angle;
@@ -45,7 +45,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     }
 
     void HandleWeaponChange(WeaponItem weaponItem) {
-        if(weaponInstance != null) {
+        if (weaponInstance != null) {
             Destroy(weaponInstance.gameObject);
         }
         weaponInstance = Instantiate(weaponItem.ItemData.WeaponPrefab, weaponHolder.transform);

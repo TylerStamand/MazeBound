@@ -136,7 +136,7 @@ public class InventoryUIController : MonoBehaviour {
         //If the slot held an item, create a held item
         if (slotItem != null) {
             currentHeldItem = slotItem;
-            currentHeldUIItem = CreateHeldUIItem(currentHeldItem);
+            currentHeldUIItem = CreateHeldUIItem(slot);
         }
 
         //Otherwise set the held item to null
@@ -178,7 +178,7 @@ public class InventoryUIController : MonoBehaviour {
 
         //Checks if the weapon slot had an item in it
         if (oldWeapon != null) {
-            currentHeldUIItem = CreateHeldUIItem(oldWeapon);
+            currentHeldUIItem = CreateHeldUIItem(slot);
         }
 
         Item newWeapon = currentHeldItem;
@@ -194,13 +194,13 @@ public class InventoryUIController : MonoBehaviour {
 
     }
 
-    MouseFollower CreateHeldUIItem(Item item) {
+    MouseFollower CreateHeldUIItem(Slot slot) {
         MouseFollower UIItem = Instantiate(heldUIItemPrefab);
         // SceneManager.MoveGameObjectToScene(UIItem.gameObject, SceneManager.GetSceneByName("Inventory"));
         UIItem.transform.SetParent(mainPanel.transform);
         UIItem.transform.SetAsLastSibling();
-        //set initial position here
-        UIItem.GetComponent<Image>().sprite = item.ItemData.Sprite;
+        UIItem.GetComponent<RectTransform>().position = slot.GetComponent<RectTransform>().position;
+        UIItem.GetComponent<Image>().sprite = slot.Item.ItemData.Sprite;
 
 
         return UIItem;

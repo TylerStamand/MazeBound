@@ -12,8 +12,9 @@ public class PlayerController : MonoBehaviour {
     public event Action OnAttack;
     public event Action OnInventory;
 
+    public Vector2 ScreenMousePos { get; private set; }
     public Direction CurrentDirection { get => Utilities.DirectionFromVector2(inputVector); }
-    public Vector2 MousePos { get; private set; }
+    public Vector2 WorldMousePos { get; private set; }
     new Rigidbody2D rigidbody;
     Vector2 inputVector;
 
@@ -27,7 +28,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void OnAim(InputAction.CallbackContext context) {
-        MousePos = Camera.main.ScreenToWorldPoint(context.ReadValue<Vector2>());
+        ScreenMousePos = context.ReadValue<Vector2>();
+        WorldMousePos = Camera.main.ScreenToWorldPoint(ScreenMousePos);
     }
 
     public void OnFire(InputAction.CallbackContext context) {
