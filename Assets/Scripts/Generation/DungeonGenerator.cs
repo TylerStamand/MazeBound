@@ -379,7 +379,7 @@ public class DungeonGenerator : MonoBehaviour {
                             worldCellPos = new Vector2(worldCellPos.x, worldCellPos.y + yInc);
                             collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
                             if (collider != null && collider.name == "FloorTile") {
-                                Debug.Log($"Detected Floor tile {worldCellPos}");
+                                //Debug.Log($"Detected Floor tile {worldCellPos}");
                                 if (i == 0) {
                                     if (direction == Direction.North)
                                         hallTilemapWalls.SetTile(currentOffset, LeftExterior);

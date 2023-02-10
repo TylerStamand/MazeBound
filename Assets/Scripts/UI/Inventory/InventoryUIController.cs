@@ -177,7 +177,7 @@ public class InventoryUIController : MonoBehaviour {
         currentHeldUIItem = null;
 
         //Checks if the weapon slot had an item in it
-        if (oldWeapon.ItemID != "") {
+        if (oldWeapon != null) {
             currentHeldUIItem = CreateHeldUIItem(oldWeapon);
         }
 
@@ -199,6 +199,7 @@ public class InventoryUIController : MonoBehaviour {
         // SceneManager.MoveGameObjectToScene(UIItem.gameObject, SceneManager.GetSceneByName("Inventory"));
         UIItem.transform.SetParent(mainPanel.transform);
         UIItem.transform.SetAsLastSibling();
+        //set initial position here
         UIItem.GetComponent<Image>().sprite = item.ItemData.Sprite;
 
 

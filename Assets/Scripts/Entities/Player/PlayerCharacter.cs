@@ -45,8 +45,11 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     }
 
     void HandleWeaponChange(WeaponItem weaponItem) {
-
-        weaponInstance = Instantiate(weaponItem.ItemData.WeaponPrefab, Vector3.zero, Quaternion.identity, weaponHolder.transform);
+        if(weaponInstance != null) {
+            Destroy(weaponInstance.gameObject);
+        }
+        weaponInstance = Instantiate(weaponItem.ItemData.WeaponPrefab, weaponHolder.transform);
+        weaponInstance.transform.localPosition = Vector3.zero;
         weaponInstance.Initialize(true, weaponItem.Damage, weaponItem.CoolDown, weaponItem.CriticalChance);
         Inventory.AddItem(weaponItem);
     }

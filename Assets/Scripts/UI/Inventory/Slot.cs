@@ -21,7 +21,6 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
     void Awake() {
         if (TryGetComponent<Button>(out Button button)) {
-            Debug.Log("setting button click");
             button.onClick.AddListener(HandleButtonClick);
         }
         ItemSet = false;
@@ -39,7 +38,6 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
         Debug.Log("Got Item: " + item);
         if (item == null) return;
 
-        Debug.Log("Setting Item");
         this.Item = item;
         Sprite itemSprite = item.ItemData.Sprite;
         itemImageSlot.sprite = itemSprite;
@@ -49,12 +47,11 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
     }
 
     void HandleButtonClick() {
-        Debug.Log("Handling button click");
         OnClick?.Invoke(this);
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
-        if (Item.ItemID.Equals("")) return;
+        if (Item == null) return;
         if (currentDescriptionObject != null) {
             Destroy(currentDescriptionObject.gameObject);
         }
