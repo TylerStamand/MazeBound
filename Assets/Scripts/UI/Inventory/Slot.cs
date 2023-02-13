@@ -51,6 +51,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
+        Debug.Log("POINTER ENTER");
         if (Item == null) return;
         if (currentDescriptionObject != null) {
             Destroy(currentDescriptionObject.gameObject);
@@ -59,7 +60,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
         currentDescriptionObject.transform.SetParent(canvas.transform);
         currentDescriptionObject.transform.SetAsLastSibling();
         currentDescriptionObject.Title.text = Item.ItemData.Name;
-        currentDescriptionObject.Description.text = Item.ItemData.Description;
+        currentDescriptionObject.Description.text = Item.GetDescription();
     }
 
     public void OnPointerExit(PointerEventData eventData) {

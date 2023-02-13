@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,9 +11,19 @@ using UnityEngine;
 //Eventually Add inventory to hold weapon and other items
 
 public class PlayerCharacter : MonoBehaviour, IDamageable {
-    [SerializeField] WeaponData weaponPrefab;
+
+
+    [field: SerializeField] public int CurrentHealth { get; private set; }
+
+    [SerializeField] WeaponData weaponData;
     [SerializeField] GameObject weaponHolder;
     [SerializeField] GameObject inventoryUIPrefab;
+
+    public event Action<int> OnHealthChange;
+
+    public int BaseHealth { get; private set; }
+    public int Defense { get => Inventory.GetDefenseFromArmor(); }
+
     PlayerController controller;
 
     public Inventory Inventory { get; private set; }
@@ -29,7 +39,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         controller.OnInventory += HandleInventory;
         Inventory = new Inventory();
         Inventory.OnWeaponChange += HandleWeaponChange;
-        HandleWeaponChange((WeaponItem)weaponPrefab.CreateItem());
+        HandleWeaponChange((WeaponItem)weaponData.CreateItem());
 
     }
 

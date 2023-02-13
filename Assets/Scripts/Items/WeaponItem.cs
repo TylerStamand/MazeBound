@@ -33,9 +33,12 @@ public class WeaponItem : Item {
         ItemData = itemData;
     }
 
+
+    //TODO: format this to be part right justified
     public override string GetDescription() {
-        string description = $"Damage: {Damage.ToString("N", CultureInfo.CurrentCulture)} \n";
-        description += $"CoolDown: {CoolDown}\n";
+        string description = $" Damage: {Damage.ToString("N", CultureInfo.CurrentCulture)} Lvl: {DamageLevel}\n";
+        description += $"CoolDown: {CoolDown} Lvl: {CoolDownLevel}\n";
+        description += $"CriticalChange: {CriticalChance} Lvl: {CriticalChanceLevel}\n";
 
         return description;
     }

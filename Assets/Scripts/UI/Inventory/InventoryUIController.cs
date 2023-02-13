@@ -8,12 +8,16 @@ using Unity.Collections;
 
 public class InventoryUIController : MonoBehaviour {
     [SerializeField] GameObject inventorySlotsParent;
-    [SerializeField] Slot weaponSlot;
-    [SerializeField] Slot slotPrefab;
     [SerializeField] MouseFollower heldUIItemPrefab;
-
-    // [SerializeField] GameObject backPanel;
     [SerializeField] GameObject mainPanel;
+    [SerializeField] Slot slotPrefab;
+
+    [Header("Equip Slots")]
+    [SerializeField] Slot weaponSlot;
+    [SerializeField] Slot headSlot;
+    [SerializeField] Slot chestSlot;
+    [SerializeField] Slot legSlot;
+    [SerializeField] Slot bootSlot;
 
     PlayerCharacter playerCharacter;
     Inventory inventory;
@@ -32,8 +36,10 @@ public class InventoryUIController : MonoBehaviour {
         playerCharacter = GameObject.FindObjectOfType<PlayerCharacter>();
         inventory = playerCharacter.Inventory;
         currentHeldUIItem = null;
-        weaponSlot.OnClick += HandleWeaponSlotClick;
 
+
+        weaponSlot.OnClick += HandleWeaponSlotClick;
+        //Setup Armor Slots here
 
         if (inventory != null) {
 
@@ -190,7 +196,7 @@ public class InventoryUIController : MonoBehaviour {
 
         SetInventoryOrder();
 
-        inventory.SetWeapon(newWeapon);
+        inventory.SetWeapon((WeaponItem)newWeapon);
 
     }
 

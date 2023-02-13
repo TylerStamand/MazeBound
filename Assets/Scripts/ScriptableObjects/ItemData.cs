@@ -18,5 +18,6 @@ public abstract class ItemData : ScriptableObject {
 
 public enum ItemType {
     Weapon,
+    Armor,
     Potion
 }

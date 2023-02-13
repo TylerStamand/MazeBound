@@ -2,14 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Armor : ICanLevel {
+public class ArmorItem : Item, ICanLevel {
+    public ArmorItem(ItemData itemData) : base(itemData)
+    {
+
+    }
+
+    public enum ArmorPiece {
+        Head, Chest, Leg, Boot
+    }
+
     //Stats
-    public float BaseDefense { get; private set; }
+    public int BaseDefense { get; private set; }
 
     public int Level { get; private set; }
 
+    public ArmorPiece Piece { get; private set; }
+
     //Formula for how to scale to level
-    public float CurrentDefense { get => BaseDefense; }
+    public int CurrentDefense { get => BaseDefense; }
 
     public bool CanLevel() {
         throw new System.NotImplementedException();
