@@ -1248,6 +1248,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+
     - target: {fileID: 8465680535696588505, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
       propertyPath: inventoryUI
       value: 
@@ -1260,6 +1261,12 @@ PrefabInstance:
       propertyPath: inventoryUIPrefab
       value: 
       objectReference: {fileID: 2712004918303161845, guid: b119acbfb21c0f24cb2751d56cf0e7be, type: 3}
+
+    - target: {fileID: 8465680535696588504, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 144d8b55c65d90449bc27d0840fc8f83, type: 3}
+
     - target: {fileID: 8465680535696588506, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
       propertyPath: m_Name
       value: Player
