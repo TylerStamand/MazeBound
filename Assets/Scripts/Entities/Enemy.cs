@@ -7,18 +7,16 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer), typeof(Rigidbody2D))]
 public class Enemy : MonoBehaviour, IDamageable {
 
-    [SerializeField] Weapon weaponPrefab;
+    [SerializeField] WeaponData weaponData;
     [SerializeField] GameObject weaponHolder;
 
     [field: Header("Stats")]
     [field: SerializeField] public float MaxHealth { get; private set; }
 
     [Header("Movement")]
-    [SerializeField] float unitCollisionDistance;
     [SerializeField] float moveSpeed = 1;
     [SerializeField] float alertRadius = 1;
     [SerializeField] float stopDistance = 2;
-    [SerializeField] LayerMask layersToStopFrom;
     [SerializeField] ContactFilter2D contactFilter;
 
     public float CurrentHealth { get; private set; }
@@ -40,15 +38,12 @@ public class Enemy : MonoBehaviour, IDamageable {
         rigidbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        currentWeapon = Instantiate(weaponPrefab, weaponHolder.transform);
+        currentWeapon = Instantiate(weaponData.WeaponPrefab, weaponHolder.transform);
         currentWeapon.transform.localPosition = Vector3.zero;
-        currentWeapon.Initialize(false);
+        currentWeapon.Initialize(false, weaponData.Damage.GetRandomValue(), weaponData.CoolDown.GetRandomValue(), weaponData.CriticalChance.GetRandomValue());
     }
 
 
-    // protected virtual void Update() {
-    //     Move();
-    // }
 
 
     protected virtual void FixedUpdate() {
@@ -79,7 +74,7 @@ public class Enemy : MonoBehaviour, IDamageable {
             target = collider.GetComponent<PlayerCharacter>();
 
             if (Vector2.Distance(target.transform.position, transform.position) >= stopDistance) {
-                Vector2 positionToMoveTowards = Vector2.MoveTowards(transform.position, target.transform.position, moveSpeed );
+                Vector2 positionToMoveTowards = Vector2.MoveTowards(transform.position, target.transform.position, moveSpeed);
                 Vector2 differenceInPosition = new Vector2(positionToMoveTowards.x - transform.position.x, positionToMoveTowards.y - transform.position.y);
 
 

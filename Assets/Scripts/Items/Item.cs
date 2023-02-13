@@ -1,8 +1,21 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class Item : MonoBehaviour {
-    [field: SerializeField] public string Name { get; private set; }
-    [field: SerializeField] public string Description { get; private set; }
+
+[Serializable]
+public class Item {
+
+    public string ItemID { get; private set; }
+
+    public ItemData ItemData { get; private set; }
+
+    public Item(ItemData itemData) {
+        ItemID = Guid.NewGuid().ToString();
+        ItemData = itemData;
+    }
+
+    public virtual string GetDescription() {
+        return $"Description";
+    }
+
 }

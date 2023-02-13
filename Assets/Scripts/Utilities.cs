@@ -1,6 +1,38 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
+
+[Serializable]
+public struct MinMaxInt {
+    public int MaxValue;
+    public int MinValue;
+
+    public MinMaxInt(int minValue, int maxValue) {
+        MaxValue = maxValue;
+        MinValue = minValue;
+    }
+}
+
+[Serializable]
+public struct MinMaxFloat {
+
+    public float MaxValue;
+    public float MinValue;
+
+    public MinMaxFloat(float minValue, float maxValue) {
+        MaxValue = maxValue;
+        MinValue = minValue;
+    }
+
+
+    public float GetRandomValue() {
+        System.Random random = new System.Random();
+        return (float)random.NextDouble() * (MaxValue - MinValue) + MinValue;
+    }
+}
 
 public class Utilities {
     public static Direction GetOppDirection(Direction direction) {
@@ -40,7 +72,7 @@ public class Utilities {
             return Direction.East;
         } else if ((angle >= 45 && angle < 135) || (angle >= -315 && angle < -225)) {
             return Direction.North;
-        } else if ((angle >= 135 && angle < 225) || ( angle >= -225 && angle < -135)) {
+        } else if ((angle >= 135 && angle < 225) || (angle >= -225 && angle < -135)) {
             return Direction.West;
         } else {
             return Direction.South;

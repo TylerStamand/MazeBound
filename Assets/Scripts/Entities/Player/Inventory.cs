@@ -1,12 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory {
 
+    public static int InventorySize = 35;
+
+    public event Action<Item> OnItemAdded;
+    public event Action<WeaponItem> OnWeaponChange;
+
+    Dictionary<string, Item> itemLookup { get; set; } = new Dictionary<string, Item>();
+    List<Item> items;
+
     //Will probably need events to show change for HUD depending on implementation
 
-    public Weapon CurrentWeapon { get; set; }
+    public WeaponItem CurrentWeapon { get; set; }
 
     public Armor Head { get; set; }
     public Armor Chest { get; set; }
@@ -15,9 +24,98 @@ public class Inventory {
 
     public List<Potion> Potions { get; set; }
 
+
+    public bool IsFull => itemLookup.Count == InventorySize;
+
+    public Inventory() {
+        items = new List<Item>();
+        itemLookup = new Dictionary<string, Item>();
+        for (int i = 0; i < InventorySize; i++) {
+            items.Add(null);
+        }
+        Debug.Log(items.Count);
+    }
+
+
     public float GetDefenseFromArmor() {
         return 0;
     }
+
+    public void RemoveItem(string itemID) {
+        Item itemToRemove = itemLookup[itemID];
+        itemLookup.Remove(itemID);
+        int indexOfItemToRemove = items.IndexOf(itemToRemove);
+        items[indexOfItemToRemove] = null;
+
+
+    }
+
+    public void AddItem(Item item) {
+        itemLookup.TryAdd(item.ItemID, item);
+
+
+        for (int i = 0; i < InventorySize; i++) {
+            if (items[i] == null) {
+                items[i] = item;
+                Debug.Log("Item Added Successfully");
+                break;
+            }
+        }
+    }
+
+    public Item GetItem(string itemID) {
+        return itemLookup[itemID];
+    }
+
+    public List<Item> GetItemList() {
+        return items;
+    }
+
+
+    public void SetWeapon(Item item) {
+        Debug.Log("Setting Weapon");
+
+        if (item == null) {
+            Debug.LogWarning("Trying to set weapon but item was not found in inventory");
+        }
+
+        WeaponItem newWeapon;
+        if (item is WeaponItem) {
+            newWeapon = (WeaponItem)item;
+        } else {
+            Debug.LogWarning("Item is not a weapon");
+            return;
+        }
+
+        if (CurrentWeapon != null) {
+            AddItem(CurrentWeapon);
+        }
+
+        //Removes item from item list but does not drop it from the lookup
+        //Item itemToRemove = itemLookup[itemID];
+        if (items.IndexOf(newWeapon) != -1) {
+            items[items.IndexOf(newWeapon)] = null;
+        }
+
+        CurrentWeapon = newWeapon;
+        OnWeaponChange?.Invoke(newWeapon);
+
+    }
+
+    public void SetItemOrder(List<string> itemIDs) {
+        items.Clear();
+        foreach (String id in itemIDs) {
+            if (id != null) {
+                itemLookup.TryGetValue(id, out Item item);
+                items.Add(item);
+            } else {
+
+                items.Add(null);
+            }
+        }
+
+    }
+
 
 
 

@@ -6,21 +6,19 @@ using UnityEngine;
 //Attack
 //Critical change (Defense doesnt count)
 
-public abstract class Weapon : Item, ICanLevel {
+public abstract class Weapon : MonoBehaviour {
 
     [SerializeField] protected float AnimationLength = 0.3f;
 
-    [field: Header("Stats")]
-    [field: SerializeField] public float CoolDown { get; private set; }
-    [field: SerializeField] public float BaseDamage { get; private set; }
-    [field: SerializeField] public int Level { get; private set; }
 
-
-    protected float timeLastUsed;
+    public float CoolDown { get; private set; }
+    public float Damage { get; private set; }
+    public float CriticalChange { get; private set; }
 
 
     protected SpriteRenderer spriteRenderer;
     protected new Collider2D collider;
+    protected float timeLastUsed;
     protected bool playerWeapon;
     protected bool initialized;
     protected bool inUse;
@@ -63,33 +61,14 @@ public abstract class Weapon : Item, ICanLevel {
     }
 
 
-    public virtual void Initialize(bool playerWeapon) {
-        if (initialized) return;
-
+    public virtual void Initialize(bool playerWeapon, float damage, float coolDown, float criticalChance) {
         this.playerWeapon = playerWeapon;
-
-        //Set stats and other stuff
+        Damage = damage;
+        CoolDown = coolDown;
+        CriticalChange = criticalChance;
 
         initialized = true;
     }
 
-    public int GetCurrentLevel()
-    {
-        throw new System.NotImplementedException();
-    }
 
-    public int GetMaxLevel()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public bool CanLevel()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void IncreaseLevel()
-    {
-        throw new System.NotImplementedException();
-    }
 }
