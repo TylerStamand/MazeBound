@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -7,12 +8,15 @@ public class WeaponData : ItemData {
     public Weapon WeaponPrefab;
 
     public WeaponType WeaponType;
-    public MinMaxFloat Damage;
+    public MinMaxInt Damage;
     public MinMaxFloat CoolDown;
     public MinMaxFloat CriticalChance;
 
     public override Item CreateItem() {
-        return new WeaponItem(this, Damage.GetRandomValue(), CoolDown.GetRandomValue(), CriticalChance.GetRandomValue());
+        return new WeaponItem(this,
+        Damage.GetRandomValue(),
+        (float)Math.Truncate(CoolDown.GetRandomValue() * 100) / 100,
+        (float)Math.Truncate(CriticalChance.GetRandomValue() * 100) / 100);
     }
 }
 

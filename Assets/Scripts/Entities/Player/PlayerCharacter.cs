@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //Player Stats
 //Health
@@ -18,8 +19,10 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     [SerializeField] WeaponData weaponData;
     [SerializeField] GameObject weaponHolder;
     [SerializeField] GameObject inventoryUIPrefab;
+    [SerializeField] GameObject inventoryChestUIPrefab;
 
     public event Action<int> OnHealthChange;
+    public event Action OnDie;
 
     public int BaseHealth { get; private set; }
     public int Defense { get => Inventory.GetDefenseFromArmor(); }
@@ -27,7 +30,9 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     PlayerController controller;
 
     public Inventory Inventory { get; private set; }
+
     GameObject inventoryUI;
+    GameObject inventoryChestUI;
 
     bool inventoryOn;
 
@@ -42,6 +47,16 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         HandleWeaponChange((WeaponItem)weaponData.CreateItem());
 
     }
+
+
+    public void TakeDamage(int damageDealt) {
+        CurrentHealth -= damageDealt;
+        OnHealthChange?.Invoke(CurrentHealth);
+        if (CurrentHealth <= 0) {
+            Die();
+        }
+    }
+
 
     void HandleAttack() {
 
@@ -76,14 +91,23 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
 
     }
 
+    public void HandleOpeningChest(List<Item> items) {
+        
+        Debug.Log(items);
+    }
+
     void EquipWeapon(Weapon weapon) {
 
         //Add some way of setting stats
 
     }
 
-    public void TakeDamage(float damageDealt) {
-
+    void Die() {
+        OnDie?.Invoke();
+        SceneManager.LoadScene("Prototype");
     }
+
+
+
 }
 

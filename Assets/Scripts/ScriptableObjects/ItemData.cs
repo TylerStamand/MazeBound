@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "ItemData", menuName = "ScriptableObjects/ItemData")]
+
 public abstract class ItemData : ScriptableObject {
     public static readonly string DefaultName = "Weapon Name";
     [field: SerializeField] public string Name { get; private set; } = DefaultName;

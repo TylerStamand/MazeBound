@@ -39,6 +39,8 @@ public class DungeonGenerator : MonoBehaviour {
 
     public static DungeonGenerator Instance { get; private set; }
 
+    public static int MaxRoomScale { get; private set; } = 15;
+
     public Dictionary<RoomRarity, List<Room>> roomDic;
 
 
@@ -77,13 +79,13 @@ public class DungeonGenerator : MonoBehaviour {
     //make the other axis a random value from floor tile +- length of room in that axis
     //Check if spawning the room conflicts with already placed rooms
     //If not, Build connection to it
-    Room SpawnBuilding(Room baseBuilding, Room addedBuildingPrefab, Direction direction) {
-        if (baseBuilding == null || addedBuildingPrefab == null) return null;
+    Room SpawnRoom(Room baseRoom, Room addedRoomPrefab, Direction direction) {
+        if (baseRoom == null || addedRoomPrefab == null) return null;
 
         Room spawnedAddition;
 
-        BoundsInt baseBounds = baseBuilding.FloorTileSet.cellBounds;
-        BoundsInt addBounds = addedBuildingPrefab.FloorTileSet.cellBounds;
+        BoundsInt baseBounds = baseRoom.FloorTileSet.cellBounds;
+        BoundsInt addBounds = addedRoomPrefab.FloorTileSet.cellBounds;
 
         Vector3Int baseConnectionPoint = GetConnectionPoint(baseBounds, direction);
         Vector3Int additionConnectionPoint = GetConnectionPoint(addBounds, Utilities.GetOppDirection(direction));
@@ -100,10 +102,10 @@ public class DungeonGenerator : MonoBehaviour {
         }
 
         //This cell coordinates based on the tilemap of the current base Room, not of the original spawned Room. Meaning they are all relative 
-        Vector3 additionCenterWorld = baseBuilding.FloorTileSet.GetCellCenterWorld(additionCellCenterPoint);
+        Vector3 additionCenterWorld = baseRoom.FloorTileSet.GetCellCenterWorld(additionCellCenterPoint);
         additionCenterWorld.y -= .5f;
         additionCenterWorld.x -= .5f;
-        spawnedAddition = Instantiate(addedBuildingPrefab, additionCenterWorld, Quaternion.identity, dungeonGrid.transform);
+        spawnedAddition = Instantiate(addedRoomPrefab, additionCenterWorld, Quaternion.identity, dungeonGrid.transform);
 
         //Turns colliders off to avoid messing with collision detection of already existing room
         foreach (Collider2D collider2D in spawnedAddition.GetComponentsInChildren<Collider2D>()) {
@@ -149,7 +151,7 @@ public class DungeonGenerator : MonoBehaviour {
         }
 
         //Connect base with new addition
-        Vector3Int hallStart = hallTilemapFloors.WorldToCell(baseBuilding.FloorTileSet.CellToWorld(baseConnectionPoint));
+        Vector3Int hallStart = hallTilemapFloors.WorldToCell(baseRoom.FloorTileSet.CellToWorld(baseConnectionPoint));
         //second needs to be in reference 
         Vector3Int hallEnd = hallTilemapFloors.WorldToCell(spawnedAddition.FloorTileSet.CellToWorld(additionConnectionPoint));
 
@@ -184,7 +186,7 @@ public class DungeonGenerator : MonoBehaviour {
             Room roomBuildingPrefab = GetNextRoom(room.RoomLevel + 1).GetComponent<Room>();
 
 
-            roomSpawn = SpawnBuilding(roomBuilding, roomBuildingPrefab, direction);
+            roomSpawn = SpawnRoom(roomBuilding, roomBuildingPrefab, direction);
             if (roomSpawn != null) {
                 SetupRoom(roomSpawn.GetComponent<Room>(), room.RoomLevel + 1);
             }

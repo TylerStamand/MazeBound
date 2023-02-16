@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 [Serializable]
 public struct MinMaxInt {
     public int MaxValue;
@@ -13,6 +12,9 @@ public struct MinMaxInt {
     public MinMaxInt(int minValue, int maxValue) {
         MaxValue = maxValue;
         MinValue = minValue;
+    }
+    public int GetRandomValue() {
+        return UnityEngine.Random.Range(MinValue, MaxValue + 1);
     }
 }
 
@@ -29,12 +31,12 @@ public struct MinMaxFloat {
 
 
     public float GetRandomValue() {
-        System.Random random = new System.Random();
-        return (float)random.NextDouble() * (MaxValue - MinValue) + MinValue;
+        return UnityEngine.Random.Range(MinValue, MaxValue + 1);
     }
 }
 
 public class Utilities {
+
     public static Direction GetOppDirection(Direction direction) {
         if (direction == Direction.North) {
             return Direction.South;

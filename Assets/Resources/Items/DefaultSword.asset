@@ -20,11 +20,11 @@ MonoBehaviour:
   WeaponPrefab: {fileID: 2957765833364229571, guid: 41d48f1abbd8ee64fba8ecdb18573a73, type: 3}
   WeaponType: 0
   Damage:
-    MaxValue: 0
-    MinValue: 0
+    MaxValue: 5
+    MinValue: 2
   CoolDown:
-    MaxValue: 0
-    MinValue: 0
-  ProjectileSpeed:
-    MaxValue: 0
-    MinValue: 0
+    MaxValue: 10
+    MinValue: 5
+  CriticalChance:
+    MaxValue: 0.3
+    MinValue: 0.1

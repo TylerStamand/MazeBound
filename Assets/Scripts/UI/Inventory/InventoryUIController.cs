@@ -8,6 +8,8 @@ using Unity.Collections;
 
 public class InventoryUIController : MonoBehaviour {
     [SerializeField] GameObject inventorySlotsParent;
+    [SerializeField] GameObject chestSlotsParent;
+
     [SerializeField] MouseFollower heldUIItemPrefab;
     [SerializeField] GameObject mainPanel;
     [SerializeField] Slot slotPrefab;
@@ -156,16 +158,7 @@ public class InventoryUIController : MonoBehaviour {
 
     }
 
-    // void HandleItemDrop() {
-    //     if (currentHeldUIItem != null) {
-    //         playerControllerServer.DropItemServerRpc(currentHeldItemInfo);
-    //         Destroy(currentHeldUIItem.gameObject);
-    //         currentHeldUIItem = null;
-    //         currentHeldItemInfo = new ItemInfo();
-    //         backPanel.GetComponent<Button>().onClick.RemoveListener(HandleItemDrop);
-    //     }
-
-    // }
+   
 
 
     void HandleWeaponSlotClick(Slot slot) {

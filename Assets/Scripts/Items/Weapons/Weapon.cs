@@ -12,7 +12,7 @@ public abstract class Weapon : MonoBehaviour {
 
 
     public float CoolDown { get; private set; }
-    public float Damage { get; private set; }
+    public int Damage { get; private set; }
     public float CriticalChange { get; private set; }
 
 
@@ -61,7 +61,7 @@ public abstract class Weapon : MonoBehaviour {
     }
 
 
-    public virtual void Initialize(bool playerWeapon, float damage, float coolDown, float criticalChance) {
+    public virtual void Initialize(bool playerWeapon, int damage, float coolDown, float criticalChance) {
         this.playerWeapon = playerWeapon;
         Damage = damage;
         CoolDown = coolDown;
