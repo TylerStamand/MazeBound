@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using System.Linq;
 
 public class PlayerController : MonoBehaviour {
 
@@ -10,6 +11,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] float moveSpeed;
 
     public event Action OnAttack;
+    public event Action OnExitMenu;
+    public event Action<IInteractable> OnInteract;
     public event Action OnInventory;
 
     public Vector2 ScreenMousePos { get; private set; }
@@ -43,6 +46,28 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("Toggle");
             OnInventory?.Invoke();
         }
+    }
+
+    public void Interact(InputAction.CallbackContext context) {
+        if (context.performed) {
+            Debug.Log("Trying to Interact");
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.forward, 2f);
+            if (hits != null) {
+                foreach(RaycastHit2D hit in hits.ToList()) {
+                    Debug.Log("Hit " + hit.collider.gameObject.name);
+                    IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+                    if (interactable != null) {
+                        OnInteract?.Invoke(interactable);
+                    }
+
+                }
+            }
+
+        }
+    }
+
+    public void ExitMenu(InputAction.CallbackContext context) {
+        OnExitMenu?.Invoke();
     }
 
     void Update() {

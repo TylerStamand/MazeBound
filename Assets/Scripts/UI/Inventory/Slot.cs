@@ -51,7 +51,6 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
-        Debug.Log("POINTER ENTER");
         if (Item == null) return;
         if (currentDescriptionObject != null) {
             Destroy(currentDescriptionObject.gameObject);

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Inventory {
 
-    public static int InventorySize = 35;
+    public static int InventorySize = 15;
 
     public event Action<Item> OnItemAdded;
     public event Action<WeaponItem> OnWeaponChange;

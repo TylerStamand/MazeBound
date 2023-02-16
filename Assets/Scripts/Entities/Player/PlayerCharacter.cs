@@ -21,6 +21,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     [SerializeField] GameObject inventoryUIPrefab;
     [SerializeField] GameObject inventoryChestUIPrefab;
 
+    public event Action OnExitMenu;
     public event Action<int> OnHealthChange;
     public event Action OnDie;
 
@@ -42,6 +43,8 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         controller = GetComponent<PlayerController>();
         controller.OnAttack += HandleAttack;
         controller.OnInventory += HandleInventory;
+        controller.OnExitMenu += () => OnExitMenu?.Invoke();
+        controller.OnInteract += HandleInteract;
         Inventory = new Inventory();
         Inventory.OnWeaponChange += HandleWeaponChange;
         HandleWeaponChange((WeaponItem)weaponData.CreateItem());
@@ -91,8 +94,12 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
 
     }
 
+    void HandleInteract(IInteractable interactable) {
+        interactable.Interact(this);
+    }
+
     public void HandleOpeningChest(List<Item> items) {
-        
+
         Debug.Log(items);
     }
 
@@ -105,6 +112,10 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     void Die() {
         OnDie?.Invoke();
         SceneManager.LoadScene("Prototype");
+    }
+
+    void ExitMenu() {
+
     }
 
 

@@ -23,8 +23,8 @@ MonoBehaviour:
     MaxValue: 5
     MinValue: 2
   CoolDown:
-    MaxValue: 10
-    MinValue: 5
+    MaxValue: 2
+    MinValue: 1
   CriticalChance:
     MaxValue: 0.3
     MinValue: 0.1

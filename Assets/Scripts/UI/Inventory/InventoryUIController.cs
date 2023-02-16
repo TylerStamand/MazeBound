@@ -5,10 +5,10 @@ using System.Linq;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Unity.Collections;
+using System;
 
 public class InventoryUIController : MonoBehaviour {
     [SerializeField] GameObject inventorySlotsParent;
-    [SerializeField] GameObject chestSlotsParent;
 
     [SerializeField] MouseFollower heldUIItemPrefab;
     [SerializeField] GameObject mainPanel;
@@ -28,11 +28,11 @@ public class InventoryUIController : MonoBehaviour {
     Item weapon;
     List<Slot> slots;
 
-    Item currentHeldItem;
-    MouseFollower currentHeldUIItem;
+    protected Item currentHeldItem;
+    protected MouseFollower currentHeldUIItem;
 
 
-    void Awake() {
+    protected virtual void Awake() {
         items = new List<Item>();
         slots = inventorySlotsParent.GetComponentsInChildren<Slot>().ToList();
         playerCharacter = GameObject.FindObjectOfType<PlayerCharacter>();
@@ -44,24 +44,16 @@ public class InventoryUIController : MonoBehaviour {
         //Setup Armor Slots here
 
         if (inventory != null) {
-
-
-            inventory.OnItemAdded += AddItemToList;
-            inventory.OnWeaponChange += HandleWeaponItemUpdate;
-
-
             PopulateItemList();
-            Display();
+            Display(slots, items, HandleSlotClick, inventorySlotsParent.transform);
         } else {
             Debug.Log("Player does not have an inventory, can not display Inventory");
         }
 
     }
 
-    void OnDestroy() {
+    protected virtual void OnDestroy() {
         if (inventory != null) {
-            inventory.OnItemAdded -= AddItemToList;
-            inventory.OnWeaponChange -= HandleWeaponItemUpdate;
 
             //Deals with exiting inventory with item in hand
             if (currentHeldUIItem != null) {
@@ -80,22 +72,18 @@ public class InventoryUIController : MonoBehaviour {
     }
 
 
-    void PopulateItemList() {
+    protected virtual void PopulateItemList() {
         items.Clear();
 
         Debug.Log("Populating List");
         // Debug.Log("Items in info list " + inventory.GetItemInfoList().Count);
         foreach (Item item in inventory.GetItemList()) {
-
             items.Add(item);
-
         }
-        Debug.Log(items.Count);
-        // Debug.Log(items[0].ItemID.Value.ToString());
         weapon = inventory.CurrentWeapon;
     }
 
-    void Display() {
+    protected void Display(List<Slot> slots, List<Item> items, Action<Slot> slotClickHandler, Transform parent) {
         Debug.Log("Displaying Items");
         foreach (Slot slot in slots) {
             Destroy(slot.gameObject);
@@ -103,12 +91,10 @@ public class InventoryUIController : MonoBehaviour {
 
         slots.Clear();
 
-
-
         for (int i = 0; i < Inventory.InventorySize; i++) {
-            Slot slot = Instantiate(slotPrefab, inventorySlotsParent.transform);
+            Slot slot = Instantiate(slotPrefab, parent);
 
-            slot.OnClick += HandleSlotClick;
+            slot.OnClick += slotClickHandler;
 
             slots.Add(slot);
 
@@ -119,7 +105,7 @@ public class InventoryUIController : MonoBehaviour {
             }
         }
 
-
+        //Maybe move this 
         if (weapon != null) {
             weaponSlot.SetItem(weapon);
         }
@@ -127,7 +113,6 @@ public class InventoryUIController : MonoBehaviour {
 
 
     void HandleSlotClick(Slot slot) {
-
         Debug.Log("Handle slot click");
         Item slotItem = slot.Item;
 
@@ -153,19 +138,16 @@ public class InventoryUIController : MonoBehaviour {
             currentHeldItem = null;
         }
 
-        Display();
-
-
+        Display(slots, items, HandleSlotClick, inventorySlotsParent.transform);
     }
 
-   
+
+
 
 
     void HandleWeaponSlotClick(Slot slot) {
         //Debug.Log("Handling Weapon Slot Click");
         if (currentHeldUIItem == null) return;
-
-        // ItemData itemData = ResourceManager.Instance.GetItemData(currentHeldItemInfo.Name.Value.ToString());
 
         //Item is not a weapon
         if (currentHeldItem.ItemData.ItemType != ItemType.Weapon) return;
@@ -191,11 +173,11 @@ public class InventoryUIController : MonoBehaviour {
 
         inventory.SetWeapon((WeaponItem)newWeapon);
 
+        Display(slots, items, HandleSlotClick, inventorySlotsParent.transform);
     }
 
-    MouseFollower CreateHeldUIItem(Slot slot) {
+    protected MouseFollower CreateHeldUIItem(Slot slot) {
         MouseFollower UIItem = Instantiate(heldUIItemPrefab);
-        // SceneManager.MoveGameObjectToScene(UIItem.gameObject, SceneManager.GetSceneByName("Inventory"));
         UIItem.transform.SetParent(mainPanel.transform);
         UIItem.transform.SetAsLastSibling();
         UIItem.GetComponent<RectTransform>().position = slot.GetComponent<RectTransform>().position;
@@ -205,26 +187,6 @@ public class InventoryUIController : MonoBehaviour {
         return UIItem;
     }
 
-    void AddItemToList(Item item) {
-
-        //Debug.Log("Added Item To List");
-        if (items.IndexOf(item) != -1) return;
-        if (item.ItemID.ToString() == currentHeldItem.ItemID.ToString()) return;
-        for (int i = 0; i < Inventory.InventorySize; i++) {
-            if (items[i].ItemID.Count() == 0) {
-                items[i] = item;
-                break;
-            }
-        }
-        Display();
-    }
-
-
-    void HandleWeaponItemUpdate(Item weapon) {
-        //Debug.Log("Handling Weapon Item Update");
-        this.weapon = weapon;
-        Display();
-    }
 
     void SetInventoryOrder() {
         List<string> itemIDs = new List<string>();
