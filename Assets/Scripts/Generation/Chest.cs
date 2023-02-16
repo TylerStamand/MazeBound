@@ -9,7 +9,6 @@ public class Chest : MonoBehaviour, IInteractable {
 
     public List<Item> Items { get; set; } = new List<Item>();
 
-    PlayerCharacter playerCharacter;
     GameObject inventoryUI;
     void Awake() {
         for (int i = 0; i < ChestSize; i++) {
@@ -19,14 +18,13 @@ public class Chest : MonoBehaviour, IInteractable {
 
     public void Interact(PlayerCharacter playerCharacter) {
         Debug.Log("Interacted");
-        inventoryUI = Instantiate(chestUIPrefab);
-        inventoryUI.GetComponentInChildren<ChestInventoryUI>().SetChest(this);
-        this.playerCharacter = playerCharacter;
-        playerCharacter.OnExitMenu += HandleExitMenu;
+
+        inventoryUI = playerCharacter.ShowMenu(chestUIPrefab);
+        if(inventoryUI != null) {
+            inventoryUI.GetComponentInChildren<ChestInventoryUI>().SetChest(this);
+        }
+
     }
 
-    void HandleExitMenu() {
-        Destroy(inventoryUI.gameObject);
-        playerCharacter.OnExitMenu -= HandleExitMenu;
-    }
+
 }

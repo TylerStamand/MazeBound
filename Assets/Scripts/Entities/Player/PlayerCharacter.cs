@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-//Player Stats
-//Health
-//Defense
 
 
-
-//Eventually Add inventory to hold weapon and other items
+//TODO: ADD A BETTER WAY TO MANAGE STATE
 
 public class PlayerCharacter : MonoBehaviour, IDamageable {
 
@@ -32,8 +28,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
 
     public Inventory Inventory { get; private set; }
 
-    GameObject inventoryUI;
-    GameObject inventoryChestUI;
+    GameObject currentMenu;
 
     bool inventoryOn;
 
@@ -43,7 +38,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         controller = GetComponent<PlayerController>();
         controller.OnAttack += HandleAttack;
         controller.OnInventory += HandleInventory;
-        controller.OnExitMenu += () => OnExitMenu?.Invoke();
+        controller.OnExitMenu += ExitMenu;
         controller.OnInteract += HandleInteract;
         Inventory = new Inventory();
         Inventory.OnWeaponChange += HandleWeaponChange;
@@ -83,13 +78,8 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     }
 
     void HandleInventory() {
-        if (!inventoryOn) {
-            inventoryUI = Instantiate(inventoryUIPrefab);
-            inventoryOn = true;
-        } else {
-            Destroy(inventoryUI);
-            inventoryOn = false;
-
+        if (currentMenu == null) {
+            ShowMenu(inventoryUIPrefab);
         }
 
     }
@@ -114,8 +104,23 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         SceneManager.LoadScene("Prototype");
     }
 
-    void ExitMenu() {
+    public GameObject ShowMenu(GameObject menuPrefab) {
+        if (currentMenu != null) {
+            return null;
+        }
+        GameObject menu = Instantiate(menuPrefab);
+        currentMenu = menu;
+        return menu;
+    }
 
+    void ExitMenu() {
+        if(currentMenu == null) {
+            return;
+        }
+
+        Debug.Log("Exiting Menu");
+        Destroy(currentMenu);
+        currentMenu = null;
     }
 
 
