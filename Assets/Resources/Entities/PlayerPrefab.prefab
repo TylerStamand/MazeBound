@@ -429,6 +429,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 03e76ded-2829-4b01-a095-4bf1534b8867
     m_ActionName: Player/Interact[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 80cd4887-cfc0-46b8-b273-902fafab2f33
+    m_ActionName: Player/ExitMenu[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player

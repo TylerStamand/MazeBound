@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     protected SpriteRenderer spriteRenderer;
     protected PlayerCharacter target;
     protected Weapon currentWeapon;
+    protected Animator anim;
 
 
     protected virtual void Awake() {
@@ -37,7 +38,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         collider = GetComponent<Collider2D>();
         rigidbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
+        anim = GetComponent<Animator>();
         currentWeapon = Instantiate(weaponData.WeaponPrefab, weaponHolder.transform);
         currentWeapon.transform.localPosition = Vector3.zero;
         currentWeapon.Initialize(false, weaponData.Damage.GetRandomValue(), weaponData.CoolDown.GetRandomValue(), weaponData.CriticalChance.GetRandomValue());
@@ -85,6 +86,12 @@ public class Enemy : MonoBehaviour, IDamageable {
 
                 if (numOfHits == 0) {
                     rigidbody.MovePosition(transform.position + (Vector3)differenceInPosition);
+                    anim.SetBool("isMoving", true);
+                    anim.SetFloat("x", differenceInPosition.x);
+                    anim.SetFloat("y", differenceInPosition.y);
+
+                } else {
+                    anim.SetBool("isMoving", false);
                 }
 
             } else {
