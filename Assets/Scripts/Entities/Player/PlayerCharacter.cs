@@ -42,7 +42,8 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         controller.OnInteract += HandleInteract;
         Inventory = new Inventory();
         Inventory.OnWeaponChange += HandleWeaponChange;
-        HandleWeaponChange((WeaponItem)weaponData.CreateItem());
+        WeaponItem starterWeapon = (WeaponItem)weaponData.CreateItem();
+        Inventory.SetWeapon(starterWeapon);
 
     }
 
@@ -74,7 +75,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         weaponInstance = Instantiate(weaponItem.ItemData.WeaponPrefab, weaponHolder.transform);
         weaponInstance.transform.localPosition = Vector3.zero;
         weaponInstance.Initialize(true, weaponItem.Damage, weaponItem.Speed, weaponItem.CriticalChance);
-        Inventory.AddItem(weaponItem);
+
     }
 
     void HandleInventory() {

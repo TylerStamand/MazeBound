@@ -86,12 +86,12 @@ public class Enemy : MonoBehaviour, IDamageable {
                     anim.SetFloat("x", differenceInPosition.x);
                     anim.SetFloat("y", differenceInPosition.y);
 
-                } else {
-                    anim.SetBool("isMoving", false);
-                }
+                } 
 
             } else {
                 currentWeapon.Use(Utilities.DirectionFromVector2(target.transform.position - transform.position));
+                anim.SetBool("isMoving", false);
+                
             }
         } else {
             target = null;

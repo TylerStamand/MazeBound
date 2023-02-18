@@ -162,16 +162,16 @@ public class InventoryUIController : MonoBehaviour {
             currentHeldUIItem = CreateHeldUIItem(slot);
         }
 
-        Item newWeapon = currentHeldItem;
+        weapon = currentHeldItem;
 
 
         currentHeldItem = oldWeapon;
 
-        slot.SetItem(newWeapon);
+        slot.SetItem(weapon);
 
         SetInventoryOrder();
 
-        inventory.SetWeapon((WeaponItem)newWeapon);
+        inventory.SetWeapon((WeaponItem)weapon);
 
         Display(slots, items, HandleSlotClick, inventorySlotsParent.transform);
     }
