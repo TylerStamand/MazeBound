@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1af238d493cd15642bef68ca63050f08, type: 3}
   m_Name: SpawnRates
   m_EditorClassIdentifier: 
-  spawnRateCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  ItemSpawnRates:
+  - itemData: {fileID: 11400000, guid: 463c08f524fa14f48a529bb931456743, type: 2}
+    spawnRateCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+  EnemySpawnRates: []

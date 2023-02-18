@@ -241,7 +241,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -977925959
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -838294427, guid: f74111201f20cef48b8989ae154d02f6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -270,6 +270,7 @@ MonoBehaviour:
   weaponData: {fileID: 11400000, guid: 463c08f524fa14f48a529bb931456743, type: 2}
   weaponHolder: {fileID: 8465680535385425422}
   inventoryUIPrefab: {fileID: 2712004918303161845, guid: b119acbfb21c0f24cb2751d56cf0e7be, type: 3}
+  inventoryChestUIPrefab: {fileID: 0}
 --- !u!114 &8465680535696588499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,6 +413,26 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 03031ef0-4eff-46bf-9e57-a1092bae8033
     m_ActionName: Player/InventoryToggle[/Keyboard/i]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8465680535696588499}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Interact
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 03e76ded-2829-4b01-a095-4bf1534b8867
+    m_ActionName: Player/Interact[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 80cd4887-cfc0-46b8-b273-902fafab2f33
+    m_ActionName: Player/ExitMenu[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player

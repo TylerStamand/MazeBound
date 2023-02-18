@@ -9,13 +9,13 @@ public class WeaponData : ItemData {
 
     public WeaponType WeaponType;
     public MinMaxInt Damage;
-    public MinMaxFloat CoolDown;
+    public MinMaxFloat Speed;
     public MinMaxFloat CriticalChance;
 
     public override Item CreateItem() {
         return new WeaponItem(this,
         Damage.GetRandomValue(),
-        (float)Math.Truncate(CoolDown.GetRandomValue() * 100) / 100,
+        (float)Math.Truncate(Speed.GetRandomValue() * 100) / 100,
         (float)Math.Truncate(CriticalChance.GetRandomValue() * 100) / 100);
     }
 }

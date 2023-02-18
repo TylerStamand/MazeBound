@@ -2703,16 +2703,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8b432ece739a146af09fe2a8d72381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventorySlotsParent: {fileID: 2712004919059054418}
-  heldUIItemPrefab: {fileID: 0}
+  inventorySlotsParent: {fileID: 2712004918671923111}
+  heldUIItemPrefab: {fileID: 6159807422533270690, guid: 0dc0b8cedbd3e214e8da32a0ef7fba28, type: 3}
   mainPanel: {fileID: 2712004918797477158}
-  slotPrefab: {fileID: 0}
-  weaponSlot: {fileID: 0}
+  slotPrefab: {fileID: 3901534075604236172, guid: 213eff00308870e4f83b46a701f90e3b, type: 3}
+  weaponSlot: {fileID: 1407360076876313269}
   headSlot: {fileID: 0}
   chestSlot: {fileID: 0}
   legSlot: {fileID: 0}
   bootSlot: {fileID: 0}
-  chestPanel: {fileID: 0}
+  chestSlotsParent: {fileID: 7613010981774528767}
 --- !u!1 &2712004918671923111
 GameObject:
   m_ObjectHideFlags: 0
@@ -3665,7 +3665,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 855, y: 0}
+  m_AnchoredPosition: {x: 553, y: 0}
   m_SizeDelta: {x: 500, y: 800}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &617339222277247511

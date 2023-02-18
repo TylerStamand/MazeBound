@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Inventory {
 
-    public static int InventorySize = 35;
+    public static int InventorySize = 15;
 
     public event Action<Item> OnItemAdded;
     public event Action<WeaponItem> OnWeaponChange;
@@ -16,7 +16,7 @@ public class Inventory {
 
     //Will probably need events to show change for HUD depending on implementation
 
-    public WeaponItem CurrentWeapon { get; set; }
+    public WeaponItem CurrentWeapon { get; private set; }
 
     public ArmorItem Head { get; private set; }
     public ArmorItem Chest { get; private set; }

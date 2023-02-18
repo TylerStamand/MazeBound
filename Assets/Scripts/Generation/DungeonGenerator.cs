@@ -14,7 +14,9 @@ public enum RoomRarity {
 
 
 public class DungeonGenerator : MonoBehaviour {
-    // [SerializeField] PlayerCharacter playerObject;
+
+    //Change this to spawnrates in the future
+    [SerializeField] ItemData itemForChest;
 
     [SerializeField] Grid dungeonGrid;
     [SerializeField] Tilemap hallTilemapFloors;
@@ -58,7 +60,7 @@ public class DungeonGenerator : MonoBehaviour {
     void Initialize() {
         Debug.Log("Initializing Dungeon");
         Room room = Instantiate(initalRoomPrefab, Vector3.zero, Quaternion.identity, dungeonGrid.transform);
-
+        room.Initialize(0, itemForChest);
         List<Tilemap> tilemaps = new List<Tilemap>(room.GetComponentsInChildren<Tilemap>());
 
         room.OnRoomCompletion += HandleRoomCompletion;
@@ -197,7 +199,7 @@ public class DungeonGenerator : MonoBehaviour {
 
     void SetupRoom(Room room, int roomLevel) {
         room.GetComponent<Room>().OnRoomCompletion += HandleRoomCompletion;
-        room.Initialize(roomLevel);
+        room.Initialize(roomLevel, itemForChest);
     }
 
 
@@ -273,7 +275,6 @@ public class DungeonGenerator : MonoBehaviour {
                             worldCellPos = new Vector2(worldCellPos.x, worldCellPos.y - yInc);
                             collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
                             if (collider != null && collider.name == "FloorTile") {
-                                Debug.Log($"Detected Floor tile {worldCellPos}");
                                 if (j == 0) {
                                     if (Utilities.GetOppDirection(direction) == Direction.North)
                                         hallTilemapWalls.SetTile(currentOffset, LeftExterior);
@@ -444,7 +445,6 @@ public class DungeonGenerator : MonoBehaviour {
                             worldCellPos = new Vector2(worldCellPos.x - xInc, worldCellPos.y);
                             collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
                             if (collider != null && collider.name == "FloorTile") {
-                                Debug.Log($"Detected Floor tile {worldCellPos}");
                                 if (j == 0) {
                                     if (Utilities.GetOppDirection(direction) == Direction.East)
                                         hallTilemapWalls.SetTile(currentOffset, topHorizontal);
@@ -539,7 +539,6 @@ public class DungeonGenerator : MonoBehaviour {
                             worldCellPos = new Vector2(worldCellPos.x + xInc, worldCellPos.y);
                             collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
                             if (collider != null && collider.name == "FloorTile") {
-                                Debug.Log($"Detected Floor tile {worldCellPos}");
                                 if (i == 0) {
                                     if (direction == Direction.East)
                                         hallTilemapWalls.SetTile(currentOffset, LeftExterior);

@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-//Player Stats
-//Health
-//Defense
 
 
-
-//Eventually Add inventory to hold weapon and other items
+//TODO: ADD A BETTER WAY TO MANAGE STATE
 
 public class PlayerCharacter : MonoBehaviour, IDamageable {
 
@@ -21,6 +17,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     [SerializeField] GameObject inventoryUIPrefab;
     [SerializeField] GameObject inventoryChestUIPrefab;
 
+    public event Action OnExitMenu;
     public event Action<int> OnHealthChange;
     public event Action OnDie;
 
@@ -31,8 +28,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
 
     public Inventory Inventory { get; private set; }
 
-    GameObject inventoryUI;
-    GameObject inventoryChestUI;
+    GameObject currentMenu;
 
     bool inventoryOn;
 
@@ -42,9 +38,12 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         controller = GetComponent<PlayerController>();
         controller.OnAttack += HandleAttack;
         controller.OnInventory += HandleInventory;
+        controller.OnExitMenu += ExitMenu;
+        controller.OnInteract += HandleInteract;
         Inventory = new Inventory();
         Inventory.OnWeaponChange += HandleWeaponChange;
-        HandleWeaponChange((WeaponItem)weaponData.CreateItem());
+        WeaponItem starterWeapon = (WeaponItem)weaponData.CreateItem();
+        Inventory.SetWeapon(starterWeapon);
 
     }
 
@@ -75,26 +74,21 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         }
         weaponInstance = Instantiate(weaponItem.ItemData.WeaponPrefab, weaponHolder.transform);
         weaponInstance.transform.localPosition = Vector3.zero;
-        weaponInstance.Initialize(true, weaponItem.Damage, weaponItem.CoolDown, weaponItem.CriticalChance);
-        Inventory.AddItem(weaponItem);
+        weaponInstance.Initialize(true, weaponItem.Damage, weaponItem.Speed, weaponItem.CriticalChance);
+
     }
 
     void HandleInventory() {
-        if (!inventoryOn) {
-            inventoryUI = Instantiate(inventoryUIPrefab);
-            inventoryOn = true;
-        } else {
-            Destroy(inventoryUI);
-            inventoryOn = false;
-
+        if (currentMenu == null) {
+            ShowMenu(inventoryUIPrefab);
         }
 
     }
 
-    public void HandleOpeningChest(List<Item> items) {
-        
-        Debug.Log(items);
+    void HandleInteract(IInteractable interactable) {
+        interactable.Interact(this);
     }
+
 
     void EquipWeapon(Weapon weapon) {
 
@@ -105,6 +99,25 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     void Die() {
         OnDie?.Invoke();
         SceneManager.LoadScene("Prototype");
+    }
+
+    public GameObject ShowMenu(GameObject menuPrefab) {
+        if (currentMenu != null) {
+            return null;
+        }
+        GameObject menu = Instantiate(menuPrefab);
+        currentMenu = menu;
+        return menu;
+    }
+
+    void ExitMenu() {
+        if (currentMenu == null) {
+            return;
+        }
+
+        Debug.Log("Exiting Menu");
+        Destroy(currentMenu);
+        currentMenu = null;
     }
 
 

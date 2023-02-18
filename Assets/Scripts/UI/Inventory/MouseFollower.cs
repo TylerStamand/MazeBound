@@ -18,7 +18,6 @@ public class MouseFollower : MonoBehaviour {
     }
 
     void Update() {
-        Debug.Log(playerController.ScreenMousePos);
         rectTransform.position = new Vector3(playerController.ScreenMousePos.x + offset.x, playerController.ScreenMousePos.y + offset.y, 0);
 
 
