@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         anim = GetComponent<Animator>();
         currentWeapon = Instantiate(weaponData.WeaponPrefab, weaponHolder.transform);
         currentWeapon.transform.localPosition = Vector3.zero;
-        currentWeapon.Initialize(false, weaponData.Damage.GetRandomValue(), weaponData.CoolDown.GetRandomValue(), weaponData.CriticalChance.GetRandomValue());
+        currentWeapon.Initialize(false, weaponData.Damage.GetRandomValue(), weaponData.Speed.GetRandomValue(), weaponData.CriticalChance.GetRandomValue());
     }
 
 
@@ -51,11 +51,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, alertRadius, LayerMask.GetMask(new string[] { "Player" }));
         if (colliders.Length > 0) {
             GameObject target = colliders[0].gameObject;
-            if ((target.transform.position.x - transform.position.x) >= 0) {
-                spriteRenderer.flipX = false;
-            } else {
-                spriteRenderer.flipX = true;
-            }
+
         }
         Move();
     }

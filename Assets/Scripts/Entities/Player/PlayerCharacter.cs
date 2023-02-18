@@ -73,7 +73,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         }
         weaponInstance = Instantiate(weaponItem.ItemData.WeaponPrefab, weaponHolder.transform);
         weaponInstance.transform.localPosition = Vector3.zero;
-        weaponInstance.Initialize(true, weaponItem.Damage, weaponItem.CoolDown, weaponItem.CriticalChance);
+        weaponInstance.Initialize(true, weaponItem.Damage, weaponItem.Speed, weaponItem.CriticalChance);
         Inventory.AddItem(weaponItem);
     }
 
@@ -88,10 +88,6 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         interactable.Interact(this);
     }
 
-    public void HandleOpeningChest(List<Item> items) {
-
-        Debug.Log(items);
-    }
 
     void EquipWeapon(Weapon weapon) {
 
@@ -114,7 +110,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     }
 
     void ExitMenu() {
-        if(currentMenu == null) {
+        if (currentMenu == null) {
             return;
         }
 
