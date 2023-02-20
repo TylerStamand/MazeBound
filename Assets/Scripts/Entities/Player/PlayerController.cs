@@ -19,10 +19,12 @@ public class PlayerController : MonoBehaviour {
     public Direction CurrentDirection { get => Utilities.DirectionFromVector2(inputVector); }
     public Vector2 WorldMousePos { get; private set; }
     new Rigidbody2D rigidbody;
+    Animator animator;
     Vector2 inputVector;
 
     void Awake() {
         rigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     public void OnMove(InputAction.CallbackContext context) {
@@ -53,7 +55,7 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("Trying to Interact");
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.forward, 2f);
             if (hits != null) {
-                foreach(RaycastHit2D hit in hits.ToList()) {
+                foreach (RaycastHit2D hit in hits.ToList()) {
                     Debug.Log("Hit " + hit.collider.gameObject.name);
                     IInteractable interactable = hit.collider.GetComponent<IInteractable>();
                     if (interactable != null) {
@@ -72,6 +74,16 @@ public class PlayerController : MonoBehaviour {
 
     void Update() {
         rigidbody.velocity = inputVector * moveSpeed;
+        UpdateAnimations();
+    }
 
+    void UpdateAnimations() {
+        if (inputVector.x == 0 && inputVector.y == 0)
+            animator.SetBool("isMoving", false);
+        else {
+            animator.SetFloat("x", inputVector.x);
+            animator.SetFloat("y", inputVector.y);
+            animator.SetBool("isMoving", true);
+        }
     }
 }

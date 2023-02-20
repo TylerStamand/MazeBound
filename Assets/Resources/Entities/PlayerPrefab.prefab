@@ -177,7 +177,6 @@ GameObject:
   - component: {fileID: 8465680535696588501}
   - component: {fileID: 4386611266634642433}
   - component: {fileID: 303892931412336642}
-  - component: {fileID: 2257157104989326081}
   m_Layer: 8
   m_Name: PlayerPrefab
   m_TagString: Untagged
@@ -200,7 +199,7 @@ Transform:
   - {fileID: 8465680535385425421}
   - {fileID: 491152715}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8465680535696588504
 SpriteRenderer:
@@ -266,7 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 144310248ebda794d8cd06cbfad7a8ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CurrentHealth>k__BackingField: 5
+  <CurrentHealth>k__BackingField: 50
   weaponData: {fileID: 11400000, guid: 463c08f524fa14f48a529bb931456743, type: 2}
   weaponHolder: {fileID: 8465680535385425422}
   inventoryUIPrefab: {fileID: 2712004918303161845, guid: b119acbfb21c0f24cb2751d56cf0e7be, type: 3}
@@ -430,7 +429,19 @@ MonoBehaviour:
     m_ActionId: 03e76ded-2829-4b01-a095-4bf1534b8867
     m_ActionName: Player/Interact[/Keyboard/f]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8465680535696588499}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: ExitMenu
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 80cd4887-cfc0-46b8-b273-902fafab2f33
     m_ActionName: Player/ExitMenu[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
@@ -622,19 +633,3 @@ MonoBehaviour:
       m_Hash: 0
       m_Sprite: {fileID: -434814197, guid: 5aa00923d60cff24280aee887b9c1e28, type: 3}
   m_SpriteLibraryAsset: {fileID: 0}
---- !u!114 &2257157104989326081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8465680535696588506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 796c5da94bd7c134886e308dc50fa79d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 4386611266634642433}
-  moveSpeed: 150
-  x: 10
-  y: 10
