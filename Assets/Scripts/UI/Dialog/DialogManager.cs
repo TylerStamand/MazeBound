@@ -6,6 +6,7 @@ using System.Linq;
 
 public class DialogManager : MonoBehaviour {
 
+    [SerializeField] Dialog testDialog;
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI dialogText;
     [SerializeField] float typingSpeed;
@@ -17,6 +18,8 @@ public class DialogManager : MonoBehaviour {
 
     void Awake() {
         sentenceQueue = new Queue<string>();
+        StartDialog(testDialog);
+        DisplayNextSentence();
         // playerController.onClick += DisplayNextSentence();
     }
 
@@ -39,13 +42,18 @@ public class DialogManager : MonoBehaviour {
     }
 
     IEnumerator TypeSentence(string sentence) {
+        Debug.Log(sentence);    
+        dialogText.useMaxVisibleDescender = false;
+
         dialogText.text = sentence;
+        dialogText.textInfo.pageInfo[0].lastCharacterIndex = 0;
         dialogText.maxVisibleCharacters = 0;
+
         foreach (char letter in sentence.ToCharArray()) {
+            Debug.Log(dialogText.maxVisibleCharacters);
             dialogText.maxVisibleCharacters++;
-            if (dialogText.firstOverflowCharacterIndex == dialogText.maxVisibleCharacters) {
+            if (dialogText.textInfo.pageInfo[dialogText.pageToDisplay -1].lastCharacterIndex == dialogText.maxVisibleCharacters) {
                 dialogText.pageToDisplay++;
-                dialogText.maxVisibleCharacters = 0;
             }
             yield return new WaitForSeconds(typingSpeed);
         }

@@ -66,9 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: sdasdawdawdawdawdawdawdadawdawdawdawdawdawdaw fsadfsdfsdfsddddddddddddddddddddddddd
-    fdsdfdfsdff s fdsdfsdf fdsfdsfdsssssssss                                ssss        
-    fddd  d            ddfffdsfsfdsfdffsdfsdfsdf   sdfsdfsdffs dfsdf
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -149,6 +147,7 @@ GameObject:
   - component: {fileID: 4510234046706368908}
   - component: {fileID: 4510234046706368911}
   - component: {fileID: 4510234046706368910}
+  - component: {fileID: 8176678536917583072}
   m_Layer: 5
   m_Name: Dialog
   m_TagString: Untagged
@@ -170,7 +169,7 @@ RectTransform:
   m_Children:
   - {fileID: 4510234047040000819}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -239,6 +238,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8176678536917583072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4510234046706368905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969ea206767038f448ddc83cc91b841a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testDialog: {fileID: 11400000, guid: 69b0e1e0e40874c4e8a6feb613be6687, type: 2}
+  nameText: {fileID: 0}
+  dialogText: {fileID: 4510234046295421035}
+  typingSpeed: 0.05
 --- !u!1 &4510234047040000818
 GameObject:
   m_ObjectHideFlags: 0
