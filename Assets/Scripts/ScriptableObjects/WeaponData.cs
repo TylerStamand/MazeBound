@@ -12,9 +12,9 @@ public class WeaponData : ItemData {
     public MinMaxFloat Speed;
     public MinMaxFloat CriticalChance;
 
-    public override Item CreateItem() {
+    public override Item CreateItem(float scale) {
         return new WeaponItem(this,
-        Damage.GetRandomValue(),
+        (int)(Damage.GetRandomValue() * scale) + Damage.MinValue,
         (float)Math.Truncate(Speed.GetRandomValue() * 100) / 100,
         (float)Math.Truncate(CriticalChance.GetRandomValue() * 100) / 100);
     }

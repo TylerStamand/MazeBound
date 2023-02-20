@@ -56,6 +56,10 @@ public class Enemy : MonoBehaviour, IDamageable {
         Move();
     }
 
+    public void Initialize(float scale) {
+        
+    }
+
     public void TakeDamage(int damageDealt) {
         CurrentHealth -= damageDealt;
 

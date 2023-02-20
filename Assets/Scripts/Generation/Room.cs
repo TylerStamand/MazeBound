@@ -46,7 +46,7 @@ public class Room : MonoBehaviour {
         //Spawns the chests for the room
         foreach (Chest chest in GetComponentsInChildren<Chest>()) {
             if (UnityEngine.Random.Range(0, 2) > .50) {
-                chest.Items.Insert(UnityEngine.Random.Range(0, Chest.ChestSize), itemForChest.CreateItem());
+                chest.Items.Insert(UnityEngine.Random.Range(0, Chest.ChestSize), itemForChest.CreateItem((float)roomLevel / DungeonGenerator.MaxRoomScale));
             } else Destroy(chest.gameObject);
 
         }

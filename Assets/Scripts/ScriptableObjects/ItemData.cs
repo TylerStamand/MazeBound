@@ -12,7 +12,7 @@ public abstract class ItemData : ScriptableObject {
     [field: SerializeField] public string Description { get; private set; }
     [field: SerializeField] public Sprite Sprite { get; private set; }
 
-    public abstract Item CreateItem();
+    public abstract Item CreateItem(float scale);
 }
 
 // Item Types enum

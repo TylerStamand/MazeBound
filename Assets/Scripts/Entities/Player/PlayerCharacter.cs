@@ -42,7 +42,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         controller.OnInteract += HandleInteract;
         Inventory = new Inventory();
         Inventory.OnWeaponChange += HandleWeaponChange;
-        WeaponItem starterWeapon = (WeaponItem)weaponData.CreateItem();
+        WeaponItem starterWeapon = (WeaponItem)weaponData.CreateItem(0);
         Inventory.SetWeapon(starterWeapon);
 
     }
