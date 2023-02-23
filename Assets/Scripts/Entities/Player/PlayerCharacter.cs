@@ -36,7 +36,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
 
     void Awake() {
         controller = GetComponent<PlayerController>();
-        controller.OnAttack += HandleAttack;
+        controller.OnClick += HandleAttack;
         controller.OnInventory += HandleInventory;
         controller.OnExitMenu += ExitMenu;
         controller.OnInteract += HandleInteract;

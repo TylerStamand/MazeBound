@@ -9,8 +9,9 @@ public class PlayerController : MonoBehaviour {
 
 
     [SerializeField] float moveSpeed;
+    [SerializeField] float interactDistance;
 
-    public event Action OnAttack;
+    public event Action OnClick;
     public event Action OnExitMenu;
     public event Action<IInteractable> OnInteract;
     public event Action OnInventory;
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour {
 
     public void OnMove(InputAction.CallbackContext context) {
         inputVector = context.ReadValue<Vector2>();
+        Debug.Log(transform.forward);
 
     }
 
@@ -37,9 +39,9 @@ public class PlayerController : MonoBehaviour {
         WorldMousePos = Camera.main.ScreenToWorldPoint(ScreenMousePos);
     }
 
-    public void OnFire(InputAction.CallbackContext context) {
+    public void Click(InputAction.CallbackContext context) {
         if (context.performed) {
-            OnAttack?.Invoke();
+            OnClick?.Invoke();
         }
     }
 
@@ -53,7 +55,9 @@ public class PlayerController : MonoBehaviour {
     public void Interact(InputAction.CallbackContext context) {
         if (context.performed) {
             Debug.Log("Trying to Interact");
-            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.forward, 2f);
+
+            //Use tranform.right or tranform.up depending on the direction the player is facing
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.forward, interactDistance);
             if (hits != null) {
                 foreach (RaycastHit2D hit in hits.ToList()) {
                     Debug.Log("Hit " + hit.collider.gameObject.name);
@@ -74,6 +78,7 @@ public class PlayerController : MonoBehaviour {
 
     void Update() {
         rigidbody.velocity = inputVector * moveSpeed;
+        //Update Player Direction
         UpdateAnimations();
     }
 
@@ -85,5 +90,10 @@ public class PlayerController : MonoBehaviour {
             animator.SetFloat("y", inputVector.y);
             animator.SetBool("isMoving", true);
         }
+    }
+
+    void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, transform.forward * interactDistance);
     }
 }

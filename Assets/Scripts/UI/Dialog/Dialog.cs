@@ -7,7 +7,7 @@ using UnityEngine;
 public class Dialog : ScriptableObject {
     public bool IsChoice { get; private set; }
 
-    [TextArea(5, 10)]
+    [TextArea(5, 5)]
     public List<string> Sentences;
 
     public List<string> YesDialog;

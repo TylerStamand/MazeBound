@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using System.Linq;
 using System;
+using System.Text.RegularExpressions;
 
 public class DialogManager : MonoBehaviour {
 
@@ -14,7 +15,7 @@ public class DialogManager : MonoBehaviour {
 
     [SerializeField] GameObject choiceButtonsPrefab;
 
-    public event Action<bool> OnFinish;
+    public event Action<bool> OnDialogComplete;
 
 
 
@@ -26,12 +27,13 @@ public class DialogManager : MonoBehaviour {
 
     void Awake() {
         sentenceQueue = new Queue<string>();
-        SetDialog(testDialog);
-        // playerController.onClick += DisplayNextSentence();
+        SetDialog(testDialog, "Test");
+        playerController.OnClick += HandlePlayerClick;
     }
 
-    public void SetDialog(Dialog dialog) {
+    public void SetDialog(Dialog dialog, string name) {
         this.dialog = dialog;
+        dialogText.text = name;
         showChoice = dialog.IsChoice;
         StartDialog(dialog.Sentences);
     }
@@ -59,7 +61,7 @@ public class DialogManager : MonoBehaviour {
             showChoice = false;
         } else {
             //Dialog is finished
-            OnFinish?.Invoke(choiceMade);
+            OnDialogComplete?.Invoke(choiceMade);
         }
     }
 
@@ -67,7 +69,7 @@ public class DialogManager : MonoBehaviour {
         Debug.Log(sentence);
         dialogText.useMaxVisibleDescender = false;
 
-        dialogText.text = sentence;
+        dialogText.text = Regex.Replace(sentence, @"\t|\n|\r", ""); ;
         dialogText.textInfo.pageInfo[0].lastCharacterIndex = 0;
         dialogText.maxVisibleCharacters = 0;
 
@@ -90,5 +92,9 @@ public class DialogManager : MonoBehaviour {
             //No
             StartDialog(dialog.NoDialog);
         }
+    }
+
+    void HandlePlayerClick() {
+        dialogText.pageToDisplay++;
     }
 }

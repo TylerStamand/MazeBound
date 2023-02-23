@@ -283,6 +283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 4
+  interactDistance: 3
 --- !u!114 &8465680535696588500
 MonoBehaviour:
   m_ObjectHideFlags: 0

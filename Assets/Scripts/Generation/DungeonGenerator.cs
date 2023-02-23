@@ -262,13 +262,12 @@ public class DungeonGenerator : MonoBehaviour {
                     //IDK WHY THE OFFSET FOR THIS IS DIFFERENT THAN THE OTHER ONE, LOOK AT THIS LATER
                     worldCellPos = new Vector2(worldCellPos.x - .5f + 1, worldCellPos.y + .5f);
                     Collider2D collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
-
-                    if (collider != null) {
+                    Tilemap collidedTilemap = collider?.GetComponent<Tilemap>();
+                    if (collidedTilemap != null) {
                         if (collider.gameObject.name == "FloorTile") {
                             activeLanes[j] = false;
                             continue;
                         } else {
-                            Tilemap collidedTilemap = collider.GetComponent<Tilemap>();
                             collidedTilemap.SetTile(collidedTilemap.WorldToCell(worldCellPos), null);
 
                             //Do a second check for collision a tile ahead to determine if it should put down a corner

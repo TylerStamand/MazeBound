@@ -13,5 +13,10 @@ MonoBehaviour:
   m_Name: Dialog
   m_EditorClassIdentifier: 
   Sentences:
-  - This is some test Dialog
-  - This is some other test dialog
+  - '
+
+    this
+
+    sfe'
+  YesDialog: []
+  NoDialog: []
