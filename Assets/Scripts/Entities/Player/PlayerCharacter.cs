@@ -122,6 +122,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         dialogManager.SetDialog(dialog, name);
         dialogManager.OnDialogComplete += (x) => {
             Destroy(dialogManager.gameObject);
+            currentMenu = null;
         };
         return dialogManager.gameObject;
     }

@@ -36,7 +36,8 @@ public class WeaponItem : Item {
 
     //TODO: format this to be part right justified
     public override string GetDescription() {
-        string description = $"Damage: {Damage.ToString("N", CultureInfo.CurrentCulture)} Lvl: {DamageLevel}\n";
+        string description = "";
+        description += $"Damage: {Damage.ToString("N", CultureInfo.CurrentCulture)} Lvl: {DamageLevel}\n";
         description += $"Speed: {Speed} Lvl: {SpeedLevel}\n";
         description += $"CriticalChange: {CriticalChance} Lvl: {CriticalChanceLevel}\n";
 

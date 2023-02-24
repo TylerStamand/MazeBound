@@ -68,19 +68,28 @@ public class DialogManager : MonoBehaviour {
         Debug.Log(sentence);
         dialogText.useMaxVisibleDescender = false;
 
-        dialogText.text = Regex.Replace(sentence, @"\t|\n|\r", ""); ;
-        dialogText.textInfo.pageInfo[0].lastCharacterIndex = 0;
-        dialogText.maxVisibleCharacters = 0;
+        dialogText.text = Regex.Replace(sentence, @"\t|\n|\r", "");
+        //This is here because the page count on dialogText is not updated until the next frame
+        yield return null;
 
-        for (int i = 0; i < sentence.Length;) {
-            dialogText.maxVisibleCharacters++;
-            if (dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex == dialogText.maxVisibleCharacters) {
-                    Debug.Log("Waiting for player click");
-                    yield return null;
-            }else {
-                i++;
+        for (dialogText.maxVisibleCharacters = 0; dialogText.maxVisibleCharacters < sentence.Length;) {
+
+            //Exit coroutine when all pages are displayed
+            if (dialogText.pageToDisplay > dialogText.textInfo.pageCount) {
+                yield break;
             }
-            Debug.Log("Waiting for typing speed");
+            //Pauses dialog until player clicks
+            else if (dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex == dialogText.maxVisibleCharacters) {
+                Debug.Log("Waiting for player click");
+                yield return null;
+            }
+            //Increment the number of visible characters
+            else {
+                Debug.Log("Incrementing i");
+                dialogText.maxVisibleCharacters++;
+            }
+
+            //Slow down the speed of the dialog
             yield return new WaitForSeconds(typingSpeed);
         }
 
@@ -98,10 +107,15 @@ public class DialogManager : MonoBehaviour {
     }
 
     void HandlePlayerClick() {
-        Debug.Log("Handling player click on dialog");
-        dialogText.maxVisibleCharacters = dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex;
+        //If the player clicks and not all characters on page are displayed, display all characters on page
+        if(dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex != dialogText.maxVisibleCharacters) {
+            dialogText.maxVisibleCharacters = dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex;
+            return;
+        }
+        
+        //Otherwise, display the next page
         dialogText.pageToDisplay++;
-        if (dialogText.pageToDisplay >= dialogText.textInfo.pageCount) {
+        if (dialogText.pageToDisplay > dialogText.textInfo.pageCount) {
             playerController.OnClick -= HandlePlayerClick;
         }
     }

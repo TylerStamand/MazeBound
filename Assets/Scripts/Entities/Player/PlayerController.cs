@@ -81,7 +81,6 @@ public class PlayerController : MonoBehaviour {
 
     void Update() {
         rigidbody.velocity = inputVector * moveSpeed;
-
         if (inputVector.x > 0) {
             direction = Direction.East;
         } else if (inputVector.x < 0) {
@@ -102,15 +101,10 @@ public class PlayerController : MonoBehaviour {
             animator.SetBool("isMoving", false);
         else {
             Vector2 directionVector = Utilities.GetDirectionVectorFromDirection(direction);
-
-            animator.SetFloat('x', directionVector.x);
-            animator.SetFloat('y', directionVector.y);
+            animator.SetFloat("x", directionVector.x);
+            animator.SetFloat("y", directionVector.y);
             animator.SetBool("isMoving", true);
         }
     }
 
-    void OnDrawGizmos() {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, transform.forward * interactDistance);
-    }
 }

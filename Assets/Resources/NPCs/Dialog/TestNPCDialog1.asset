@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: TestNPCDialog1
   m_EditorClassIdentifier: 
   Sentences:
-  - This is some test Dialog. I am testing this for fun. Here are some fun fa
+  - "This is some test Dialog. I am testing this for \nfun. Here are some fun texts
+    blah blas s efks s sd sfiel\nlsfi fiwe  sefns s sosf sjseflsef sisdf sdlsdf sdfisn\nsdjsdie
+    sdi f sd fsjsdf sdinsjsodf wowefjisd sjsdifwlef ss fsd sdf \nsdf sdif sdfjisdfdjfs
+    s s s sdf sdifsdf "
   YesDialog: []
   NoDialog: []
