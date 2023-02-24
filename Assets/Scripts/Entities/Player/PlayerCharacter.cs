@@ -16,6 +16,8 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     [SerializeField] GameObject weaponHolder;
     [SerializeField] GameObject inventoryUIPrefab;
     [SerializeField] GameObject inventoryChestUIPrefab;
+    [SerializeField] GameObject dialogManagerPrefab;
+
 
     public event Action OnExitMenu;
     public event Action<int> OnHealthChange;
@@ -29,6 +31,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     public Inventory Inventory { get; private set; }
 
     GameObject currentMenu;
+    
 
     bool inventoryOn;
 
@@ -108,6 +111,19 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         GameObject menu = Instantiate(menuPrefab);
         currentMenu = menu;
         return menu;
+    }
+
+    public GameObject ShowDialog(Dialog dialog, string name) {
+        if (currentMenu != null) {
+            return null;
+        }
+        currentMenu = Instantiate(dialogManagerPrefab);
+        DialogManager dialogManager = currentMenu.GetComponent<DialogManager>();
+        dialogManager.SetDialog(dialog, name);
+        dialogManager.OnDialogComplete += (x) => {
+            Destroy(dialogManager.gameObject);
+        };
+        return dialogManager.gameObject;
     }
 
     void ExitMenu() {

@@ -12,7 +12,6 @@ public class DialogManager : MonoBehaviour {
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI dialogText;
     [SerializeField] float typingSpeed;
-
     [SerializeField] GameObject choiceButtonsPrefab;
 
     public event Action<bool> OnDialogComplete;
@@ -27,7 +26,8 @@ public class DialogManager : MonoBehaviour {
 
     void Awake() {
         sentenceQueue = new Queue<string>();
-        SetDialog(testDialog, "Test");
+        //SetDialog(testDialog, "Test");
+        playerController = FindObjectOfType<PlayerController>();
         playerController.OnClick += HandlePlayerClick;
     }
 
@@ -48,9 +48,8 @@ public class DialogManager : MonoBehaviour {
 
     IEnumerator DisplayDialog() {
 
-        StopAllCoroutines();
         yield return StartCoroutine(TypeSentence(sentenceQueue.Dequeue()));
-
+        Debug.Log("Finished dispalying dialog");
         if (showChoice) {
             //Bring up choice buttons
             ChoiceButtons choiceButtons = Instantiate(choiceButtonsPrefab, transform).GetComponent<ChoiceButtons>();
@@ -73,14 +72,18 @@ public class DialogManager : MonoBehaviour {
         dialogText.textInfo.pageInfo[0].lastCharacterIndex = 0;
         dialogText.maxVisibleCharacters = 0;
 
-        foreach (char letter in sentence.ToCharArray()) {
-            Debug.Log(dialogText.maxVisibleCharacters);
+        for (int i = 0; i < sentence.Length;) {
             dialogText.maxVisibleCharacters++;
             if (dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex == dialogText.maxVisibleCharacters) {
-                dialogText.pageToDisplay++;
+                    Debug.Log("Waiting for player click");
+                    yield return null;
+            }else {
+                i++;
             }
+            Debug.Log("Waiting for typing speed");
             yield return new WaitForSeconds(typingSpeed);
         }
+
     }
 
     void HandleChoiceMade(bool choice) {
@@ -95,6 +98,11 @@ public class DialogManager : MonoBehaviour {
     }
 
     void HandlePlayerClick() {
+        Debug.Log("Handling player click on dialog");
+        dialogText.maxVisibleCharacters = dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex;
         dialogText.pageToDisplay++;
+        if (dialogText.pageToDisplay >= dialogText.textInfo.pageCount) {
+            playerController.OnClick -= HandlePlayerClick;
+        }
     }
 }

@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour {
     new Rigidbody2D rigidbody;
     Animator animator;
     Vector2 inputVector;
+    Direction direction;
 
     void Awake() {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -30,7 +31,6 @@ public class PlayerController : MonoBehaviour {
 
     public void OnMove(InputAction.CallbackContext context) {
         inputVector = context.ReadValue<Vector2>();
-        Debug.Log(transform.forward);
 
     }
 
@@ -57,7 +57,10 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("Trying to Interact");
 
             //Use tranform.right or tranform.up depending on the direction the player is facing
-            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.forward, interactDistance);
+
+            Vector2 directionVector = Utilities.GetDirectionVectorFromDirection(direction);
+
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, directionVector, interactDistance);
             if (hits != null) {
                 foreach (RaycastHit2D hit in hits.ToList()) {
                     Debug.Log("Hit " + hit.collider.gameObject.name);
@@ -78,6 +81,18 @@ public class PlayerController : MonoBehaviour {
 
     void Update() {
         rigidbody.velocity = inputVector * moveSpeed;
+
+        if (inputVector.x > 0) {
+            direction = Direction.East;
+        } else if (inputVector.x < 0) {
+            direction = Direction.West;
+        } else if (inputVector.y > 0) {
+            direction = Direction.North;
+        } else if (inputVector.y < 0) {
+            direction = Direction.South;
+        }
+
+
         //Update Player Direction
         UpdateAnimations();
     }
@@ -86,8 +101,10 @@ public class PlayerController : MonoBehaviour {
         if (inputVector.x == 0 && inputVector.y == 0)
             animator.SetBool("isMoving", false);
         else {
-            animator.SetFloat("x", inputVector.x);
-            animator.SetFloat("y", inputVector.y);
+            Vector2 directionVector = Utilities.GetDirectionVectorFromDirection(direction);
+
+            animator.SetFloat('x', directionVector.x);
+            animator.SetFloat('y', directionVector.y);
             animator.SetBool("isMoving", true);
         }
     }

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour, IInteractable {
     [field: SerializeField] public string Name { get; private set; }
-    [SerializeField] GameObject dialogManagerPrefab;
     [SerializeField] Dialog MazeEncounterDialog;
     [SerializeField] Dialog HubFirstEncounterDialog;
     [SerializeField] Dialog[] PuzzlePieceDialog = new Dialog[3];
@@ -16,19 +15,32 @@ public class NPC : MonoBehaviour, IInteractable {
 
 
     public virtual void Interact(PlayerCharacter playerCharacter) {
-        DialogManager dialogManager = Instantiate(dialogManagerPrefab).GetComponent<DialogManager>();
         if (!mazeEncounterComplete) {
-            dialogManager.OnDialogComplete += (x) => mazeEncounterComplete = true;
-            dialogManager.SetDialog(MazeEncounterDialog, Name);
+            //Check if there is dialog to show
+            if (MazeEncounterDialog == null) return;
+
+            //Create the dialog manager and set the dialog
+            DialogManager dialogManager = playerCharacter.ShowDialog(MazeEncounterDialog, Name)?.GetComponent<DialogManager>();
+            if (dialogManager != null)
+                dialogManager.OnDialogComplete += (x) => mazeEncounterComplete = true;
+
+
         } else if (!hubFirstEncounterComplete) {
-            dialogManager.OnDialogComplete += (x) => hubFirstEncounterComplete = true;
-            dialogManager.SetDialog(HubFirstEncounterDialog, Name);
+            //Check if there is dialog to show
+            if (HubFirstEncounterDialog == null) return;
+
+            //Create the dialog manager and set the dialog
+            DialogManager dialogManager = playerCharacter.ShowDialog(HubFirstEncounterDialog, Name)?.GetComponent<DialogManager>();
+            if (dialogManager != null)
+                dialogManager.OnDialogComplete += (x) => hubFirstEncounterComplete = true;
         }
           // else if (playerCharacter.PuzzlePiecesCollected < 3) {
           //     Instantiate(dialogManagerPrefab).GetComponent<DialogManager>().SetDialog(PuzzlePieceDialog[playerCharacter.PuzzlePiecesCollected]);
           // }
           else {
-            Instantiate(dialogManagerPrefab).GetComponent<DialogManager>().SetDialog(GeneralDialog[UnityEngine.Random.Range(0, GeneralDialog.Count)], Name);
+            if (GeneralDialog.Count == 0) return;
+            playerCharacter.ShowDialog(GeneralDialog[UnityEngine.Random.Range(0, GeneralDialog.Count)], Name);
+
         }
 
     }

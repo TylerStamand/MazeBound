@@ -278,7 +278,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'This test text how high are you no officer it''s hi how are you. jkjk '
+  m_text: This is some test Dialog. I am testing this for fun. Here are some fun
+    fa
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -339,7 +340,7 @@ MonoBehaviour:
   m_geometrySortingOrder: 0
   m_IsTextObjectScaleStatic: 0
   m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
+  m_useMaxVisibleDescender: 0
   m_pageToDisplay: 1
   m_margin: {x: 16, y: 16, z: 16, w: 16}
   m_isUsingLegacyAnimationComponent: 0
@@ -359,6 +360,7 @@ GameObject:
   - component: {fileID: 4510234046706368908}
   - component: {fileID: 4510234046706368911}
   - component: {fileID: 4510234046706368910}
+  - component: {fileID: -5217298819662625606}
   m_Layer: 5
   m_Name: Dialog
   m_TagString: Untagged
@@ -449,6 +451,23 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &-5217298819662625606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4510234046706368905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969ea206767038f448ddc83cc91b841a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testDialog: {fileID: 0}
+  nameText: {fileID: 1881829567}
+  dialogText: {fileID: 4510234046295421035}
+  typingSpeed: 0.01
+  choiceButtonsPrefab: {fileID: 8239026160492091964, guid: 9854b7bbdf7d1e344b1bc9c21826f476, type: 3}
 --- !u!1 &4510234047040000818
 GameObject:
   m_ObjectHideFlags: 0
