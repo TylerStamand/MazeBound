@@ -100,7 +100,6 @@ public class InventoryUIController : MonoBehaviour {
 
             Item item = items[i];
             if (item != null) {
-                Debug.Log("Item Does not equal null");
                 slot.SetItem(item);
             }
         }
@@ -189,17 +188,8 @@ public class InventoryUIController : MonoBehaviour {
 
 
     void SetInventoryOrder() {
-        List<string> itemIDs = new List<string>();
-        foreach (Item item in items) {
-
-            if (item == null)
-                itemIDs.Add(null);
-            else
-                itemIDs.Add(item.ItemID);
-
-
-        }
-        inventory.SetItemOrder(itemIDs);
+        Debug.Log("Setting Inventory Order");
+        inventory.SetItems(items);
     }
 
 }
