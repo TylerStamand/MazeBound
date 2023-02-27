@@ -15,7 +15,7 @@ public class NPC : MonoBehaviour, IInteractable {
 
 
     public virtual void Interact(PlayerCharacter playerCharacter) {
-        if (!mazeEncounterComplete) {
+        if (!mazeEncounterComplete && MazeEncounterDialog != null) {
             //Check if there is dialog to show
             if (MazeEncounterDialog == null) return;
 
@@ -25,7 +25,7 @@ public class NPC : MonoBehaviour, IInteractable {
                 dialogManager.OnDialogComplete += (x) => mazeEncounterComplete = true;
 
 
-        } else if (!hubFirstEncounterComplete) {
+        } else if (!hubFirstEncounterComplete && HubFirstEncounterDialog != null) {
             //Check if there is dialog to show
             if (HubFirstEncounterDialog == null) return;
 

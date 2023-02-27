@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Dialog
   m_EditorClassIdentifier: 
   Sentences:
-  - '
+  - "This is a test choice dialog. Please click yes \nor no when it pops up."
+  <IsChoice>k__BackingField: 1
+  YesDialog:
+  - "You clicked yes congragulations. bla asdf asdf sd f sdsd s\ns sdf s sf d sdf
+    sdf sdfsdfs s fsfdssdf  sd sd sdfsdf\nsdf sdfisdfjs sdfjisllsdf sdisdflsdfji\t"
+  NoDialog:
+  - 'You clicked no, this is sad but okay blas sad fs
 
-    this
+    sf sdlsdfsd sdjksdfls
+    sdifsndf sdfisdlfej sdf lsdf e
 
-    sfe'
-  YesDialog: []
-  NoDialog: []
+    ssdfjsdie sdf sdjfisl sdfl sdflsdf isd fsdfjskdlf '

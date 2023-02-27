@@ -31,6 +31,11 @@ public class DialogManager : MonoBehaviour {
         playerController.OnClick += HandlePlayerClick;
     }
 
+    void OnDestroy() {
+        playerController.OnClick -= HandlePlayerClick;
+        StopAllCoroutines();
+    }
+
     public void SetDialog(Dialog dialog, string name) {
         this.dialog = dialog;
         dialogText.text = name;
@@ -41,7 +46,7 @@ public class DialogManager : MonoBehaviour {
     public void StartDialog(List<String> sentences) {
 
         sentenceQueue.Clear();
-        dialog.Sentences.ForEach(x => sentenceQueue.Enqueue(x));
+        sentences.ForEach(x => sentenceQueue.Enqueue(x));
         StartCoroutine(DisplayDialog());
 
     }
@@ -52,7 +57,7 @@ public class DialogManager : MonoBehaviour {
         Debug.Log("Finished dispalying dialog");
         if (showChoice) {
             //Bring up choice buttons
-            ChoiceButtons choiceButtons = Instantiate(choiceButtonsPrefab, transform).GetComponent<ChoiceButtons>();
+            ChoiceButtons choiceButtons = Instantiate(choiceButtonsPrefab).GetComponent<ChoiceButtons>();
             choiceButtons.OnChoiceMade += HandleChoiceMade;
             choiceButtons.OnChoiceMade += (x) => Destroy(choiceButtons.gameObject);
 
@@ -69,14 +74,18 @@ public class DialogManager : MonoBehaviour {
         dialogText.useMaxVisibleDescender = false;
 
         dialogText.text = Regex.Replace(sentence, @"\t|\n|\r", "");
+        dialogText.pageToDisplay = 1;
+        dialogText.maxVisibleCharacters = 0;
         //This is here because the page count on dialogText is not updated until the next frame
         yield return null;
 
-        for (dialogText.maxVisibleCharacters = 0; dialogText.maxVisibleCharacters < sentence.Length;) {
+        while (dialogText.maxVisibleCharacters < sentence.Length) {
 
             //Exit coroutine when all pages are displayed
             if (dialogText.pageToDisplay > dialogText.textInfo.pageCount) {
+                Debug.Log("Finished displaying all pages");
                 yield break;
+
             }
             //Pauses dialog until player clicks
             else if (dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex == dialogText.maxVisibleCharacters) {
@@ -85,7 +94,7 @@ public class DialogManager : MonoBehaviour {
             }
             //Increment the number of visible characters
             else {
-                Debug.Log("Incrementing i");
+                Debug.Log("Incrementing visible characters");
                 dialogText.maxVisibleCharacters++;
             }
 
@@ -97,6 +106,7 @@ public class DialogManager : MonoBehaviour {
 
     void HandleChoiceMade(bool choice) {
         choiceMade = choice;
+        Debug.Log("Choice made: " + choice);
         if (choice) {
             //Yes
             StartDialog(dialog.YesDialog);
@@ -108,15 +118,13 @@ public class DialogManager : MonoBehaviour {
 
     void HandlePlayerClick() {
         //If the player clicks and not all characters on page are displayed, display all characters on page
-        if(dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex != dialogText.maxVisibleCharacters) {
+        if (dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex != dialogText.maxVisibleCharacters) {
             dialogText.maxVisibleCharacters = dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex;
             return;
         }
-        
+
         //Otherwise, display the next page
         dialogText.pageToDisplay++;
-        if (dialogText.pageToDisplay > dialogText.textInfo.pageCount) {
-            playerController.OnClick -= HandlePlayerClick;
-        }
+
     }
 }
