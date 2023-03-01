@@ -20,9 +20,7 @@ public class Room : MonoBehaviour {
     bool playerEnteredRoom;
     int EnemiesLeft;
 
-    public static Vector2 GetRoomOffset(Vector2 a, Vector2 b) {
-        return new Vector2(a.x - b.x, a.y - b.y);
-    }
+
 
     void Awake() {
         roomEnemies = new List<Enemy>();

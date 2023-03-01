@@ -17,6 +17,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     [SerializeField] GameObject inventoryUIPrefab;
     [SerializeField] GameObject inventoryChestUIPrefab;
     [SerializeField] GameObject dialogManagerPrefab;
+    [SerializeField] GameObject aimArrow;
 
 
     public event Action OnExitMenu;
@@ -31,10 +32,10 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     public Inventory Inventory { get; private set; }
 
     GameObject currentMenu;
-    
+
 
     bool inventoryOn;
-
+    Direction currentDirection;
     Weapon weaponInstance;
 
     void Awake() {
@@ -50,6 +51,12 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
 
     }
 
+    void Update() {
+        UpdateDirection();
+        aimArrow.transform.eulerAngles = Utilities.GetAngleFromDirection(currentDirection);
+
+    }
+
 
     public void TakeDamage(int damageDealt) {
         CurrentHealth -= damageDealt;
@@ -62,13 +69,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
 
     void HandleAttack() {
 
-        Vector2 difference = Room.GetRoomOffset(controller.WorldMousePos, transform.position);
-        float angle = (int)Vector2.Angle(difference, Vector2.right);
-        if (difference.y < 0) {
-            angle = -angle;
-        }
-        Direction direction = Utilities.GetDirectionFromAngle(angle);
-        weaponInstance.Use(direction);
+        weaponInstance.Use(currentDirection);
     }
 
     void HandleWeaponChange(WeaponItem weaponItem) {
@@ -135,6 +136,15 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         Debug.Log("Exiting Menu");
         Destroy(currentMenu);
         currentMenu = null;
+    }
+
+    void UpdateDirection() {
+        Vector2 difference = controller.WorldMousePos.Difference(transform.position);
+        float angle = (int)Vector2.Angle(difference, Vector2.right);
+        if (difference.y < 0) {
+            angle = -angle;
+        }
+        currentDirection = Utilities.GetDirectionFromAngle(angle);
     }
 
 
