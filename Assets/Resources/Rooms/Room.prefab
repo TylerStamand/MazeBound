@@ -1488,7 +1488,7 @@ GameObject:
   - component: {fileID: 384430485776953748}
   - component: {fileID: 384430485776953745}
   - component: {fileID: 384430485776953750}
-  - component: {fileID: 384430485776953751}
+  - component: {fileID: 8387971159215494477}
   m_Layer: 6
   m_Name: WallTile
   m_TagString: Untagged
@@ -2130,7 +2130,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!19719996 &384430485776953751
+--- !u!19719996 &8387971159215494477
 TilemapCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

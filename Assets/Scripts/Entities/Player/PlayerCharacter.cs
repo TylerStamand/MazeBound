@@ -58,7 +58,9 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     }
 
 
-    public void TakeDamage(int damageDealt) {
+    public void TakeDamage(int damageDealt, DamageType damageType, float knockback = 1) {
+        //TODO: Add damage type
+
         CurrentHealth -= damageDealt;
         OnHealthChange?.Invoke(CurrentHealth);
         if (CurrentHealth <= 0) {

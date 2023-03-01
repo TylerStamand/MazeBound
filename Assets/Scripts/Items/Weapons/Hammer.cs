@@ -74,23 +74,28 @@ public class Hammer : Weapon {
 
         //This uses the special half circle collider to check for collisions
         Physics2D.OverlapCollider(collider, new ContactFilter2D().NoFilter(), colliders);
-        
+
         //Turns off the sprite and collider
         collider.enabled = false;
         spriteRenderer.enabled = false;
 
         inUse = false;
 
-        
+
         foreach (Collider2D collider in colliders) {
             IDamageable damageable = collider.gameObject.GetComponent<IDamageable>();
+
+            // Keeps Enemies from hitting each other
+            if (!playerWeapon && collider.GetComponent<Enemy>() != null)
+                continue;
+
             if (damageable != null) {
 
                 // Keeps Enemies from hitting each other
                 if (!playerWeapon && collider.GetComponent<Enemy>() != null)
                     continue;
 
-                damageable.TakeDamage(Damage);
+                damageable.TakeDamage(Damage, DamageType.Default, 1);
             }
         }
     }

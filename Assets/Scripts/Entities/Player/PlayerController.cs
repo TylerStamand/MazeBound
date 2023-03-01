@@ -27,6 +27,31 @@ public class PlayerController : MonoBehaviour {
     void Awake() {
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        ScreenMousePos = new Vector2();
+        WorldMousePos = new Vector2();
+        inputVector = new Vector2();
+        direction = Direction.North;
+    }
+
+    void Update() {
+        rigidbody.velocity = inputVector * moveSpeed;
+        if (inputVector.x > 0) {
+            direction = Direction.East;
+        } else if (inputVector.x < 0) {
+            direction = Direction.West;
+        } else if (inputVector.y > 0) {
+            direction = Direction.North;
+        } else if (inputVector.y < 0) {
+            direction = Direction.South;
+        }
+
+
+        //Update Player Direction
+        UpdateAnimations();
+    }
+
+    void OnDestroy() {
+        StopAllCoroutines();
     }
 
     public void OnMove(InputAction.CallbackContext context) {
@@ -36,7 +61,8 @@ public class PlayerController : MonoBehaviour {
 
     public void OnAim(InputAction.CallbackContext context) {
         ScreenMousePos = context.ReadValue<Vector2>();
-        WorldMousePos = Camera.main.ScreenToWorldPoint(ScreenMousePos);
+        if (Camera.main != null)
+            WorldMousePos = Camera.main.ScreenToWorldPoint(ScreenMousePos);
     }
 
     public void Click(InputAction.CallbackContext context) {
@@ -79,22 +105,7 @@ public class PlayerController : MonoBehaviour {
         OnExitMenu?.Invoke();
     }
 
-    void Update() {
-        rigidbody.velocity = inputVector * moveSpeed;
-        if (inputVector.x > 0) {
-            direction = Direction.East;
-        } else if (inputVector.x < 0) {
-            direction = Direction.West;
-        } else if (inputVector.y > 0) {
-            direction = Direction.North;
-        } else if (inputVector.y < 0) {
-            direction = Direction.South;
-        }
 
-
-        //Update Player Direction
-        UpdateAnimations();
-    }
 
     void UpdateAnimations() {
         if (inputVector.x == 0 && inputVector.y == 0)

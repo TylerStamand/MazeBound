@@ -6,6 +6,10 @@ using UnityEngine;
 //Attack
 //Critical change (Defense doesnt count)
 
+public enum DamageType {
+    Default
+}
+
 public abstract class Weapon : MonoBehaviour {
 
 

@@ -14,7 +14,7 @@ public class Sword : Weapon {
             if (!playerWeapon && collider.GetComponent<Enemy>() != null)
                 return;
 
-            damageable.TakeDamage(Damage);
+            damageable.TakeDamage(Damage, DamageType.Default, 1);
         }
     }
 
