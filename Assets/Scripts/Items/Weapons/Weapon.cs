@@ -8,8 +8,6 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour {
 
-    [SerializeField] protected float AnimationLength = 0.3f;
-
 
     public float Speed { get; private set; }
     public int Damage { get; private set; }
@@ -29,7 +27,7 @@ public abstract class Weapon : MonoBehaviour {
         }
     }
 
-    void Awake() {
+    protected virtual void Awake() {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         collider = GetComponentInChildren<Collider2D>();
         initialized = false;

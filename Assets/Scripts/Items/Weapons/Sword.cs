@@ -31,7 +31,7 @@ public class Sword : Weapon {
         //Gets Angle from direction, then subtracts 90 degrees to make it a wider rotation
         transform.parent.DOKill();
         transform.parent.eulerAngles = Utilities.GetAngleFromDirection(direction) - new Vector3(0, 0, 90);
-        transform.parent.DORotate(new Vector3(0, 0, transform.parent.eulerAngles.z + 179), Speed).onComplete +=
+        transform.parent.DORotate(new Vector3(0, 0, transform.parent.eulerAngles.z + 179), 1/Speed).onComplete +=
             () => {
                 transform.parent.eulerAngles = Utilities.GetAngleFromDirection(direction);
                 spriteRenderer.enabled = false;
