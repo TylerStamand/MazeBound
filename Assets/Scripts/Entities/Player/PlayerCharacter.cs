@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +13,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     [SerializeField] bool canDie = true;
     [field: SerializeField] public int CurrentHealth { get; private set; }
 
+    [Required]
     [SerializeField] WeaponData weaponData;
     [SerializeField] GameObject weaponHolder;
     [SerializeField] GameObject inventoryUIPrefab;
@@ -32,9 +34,8 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     public Inventory Inventory { get; private set; }
 
     GameObject currentMenu;
+    bool canExitMenu;
 
-
-    bool inventoryOn;
     Direction currentDirection;
     Weapon weaponInstance;
 
@@ -74,6 +75,11 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         weaponInstance.Use(currentDirection);
     }
 
+
+    /// <summary>
+    /// Spawns the weapon as a gameobject and initializes it based on the corresponding weapon item
+    /// </summary>
+    /// <param name="weaponItem"></param>
     void HandleWeaponChange(WeaponItem weaponItem) {
         if (weaponInstance != null) {
             Destroy(weaponInstance.gameObject);
@@ -84,6 +90,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
 
     }
 
+    //Handles the inventory button being pressed
     void HandleInventory() {
         if (currentMenu == null) {
             ShowMenu(inventoryUIPrefab);
@@ -96,42 +103,41 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     }
 
 
-    void EquipWeapon(Weapon weapon) {
-
-        //Add some way of setting stats
-
-    }
-
     void Die() {
         OnDie?.Invoke();
         SceneManager.LoadScene("Prototype");
     }
 
-    public GameObject ShowMenu(GameObject menuPrefab) {
+
+    /// <summary>
+    /// This is used to show a menu, and will return null if a menu is already open
+    /// </summary>
+    /// <param name="menuPrefab"></param>
+    /// <returns></returns>
+    public GameObject ShowMenu(GameObject menuPrefab, bool canExit = true) {
+
+        //Return if there is already a menu being displayed
         if (currentMenu != null) {
             return null;
         }
+
         GameObject menu = Instantiate(menuPrefab);
         currentMenu = menu;
+        canExitMenu = canExit;
         return menu;
     }
 
-    public GameObject ShowDialog(Dialog dialog, string name) {
-        if (currentMenu != null) {
-            return null;
-        }
-        currentMenu = Instantiate(dialogManagerPrefab);
-        DialogManager dialogManager = currentMenu.GetComponent<DialogManager>();
-        dialogManager.SetDialog(dialog, name);
-        dialogManager.OnDialogComplete += (x) => {
-            Destroy(dialogManager.gameObject);
-            currentMenu = null;
-        };
-        return dialogManager.gameObject;
-    }
 
-    void ExitMenu() {
+    /// <summary>
+    /// This is used to exit the current menu on the player
+    /// </summary>
+    public void ExitMenu() {
+        //Return if there is no menu
         if (currentMenu == null) {
+            return;
+        }
+        //Return if the menu cannot be exited by using esc
+        if (!canExitMenu) {
             return;
         }
 
@@ -140,6 +146,10 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         currentMenu = null;
     }
 
+
+    /// <summary>
+    /// Updates the direction the mouse is in relation to the player
+    /// </summary>
     void UpdateDirection() {
         Vector2 difference = controller.WorldMousePos.Difference(transform.position);
         float angle = (int)Vector2.Angle(difference, Vector2.right);

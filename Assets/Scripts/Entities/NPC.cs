@@ -20,7 +20,7 @@ public class NPC : MonoBehaviour, IInteractable {
             if (MazeEncounterDialog == null) return;
 
             //Create the dialog manager and set the dialog
-            DialogManager dialogManager = playerCharacter.ShowDialog(MazeEncounterDialog, Name)?.GetComponent<DialogManager>();
+            DialogManager dialogManager = ShowDialog(MazeEncounterDialog, playerCharacter);
             if (dialogManager != null)
                 dialogManager.OnDialogComplete += (x) => mazeEncounterComplete = true;
 
@@ -30,7 +30,7 @@ public class NPC : MonoBehaviour, IInteractable {
             if (HubFirstEncounterDialog == null) return;
 
             //Create the dialog manager and set the dialog
-            DialogManager dialogManager = playerCharacter.ShowDialog(HubFirstEncounterDialog, Name)?.GetComponent<DialogManager>();
+            DialogManager dialogManager = ShowDialog(HubFirstEncounterDialog, playerCharacter);
             if (dialogManager != null)
                 dialogManager.OnDialogComplete += (x) => hubFirstEncounterComplete = true;
         }
@@ -39,7 +39,7 @@ public class NPC : MonoBehaviour, IInteractable {
           // }
           else {
             if (GeneralDialog.Count == 0) return;
-            playerCharacter.ShowDialog(GeneralDialog[UnityEngine.Random.Range(0, GeneralDialog.Count)], Name);
+            ShowDialog(GeneralDialog[UnityEngine.Random.Range(0, GeneralDialog.Count)], playerCharacter);
 
         }
 
@@ -51,5 +51,16 @@ public class NPC : MonoBehaviour, IInteractable {
             Debug.Log("Only 3 puzzle piece dialogs are allowed");
             Array.Resize(ref PuzzlePieceDialog, 3);
         }
+    }
+
+    DialogManager ShowDialog(Dialog dialog, PlayerCharacter playerCharacter) {
+        DialogManager dialogManager = playerCharacter.ShowMenu(ResourceManager.DialogManagerPrefab, false).GetComponent<DialogManager>();
+        if (dialogManager == null) return null;
+        dialogManager.SetDialog(dialog, Name);
+        dialogManager.OnDialogComplete += (x) => {
+            Destroy(dialogManager.gameObject);
+            playerCharacter.ExitMenu();
+        };
+        return dialogManager;
     }
 }

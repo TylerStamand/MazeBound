@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Chest : MonoBehaviour, IInteractable {
-    [SerializeField] GameObject chestUIPrefab;
 
     public static int ChestSize = 15;
 
@@ -19,8 +18,8 @@ public class Chest : MonoBehaviour, IInteractable {
     public void Interact(PlayerCharacter playerCharacter) {
         Debug.Log("Interacted");
 
-        inventoryUI = playerCharacter.ShowMenu(chestUIPrefab);
-        if(inventoryUI != null) {
+        inventoryUI = playerCharacter.ShowMenu(ResourceManager.ChestInventoryPrefab);
+        if (inventoryUI != null) {
             inventoryUI.GetComponentInChildren<ChestInventoryUI>().SetChest(this);
         }
 

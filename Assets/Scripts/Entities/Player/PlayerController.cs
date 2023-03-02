@@ -5,6 +5,10 @@ using UnityEngine.InputSystem;
 using System;
 using System.Linq;
 
+
+/// <summary>
+/// Maps player input to player actions
+/// </summary>
 public class PlayerController : MonoBehaviour {
 
 
