@@ -95,7 +95,7 @@ public class Hammer : Weapon {
                 if (!playerWeapon && collider.GetComponent<Enemy>() != null)
                     continue;
 
-                damageable.TakeDamage(Damage, DamageType.Default, 1);
+                damageable.TakeDamage(Damage, DamageType.Default, knockBack);
             }
         }
     }

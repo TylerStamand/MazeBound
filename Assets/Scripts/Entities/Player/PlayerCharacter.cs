@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerCharacter : MonoBehaviour, IDamageable {
 
-
+    [SerializeField] bool canDie = true;
     [field: SerializeField] public int CurrentHealth { get; private set; }
 
     [SerializeField] WeaponData weaponData;
@@ -63,7 +63,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
 
         CurrentHealth -= damageDealt;
         OnHealthChange?.Invoke(CurrentHealth);
-        if (CurrentHealth <= 0) {
+        if (CurrentHealth <= 0 && canDie) {
             Die();
         }
     }

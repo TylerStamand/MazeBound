@@ -109,8 +109,7 @@ MonoBehaviour:
   moveSpeed: 0.05
   alertRadius: 4
   stopDistance: 2
-  knockbackY: 1
-  knockbackLength: 0.7
+  knockbackY: 2
   contactFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -183,8 +182,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_LinearDrag: 1
+  m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -193,9 +192,9 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 2
+  m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!95 &-919419817980857617
 Animator:
@@ -290,7 +289,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &8290709243840872885
 BoxCollider2D:
   m_ObjectHideFlags: 0

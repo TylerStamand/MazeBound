@@ -12,6 +12,8 @@ public enum DamageType {
 
 public abstract class Weapon : MonoBehaviour {
 
+    [SerializeField] protected float knockBack = 5;
+
 
     public float Speed { get; private set; }
     public int Damage { get; private set; }

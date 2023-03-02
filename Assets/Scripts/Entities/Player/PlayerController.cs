@@ -56,7 +56,6 @@ public class PlayerController : MonoBehaviour {
 
     public void OnMove(InputAction.CallbackContext context) {
         inputVector = context.ReadValue<Vector2>();
-
     }
 
     public void OnAim(InputAction.CallbackContext context) {

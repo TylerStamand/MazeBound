@@ -5,7 +5,6 @@ using UnityEngine;
 public class Sword : Weapon {
 
 
-
     void OnTriggerEnter2D(Collider2D collider) {
         IDamageable damageable = collider.gameObject.GetComponent<IDamageable>();
         if (damageable != null) {
@@ -14,7 +13,7 @@ public class Sword : Weapon {
             if (!playerWeapon && collider.GetComponent<Enemy>() != null)
                 return;
 
-            damageable.TakeDamage(Damage, DamageType.Default, 1);
+            damageable.TakeDamage(Damage, DamageType.Default, knockBack);
         }
     }
 

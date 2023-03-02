@@ -79,6 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c23b42d86ad90946af029944943fba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knockBack: 5
   colliderObject: {fileID: 7063205943773538514}
 --- !u!95 &2403253806053126280
 Animator:

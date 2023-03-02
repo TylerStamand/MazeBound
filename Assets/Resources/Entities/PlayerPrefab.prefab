@@ -488,6 +488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 144310248ebda794d8cd06cbfad7a8ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canDie: 1
   <CurrentHealth>k__BackingField: 50
   weaponData: {fileID: 11400000, guid: cf734ebf3dcc96c4b8712f56c9a8fe54, type: 2}
   weaponHolder: {fileID: 8465680535385425422}

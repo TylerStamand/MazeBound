@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using DG.Tweening;
 using Unity.Collections;
 using UnityEngine;
@@ -17,7 +18,6 @@ public class Enemy : MonoBehaviour, IDamageable {
     [SerializeField] float alertRadius = 1;
     [SerializeField] float stopDistance = 2;
     [SerializeField] float knockbackY = 1.2f;
-    [SerializeField] float knockbackLength = 1.2f;
     [SerializeField] ContactFilter2D contactFilter;
 
     public float CurrentHealth { get; private set; }
@@ -40,6 +40,7 @@ public class Enemy : MonoBehaviour, IDamageable {
 
         collider = GetComponent<Collider2D>();
         rigidbody = GetComponent<Rigidbody2D>();
+        Debug.Log(rigidbody.bodyType);
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         currentWeapon = Instantiate(weaponData.WeaponPrefab, weaponHolder.transform);
@@ -76,11 +77,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         if (inKnockback) return;
         CurrentHealth -= damageDealt;
         if (knockback > 0) {
-            inKnockback = true;
-            Vector3 knockBackDirection = (transform.position - target.transform.position).normalized;
-            Vector2 endValue = new Vector3(transform.position.x + knockBackDirection.x * knockback, transform.position.y + knockBackDirection.y * knockback);
-            rigidbody.DOJump(endValue, knockbackY, 1, knockbackLength).onComplete += () => inKnockback = false;
-
+            StartCoroutine(Knockback(knockback));
         }
 
         if (CurrentHealth <= 0) {
@@ -128,6 +125,25 @@ public class Enemy : MonoBehaviour, IDamageable {
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, stopDistance);
+    }
+
+    IEnumerator Knockback(float knockback) {
+        float yPosition = transform.position.y;
+        inKnockback = true;
+        Vector3 knockBackDirection = (transform.position - target.transform.position).normalized;
+
+        //Add the knockback force to the rigidbody
+        rigidbody.AddForce(new Vector2(knockBackDirection.x, knockBackDirection.y) * knockback, ForceMode2D.Impulse);
+        rigidbody.AddForce(Vector2.up * knockback, ForceMode2D.Impulse);
+        rigidbody.gravityScale = 1;
+      
+        //Wait for the knockback to finish
+        yield return new WaitForSeconds((2 * knockback)/-Physics2D.gravity.y);
+        
+        //Reset the rigidbody back to normal
+        rigidbody.velocity = Vector2.zero;
+        rigidbody.gravityScale = 0;
+        inKnockback = false;
     }
 
 
