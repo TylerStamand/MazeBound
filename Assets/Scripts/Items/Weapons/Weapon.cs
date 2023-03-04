@@ -6,19 +6,22 @@ using UnityEngine;
 //Attack
 //Critical change (Defense doesnt count)
 
+public enum DamageType {
+    Default
+}
+
 public abstract class Weapon : MonoBehaviour {
 
-    [SerializeField] protected float AnimationLength = 0.3f;
+    [SerializeField] protected float knockBack = 5;
 
 
-    public float CoolDown { get; private set; }
+    public float Speed { get; private set; }
     public int Damage { get; private set; }
     public float CriticalChange { get; private set; }
 
 
     protected SpriteRenderer spriteRenderer;
     protected new Collider2D collider;
-    protected float timeLastUsed;
     protected bool playerWeapon;
     protected bool initialized;
     protected bool inUse;
@@ -30,7 +33,7 @@ public abstract class Weapon : MonoBehaviour {
         }
     }
 
-    void Awake() {
+    protected virtual void Awake() {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         collider = GetComponentInChildren<Collider2D>();
         initialized = false;
@@ -45,26 +48,25 @@ public abstract class Weapon : MonoBehaviour {
         transform.parent.DOKill();
     }
 
-    //Handle CoolDown and stats to determine if use works
+    //Handle Speed and stats to determine if use works
     public virtual bool Use(Direction direction) {
         if (!initialized) {
             Debug.LogError("Weapon not initialized, please initialize before using weapon");
             return false;
         }
 
-        if (inUse || timeLastUsed + CoolDown > Time.time) {
+        if (inUse) {
             return false;
         }
 
-        timeLastUsed = Time.time;
         return true;
     }
 
 
-    public virtual void Initialize(bool playerWeapon, int damage, float coolDown, float criticalChance) {
+    public virtual void Initialize(bool playerWeapon, int damage, float speed, float criticalChance) {
         this.playerWeapon = playerWeapon;
         Damage = damage;
-        CoolDown = coolDown;
+        Speed = speed;
         CriticalChange = criticalChance;
 
         initialized = true;

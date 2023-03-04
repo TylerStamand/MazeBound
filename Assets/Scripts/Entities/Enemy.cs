@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+using DG.Tweening;
+using Unity.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer), typeof(Rigidbody2D))]
@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     [SerializeField] float moveSpeed = 1;
     [SerializeField] float alertRadius = 1;
     [SerializeField] float stopDistance = 2;
+    [SerializeField] float knockbackY = 1.2f;
     [SerializeField] ContactFilter2D contactFilter;
 
     public float CurrentHealth { get; private set; }
@@ -29,6 +30,9 @@ public class Enemy : MonoBehaviour, IDamageable {
     protected SpriteRenderer spriteRenderer;
     protected PlayerCharacter target;
     protected Weapon currentWeapon;
+    protected Animator anim;
+    protected bool inKnockback;
+
 
 
     protected virtual void Awake() {
@@ -37,10 +41,14 @@ public class Enemy : MonoBehaviour, IDamageable {
         collider = GetComponent<Collider2D>();
         rigidbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
+        anim = GetComponent<Animator>();
         currentWeapon = Instantiate(weaponData.WeaponPrefab, weaponHolder.transform);
         currentWeapon.transform.localPosition = Vector3.zero;
-        currentWeapon.Initialize(false, weaponData.Damage.GetRandomValue(), weaponData.CoolDown.GetRandomValue(), weaponData.CriticalChance.GetRandomValue());
+        currentWeapon.Initialize(false, weaponData.Damage.GetRandomValue(), weaponData.Speed.GetRandomValue(), weaponData.CriticalChance.GetRandomValue());
+    }
+
+    protected virtual void OnDestroy() {
+        rigidbody.DOKill();
     }
 
 
@@ -50,17 +58,26 @@ public class Enemy : MonoBehaviour, IDamageable {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, alertRadius, LayerMask.GetMask(new string[] { "Player" }));
         if (colliders.Length > 0) {
             GameObject target = colliders[0].gameObject;
-            if ((target.transform.position.x - transform.position.x) >= 0) {
-                spriteRenderer.flipX = false;
-            } else {
-                spriteRenderer.flipX = true;
-            }
+
         }
-        Move();
+
+        if (!inKnockback) {
+            Move();
+
+        }
     }
 
-    public void TakeDamage(int damageDealt) {
+    public void Initialize(float scale) {
+
+    }
+
+
+    public void TakeDamage(int damageDealt, DamageType damageType, float knockback) {
+        if (inKnockback) return;
         CurrentHealth -= damageDealt;
+        if (knockback > 0) {
+            StartCoroutine(Knockback(knockback));
+        }
 
         if (CurrentHealth <= 0) {
             OnDie?.Invoke(this);
@@ -71,7 +88,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     void Move() {
         Collider2D collider = Physics2D.OverlapCircle(transform.position, alertRadius, LayerMask.GetMask(new string[] { "Player" }));
         if (collider != null) {
-            target = collider.GetComponent<PlayerCharacter>();
+            target = collider.GetComponentInParent<PlayerCharacter>();
 
             if (Vector2.Distance(target.transform.position, transform.position) >= stopDistance) {
                 Vector2 positionToMoveTowards = Vector2.MoveTowards(transform.position, target.transform.position, moveSpeed);
@@ -85,10 +102,16 @@ public class Enemy : MonoBehaviour, IDamageable {
 
                 if (numOfHits == 0) {
                     rigidbody.MovePosition(transform.position + (Vector3)differenceInPosition);
+                    anim.SetBool("isMoving", true);
+                    anim.SetFloat("x", differenceInPosition.x);
+                    anim.SetFloat("y", differenceInPosition.y);
+
                 }
 
             } else {
                 currentWeapon.Use(Utilities.DirectionFromVector2(target.transform.position - transform.position));
+                anim.SetBool("isMoving", false);
+
             }
         } else {
             target = null;
@@ -101,6 +124,25 @@ public class Enemy : MonoBehaviour, IDamageable {
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, stopDistance);
+    }
+
+    IEnumerator Knockback(float knockback) {
+        float yPosition = transform.position.y;
+        inKnockback = true;
+        Vector3 knockBackDirection = (transform.position - target.transform.position).normalized;
+
+        //Add the knockback force to the rigidbody
+        rigidbody.AddForce(new Vector2(knockBackDirection.x, knockBackDirection.y) * knockback, ForceMode2D.Impulse);
+        rigidbody.AddForce(Vector2.up * knockback, ForceMode2D.Impulse);
+        rigidbody.gravityScale = 1;
+      
+        //Wait for the knockback to finish
+        yield return new WaitForSeconds((2 * knockback)/-Physics2D.gravity.y);
+        
+        //Reset the rigidbody back to normal
+        rigidbody.velocity = Vector2.zero;
+        rigidbody.gravityScale = 0;
+        inKnockback = false;
     }
 
 

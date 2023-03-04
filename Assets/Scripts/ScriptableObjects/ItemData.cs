@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ItemData", menuName = "ScriptableObjects/ItemData")]
 
 public abstract class ItemData : ScriptableObject {
     public static readonly string DefaultName = "Weapon Name";
@@ -12,7 +11,7 @@ public abstract class ItemData : ScriptableObject {
     [field: SerializeField] public string Description { get; private set; }
     [field: SerializeField] public Sprite Sprite { get; private set; }
 
-    public abstract Item CreateItem();
+    public abstract Item CreateItem(float scale);
 }
 
 // Item Types enum

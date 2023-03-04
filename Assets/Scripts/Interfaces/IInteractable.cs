@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IIntractable
-{
+public interface IInteractable {
     public void Interact(PlayerCharacter playerCharacter);
 }

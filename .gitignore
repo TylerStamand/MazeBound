@@ -143,3 +143,5 @@ PackageBackups/
 # UWP builds
 /UWP/*
 .vscode/settings.json
+
+.VSCodeCounter

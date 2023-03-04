@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Inventory {
 
-    public static int InventorySize = 35;
+    public static int InventorySize = 15;
 
     public event Action<Item> OnItemAdded;
     public event Action<WeaponItem> OnWeaponChange;
@@ -16,7 +16,7 @@ public class Inventory {
 
     //Will probably need events to show change for HUD depending on implementation
 
-    public WeaponItem CurrentWeapon { get; set; }
+    public WeaponItem CurrentWeapon { get; private set; }
 
     public ArmorItem Head { get; private set; }
     public ArmorItem Chest { get; private set; }
@@ -116,17 +116,13 @@ public class Inventory {
         OnArmorChange?.Invoke(armorItem);
     }
 
-    public void SetItemOrder(List<string> itemIDs) {
-        items.Clear();
-        foreach (String id in itemIDs) {
-            if (id != null) {
-                itemLookup.TryGetValue(id, out Item item);
-                items.Add(item);
-            } else {
-
-                items.Add(null);
-            }
+    public void SetItems(List<Item> items) {
+        this.items.Clear();
+        foreach (Item item in items) {
+            this.items.Add(item);
         }
+
+
 
     }
 

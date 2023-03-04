@@ -35,7 +35,12 @@ public struct MinMaxFloat {
     }
 }
 
-public class Utilities {
+public static class Utilities {
+
+    public static Vector2 Difference(this Vector2 a, Vector2 b) {
+        return new Vector2(a.x - b.x, a.y - b.y);
+    }
+
 
     public static Direction GetOppDirection(Direction direction) {
         if (direction == Direction.North) {
