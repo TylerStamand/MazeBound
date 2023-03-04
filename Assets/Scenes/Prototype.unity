@@ -801,21 +801,22 @@ MonoBehaviour:
   dungeonGrid: {fileID: 583224667}
   hallTilemapFloors: {fileID: 1613930230}
   hallTilemapWalls: {fileID: 416813677}
-  initalRoomPrefab: {fileID: 384430485695785473, guid: 8ec3cece914b2f54fba355e3b8f32666, type: 3}
+  initalRoomPrefab: {fileID: 384430485695785473, guid: 68e321ecfe2828c4cb2c31775b9b4472, type: 3}
   buildingLayer:
     serializedVersion: 2
     m_Bits: 64
   hallRadius: 2
   minimumRoomDistance: 5
-  testHallTile: {fileID: 11400000, guid: 78d1bf4ba0d703f41b4d3c68ad85e908, type: 2}
-  leftVertical: {fileID: 11400000, guid: e0bbcee135ae36c46a8216318e51846f, type: 2}
-  rightVertical: {fileID: 11400000, guid: 912797d0a43dd684ab3de5a412037f5e, type: 2}
-  bottomHorizontal: {fileID: 11400000, guid: 94a288edf44bcde47bf7d3e469c6f017, type: 2}
-  topHorizontal: {fileID: 11400000, guid: 774d6671b35952346b7a3fb1aa66cfbf, type: 2}
-  LeftExterior: {fileID: 11400000, guid: 409f87bebaf0cc94f9f87288754d7057, type: 2}
-  LeftInterior: {fileID: 11400000, guid: 8be4c4d6f442c814ea2ef363434da30f, type: 2}
-  RightExterior: {fileID: 11400000, guid: 612c0d8dfb02ba34ab5c5ae88b281dfc, type: 2}
-  RightInterior: {fileID: 11400000, guid: 2691ed88afa30904ea1f4604c0f6aa0b, type: 2}
+  testHallTile: {fileID: 11400000, guid: 67e89e2b13bbc7f45b7c8640d9944978, type: 2}
+  leftVertical: {fileID: 11400000, guid: addd4ffd437682944a39203af39bf169, type: 2}
+  rightVertical: {fileID: 11400000, guid: 8bca3d0a0d94fd4488b98b71bed4f08f, type: 2}
+  bottomHorizontal: {fileID: 11400000, guid: 8d5ab4b404f578144a28ad58400562f0, type: 2}
+  topHorizontal: {fileID: 11400000, guid: ab4d9a984ce090143b670262fc0edab9, type: 2}
+  topHorizontalWall: {fileID: 11400000, guid: f5d76166a37e21b49bce8eda617eba2b, type: 2}
+  LeftExterior: {fileID: 11400000, guid: 2bf3d1692bd770a46b0c767bdd5765e3, type: 2}
+  LeftInterior: {fileID: 11400000, guid: 2bf3d1692bd770a46b0c767bdd5765e3, type: 2}
+  RightExterior: {fileID: 11400000, guid: 2bf3d1692bd770a46b0c767bdd5765e3, type: 2}
+  RightInterior: {fileID: 11400000, guid: 2bf3d1692bd770a46b0c767bdd5765e3, type: 2}
 --- !u!4 &1410699962
 Transform:
   m_ObjectHideFlags: 0

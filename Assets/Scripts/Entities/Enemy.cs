@@ -40,7 +40,6 @@ public class Enemy : MonoBehaviour, IDamageable {
 
         collider = GetComponent<Collider2D>();
         rigidbody = GetComponent<Rigidbody2D>();
-        Debug.Log(rigidbody.bodyType);
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         currentWeapon = Instantiate(weaponData.WeaponPrefab, weaponHolder.transform);

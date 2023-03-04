@@ -27,11 +27,12 @@ public class DungeonGenerator : MonoBehaviour {
     [SerializeField] int minimumRoomDistance;
 
     [Header("Hallway Sprites")]
-    [SerializeField] Tile testHallTile;
+    [SerializeField] Tile floorTile;
     [SerializeField] Tile leftVertical;
     [SerializeField] Tile rightVertical;
     [SerializeField] Tile bottomHorizontal;
     [SerializeField] Tile topHorizontal;
+    [SerializeField] Tile topHorizontalWall;
     [SerializeField] Tile LeftExterior;
     [SerializeField] Tile LeftInterior;
     [SerializeField] Tile RightExterior;
@@ -225,359 +226,163 @@ public class DungeonGenerator : MonoBehaviour {
         }
     }
 
-    //Needs to be in hallmap coordinates
+
     void DrawHallway(Vector3Int start, Vector3Int end, Direction direction) {
+
+        int xInc = end.x < start.x ? -1 : 1;
+        int yInc = end.y < start.y ? -1 : 1;
+
+        //Not sure why this is needed
+
+        if (xInc < 0) {
+            start.x--;
+            end.x--;
+        } else if (yInc < 0) {
+            start.y--;
+            end.y--;
+        }
+
+        if (direction == Direction.North) {
+            start.y += 3;
+        } else if (direction == Direction.East) {
+            start.x++;
+        } else if (direction == Direction.South) {
+            start.y--;
+        } else if (direction == Direction.West) {
+            start.x--;
+        }
+
+        //Draw backwards
+        Debug.Log("Drawing backwards");
+        if (direction == Direction.North || direction == Direction.South)
+            InitializeDrawing(Utilities.GetOppDirection(direction), start, xInc, -yInc);
+        else
+            InitializeDrawing(Utilities.GetOppDirection(direction), start, -xInc, yInc);
+
+
+
+        Debug.Log("Drawing forwards");
+        //Draw forwards
+        InitializeDrawing(direction, start, xInc, yInc);
+
+
+    }
+
+
+    void InitializeDrawing(Direction direction, Vector3Int start, int xInc, int yInc) {
+        if (direction == Direction.North) {
+            Draw(direction, start, new Vector2Int(0, yInc), LeftExterior, RightExterior, leftVertical, rightVertical, floorTile);
+        } else if (direction == Direction.South) {
+            Draw(direction, start, new Vector2Int(0, yInc), LeftInterior, RightInterior, leftVertical, rightVertical, floorTile);
+        } else if (direction == Direction.East) {
+            Draw(direction, start, new Vector2Int(xInc, 0), RightExterior, topHorizontal, bottomHorizontal, topHorizontal, floorTile);
+        } else if (direction == Direction.West) {
+            Draw(direction, start, new Vector2Int(xInc, 0), LeftExterior, topHorizontal, bottomHorizontal, topHorizontal, floorTile);
+        }
+    }
+
+    void Draw(Direction direction, Vector3Int start, Vector2Int inc, Tile leftorBottomCorner, Tile rightorTopCorner, Tile leftorBottomWall, Tile rightorTopWall, Tile floor) {
+
+        Debug.Log("Direction: " + direction);
+
         bool[] activeLanes = new bool[2 * hallRadius + 1];
         for (int i = 0; i < activeLanes.Length; i++) {
             activeLanes[i] = true;
         }
 
         Vector3Int current = start;
-        Vector3Int difference = new Vector3Int(end.x - start.x, end.y - start.y);
 
-        int xInc = end.x < start.x ? -1 : 1;
-        int yInc = end.y < start.y ? -1 : 1;
+        for (int i = 0; i < 20; i++) {
 
-        if (xInc < 0) {
-            current.x--;
-            end.x--;
-        } else if (yInc < 0) {
-            current.y--;
-            end.y--;
-        }
+            Debug.Log("I: " + i);
 
-        if (direction == Direction.North || direction == Direction.South) {
-            //Check Backwards
-            //This outer for loop is a safety incase a tile is never hit as well as a way to walk backwards
-            for (int i = 0; i < 10; i++) {
-                int offset = -hallRadius - 1;
+            //Minus one so it can increment at start of loop
+            int laneOffset = -hallRadius - 1;
 
-                for (int j = 0; j < activeLanes.Length; j++) {
-                    offset++;
-                    //Check if one of the lanes collided with the room
-                    if (!activeLanes[j]) continue;
+            for (int laneIndex = 0; laneIndex < activeLanes.Length; laneIndex++) {
+                Debug.Log("LaneIndex: " + laneIndex);
 
-                    Vector3Int currentOffset = new Vector3Int(current.x + offset, current.y - yInc * i);
-                    Vector3 worldCellPos = hallTilemapFloors.CellToWorld(currentOffset);
-                    //IDK WHY THE OFFSET FOR THIS IS DIFFERENT THAN THE OTHER ONE, LOOK AT THIS LATER
-                    worldCellPos = new Vector2(worldCellPos.x - .5f + 1, worldCellPos.y + .5f);
-                    Collider2D collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
-                    Tilemap collidedTilemap = collider?.GetComponent<Tilemap>();
-                    if (collidedTilemap != null) {
-                        if (collider.gameObject.name == "FloorTile") {
-                            activeLanes[j] = false;
-                            continue;
-                        } else {
-                            collidedTilemap.SetTile(collidedTilemap.WorldToCell(worldCellPos), null);
+                laneOffset++;
+                //Check if one of the lanes collided with the room
+                if (!activeLanes[laneIndex]) continue;
 
-                            //Do a second check for collision a tile ahead to determine if it should put down a corner
-                            worldCellPos = new Vector2(worldCellPos.x, worldCellPos.y - yInc);
-                            collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
-                            if (collider != null && collider.name == "FloorTile") {
-                                if (j == 0) {
-                                    if (Utilities.GetOppDirection(direction) == Direction.North)
-                                        hallTilemapWalls.SetTile(currentOffset, LeftExterior);
-                                    else {
-                                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
-                                    }
+                Vector3Int currentPosition = new Vector3Int();
+                if (direction == Direction.East || direction == Direction.West)
+                    currentPosition = new Vector3Int(current.x, current.y + laneOffset);
+                else if (direction == Direction.North || direction == Direction.South)
+                    currentPosition = new Vector3Int(current.x + laneOffset, current.y);
 
-                                } else if (j == activeLanes.Length - 1) {
-                                    if (Utilities.GetOppDirection(direction) == Direction.North)
-                                        hallTilemapWalls.SetTile(currentOffset, RightExterior);
-                                    else {
-                                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
-                                    }
-                                } else
-                                    hallTilemapFloors.SetTile(currentOffset, testHallTile);
 
-                                continue;
+                //Check for tile collision by using the world position
+                Vector3 worldCellPos = hallTilemapFloors.CellToWorld(currentPosition);
+                //Centers the world position to the center of the tile
+                worldCellPos = new Vector2(worldCellPos.x + .5f, worldCellPos.y + .5f);
 
-                            }
+                Collider2D collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), 0, buildingLayer);
 
+                Tilemap collidedTilemap = collider?.GetComponent<Tilemap>();
+                if (collidedTilemap != null) {
+                    Debug.Log("Collided at: " + worldCellPos);
+                    //Checks if hallway collided with room floors
+                    if (collider.gameObject.name == "FloorTile") {
+                        activeLanes[laneIndex] = false;
+                        continue;
+                    } else {
+
+                        //Checks if hallway sides collided with room walls
+                        if (laneIndex == 0 || laneIndex == activeLanes.Length - 1) {
+                            activeLanes[laneIndex] = false;
                         }
-                    }
 
-                    if (j == 0)
-                        hallTilemapWalls.SetTile(currentOffset, leftVertical);
-                    else if (j == activeLanes.Length - 1)
-                        hallTilemapWalls.SetTile(currentOffset, rightVertical);
-                    else
-                        hallTilemapFloors.SetTile(currentOffset, testHallTile);
+                        collidedTilemap.SetTile(collidedTilemap.WorldToCell(worldCellPos), null);
 
-                }
-            }
-
-            for (int i = 0; i < activeLanes.Length; i++) {
-                activeLanes[i] = true;
-            }
-
-            //Check Forwards
-
-
-            for (; current.y != end.y - difference.y / 2; current.y += yInc) {
-                int offset = -hallRadius - 1;
-                for (int i = 0; i < activeLanes.Length; i++) {
-                    offset++;
-                    //Check if one of the lanes collided with the room
-                    if (!activeLanes[i]) continue;
-
-                    Vector3Int currentOffset = new Vector3Int(current.x + offset, current.y);
-
-                    if (i == 0)
-                        hallTilemapWalls.SetTile(currentOffset, leftVertical);
-                    else if (i == activeLanes.Length - 1)
-                        hallTilemapWalls.SetTile(currentOffset, rightVertical);
-                    else
-                        hallTilemapFloors.SetTile(currentOffset, testHallTile);
-                }
-
-            }
-
-            for (; current.x != end.x; current.x += xInc) {
-                int offset = -hallRadius - 1;
-                for (int i = 0; i < activeLanes.Length; i++) {
-                    offset++;
-                    //Check if one of the lanes collided with the room
-                    if (!activeLanes[i]) continue;
-
-                    Vector3Int currentOffset = new Vector3Int(current.x, current.y + offset);
-                    if (i == 0)
-                        hallTilemapWalls.SetTile(currentOffset, bottomHorizontal);
-                    else if (i == activeLanes.Length - 1)
-                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
-                    else
-                        hallTilemapFloors.SetTile(currentOffset, testHallTile);
-                }
-
-            }
-
-            for (; current.y != end.y + (yInc * 5); current.y += yInc) {
-                //Minus one to let me add one to it before it checks active lanes so it updates regardless
-                int offset = -hallRadius - 1;
-                for (int i = 0; i < activeLanes.Length; i++) {
-                    offset++;
-                    //Check if one of the lanes collided with the room
-                    if (!activeLanes[i]) continue;
-
-                    Vector3 worldCellPos = hallTilemapFloors.CellToWorld(new Vector3Int(current.x + offset, current.y));
-                    //IDK WHY THE OFFSET FOR THIS IS DIFFERENT THAN THE OTHER ONE, LOOK AT THIS LATER
-                    worldCellPos = new Vector2(worldCellPos.x - .5f + 1, worldCellPos.y + .5f);
-                    Collider2D collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
-
-                    Vector3Int currentOffset = new Vector3Int(current.x + offset, current.y);
-
-                    if (collider != null) {
-                        if (collider.gameObject.name == "FloorTile") {
-                            activeLanes[i] = false;
+                        //Do a second check for collision a tile ahead to determine if it should put down a corner
+                        worldCellPos = new Vector2(worldCellPos.x + inc.x, worldCellPos.y + inc.y);
+                        collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
+                        //If the collider is a floor tile, then it is a corner and skips the rest of the loop
+                        if (collider != null && collider.name == "FloorTile") {
+                            Debug.Log("Setting corner tile at: " + currentPosition);
+                            if (laneIndex == 0) {
+                                hallTilemapWalls.SetTile(currentPosition, leftorBottomCorner);
+                            } else if (laneIndex == activeLanes.Length - 1) {
+                                if (direction == Direction.East || direction == Direction.West) {
+                                    hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y), topHorizontalWall);
+                                    hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y + 1), topHorizontalWall);
+                                    hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y + 2), rightorTopCorner);
+                                } else {
+                                    hallTilemapWalls.SetTile(currentPosition, rightorTopCorner);
+                                }
+                            } else
+                                hallTilemapFloors.SetTile(currentPosition, floor);
                             continue;
 
-                        } else {
-
-                            //Sets the ends of the halls with corners
-                            Tilemap collidedTilemap = collider.GetComponent<Tilemap>();
-                            collidedTilemap.SetTile(collidedTilemap.WorldToCell(worldCellPos), null);
-
-                            //Do a second check for collision a tile ahead to determine if it should put down a corner
-                            worldCellPos = new Vector2(worldCellPos.x, worldCellPos.y + yInc);
-                            collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
-                            if (collider != null && collider.name == "FloorTile") {
-                                //Debug.Log($"Detected Floor tile {worldCellPos}");
-                                if (i == 0) {
-                                    if (direction == Direction.North)
-                                        hallTilemapWalls.SetTile(currentOffset, LeftExterior);
-                                    else {
-                                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
-                                    }
-
-                                } else if (i == activeLanes.Length - 1) {
-                                    if (direction == Direction.North)
-                                        hallTilemapWalls.SetTile(currentOffset, RightExterior);
-                                    else {
-                                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
-                                    }
-                                } else
-                                    hallTilemapFloors.SetTile(currentOffset, testHallTile);
-
-                                continue;
-
-                            }
-
                         }
+
                     }
-                    if (i == 0)
-                        hallTilemapWalls.SetTile(currentOffset, leftVertical);
-                    else if (i == activeLanes.Length - 1)
-                        hallTilemapWalls.SetTile(currentOffset, rightVertical);
-                    else
-                        hallTilemapFloors.SetTile(currentOffset, testHallTile);
-
                 }
-            }
-
-        }
-        if (direction == Direction.East || direction == Direction.West) {
-            //Check Backwords
-            //This outer for loop is a safety incase a tile is never hit as well as a way to walk backwards
-            for (int i = 0; i < 10; i++) {
-                int offset = -hallRadius - 1;
-
-                for (int j = 0; j < activeLanes.Length; j++) {
-                    offset++;
-                    //Check if one of the lanes collided with the room
-                    if (!activeLanes[j]) continue;
-
-                    Vector3Int currentOffset = new Vector3Int(current.x - xInc * i, current.y - offset);
-                    Vector3 worldCellPos = hallTilemapFloors.CellToWorld(currentOffset);
-                    //IDK WHY THE OFFSET FOR THIS IS DIFFERENT THAN THE OTHER ONE, LOOK AT THIS LATER
-                    worldCellPos = new Vector2(worldCellPos.x - .5f + 1, worldCellPos.y + .5f);
-                    Collider2D collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
-
-                    if (collider != null) {
-                        if (collider.gameObject.name == "FloorTile") {
-                            activeLanes[j] = false;
-                            continue;
-                        } else {
-                            Tilemap collidedTilemap = collider.GetComponent<Tilemap>();
-                            collidedTilemap.SetTile(collidedTilemap.WorldToCell(worldCellPos), null);
-
-                            //Do a second check for collision a tile ahead to determine if it should put down a corner
-                            worldCellPos = new Vector2(worldCellPos.x - xInc, worldCellPos.y);
-                            collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
-                            if (collider != null && collider.name == "FloorTile") {
-                                if (j == 0) {
-                                    if (Utilities.GetOppDirection(direction) == Direction.East)
-                                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
-                                    else {
-                                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
-                                    }
-
-                                } else if (j == activeLanes.Length - 1) {
-                                    if (Utilities.GetOppDirection(direction) == Direction.East)
-                                        hallTilemapWalls.SetTile(currentOffset, LeftExterior);
-                                    else {
-                                        hallTilemapWalls.SetTile(currentOffset, RightExterior);
-                                    }
-                                } else
-                                    hallTilemapFloors.SetTile(currentOffset, testHallTile);
-
-                                continue;
-                            }
-                        }
+                Debug.Log("Placing tile at: " + currentPosition);
+                if (laneIndex == 0)
+                    hallTilemapWalls.SetTile(currentPosition, leftorBottomWall);
+                else if (laneIndex == activeLanes.Length - 1) {
+                    if (direction == Direction.East || direction == Direction.West) {
+                        hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y), topHorizontalWall);
+                        hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y + 1), topHorizontalWall);
+                        hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y + 2), rightorTopWall);
                     }
-                    if (j == 0)
-                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
-                    else if (j == activeLanes.Length - 1)
-                        hallTilemapWalls.SetTile(currentOffset, bottomHorizontal);
-                    else
-                        hallTilemapFloors.SetTile(currentOffset, testHallTile);
-                }
-            }
-
-            for (int i = 0; i < activeLanes.Length; i++) {
-                activeLanes[i] = true;
-            }
-
-            //Check Forwards
-
-
-            for (; current.x != end.x - difference.x / 2; current.x += xInc) {
-                int offset = -hallRadius - 1;
-                for (int i = 0; i < activeLanes.Length; i++) {
-                    offset++;
-                    //Check if one of the lanes collided with the room
-                    if (!activeLanes[i]) continue;
-
-                    Vector3Int currentOffset = new Vector3Int(current.x, current.y + offset);
-                    if (i == 0)
-                        hallTilemapWalls.SetTile(currentOffset, bottomHorizontal);
-                    else if (i == activeLanes.Length - 1)
-                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
-                    else
-                        hallTilemapFloors.SetTile(currentOffset, testHallTile);
-                }
-
-            }
-
-            for (; current.y != end.y; current.y += yInc) {
-                int offset = -hallRadius - 1;
-                for (int i = 0; i < activeLanes.Length; i++) {
-                    offset++;
-                    //Check if one of the lanes collided with the room
-                    if (!activeLanes[i]) continue;
-
-                    Vector3Int currentOffset = new Vector3Int(current.x + offset, current.y);
-                    hallTilemapFloors.SetTile(currentOffset, testHallTile);
-                }
-
-            }
-
-            //Add xInc * 5 to ensure the path goes as deep as needed into the Room
-            for (; current.x != end.x + (xInc * 5); current.x += xInc) {
-                //Minus one to let me add one to it before it checks active lanes so it updates regardless
-                int offset = -hallRadius - 1;
-                for (int i = 0; i < activeLanes.Length; i++) {
-                    offset++;
-                    //Check if one of the lanes collided with the room
-                    if (!activeLanes[i]) continue;
-
-                    Vector3 worldCellPos = hallTilemapFloors.CellToWorld(new Vector3Int(current.x, current.y + offset));
-                    //IDK WHY THE OFFSET FOR THIS IS DIFFERENT THAN THE OTHER ONE, LOOK AT THIS LATER
-                    worldCellPos = new Vector2(worldCellPos.x - .5f + 1, worldCellPos.y + .5f);
-                    Collider2D collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
-                    Vector3Int currentOffset = new Vector3Int(current.x, current.y + offset);
-                    if (collider != null) {
-                        if (collider.gameObject.name == "FloorTile") {
-                            activeLanes[i] = false;
-
-                            continue;
-                        } else {
-                            Tilemap collidedTilemap = collider.GetComponent<Tilemap>();
-                            collidedTilemap.SetTile(collidedTilemap.WorldToCell(worldCellPos), null);
-
-                            //Do a second check for collision a tile ahead to determine if it should put down a corner
-                            worldCellPos = new Vector2(worldCellPos.x + xInc, worldCellPos.y);
-                            collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
-                            if (collider != null && collider.name == "FloorTile") {
-                                if (i == 0) {
-                                    if (direction == Direction.East)
-                                        hallTilemapWalls.SetTile(currentOffset, LeftExterior);
-                                    else {
-                                        hallTilemapWalls.SetTile(currentOffset, RightExterior);
-                                    }
-
-                                } else if (i == activeLanes.Length - 1) {
-                                    if (direction == Direction.East)
-                                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
-                                    else {
-                                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
-                                    }
-                                } else
-                                    hallTilemapFloors.SetTile(currentOffset, testHallTile);
-
-                                continue;
-
-                            }
-                        }
+                    else {
+                        hallTilemapWalls.SetTile(currentPosition, rightorTopWall);
                     }
+                } else
+                    hallTilemapFloors.SetTile(currentPosition, floor);
 
-                    if (i == 0)
-                        hallTilemapWalls.SetTile(currentOffset, bottomHorizontal);
-                    else if (i == activeLanes.Length - 1)
-                        hallTilemapWalls.SetTile(currentOffset, topHorizontal);
-                    else
-                        hallTilemapFloors.SetTile(currentOffset, testHallTile);
-
-
-
-
-                }
             }
+
+            current.y += inc.y;
+            current.x += inc.x;
         }
 
     }
 
-
 }
-
 
 
