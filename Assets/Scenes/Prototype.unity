@@ -807,7 +807,7 @@ MonoBehaviour:
     m_Bits: 64
   hallRadius: 2
   minimumRoomDistance: 5
-  testHallTile: {fileID: 11400000, guid: 67e89e2b13bbc7f45b7c8640d9944978, type: 2}
+  floorTile: {fileID: 0}
   leftVertical: {fileID: 11400000, guid: addd4ffd437682944a39203af39bf169, type: 2}
   rightVertical: {fileID: 11400000, guid: 8bca3d0a0d94fd4488b98b71bed4f08f, type: 2}
   bottomHorizontal: {fileID: 11400000, guid: 8d5ab4b404f578144a28ad58400562f0, type: 2}
