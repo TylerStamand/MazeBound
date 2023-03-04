@@ -1194,6 +1194,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 653d1ee7c0645134098f4a631050e620, type: 2}
     - target: {fileID: 3873990133628319290, guid: 201f5a346433af940bfade3d9b9d3a0f, type: 3}
+      propertyPath: <Name>k__BackingField
+      value: Wizard
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873990133628319290, guid: 201f5a346433af940bfade3d9b9d3a0f, type: 3}
       propertyPath: GeneralDialog.Array.size
       value: 1
       objectReference: {fileID: 0}

@@ -31,7 +31,7 @@ public struct MinMaxFloat {
 
 
     public float GetRandomValue() {
-        return UnityEngine.Random.Range(MinValue, MaxValue + 1);
+        return UnityEngine.Random.Range(MinValue, MaxValue);
     }
 }
 

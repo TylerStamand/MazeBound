@@ -38,7 +38,7 @@ public class DialogManager : MonoBehaviour {
 
     public void SetDialog(Dialog dialog, string name) {
         this.dialog = dialog;
-        dialogText.text = name;
+        nameText.text = name;
         showChoice = dialog.IsChoice;
         StartDialog(dialog.Sentences);
     }
