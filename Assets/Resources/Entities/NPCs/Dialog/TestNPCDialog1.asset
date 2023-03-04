@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: TestNPCDialog1
   m_EditorClassIdentifier: 
   Sentences:
-  - "This is some test Dialog. I am testing this for \nfun. Here are some fun texts
-    blah blas s efks s sd sfiel\nlsfi fiwe  sefns s sosf sjseflsef sisdf sdlsdf sdfisn\nsdjsdie
-    sdi f sd fsjsdf sdinsjsodf wowefjisd sjsdifwlef ss fsd sdf \nsdf sdif sdfjisdfdjfs
-    s s s sdf sdifsdf "
+  - "This foul place as far as I understand is apart from space or time. \r\nWe reside
+    in a pocket dimension of some unknown entity.\r\nI do not have the neccesary
+    materials to escape this place but I \r\ndo believe that the dungeons hold the
+    key(s) to our escape."
+  <IsChoice>k__BackingField: 0
   YesDialog: []
   NoDialog: []

@@ -89,12 +89,10 @@ public class DialogManager : MonoBehaviour {
             }
             //Pauses dialog until player clicks
             else if (dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex == dialogText.maxVisibleCharacters) {
-                Debug.Log("Waiting for player click");
                 yield return null;
             }
             //Increment the number of visible characters
             else {
-                Debug.Log("Incrementing visible characters");
                 dialogText.maxVisibleCharacters++;
             }
 

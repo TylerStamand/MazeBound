@@ -33,7 +33,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
 
     public Inventory Inventory { get; private set; }
 
-    GameObject currentMenu;
+    GameObject currentMenu = null;
     bool canExitMenu;
 
     Direction currentDirection;
@@ -124,6 +124,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         GameObject menu = Instantiate(menuPrefab);
         currentMenu = menu;
         canExitMenu = canExit;
+        Debug.Log(menu.name);
         return menu;
     }
 

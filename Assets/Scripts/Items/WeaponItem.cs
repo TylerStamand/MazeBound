@@ -39,7 +39,7 @@ public class WeaponItem : Item {
         string description = "";
         description += $"Damage: {Damage.ToString("N", CultureInfo.CurrentCulture)} Lvl: {DamageLevel}\n";
         description += $"Speed: {Speed} Lvl: {SpeedLevel}\n";
-        description += $"CriticalChange: {CriticalChance} Lvl: {CriticalChanceLevel}\n";
+        description += $"CriticalChance: {CriticalChance} Lvl: {CriticalChanceLevel}\n";
 
         return description;
     }

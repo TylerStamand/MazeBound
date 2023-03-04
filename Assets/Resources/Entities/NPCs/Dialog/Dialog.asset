@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Dialog
   m_EditorClassIdentifier: 
   Sentences:
-  - "This is a test choice dialog. Please click yes \nor no when it pops up."
+  - "This foul place as far as I understand is apart from space or time. \rWe reside
+    in a pocket dimension of some unknown entity.\r I do not have the neccesary materials
+    to escape this place but I \r\ndo believe that the dungeons hold the key(s) to
+    our escape.\r Will you aid me in this quest?\n"
+  - 
   <IsChoice>k__BackingField: 1
   YesDialog:
-  - "You clicked yes congragulations. bla asdf asdf sd f sdsd s\ns sdf s sf d sdf
-    sdf sdfsdfs s fsfdssdf  sd sd sdfsdf\nsdf sdfisdfjs sdfjisllsdf sdisdflsdfji\t"
+  - "Jolly good work. As I am old, I will not be accompanying you but \r\nI can outfit
+    you with potions if you bring me materials. \n(Coming Soon)"
+  - 
   NoDialog:
-  - 'You clicked no, this is sad but okay blas sad fs
-
-    sf sdlsdfsd sdjksdfls
-    sdifsndf sdfisdlfej sdf lsdf e
-
-    ssdfjsdie sdf sdjfisl sdfl sdflsdf isd fsdfjskdlf '
+  - Well thats to bad. I'll just be here then making mushroom juice!

@@ -807,7 +807,7 @@ MonoBehaviour:
     m_Bits: 64
   hallRadius: 2
   minimumRoomDistance: 5
-  floorTile: {fileID: 0}
+  floorTile: {fileID: 11400000, guid: 9cac0c762fc695e45a3b14b709e8e8fc, type: 2}
   leftVertical: {fileID: 11400000, guid: addd4ffd437682944a39203af39bf169, type: 2}
   rightVertical: {fileID: 11400000, guid: 8bca3d0a0d94fd4488b98b71bed4f08f, type: 2}
   bottomHorizontal: {fileID: 11400000, guid: 8d5ab4b404f578144a28ad58400562f0, type: 2}
@@ -960,6 +960,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 394247512, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8465680535696588503, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -1137,6 +1141,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1191952967, guid: 201f5a346433af940bfade3d9b9d3a0f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ba7018f4a96b09b4d814e214a07f7b4f, type: 3}
     - target: {fileID: 3873990133628319289, guid: 201f5a346433af940bfade3d9b9d3a0f, type: 3}
       propertyPath: m_RootOrder
       value: 7

@@ -232,8 +232,7 @@ public class DungeonGenerator : MonoBehaviour {
         int xInc = end.x < start.x ? -1 : 1;
         int yInc = end.y < start.y ? -1 : 1;
 
-        //Not sure why this is needed
-
+        //Not totally sure why this is needed but it is
         if (xInc < 0) {
             start.x--;
             end.x--;
@@ -242,6 +241,7 @@ public class DungeonGenerator : MonoBehaviour {
             end.y--;
         }
 
+        //Offset for where the hallway should start drawing forwards and backwards
         if (direction == Direction.North) {
             start.y += 3;
         } else if (direction == Direction.East) {
@@ -253,7 +253,6 @@ public class DungeonGenerator : MonoBehaviour {
         }
 
         //Draw backwards
-        Debug.Log("Drawing backwards");
         if (direction == Direction.North || direction == Direction.South)
             InitializeDrawing(Utilities.GetOppDirection(direction), start, xInc, -yInc);
         else
@@ -261,7 +260,6 @@ public class DungeonGenerator : MonoBehaviour {
 
 
 
-        Debug.Log("Drawing forwards");
         //Draw forwards
         InitializeDrawing(direction, start, xInc, yInc);
 
@@ -326,30 +324,34 @@ public class DungeonGenerator : MonoBehaviour {
 
                 Tilemap collidedTilemap = collider?.GetComponent<Tilemap>();
                 if (collidedTilemap != null) {
-                    Debug.Log("Collided at: " + worldCellPos);
+
                     //Checks if hallway collided with room floors
                     if (collider.gameObject.name == "FloorTile") {
+                        //Stops the lane from drawing anymore and skips the rest of the loop so it does not draw over the floor tile it hit
                         activeLanes[laneIndex] = false;
                         continue;
                     } else {
 
-                        //Checks if hallway sides collided with room walls
+                        //Checks if hallway sides collided with room walls and stops them
+                        //This is mostly for the tops of rooms so that the two high room walls will remain intact
                         if (laneIndex == 0 || laneIndex == activeLanes.Length - 1) {
                             activeLanes[laneIndex] = false;
                         }
 
+                        //Removes the room tile
                         collidedTilemap.SetTile(collidedTilemap.WorldToCell(worldCellPos), null);
 
                         //Do a second check for collision a tile ahead to determine if it should put down a corner
                         worldCellPos = new Vector2(worldCellPos.x + inc.x, worldCellPos.y + inc.y);
                         collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
-                        //If the collider is a floor tile, then it is a corner and skips the rest of the loop
+
+                        //If it hit a floor tile, then it draws a corner tile and skips the rest of the loop
                         if (collider != null && collider.name == "FloorTile") {
-                            Debug.Log("Setting corner tile at: " + currentPosition);
                             if (laneIndex == 0) {
                                 hallTilemapWalls.SetTile(currentPosition, leftOrBottomCorner);
                             } else if (laneIndex == activeLanes.Length - 1) {
                                 if (direction == Direction.East || direction == Direction.West) {
+                                    //This is for the two high walls for the top side of horizontal hallways
                                     hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y), topHorizontalWall);
                                     hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y + 1), topHorizontalWall);
                                     hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y + 2), rightOrTopCorner);
@@ -364,11 +366,13 @@ public class DungeonGenerator : MonoBehaviour {
 
                     }
                 }
-                Debug.Log("Placing tile at: " + currentPosition);
+
+                //If we get here, then either a side wall or floor tile needs to be drawn 
                 if (laneIndex == 0)
                     hallTilemapWalls.SetTile(currentPosition, leftOrBottomWall);
                 else if (laneIndex == activeLanes.Length - 1) {
                     if (direction == Direction.East || direction == Direction.West) {
+                        //This is for the two high walls for the top side of horizontal hallways
                         hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y), topHorizontalWall);
                         hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y + 1), topHorizontalWall);
                         hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y + 2), rightOrTopWall);
