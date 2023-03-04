@@ -271,17 +271,21 @@ public class DungeonGenerator : MonoBehaviour {
 
     void InitializeDrawing(Direction direction, Vector3Int start, int xInc, int yInc) {
         if (direction == Direction.North) {
-            Draw(direction, start, new Vector2Int(0, yInc), LeftExterior, RightExterior, leftVertical, rightVertical, floorTile);
+            Draw(direction, start, new Vector2Int(0, yInc), LeftExterior, RightExterior, leftVertical, rightVertical);
         } else if (direction == Direction.South) {
-            Draw(direction, start, new Vector2Int(0, yInc), LeftInterior, RightInterior, leftVertical, rightVertical, floorTile);
+            Draw(direction, start, new Vector2Int(0, yInc), LeftInterior, RightInterior, leftVertical, rightVertical);
         } else if (direction == Direction.East) {
-            Draw(direction, start, new Vector2Int(xInc, 0), RightExterior, topHorizontal, bottomHorizontal, topHorizontal, floorTile);
+            Draw(direction, start, new Vector2Int(xInc, 0), RightExterior, topHorizontal, bottomHorizontal, topHorizontal);
         } else if (direction == Direction.West) {
-            Draw(direction, start, new Vector2Int(xInc, 0), LeftExterior, topHorizontal, bottomHorizontal, topHorizontal, floorTile);
+            Draw(direction, start, new Vector2Int(xInc, 0), LeftExterior, topHorizontal, bottomHorizontal, topHorizontal);
         }
     }
 
-    void Draw(Direction direction, Vector3Int start, Vector2Int inc, Tile leftorBottomCorner, Tile rightorTopCorner, Tile leftorBottomWall, Tile rightorTopWall, Tile floor) {
+    void Draw(
+        Direction direction, Vector3Int start, Vector2Int inc,
+        Tile leftOrBottomCorner, Tile rightOrTopCorner, Tile leftOrBottomWall,
+        Tile rightOrTopWall
+        ) {
 
         Debug.Log("Direction: " + direction);
 
@@ -343,17 +347,17 @@ public class DungeonGenerator : MonoBehaviour {
                         if (collider != null && collider.name == "FloorTile") {
                             Debug.Log("Setting corner tile at: " + currentPosition);
                             if (laneIndex == 0) {
-                                hallTilemapWalls.SetTile(currentPosition, leftorBottomCorner);
+                                hallTilemapWalls.SetTile(currentPosition, leftOrBottomCorner);
                             } else if (laneIndex == activeLanes.Length - 1) {
                                 if (direction == Direction.East || direction == Direction.West) {
                                     hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y), topHorizontalWall);
                                     hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y + 1), topHorizontalWall);
-                                    hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y + 2), rightorTopCorner);
+                                    hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y + 2), rightOrTopCorner);
                                 } else {
-                                    hallTilemapWalls.SetTile(currentPosition, rightorTopCorner);
+                                    hallTilemapWalls.SetTile(currentPosition, rightOrTopCorner);
                                 }
                             } else
-                                hallTilemapFloors.SetTile(currentPosition, floor);
+                                hallTilemapFloors.SetTile(currentPosition, floorTile);
                             continue;
 
                         }
@@ -362,18 +366,17 @@ public class DungeonGenerator : MonoBehaviour {
                 }
                 Debug.Log("Placing tile at: " + currentPosition);
                 if (laneIndex == 0)
-                    hallTilemapWalls.SetTile(currentPosition, leftorBottomWall);
+                    hallTilemapWalls.SetTile(currentPosition, leftOrBottomWall);
                 else if (laneIndex == activeLanes.Length - 1) {
                     if (direction == Direction.East || direction == Direction.West) {
                         hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y), topHorizontalWall);
                         hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y + 1), topHorizontalWall);
-                        hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y + 2), rightorTopWall);
-                    }
-                    else {
-                        hallTilemapWalls.SetTile(currentPosition, rightorTopWall);
+                        hallTilemapWalls.SetTile(new Vector3Int(currentPosition.x, currentPosition.y + 2), rightOrTopWall);
+                    } else {
+                        hallTilemapWalls.SetTile(currentPosition, rightOrTopWall);
                     }
                 } else
-                    hallTilemapFloors.SetTile(currentPosition, floor);
+                    hallTilemapFloors.SetTile(currentPosition, floorTile);
 
             }
 
