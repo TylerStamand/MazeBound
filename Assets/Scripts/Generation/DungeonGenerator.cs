@@ -132,11 +132,8 @@ public class DungeonGenerator : MonoBehaviour {
 
                         //Room already exists where the new one is to be placed
                         if (collider != null && !tilemaps.Contains(collider.GetComponent<Tilemap>())) {
-                            // Debug.Log($"Collided with {collider.name} at {worldCellPos}");
 
-                            // Debug.Log($"Destroy {spawnedAddition.name}");
                             Destroy(spawnedAddition.gameObject);
-
 
                             //Draw a hallway to the collided room
                             Vector3Int collidedConnectionPoint = GetConnectionPoint(collider.GetComponentInParent<Room>().FloorTileSet.cellBounds, Utilities.GetOppDirection(direction));
@@ -285,7 +282,6 @@ public class DungeonGenerator : MonoBehaviour {
         Tile rightOrTopWall
         ) {
 
-        Debug.Log("Direction: " + direction);
 
         bool[] activeLanes = new bool[2 * hallRadius + 1];
         for (int i = 0; i < activeLanes.Length; i++) {
@@ -296,13 +292,10 @@ public class DungeonGenerator : MonoBehaviour {
 
         for (int i = 0; i < 20; i++) {
 
-            Debug.Log("I: " + i);
-
             //Minus one so it can increment at start of loop
             int laneOffset = -hallRadius - 1;
 
             for (int laneIndex = 0; laneIndex < activeLanes.Length; laneIndex++) {
-                Debug.Log("LaneIndex: " + laneIndex);
 
                 laneOffset++;
                 //Check if one of the lanes collided with the room

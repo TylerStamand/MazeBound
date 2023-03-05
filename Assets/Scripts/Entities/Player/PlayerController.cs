@@ -85,8 +85,6 @@ public class PlayerController : MonoBehaviour {
         if (context.performed) {
             Debug.Log("Trying to Interact");
 
-            //Use tranform.right or tranform.up depending on the direction the player is facing
-
             Vector2 directionVector = Utilities.GetDirectionVectorFromDirection(direction);
 
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, directionVector, interactDistance);
@@ -96,6 +94,7 @@ public class PlayerController : MonoBehaviour {
                     IInteractable interactable = hit.collider.GetComponent<IInteractable>();
                     if (interactable != null) {
                         OnInteract?.Invoke(interactable);
+                        return;
                     }
 
                 }
