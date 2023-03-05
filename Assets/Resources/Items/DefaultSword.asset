@@ -23,8 +23,8 @@ MonoBehaviour:
     MaxValue: 5
     MinValue: 2
   Speed:
-    MaxValue: 0.3
-    MinValue: 0.1
+    MaxValue: 2
+    MinValue: 1.5
   CriticalChance:
     MaxValue: 0.3
     MinValue: 0.1

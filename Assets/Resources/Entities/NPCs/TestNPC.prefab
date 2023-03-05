@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3873990133628319290}
   - component: {fileID: 1191952967}
   - component: {fileID: 1191952968}
-  - component: {fileID: 1191952969}
   m_Layer: 7
   m_Name: TestNPC
   m_TagString: Untagged
@@ -47,15 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2e8eac36984b74a8adada6bfd906ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: TestNPC
-  dialogManagerPrefab: {fileID: 8932308997207778375, guid: b78ad210852d2534fac8665494c9883e, type: 3}
-  MazeEncounterDialog: {fileID: 11400000, guid: 69b0e1e0e40874c4e8a6feb613be6687, type: 2}
+  <Name>k__BackingField: Wizard
+  MazeEncounterDialog: {fileID: 11400000, guid: 653d1ee7c0645134098f4a631050e620, type: 2}
   HubFirstEncounterDialog: {fileID: 0}
   PuzzlePieceDialog:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  GeneralDialog: []
+  GeneralDialog:
+  - {fileID: 11400000, guid: 69b0e1e0e40874c4e8a6feb613be6687, type: 2}
 --- !u!212 &1191952967
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -97,7 +96,7 @@ SpriteRenderer:
   m_SortingLayerID: -977925959
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2083139588, guid: f071a613c372f9740b72d1ac1a42cef2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ba7018f4a96b09b4d814e214a07f7b4f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -144,7 +143,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.84375, y: 0.90625}
+    oldSize: {x: 1.2, y: 1.2}
     newSize: {x: 0.5, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -152,49 +151,4 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.84375, y: 0.90625}
-  m_EdgeRadius: 0
---- !u!61 &1191952969
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3873990133628319291}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.84375, y: 0.90625}
-    newSize: {x: 0.5, y: 0.5}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
