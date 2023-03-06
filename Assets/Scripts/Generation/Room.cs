@@ -5,6 +5,10 @@ using System.Collections.Generic;
 
 public class Room : MonoBehaviour {
 
+    public static readonly float ChestSpawnRate = .5f;
+    public static readonly float EnemySpawnRate = .5f;
+
+
     [field: SerializeField] public RoomRarity Rarity { get; private set; }
     [field: SerializeField] public Tilemap FloorTileSet { get; private set; }
 
@@ -36,34 +40,22 @@ public class Room : MonoBehaviour {
     }
 
     //Change itemForChest to SpawnRates object in future
-    public void Initialize(int roomLevel, ItemData itemForChest) {
+    public void Initialize(int roomLevel, SpawnRates spawnRates) {
 
         RoomLevel = roomLevel;
         List<Enemy> enemyPrefabs = ResourceManager.Instance.GetEnemies();
 
         //Spawns the chests for the room
-        foreach (Chest chest in GetComponentsInChildren<Chest>()) {
-            if (UnityEngine.Random.Range(0, 2) > .50) {
-                chest.Items.Insert(UnityEngine.Random.Range(0, Chest.ChestSize), itemForChest.CreateItem((float)roomLevel / DungeonGenerator.MaxRoomScale));
-            } else Destroy(chest.gameObject);
-
-        }
+        InitializeChests(spawnRates);
 
 
         //Prevents Enemies from spawning in base room
         if (roomLevel == 0) return;
 
+        InitializeEnemies(enemyPrefabs);
         //Spawns the enemies for the room
-        foreach (GameObject enemySpawn in enemySpawnLocations) {
-            Enemy enemyPrefab = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Count)];
-            Enemy enemy = Instantiate(enemyPrefab, enemySpawn.transform.position, Quaternion.identity);
-            enemy.enabled = false;
-            roomEnemies.Add(enemy);
-        }
-
 
     }
-
 
 
     void OnTriggerEnter2D(Collider2D collider) {
@@ -80,11 +72,35 @@ public class Room : MonoBehaviour {
         }
     }
 
+    void InitializeEnemies(List<Enemy> enemyPrefabs) {
+        foreach (GameObject enemySpawn in enemySpawnLocations) {
+            if (UnityEngine.Random.Range(0, 1f) > .5) continue;
+            Enemy enemyPrefab = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Count)];
+            Enemy enemy = Instantiate(enemyPrefab, enemySpawn.transform.position, Quaternion.identity);
+            enemy.enabled = false;
+            roomEnemies.Add(enemy);
+        }
+    }
 
+    void InitializeChests(SpawnRates spawnRates) {
+        foreach (Chest chest in GetComponentsInChildren<Chest>()) {
+            //Decides if the chest will spawn
+            if (UnityEngine.Random.Range(0f, 1f) > .5) {
+                //If chestSpawned, give it items
 
+                foreach (SpawnRates.ItemSpawnRate itemSpawnRate in spawnRates.ItemSpawnRates) {
+                    float chance = itemSpawnRate.spawnRateCurve.Evaluate((float)RoomLevel / DungeonGenerator.MaxRoomScale);
 
+                    //Does this item get a chance to spawn
+                    if (chance > UnityEngine.Random.Range(0f, 1f)) {
+                        //Spawn the item
+                        chest.AddItem(itemSpawnRate.itemData.CreateItem((float)RoomLevel / DungeonGenerator.MaxRoomScale));
+                    }
 
-
+                }
+            } else Destroy(chest.gameObject);
+        }
+    }
 }
 
 // Chest tile Link

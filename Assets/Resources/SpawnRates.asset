@@ -16,8 +16,76 @@ MonoBehaviour:
   - itemData: {fileID: 11400000, guid: 463c08f524fa14f48a529bb931456743, type: 2}
     spawnRateCurve:
       serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 0
-      m_PostInfinity: 0
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.40110996
+        inSlope: 0.59889007
+        outSlope: 0.59889007
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0.59889007
+        outSlope: 0.59889007
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+  - itemData: {fileID: 11400000, guid: 397813e5c4a277342b312eb980c7af29, type: 2}
+    spawnRateCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.40110996
+        inSlope: 0.59889007
+        outSlope: 0.59889007
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0.59889007
+        outSlope: 0.59889007
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+  - itemData: {fileID: 11400000, guid: cf734ebf3dcc96c4b8712f56c9a8fe54, type: 2}
+    spawnRateCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.40110996
+        inSlope: 0.59889007
+        outSlope: 0.59889007
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0.59889007
+        outSlope: 0.59889007
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
       m_RotationOrder: 0
   EnemySpawnRates: []

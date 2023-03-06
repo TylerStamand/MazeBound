@@ -16,7 +16,7 @@ public enum RoomRarity {
 public class DungeonGenerator : MonoBehaviour {
 
     //Change this to spawnrates in the future
-    [SerializeField] ItemData itemForChest;
+    [SerializeField] SpawnRates spawnRates;
 
     [SerializeField] Grid dungeonGrid;
     [SerializeField] Tilemap hallTilemapFloors;
@@ -61,7 +61,7 @@ public class DungeonGenerator : MonoBehaviour {
     void Initialize() {
         Debug.Log("Initializing Dungeon");
         Room room = Instantiate(initalRoomPrefab, Vector3.zero, Quaternion.identity, dungeonGrid.transform);
-        room.Initialize(0, itemForChest);
+        room.Initialize(0, spawnRates);
         List<Tilemap> tilemaps = new List<Tilemap>(room.GetComponentsInChildren<Tilemap>());
 
         room.OnRoomCompletion += HandleRoomCompletion;
@@ -197,7 +197,7 @@ public class DungeonGenerator : MonoBehaviour {
 
     void SetupRoom(Room room, int roomLevel) {
         room.GetComponent<Room>().OnRoomCompletion += HandleRoomCompletion;
-        room.Initialize(roomLevel, itemForChest);
+        room.Initialize(roomLevel, spawnRates);
     }
 
 

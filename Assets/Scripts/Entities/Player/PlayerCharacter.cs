@@ -85,7 +85,10 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
             Destroy(weaponInstance.gameObject);
         }
         weaponInstance = Instantiate(weaponItem.ItemData.WeaponPrefab, weaponHolder.transform);
+        weaponHolder.transform.localPosition = Vector3.zero;
+        weaponHolder.transform.localRotation = Quaternion.identity;
         weaponInstance.transform.localPosition = Vector3.zero;
+        weaponInstance.transform.localRotation = Quaternion.identity;
         weaponInstance.Initialize(true, weaponItem.Damage, weaponItem.Speed, weaponItem.CriticalChance);
 
     }

@@ -825,7 +825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf3e26f4868c0544920da6c7f5fa8f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemForChest: {fileID: 11400000, guid: 463c08f524fa14f48a529bb931456743, type: 2}
+  spawnRates: {fileID: 11400000, guid: a6d68ff79e7f1fe44a93d86a31081dd1, type: 2}
   dungeonGrid: {fileID: 583224667}
   hallTilemapFloors: {fileID: 1613930230}
   hallTilemapWalls: {fileID: 416813677}
@@ -988,6 +988,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 491152714, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
+      propertyPath: orthographic size
+      value: 8.4375
+      objectReference: {fileID: 0}
     - target: {fileID: 8465680535696588503, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -1031,6 +1035,10 @@ PrefabInstance:
     - target: {fileID: 8465680535696588503, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8465680535696588505, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
+      propertyPath: <CurrentHealth>k__BackingField
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8465680535696588506, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
       propertyPath: m_Name
