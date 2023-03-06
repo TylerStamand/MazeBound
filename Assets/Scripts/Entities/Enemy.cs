@@ -17,7 +17,6 @@ public class Enemy : MonoBehaviour, IDamageable {
     [SerializeField] float moveSpeed = 1;
     [SerializeField] float alertRadius = 1;
     [SerializeField] float stopDistance = 2;
-    [SerializeField] float knockbackY = 1.2f;
     [SerializeField] ContactFilter2D contactFilter;
 
     public float CurrentHealth { get; private set; }

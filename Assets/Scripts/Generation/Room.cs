@@ -71,7 +71,7 @@ public class Room : MonoBehaviour {
 
 
     void OnTriggerEnter2D(Collider2D collider) {
-        PlayerCharacter player = collider.GetComponent<PlayerCharacter>();
+        PlayerCharacter player = collider.GetComponentInParent<PlayerCharacter>();
         if (player != null && !playerEnteredRoom) {
             playerEnteredRoom = true;
             if (!TrapRoom) {

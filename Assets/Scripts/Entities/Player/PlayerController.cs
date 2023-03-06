@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] float moveSpeed;
     [SerializeField] float interactDistance;
+    
 
     public event Action OnClick;
     public event Action OnExitMenu;

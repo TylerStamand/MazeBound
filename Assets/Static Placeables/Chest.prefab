@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7585787311314159445}
   - component: {fileID: 7019125415254189390}
   - component: {fileID: 2961865991206004455}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e7101e3e7d60524bbeba4a62ccf2a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chestUIPrefab: {fileID: 2712004918303161845, guid: ac45762d3907fa142be6bbb138fa3086, type: 3}
 --- !u!61 &7019125415254189390
 BoxCollider2D:
   m_ObjectHideFlags: 0
