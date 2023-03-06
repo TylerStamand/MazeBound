@@ -834,7 +834,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   hallRadius: 2
-  minimumRoomDistance: 5
+  minimumRoomDistance: 6
   floorTile: {fileID: 11400000, guid: 9cac0c762fc695e45a3b14b709e8e8fc, type: 2}
   leftVertical: {fileID: 11400000, guid: addd4ffd437682944a39203af39bf169, type: 2}
   rightVertical: {fileID: 11400000, guid: 8bca3d0a0d94fd4488b98b71bed4f08f, type: 2}

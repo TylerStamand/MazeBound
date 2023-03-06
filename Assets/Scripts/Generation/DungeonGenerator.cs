@@ -127,17 +127,17 @@ public class DungeonGenerator : MonoBehaviour {
 
                         Vector2 cellPos = tilemap.CellToWorld(new Vector3Int(x + bounds.xMin, y + bounds.yMin));
                         Vector2 worldCellPos = new Vector2(cellPos.x - .5f + 1, cellPos.y - .5f);
+                        
                         Collider2D collider = Physics2D.OverlapBox(worldCellPos, Vector2.one, buildingLayer);
-
+                        Room collidedRoom = collider?.GetComponentInParent<Room>();
 
                         //Room already exists where the new one is to be placed
-                        if (collider != null && !tilemaps.Contains(collider.GetComponent<Tilemap>())) {
+                        if (collidedRoom != null && !tilemaps.Contains(collider.GetComponent<Tilemap>())) {
 
                             Destroy(spawnedAddition.gameObject);
 
                             //Draw a hallway to the collided room
-                            Vector3Int collidedConnectionPoint = GetConnectionPoint(collider.GetComponentInParent<Room>().FloorTileSet.cellBounds, Utilities.GetOppDirection(direction));
-                            //DrawHallway(baseBuilding.Tilemap, baseConnectionPoint, collidedConnectionPoint);
+                            Vector3Int collidedConnectionPoint = GetConnectionPoint(collidedRoom.FloorTileSet.cellBounds, Utilities.GetOppDirection(direction));
                             return null;
                         }
                     }

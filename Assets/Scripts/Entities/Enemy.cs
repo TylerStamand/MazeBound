@@ -126,7 +126,6 @@ public class Enemy : MonoBehaviour, IDamageable {
     }
 
     IEnumerator Knockback(float knockback) {
-        float yPosition = transform.position.y;
         inKnockback = true;
         Vector3 knockBackDirection = (transform.position - target.transform.position).normalized;
 
