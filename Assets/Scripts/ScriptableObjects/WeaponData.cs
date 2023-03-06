@@ -22,5 +22,5 @@ public class WeaponData : ItemData {
 
 
 public enum WeaponType {
-    Sword, Dagger, Hammer
+    Sword, Spear, Hammer
 }

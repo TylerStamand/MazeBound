@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14bd16babba1ce74795d9253f8ea5b04, type: 3}
-  m_Name: DefaultSword
+  m_Name: DefaultSpear
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Default Sword
+  <Name>k__BackingField: Default Spear
   <ItemType>k__BackingField: 0
   <StackAble>k__BackingField: 0
-  <Description>k__BackingField: 
-  <Sprite>k__BackingField: {fileID: -615606087, guid: 01f1aab206b3e2a46af56cb0c76a30ac, type: 3}
-  WeaponPrefab: {fileID: 2957765833364229571, guid: 41d48f1abbd8ee64fba8ecdb18573a73, type: 3}
-  WeaponType: 0
+  <Description>k__BackingField: A test spear
+  <Sprite>k__BackingField: {fileID: -491204215, guid: 01f1aab206b3e2a46af56cb0c76a30ac, type: 3}
+  WeaponPrefab: {fileID: 7404189788588101358, guid: a7b340e35960b8c4b8632648f8290c0c, type: 3}
+  WeaponType: 1
   Damage:
     MaxValue: 5
     MinValue: 2
   Speed:
-    MaxValue: 2
-    MinValue: 1.5
+    MaxValue: 7
+    MinValue: 4
   CriticalChance:
-    MaxValue: 0.3
-    MinValue: 0.1
+    MaxValue: 0
+    MinValue: 0
