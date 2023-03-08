@@ -22,7 +22,9 @@ public class DialogManager : MonoBehaviour {
     Dialog dialog;
     bool showChoice;
     bool choiceMade;
+    bool showingChoice;
     PlayerController playerController;
+
 
     void Awake() {
         sentenceQueue = new Queue<string>();
@@ -59,10 +61,13 @@ public class DialogManager : MonoBehaviour {
             //Bring up choice buttons
             ChoiceButtons choiceButtons = Instantiate(choiceButtonsPrefab).GetComponent<ChoiceButtons>();
             choiceButtons.OnChoiceMade += HandleChoiceMade;
-            choiceButtons.OnChoiceMade += (x) => Destroy(choiceButtons.gameObject);
-
+            choiceButtons.OnChoiceMade += (x) => {
+                Destroy(choiceButtons.gameObject);
+                showingChoice = false;
+            };
             //prevents the choicebuttons returning
             showChoice = false;
+            showingChoice = true;
         } else {
             //Dialog is finished
             OnDialogComplete?.Invoke(choiceMade);
@@ -81,9 +86,9 @@ public class DialogManager : MonoBehaviour {
         yield return null;
 
         while (true) {
-            Debug.Log("Page: " + dialogText.pageToDisplay + " of " + dialogText.textInfo.pageCount + " | " + dialogText.maxVisibleCharacters + " of " + dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex);
+            Debug.Log("Page: " + dialogText.pageToDisplay + " of " + dialogText.textInfo.pageCount + " | " + dialogText.maxVisibleCharacters + " of " + dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex + 1);
             //Exit coroutine when all pages are displayed
-            if (dialogText.pageToDisplay == dialogText.textInfo.pageCount && dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex + 1 == dialogText.maxVisibleCharacters) {
+            if (dialogText.pageToDisplay >= dialogText.textInfo.pageCount && dialogText.maxVisibleCharacters >= dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex + 1) {
                 //Weird logic, if there needs to be a choice, we exit but keep the last page being displayed so its visible with choice buttons, 
                 //otherwise its the end of the dialog and needs an extra player click to push the page number up to exit
                 if (dialogText.pageToDisplay > dialogText.textInfo.pageCount || showChoice) {
@@ -119,6 +124,9 @@ public class DialogManager : MonoBehaviour {
     }
 
     void HandlePlayerClick() {
+        //If showing dialog buttons, return
+        if (showingChoice) return;
+
         //If the player clicks and not all characters on page are displayed, display all characters on page
         if (dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex + 1 != dialogText.maxVisibleCharacters) {
             dialogText.maxVisibleCharacters = dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex + 1;
