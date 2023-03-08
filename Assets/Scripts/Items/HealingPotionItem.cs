@@ -15,4 +15,8 @@ public class HealingPotionItem : Item, IConsumable {
     public void Consume(PlayerCharacter playerCharacter) {
         playerCharacter.Heal(HealPoints);
     }
+
+    public override string GetDescription() {
+        return "Heals " + HealPoints + " HP";
+    }
 }
