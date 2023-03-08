@@ -14,9 +14,10 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] float moveSpeed;
     [SerializeField] float interactDistance;
-    
 
-    public event Action OnClick;
+
+    public event Action OnLeftClick;
+    public event Action OnRightClick;
     public event Action OnExitMenu;
     public event Action<IInteractable> OnInteract;
     public event Action OnInventory;
@@ -69,9 +70,15 @@ public class PlayerController : MonoBehaviour {
             WorldMousePos = Camera.main.ScreenToWorldPoint(ScreenMousePos);
     }
 
-    public void Click(InputAction.CallbackContext context) {
+    public void RightClick(InputAction.CallbackContext context) {
         if (context.performed) {
-            OnClick?.Invoke();
+            OnRightClick?.Invoke();
+        }
+    }
+
+    public void LeftClick(InputAction.CallbackContext context) {
+        if (context.performed) {
+            OnLeftClick?.Invoke();
         }
     }
 

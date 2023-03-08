@@ -5,14 +5,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
     [SerializeField] Image itemImageSlot;
     [SerializeField] DescriptionBox DescriptionBoxPrefab;
 
     public bool ItemSet;
     public Item Item { get; private set; }
 
-    public event Action<Slot> OnClick;
+    public event Action<Slot> OnLeftClick;
+    public event Action<Slot> OnRightClick;
 
     Canvas canvas;
 
@@ -20,9 +21,9 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
 
     void Awake() {
-        if (TryGetComponent<Button>(out Button button)) {
-            button.onClick.AddListener(HandleButtonClick);
-        }
+        // if (TryGetComponent<Button>(out Button button)) {
+        //     button.onClick.AddListener(HandleButtonClick);
+        // }
         ItemSet = false;
 
         canvas = GetComponentInParent<Canvas>();
@@ -47,7 +48,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
     }
 
     void HandleButtonClick() {
-        OnClick?.Invoke(this);
+        OnLeftClick?.Invoke(this);
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
@@ -65,6 +66,14 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
     public void OnPointerExit(PointerEventData eventData) {
         if (currentDescriptionObject != null) {
             Destroy(currentDescriptionObject.gameObject);
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData) {
+        if (eventData.button == PointerEventData.InputButton.Left) {
+            OnLeftClick?.Invoke(this);
+        } else if (eventData.button == PointerEventData.InputButton.Right) {
+            OnRightClick?.Invoke(this);
         }
     }
 }

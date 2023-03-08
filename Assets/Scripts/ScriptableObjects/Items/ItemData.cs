@@ -8,6 +8,8 @@ public abstract class ItemData : ScriptableObject {
     [field: SerializeField] public string Name { get; private set; } = DefaultName;
     [field: SerializeField] public ItemType ItemType { get; private set; }
     [field: SerializeField] public bool StackAble { get; private set; }
+    [field: SerializeField] public int MaxStackSize { get; private set; }
+    [field: SerializeField] public bool Consumable { get; private set; }
     [field: SerializeField] public string Description { get; private set; }
     [field: SerializeField] public Sprite Sprite { get; private set; }
 

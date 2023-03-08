@@ -28,11 +28,11 @@ public class DialogManager : MonoBehaviour {
         sentenceQueue = new Queue<string>();
         //SetDialog(testDialog, "Test");
         playerController = FindObjectOfType<PlayerController>();
-        playerController.OnClick += HandlePlayerClick;
+        playerController.OnLeftClick += HandlePlayerClick;
     }
 
     void OnDestroy() {
-        playerController.OnClick -= HandlePlayerClick;
+        playerController.OnLeftClick -= HandlePlayerClick;
         StopAllCoroutines();
     }
 

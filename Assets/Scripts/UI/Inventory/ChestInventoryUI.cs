@@ -28,12 +28,28 @@ public class ChestInventoryUI : InventoryUIController {
     public void SetChest(Chest chest) {
         this.chest = chest;
         PopulateItemList();
-        Display(chestSlots, chestItems, HandleSlotClick, chestSlotsParent.transform);
+        Display(chestSlots, chestItems, HandleSlotLeftClick, HandleSlotRightClick, chestSlotsParent.transform);
     }
 
+    void HandleSlotRightClick(Slot slot) {
+        Debug.Log("Handle slot right click");
+        Item slotItem = slot.Item;
+
+        IConsumable consumable = slotItem as IConsumable;
+        if (consumable != null) {
+            consumable.Consume(playerCharacter);
+            slotItem.Quantity--;
+            if (slotItem.Quantity <= 0) {
+                chestItems[chestSlots.IndexOf(slot)] = null;
+            }
+        }
 
 
-    void HandleSlotClick(Slot slot) {
+
+        Display(chestSlots, chestItems, HandleSlotLeftClick, HandleSlotRightClick, chestSlotsParent.transform);
+    }
+
+    void HandleSlotLeftClick(Slot slot) {
         Item slotItem = slot.Item;
 
         //Removes the old item info from the slot
@@ -58,7 +74,7 @@ public class ChestInventoryUI : InventoryUIController {
             currentHeldItem = null;
         }
 
-        Display(chestSlots, chestItems, HandleSlotClick, chestSlotsParent.transform);
+        Display(chestSlots, chestItems, HandleSlotLeftClick, HandleSlotRightClick, chestSlotsParent.transform);
     }
 
     protected override void PopulateItemList() {

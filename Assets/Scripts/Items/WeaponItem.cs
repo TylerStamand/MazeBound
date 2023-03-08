@@ -6,7 +6,6 @@ public class WeaponItem : Item {
 
     public new WeaponData ItemData { get; private set; }
 
-    //Eventually set these to formulas to take in level as a modifier
     public int Damage { get => BaseDamage; }
     public float Speed { get => BaseSpeed; }
     public float CriticalChance { get => BaseCriticalChance; }

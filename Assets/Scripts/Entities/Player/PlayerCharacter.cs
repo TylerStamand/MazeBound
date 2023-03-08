@@ -41,7 +41,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
 
     void Awake() {
         controller = GetComponent<PlayerController>();
-        controller.OnClick += HandleAttack;
+        controller.OnLeftClick += HandleAttack;
         controller.OnInventory += HandleInventory;
         controller.OnExitMenu += ExitMenu;
         controller.OnInteract += HandleInteract;
@@ -49,6 +49,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         Inventory.OnWeaponChange += HandleWeaponChange;
         WeaponItem starterWeapon = (WeaponItem)weaponData.CreateItem(0);
         Inventory.SetWeapon(starterWeapon);
+        BaseHealth = CurrentHealth;
 
     }
 
@@ -68,6 +69,48 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
             Die();
         }
     }
+
+    public void Heal(int healAmount) {
+        CurrentHealth += healAmount;
+        if (CurrentHealth > BaseHealth) {
+            CurrentHealth = BaseHealth;
+        }
+        OnHealthChange?.Invoke(CurrentHealth);
+    }
+
+    public GameObject ShowMenu(GameObject menuPrefab, bool canExit = true) {
+
+        //Return if there is already a menu being displayed
+        if (currentMenu != null) {
+            return null;
+        }
+
+        GameObject menu = Instantiate(menuPrefab);
+        currentMenu = menu;
+        canExitMenu = canExit;
+        Debug.Log(menu.name);
+        return menu;
+    }
+
+
+    /// <summary>
+    /// This is used to exit the current menu on the player
+    /// </summary>
+    public void ExitMenu() {
+        //Return if there is no menu
+        if (currentMenu == null) {
+            return;
+        }
+        //Return if the menu cannot be exited by using esc
+        if (!canExitMenu) {
+            return;
+        }
+
+        Debug.Log("Exiting Menu");
+        Destroy(currentMenu);
+        currentMenu = null;
+    }
+
 
 
     void HandleAttack() {
@@ -117,38 +160,6 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     /// </summary>
     /// <param name="menuPrefab"></param>
     /// <returns></returns>
-    public GameObject ShowMenu(GameObject menuPrefab, bool canExit = true) {
-
-        //Return if there is already a menu being displayed
-        if (currentMenu != null) {
-            return null;
-        }
-
-        GameObject menu = Instantiate(menuPrefab);
-        currentMenu = menu;
-        canExitMenu = canExit;
-        Debug.Log(menu.name);
-        return menu;
-    }
-
-
-    /// <summary>
-    /// This is used to exit the current menu on the player
-    /// </summary>
-    public void ExitMenu() {
-        //Return if there is no menu
-        if (currentMenu == null) {
-            return;
-        }
-        //Return if the menu cannot be exited by using esc
-        if (!canExitMenu) {
-            return;
-        }
-
-        Debug.Log("Exiting Menu");
-        Destroy(currentMenu);
-        currentMenu = null;
-    }
 
 
     /// <summary>

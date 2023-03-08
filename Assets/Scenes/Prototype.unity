@@ -990,7 +990,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 491152714, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
       propertyPath: orthographic size
-      value: 8.4375
+      value: 6.03125
+      objectReference: {fileID: 0}
+    - target: {fileID: 8465680535696588500, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8465680535696588500, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[16].m_ActionId
+      value: 330baea5-68fd-4172-9df9-45b3cd3249f5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8465680535696588500, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[16].m_ActionName
+      value: Player/Consume[/Mouse/rightButton]
+      objectReference: {fileID: 0}
+    - target: {fileID: 8465680535696588500, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LeftClick
       objectReference: {fileID: 0}
     - target: {fileID: 8465680535696588503, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
       propertyPath: m_RootOrder

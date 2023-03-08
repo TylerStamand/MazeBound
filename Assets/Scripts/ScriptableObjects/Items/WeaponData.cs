@@ -5,12 +5,14 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "WeaponData", menuName = "ScriptableObjects/WeaponData")]
 public class WeaponData : ItemData {
-    public Weapon WeaponPrefab;
+    //TODO: Change visibility to match ItemData
 
-    public WeaponType WeaponType;
-    public MinMaxInt Damage;
-    public MinMaxFloat Speed;
-    public MinMaxFloat CriticalChance;
+    [field: SerializeField] public Weapon WeaponPrefab { get; private set; }
+
+    [field: SerializeField] public WeaponType WeaponType { get; private set; }
+    [field: SerializeField] public MinMaxInt Damage { get; private set; }
+    [field: SerializeField] public MinMaxFloat Speed { get; private set; }
+    [field: SerializeField] public MinMaxFloat CriticalChance { get; private set; }
 
     public override Item CreateItem(float scale) {
         return new WeaponItem(this,

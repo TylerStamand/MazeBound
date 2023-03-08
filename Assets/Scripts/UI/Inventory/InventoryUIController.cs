@@ -21,13 +21,13 @@ public class InventoryUIController : MonoBehaviour {
     [SerializeField] Slot legSlot;
     [SerializeField] Slot bootSlot;
 
-    PlayerCharacter playerCharacter;
     Inventory inventory;
 
     List<Item> items;
     Item weapon;
     List<Slot> slots;
 
+    protected PlayerCharacter playerCharacter;
     protected Item currentHeldItem;
     protected MouseFollower currentHeldUIItem;
 
@@ -40,12 +40,12 @@ public class InventoryUIController : MonoBehaviour {
         currentHeldUIItem = null;
 
 
-        weaponSlot.OnClick += HandleWeaponSlotClick;
+        weaponSlot.OnLeftClick += HandleWeaponSlotClick;
         //Setup Armor Slots here
 
         if (inventory != null) {
             PopulateItemList();
-            Display(slots, items, HandleSlotClick, inventorySlotsParent.transform);
+            Display(slots, items, HandleSlotLeftClick, HandleSlotRightClick, inventorySlotsParent.transform);
         } else {
             Debug.Log("Player does not have an inventory, can not display Inventory");
         }
@@ -83,7 +83,7 @@ public class InventoryUIController : MonoBehaviour {
         weapon = inventory.CurrentWeapon;
     }
 
-    protected void Display(List<Slot> slots, List<Item> items, Action<Slot> slotClickHandler, Transform parent) {
+    protected void Display(List<Slot> slots, List<Item> items, Action<Slot> slotLeftClickHandler, Action<Slot> slotRightClickHandler, Transform parent) {
         Debug.Log("Displaying Items");
         foreach (Slot slot in slots) {
             Destroy(slot.gameObject);
@@ -94,7 +94,8 @@ public class InventoryUIController : MonoBehaviour {
         for (int i = 0; i < Inventory.InventorySize; i++) {
             Slot slot = Instantiate(slotPrefab, parent);
 
-            slot.OnClick += slotClickHandler;
+            slot.OnLeftClick += slotLeftClickHandler;
+            slot.OnRightClick += slotRightClickHandler;
 
             slots.Add(slot);
 
@@ -110,8 +111,25 @@ public class InventoryUIController : MonoBehaviour {
         }
     }
 
+    void HandleSlotRightClick(Slot slot) {
+        Debug.Log("Handle slot right click");
+        Item slotItem = slot.Item;
 
-    void HandleSlotClick(Slot slot) {
+        IConsumable consumable = slotItem as IConsumable;
+        if (consumable != null) {
+            consumable.Consume(playerCharacter);
+            slotItem.Quantity--;
+            if (slotItem.Quantity <= 0) {
+                items[slots.IndexOf(slot)] = null;
+            }            
+        }
+        
+    
+
+        Display(slots, items, HandleSlotLeftClick, HandleSlotRightClick, inventorySlotsParent.transform);
+    }
+
+    void HandleSlotLeftClick(Slot slot) {
         Debug.Log("Handle slot click");
         Item slotItem = slot.Item;
 
@@ -137,7 +155,7 @@ public class InventoryUIController : MonoBehaviour {
             currentHeldItem = null;
         }
 
-        Display(slots, items, HandleSlotClick, inventorySlotsParent.transform);
+        Display(slots, items, HandleSlotLeftClick, HandleSlotRightClick, inventorySlotsParent.transform);
     }
 
 
@@ -172,7 +190,7 @@ public class InventoryUIController : MonoBehaviour {
 
         inventory.SetWeapon((WeaponItem)weapon);
 
-        Display(slots, items, HandleSlotClick, inventorySlotsParent.transform);
+        Display(slots, items, HandleSlotLeftClick,HandleSlotRightClick, inventorySlotsParent.transform);
     }
 
     protected MouseFollower CreateHeldUIItem(Slot slot) {
