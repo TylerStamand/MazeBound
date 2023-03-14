@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     protected Weapon currentWeapon;
     protected Animator anim;
     protected bool inKnockback;
-
+    protected int scale;
 
 
     protected virtual void Awake() {
@@ -41,16 +41,12 @@ public class Enemy : MonoBehaviour, IDamageable {
         rigidbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        currentWeapon = Instantiate(weaponData.WeaponPrefab, weaponHolder.transform);
-        currentWeapon.transform.localPosition = Vector3.zero;
-        currentWeapon.Initialize(false, weaponData.Damage.GetRandomValue(), weaponData.Speed.GetRandomValue(), weaponData.CriticalChance.GetRandomValue());
+
     }
 
     protected virtual void OnDestroy() {
         rigidbody.DOKill();
     }
-
-
 
 
     protected virtual void FixedUpdate() {
@@ -66,8 +62,9 @@ public class Enemy : MonoBehaviour, IDamageable {
         }
     }
 
-    public void Initialize(float scale) {
-
+    public void Initialize(int scale) {
+        this.scale = scale;
+        EquipWeapon();
     }
 
 
@@ -82,6 +79,13 @@ public class Enemy : MonoBehaviour, IDamageable {
             OnDie?.Invoke(this);
             Destroy(gameObject);
         }
+    }
+
+    void EquipWeapon() {
+        WeaponItem weaponItem = (WeaponItem)weaponData.CreateItem(scale);
+        currentWeapon = Instantiate(weaponData.WeaponPrefab, weaponHolder.transform);
+        currentWeapon.transform.localPosition = Vector3.zero;
+        currentWeapon.Initialize(false, weaponData.Damage.GetRandomValue(), weaponData.Speed.GetRandomValue(), weaponData.CriticalChance.GetRandomValue());
     }
 
     void Move() {
@@ -133,10 +137,10 @@ public class Enemy : MonoBehaviour, IDamageable {
         rigidbody.AddForce(new Vector2(knockBackDirection.x, knockBackDirection.y) * knockback, ForceMode2D.Impulse);
         rigidbody.AddForce(Vector2.up * knockback, ForceMode2D.Impulse);
         rigidbody.gravityScale = 1;
-      
+
         //Wait for the knockback to finish
-        yield return new WaitForSeconds((2 * knockback)/-Physics2D.gravity.y);
-        
+        yield return new WaitForSeconds((2 * knockback) / -Physics2D.gravity.y);
+
         //Reset the rigidbody back to normal
         rigidbody.velocity = Vector2.zero;
         rigidbody.gravityScale = 0;

@@ -15,16 +15,18 @@ MonoBehaviour:
   <Name>k__BackingField: Default Sword
   <ItemType>k__BackingField: 0
   <StackAble>k__BackingField: 0
+  <MaxStackSize>k__BackingField: 0
+  <Consumable>k__BackingField: 0
   <Description>k__BackingField: 
   <Sprite>k__BackingField: {fileID: -615606087, guid: 01f1aab206b3e2a46af56cb0c76a30ac, type: 3}
-  WeaponPrefab: {fileID: 2957765833364229571, guid: 41d48f1abbd8ee64fba8ecdb18573a73, type: 3}
-  WeaponType: 0
-  Damage:
+  <WeaponPrefab>k__BackingField: {fileID: 2957765833364229571, guid: 41d48f1abbd8ee64fba8ecdb18573a73, type: 3}
+  <WeaponType>k__BackingField: 0
+  <Damage>k__BackingField:
     MaxValue: 5
     MinValue: 2
-  Speed:
-    MaxValue: 2
-    MinValue: 1.5
-  CriticalChance:
-    MaxValue: 0.3
-    MinValue: 0.1
+  <Speed>k__BackingField:
+    MaxValue: 6
+    MinValue: 2
+  <CriticalChance>k__BackingField:
+    MaxValue: 0
+    MinValue: 0

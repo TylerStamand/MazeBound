@@ -47,7 +47,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         controller.OnInteract += HandleInteract;
         Inventory = new Inventory();
         Inventory.OnWeaponChange += HandleWeaponChange;
-        WeaponItem starterWeapon = (WeaponItem)weaponData.CreateItem(0);
+        WeaponItem starterWeapon = (WeaponItem)weaponData.CreateItem(1);
         Inventory.SetWeapon(starterWeapon);
         BaseHealth = CurrentHealth;
 

@@ -77,6 +77,7 @@ public class Room : MonoBehaviour {
             if (UnityEngine.Random.Range(0, 1f) > .5) continue;
             Enemy enemyPrefab = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Count)];
             Enemy enemy = Instantiate(enemyPrefab, enemySpawn.transform.position, Quaternion.identity);
+            enemy.Initialize(RoomLevel);
             enemy.enabled = false;
             roomEnemies.Add(enemy);
         }

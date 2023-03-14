@@ -990,7 +990,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 491152714, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
       propertyPath: orthographic size
-      value: 6.03125
+      value: 8.4375
       objectReference: {fileID: 0}
     - target: {fileID: 8465680535696588500, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
       propertyPath: m_ActionEvents.Array.size
@@ -1189,6 +1189,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1191952967, guid: 201f5a346433af940bfade3d9b9d3a0f, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191952967, guid: 201f5a346433af940bfade3d9b9d3a0f, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191952967, guid: 201f5a346433af940bfade3d9b9d3a0f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a2190dcfac2debd46a528d1360ba11c5, type: 3}
+    - target: {fileID: 1191952967, guid: 201f5a346433af940bfade3d9b9d3a0f, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3873990133628319289, guid: 201f5a346433af940bfade3d9b9d3a0f, type: 3}
       propertyPath: m_RootOrder
       value: 7

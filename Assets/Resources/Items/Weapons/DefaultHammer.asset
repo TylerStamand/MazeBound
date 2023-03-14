@@ -15,16 +15,18 @@ MonoBehaviour:
   <Name>k__BackingField: Default Hammer
   <ItemType>k__BackingField: 0
   <StackAble>k__BackingField: 0
+  <MaxStackSize>k__BackingField: 0
+  <Consumable>k__BackingField: 0
   <Description>k__BackingField: 
   <Sprite>k__BackingField: {fileID: 79121101, guid: 01f1aab206b3e2a46af56cb0c76a30ac, type: 3}
-  WeaponPrefab: {fileID: 7063205943396213531, guid: eea8384336c1c344b893129eebde44de, type: 3}
-  WeaponType: 2
-  Damage:
-    MaxValue: 5
-    MinValue: 1
-  Speed:
-    MaxValue: 6
-    MinValue: 3
-  CriticalChance:
+  <WeaponPrefab>k__BackingField: {fileID: 7063205943396213531, guid: eea8384336c1c344b893129eebde44de, type: 3}
+  <WeaponType>k__BackingField: 0
+  <Damage>k__BackingField:
+    MaxValue: 0
+    MinValue: 0
+  <Speed>k__BackingField:
+    MaxValue: 0
+    MinValue: 0
+  <CriticalChance>k__BackingField:
     MaxValue: 0
     MinValue: 0
