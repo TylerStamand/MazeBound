@@ -990,7 +990,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 491152714, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
       propertyPath: orthographic size
-      value: 8.4375
+      value: 9.71875
       objectReference: {fileID: 0}
     - target: {fileID: 8465680535696588500, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
       propertyPath: m_ActionEvents.Array.size
@@ -1248,6 +1248,10 @@ PrefabInstance:
     - target: {fileID: 3873990133628319289, guid: 201f5a346433af940bfade3d9b9d3a0f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873990133628319290, guid: 201f5a346433af940bfade3d9b9d3a0f, type: 3}
+      propertyPath: <Name>k__BackingField
+      value: Old Wizard
       objectReference: {fileID: 0}
     - target: {fileID: 3873990133628319291, guid: 201f5a346433af940bfade3d9b9d3a0f, type: 3}
       propertyPath: m_Name

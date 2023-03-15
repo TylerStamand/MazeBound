@@ -12,3 +12,6 @@ https://cyberrumor.itch.io/16-bit-assassin
 
 Armor Sprites:
 https://zeno.itch.io/armor-icons
+
+Font:
+https://www.dafont.com/alagard.font
