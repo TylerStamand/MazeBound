@@ -108,7 +108,7 @@ public class Enemy : MonoBehaviour, IDamageable {
                     anim.SetBool("isMoving", true);
                     anim.SetFloat("x", differenceInPosition.x);
                     anim.SetFloat("y", differenceInPosition.y);
-
+                    spriteRenderer.flipX = differenceInPosition.x < 0;
                 }
 
             } else {
