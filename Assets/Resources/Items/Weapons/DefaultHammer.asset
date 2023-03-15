@@ -22,11 +22,11 @@ MonoBehaviour:
   <WeaponPrefab>k__BackingField: {fileID: 7063205943396213531, guid: eea8384336c1c344b893129eebde44de, type: 3}
   <WeaponType>k__BackingField: 0
   <Damage>k__BackingField:
-    MaxValue: 0
-    MinValue: 0
+    MaxValue: 5
+    MinValue: 2
   <Speed>k__BackingField:
-    MaxValue: 0
-    MinValue: 0
+    MaxValue: 3
+    MinValue: 5
   <CriticalChance>k__BackingField:
     MaxValue: 0
     MinValue: 0
