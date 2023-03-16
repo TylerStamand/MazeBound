@@ -89,11 +89,12 @@ public class Enemy : MonoBehaviour, IDamageable {
     }
 
     void Move() {
+
         Collider2D collider = Physics2D.OverlapCircle(transform.position, alertRadius, LayerMask.GetMask(new string[] { "Player" }));
         if (collider != null) {
             target = collider.GetComponentInParent<PlayerCharacter>();
 
-            if (Vector2.Distance(target.transform.position, transform.position) >= stopDistance) {
+            if (Vector2.Distance(target.transform.position, transform.position) <= stopDistance) {
                 Vector2 positionToMoveTowards = Vector2.MoveTowards(transform.position, target.transform.position, moveSpeed);
                 Vector2 differenceInPosition = new Vector2(positionToMoveTowards.x - transform.position.x, positionToMoveTowards.y - transform.position.y);
 
@@ -112,7 +113,8 @@ public class Enemy : MonoBehaviour, IDamageable {
                 }
 
             } else {
-                currentWeapon.Use(Utilities.DirectionFromVector2(target.transform.position - transform.position));
+                //Fix logic in here, enemy will attack before moving to player because it is technically in alert radius
+                Attack();
                 anim.SetBool("isMoving", false);
 
             }
@@ -147,5 +149,8 @@ public class Enemy : MonoBehaviour, IDamageable {
         inKnockback = false;
     }
 
+    void Attack() {
+        currentWeapon.Use(Utilities.DirectionFromVector2(target.transform.position - transform.position));
+    }
 
 }
