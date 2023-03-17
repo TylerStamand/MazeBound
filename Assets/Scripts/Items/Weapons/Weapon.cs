@@ -71,6 +71,4 @@ public abstract class Weapon : MonoBehaviour {
 
         initialized = true;
     }
-
-
 }

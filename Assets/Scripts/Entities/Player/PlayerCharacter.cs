@@ -83,7 +83,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
 
         //Return if there is already a menu being displayed
         if (currentMenu != null) {
-            return null;
+            ExitMenu();
         }
 
         GameObject menu = Instantiate(menuPrefab);

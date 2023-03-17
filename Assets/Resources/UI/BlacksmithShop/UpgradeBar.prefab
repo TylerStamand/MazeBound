@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2671972210409012205}
+  - component: {fileID: 3886981986138687732}
   m_Layer: 0
-  m_Name: Upgrade
+  m_Name: UpgradeBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,6 +40,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 571.5, y: 128.2}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &3886981986138687732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875502042566663344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2203801dfd512d46aa6619404d98094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statNameLevelText: {fileID: 7662328117141892895}
+  statCostText: {fileID: 3525195692172355581}
+  upgradeButton: {fileID: 921129502791300610}
 --- !u!1 &3637765870727418916
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +202,7 @@ GameObject:
   - component: {fileID: 202634108210859166}
   - component: {fileID: 3525195692172355581}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: CostText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -209,8 +225,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 279.6, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 309.9456, y: 0}
+  m_SizeDelta: {x: 139.3088, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &202634108210859166
 CanvasRenderer:
@@ -322,7 +338,7 @@ GameObject:
   - component: {fileID: 754878425010745348}
   - component: {fileID: 921129502791300610}
   m_Layer: 0
-  m_Name: Button
+  m_Name: UpgradeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -443,7 +459,7 @@ GameObject:
   - component: {fileID: 339273815224850772}
   - component: {fileID: 7662328117141892895}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: NameLevelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

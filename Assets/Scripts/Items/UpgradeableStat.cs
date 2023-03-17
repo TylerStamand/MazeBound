@@ -16,6 +16,8 @@ public class UpgradeableStat {
     public float UpgradeCostMultiplier { get; private set; }
     public float UpgradeValueMultiplier { get; private set; }
 
+    public event Action OnUpgrade;
+
     public UpgradeableStat(string name, float baseValue, int upgradeCostBase, float upgradeValueMultiplier, float upgradeCostMultiplier) {
         Name = name;
         Level = 1;
@@ -35,5 +37,6 @@ public class UpgradeableStat {
         Level++;
         CurrentValue += BaseValue * UpgradeValueMultiplier;
         UpgradeCost += (int)(UpgradeCostBase * UpgradeCostMultiplier);
+        OnUpgrade?.Invoke();
     }
 }
