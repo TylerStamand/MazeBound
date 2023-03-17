@@ -26,6 +26,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     public event Action<int> OnHealthChange;
     public event Action OnDie;
 
+    public int WeaponScraps { get; private set; }
     public int BaseHealth { get; private set; }
     public int Defense { get => Inventory.GetDefenseFromArmor(); }
 
@@ -132,7 +133,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         weaponHolder.transform.localRotation = Quaternion.identity;
         weaponInstance.transform.localPosition = Vector3.zero;
         weaponInstance.transform.localRotation = Quaternion.identity;
-        weaponInstance.Initialize(true, weaponItem.Damage, weaponItem.Speed, weaponItem.CriticalChance);
+        weaponInstance.Initialize(true, (int)weaponItem.Damage.CurrentValue, weaponItem.Speed.CurrentValue, weaponItem.CriticalChance.CurrentValue);
 
     }
 
