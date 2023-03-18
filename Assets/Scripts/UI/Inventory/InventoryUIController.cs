@@ -23,10 +23,10 @@ public class InventoryUIController : MonoBehaviour {
 
     Inventory inventory;
 
-    List<Item> items;
     Item weapon;
     List<Slot> slots;
 
+    protected List<Item> items;
     protected PlayerCharacter playerCharacter;
     protected Item currentHeldItem;
     protected MouseFollower currentHeldUIItem;
@@ -63,7 +63,6 @@ public class InventoryUIController : MonoBehaviour {
                         break;
                     }
                 }
-                //Or Drop it
             }
 
             SetInventoryOrder();
@@ -121,10 +120,10 @@ public class InventoryUIController : MonoBehaviour {
             slotItem.Quantity--;
             if (slotItem.Quantity <= 0) {
                 items[slots.IndexOf(slot)] = null;
-            }            
+            }
         }
-        
-    
+
+
 
         Display(slots, items, HandleSlotLeftClick, HandleSlotRightClick, inventorySlotsParent.transform);
     }
@@ -190,7 +189,7 @@ public class InventoryUIController : MonoBehaviour {
 
         inventory.SetWeapon((WeaponItem)weapon);
 
-        Display(slots, items, HandleSlotLeftClick,HandleSlotRightClick, inventorySlotsParent.transform);
+        Display(slots, items, HandleSlotLeftClick, HandleSlotRightClick, inventorySlotsParent.transform);
     }
 
     protected MouseFollower CreateHeldUIItem(Slot slot) {

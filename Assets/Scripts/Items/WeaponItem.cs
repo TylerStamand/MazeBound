@@ -1,23 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 [Serializable]
-public class WeaponItem : Item {
+public class WeaponItem : Item, IUpgradeable {
 
     public new WeaponData ItemData { get; private set; }
 
-    public int Damage { get => BaseDamage; }
-    public float Speed { get => BaseSpeed; }
-    public float CriticalChance { get => BaseCriticalChance; }
-
-    //I cant remember why I declared fields for these, probably has something to do with serialization
-    public int BaseDamage { get => baseDamage; private set => baseDamage = value; }
-    public float BaseSpeed { get => baseSpeed; private set => baseSpeed = value; }
-    public float BaseCriticalChance { get => baseCriticalChance; private set => baseCriticalChance = value; }
-
-    public int DamageLevel { get; private set; }
-    public int SpeedLevel { get; private set; }
-    public int CriticalChanceLevel { get; private set; }
+    public UpgradeableStat Damage { get; private set; }
+    public UpgradeableStat Speed { get; private set; }
+    public UpgradeableStat CriticalChance { get; private set; }
 
 
     private int baseDamage;
@@ -25,10 +17,10 @@ public class WeaponItem : Item {
     private float baseCriticalChance;
 
 
-    public WeaponItem(WeaponData itemData, int damage, float Speed, float criticalChance) : base(itemData) {
-        BaseDamage = damage;
-        BaseSpeed = Speed;
-        BaseCriticalChance = criticalChance;
+    public WeaponItem(WeaponData itemData, int damage, float speed, float criticalChance, int upgradeCostBase) : base(itemData) {
+        Damage = new UpgradeableStat("Damage", damage, upgradeCostBase, itemData.UpgradeValueMultiplier, itemData.UpgradeCostMultiplier);
+        Speed = new UpgradeableStat("Speed", speed, upgradeCostBase, itemData.UpgradeValueMultiplier, itemData.UpgradeCostMultiplier);
+        CriticalChance = new UpgradeableStat("Critical Chance", criticalChance, upgradeCostBase, itemData.UpgradeValueMultiplier, itemData.UpgradeCostMultiplier);
         ItemData = itemData;
     }
 
@@ -36,11 +28,20 @@ public class WeaponItem : Item {
     //TODO: format this to be part right justified
     public override string GetDescription() {
         string description = "";
-        description += $"Damage: {Damage.ToString("N", CultureInfo.CurrentCulture)} Lvl: {DamageLevel}\n";
-        description += $"Speed: {Speed} Lvl: {SpeedLevel}\n";
-        description += $"CriticalChance: {CriticalChance} Lvl: {CriticalChanceLevel}\n";
+        description += $"Damage: {Damage.CurrentValue.ToString("N", CultureInfo.CurrentCulture)} Lvl: {Damage.Level}\n";
+        description += $"Speed: {Speed.CurrentValue} Lvl: {Speed.Level}\n";
+        description += $"CriticalChance: {CriticalChance.CurrentValue} Lvl: {CriticalChance.Level}\n";
 
         return description;
+    }
+
+    public List<UpgradeableStat> GetUpgradeableStats()
+    {
+        List<UpgradeableStat> stats = new List<UpgradeableStat>();
+        stats.Add(Damage);
+        stats.Add(Speed);
+        stats.Add(CriticalChance);
+        return stats;
     }
 
 

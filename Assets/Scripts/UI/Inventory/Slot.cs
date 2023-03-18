@@ -37,7 +37,13 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     public void SetItem(Item item) {
         Debug.Log("Got Item: " + item);
-        if (item == null) return;
+        if (item == null){
+            this.Item = null;
+            itemImageSlot.sprite = null;
+            itemImageSlot.color = Color.clear;
+            ItemSet = false;
+            return;
+        };
 
         this.Item = item;
         Sprite itemSprite = item.ItemData.Sprite;

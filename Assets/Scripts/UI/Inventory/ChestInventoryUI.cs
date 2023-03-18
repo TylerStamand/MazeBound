@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class ChestInventoryUI : InventoryUIController {
 
