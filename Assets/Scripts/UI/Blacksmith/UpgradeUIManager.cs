@@ -23,10 +23,10 @@ public class UpgradeUIManager : InventoryUIController {
 
     protected override void OnDestroy() {
         upgradeSlot.OnLeftClick -= HandleUpgradeSlotClick;
-        if (currentHeldUIItem != null) {
+        if (upgradeSlot.Item != null) {
             for (int i = 0; i < Inventory.InventorySize; i++) {
                 if (items[i] == null) {
-                    items[i] = currentHeldItem;
+                    items[i] = upgradeSlot.Item;
                     break;
                 }
             }
