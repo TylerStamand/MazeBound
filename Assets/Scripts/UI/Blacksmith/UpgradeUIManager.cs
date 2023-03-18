@@ -39,14 +39,28 @@ public class UpgradeUIManager : InventoryUIController {
     }
 
     void HandleUpgradeSlotClick(Slot slot) {
-        if (currentHeldItem != null) {
-            if (currentHeldItem is IUpgradeable) {
-                slot.SetItem(currentHeldItem);
-                DisplayUpgradeBars(currentHeldItem as IUpgradeable);
-            }
+        Item oldHeldItem = null;
+
+        //If holding item, destroy the UI of it and set currentHeldItem to null
+        //Only if the item is of IUpgradeable
+        if (currentHeldItem != null && currentHeldItem is IUpgradeable) {
+            Destroy(currentHeldUIItem.gameObject);
+            oldHeldItem = currentHeldItem;
+            currentHeldItem = null;
         }
+
+        //If slot has an item, create the UI of it and set currentHeldItem to it
         if (slot.Item != null) {
+            currentHeldUIItem = CreateHeldUIItem(slot);
             currentHeldItem = slot.Item;
+        }
+
+        //set the slot to whatever was held before, which could be null
+        slot.SetItem(oldHeldItem);
+
+        //If it was not null, set the upgrade bars 
+        if (slot.Item != null) {
+            DisplayUpgradeBars(slot.Item as IUpgradeable);
         }
     }
 

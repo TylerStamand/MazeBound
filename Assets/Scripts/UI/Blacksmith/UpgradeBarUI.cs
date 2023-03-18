@@ -18,7 +18,7 @@ public class UpgradeBarUI : MonoBehaviour {
         PopulateFields();
     }
     void PopulateFields() {
-        statNameLevelText.text = $"{stat.Name} ({stat.Level}/{UpgradeableStat.MaxLevel}  Cost: {stat.UpgradeCost})";
+        statNameLevelText.text = $"{stat.Name} ({stat.Level}/{UpgradeableStat.MaxLevel})  Cost: {stat.UpgradeCost}";
         statCostText.text = stat.UpgradeCost.ToString();
     }
 
