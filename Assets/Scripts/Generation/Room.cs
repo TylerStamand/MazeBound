@@ -90,7 +90,7 @@ public class Room : MonoBehaviour {
                 //If chestSpawned, give it items
 
                 foreach (SpawnRates.ItemSpawnRate itemSpawnRate in spawnRates.ItemSpawnRates) {
-                    float chance = itemSpawnRate.spawnRateCurve.Evaluate((float)RoomLevel / DungeonGenerator.MaxRoomScale);
+                    float chance = itemSpawnRate.spawnRateCurve.Evaluate(MathF.Min((float)RoomLevel, DungeonGenerator.MaxRoomScale));
 
                     //Does this item get a chance to spawn
                     if (chance > UnityEngine.Random.Range(0f, 1f)) {
