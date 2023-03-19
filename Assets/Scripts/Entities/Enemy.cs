@@ -94,7 +94,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         if (collider != null) {
             target = collider.GetComponentInParent<PlayerCharacter>();
 
-            if (Vector2.Distance(target.transform.position, transform.position) <= stopDistance) {
+            if (Vector2.Distance(target.transform.position, transform.position) > stopDistance) {
                 Vector2 positionToMoveTowards = Vector2.MoveTowards(transform.position, target.transform.position, moveSpeed);
                 Vector2 differenceInPosition = new Vector2(positionToMoveTowards.x - transform.position.x, positionToMoveTowards.y - transform.position.y);
 
@@ -110,7 +110,8 @@ public class Enemy : MonoBehaviour, IDamageable {
                     anim.SetFloat("x", differenceInPosition.x);
                     anim.SetFloat("y", differenceInPosition.y);
                     spriteRenderer.flipX = differenceInPosition.x < 0;
-                }
+                } else
+                    anim.SetBool("isMoving", false);
 
             } else {
                 //Fix logic in here, enemy will attack before moving to player because it is technically in alert radius
