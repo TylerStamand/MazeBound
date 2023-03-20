@@ -83,6 +83,13 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         OnHealthChange?.Invoke(CurrentHealth);
     }
 
+
+
+    /// <summary>
+    /// This is used to show a menu, and will return null if a menu is already open
+    /// </summary>
+    /// <param name="menuPrefab"></param>
+    /// <returns></returns>
     public GameObject ShowMenu(GameObject menuPrefab, bool canExit = true) {
 
         //Return if there is already a menu being displayed
@@ -122,6 +129,14 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
 
 
     void HandleAttack() {
+        //Return if there is no weapon
+        if (weaponInstance == null) {
+            Debug.Log("No weapon equipped");
+            return;
+        }
+        if (currentMenu != null) {
+            return;
+        }
 
         weaponInstance.Use(currentDirection);
     }
@@ -164,12 +179,6 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         SceneManager.LoadScene("Prototype");
     }
 
-
-    /// <summary>
-    /// This is used to show a menu, and will return null if a menu is already open
-    /// </summary>
-    /// <param name="menuPrefab"></param>
-    /// <returns></returns>
 
 
     /// <summary>
