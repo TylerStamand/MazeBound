@@ -26,10 +26,7 @@ public class NPC : MonoBehaviour, IInteractable {
     public virtual void Interact(PlayerCharacter playerCharacter) {
         DialogManager dialogManager;
 
-        if (playerCharacter == null) Debug.Log("Player null");
         if (!npcState.MazeEncounterComplete && MazeEncounterDialog != null) {
-            //Check if there is dialog to show
-            if (MazeEncounterDialog == null) return;
 
             //Create the dialog manager and set the dialog
             dialogManager = ShowDialog(MazeEncounterDialog, playerCharacter);

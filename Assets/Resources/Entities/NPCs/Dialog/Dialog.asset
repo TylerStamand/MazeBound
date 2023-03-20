@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sentences:
   - "This foul place as far as I understand is apart from space or time. \rWe reside
-    in a pocket dimension of some unknown entity.\r I do not have the neccesary materials
-    to escape this place but I \r\ndo believe that the dungeons hold the key(s) to
-    our escape.\r Will you aid me in this quest?\n"
-  - 
+    in a pocket dimension of some unknown entity."
+  - "\r I do not have the neccesary materials to escape this place but I \r\ndo believe
+    that the dungeons hold the key(s) to our escape.\n"
+  - "\r Will you aid me in this quest?"
   <IsChoice>k__BackingField: 1
   YesDialog:
   - "Jolly good work. As I am old, I will not be accompanying you but \r\nI can outfit

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using System.Linq;
 using System;
 using System.Text.RegularExpressions;
 
@@ -55,7 +54,10 @@ public class DialogManager : MonoBehaviour {
 
     IEnumerator DisplayDialog() {
 
-        yield return StartCoroutine(TypeSentence(sentenceQueue.Dequeue()));
+        while (sentenceQueue.Count > 0) {
+            //hacky way to keep from displaying the choice buttons until the last sentence is displayed
+            yield return StartCoroutine(TypeSentence(sentenceQueue.Dequeue(), sentenceQueue.Count == 0 && showChoice));
+        }
         Debug.Log("Finished displaying dialog");
         if (showChoice) {
             //Bring up choice buttons
@@ -74,7 +76,7 @@ public class DialogManager : MonoBehaviour {
         }
     }
 
-    IEnumerator TypeSentence(string sentence) {
+    IEnumerator TypeSentence(string sentence, bool showChoice) {
         dialogText.useMaxVisibleDescender = false;
 
         dialogText.text = Regex.Replace(sentence, @"\t|\n|\r", "");
