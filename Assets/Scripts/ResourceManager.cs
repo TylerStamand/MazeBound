@@ -56,7 +56,27 @@ public class ResourceManager {
         DialogManagerPrefab = Resources.Load<GameObject>("UI/Dialog/DialogManager");
         ChestInventoryPrefab = Resources.Load<GameObject>("UI/Inventory/ChestInventory");
 
+        List<ItemData> itemDataList = Resources.LoadAll<ItemData>("Items").ToList();
+        itemDataDic = itemDataList.ToDictionary(r => {
+            if (r.Name != ItemData.DefaultName) {
+                return r.Name;
+            } else {
+                Debug.LogError("Weapon not given a name");
+                return "";
+            }
+        },
+            r => r
+        );
+
     }
+
+
+    public ItemData GetItemData(string name) {
+        itemDataDic.TryGetValue(name, out ItemData value);
+        return value;
+
+    }
+
 
     public Dictionary<RoomRarity, List<Room>> GetRoomDic() {
         return roomDataDic;

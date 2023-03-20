@@ -12,7 +12,7 @@ public class Inventory {
     public event Action<ArmorItem> OnArmorChange;
 
     Dictionary<string, Item> itemLookup { get; set; } = new Dictionary<string, Item>();
-    List<Item> items;
+    public List<Item> Items { get; private set; }
 
     //Will probably need events to show change for HUD depending on implementation
 
@@ -29,10 +29,10 @@ public class Inventory {
     public bool IsFull => itemLookup.Count == InventorySize;
 
     public Inventory() {
-        items = new List<Item>();
+        Items = new List<Item>();
         itemLookup = new Dictionary<string, Item>();
         for (int i = 0; i < InventorySize; i++) {
-            items.Add(null);
+            Items.Add(null);
         }
     }
 
@@ -47,8 +47,8 @@ public class Inventory {
     public void RemoveItem(string itemID) {
         Item itemToRemove = itemLookup[itemID];
         itemLookup.Remove(itemID);
-        int indexOfItemToRemove = items.IndexOf(itemToRemove);
-        items[indexOfItemToRemove] = null;
+        int indexOfItemToRemove = Items.IndexOf(itemToRemove);
+        Items[indexOfItemToRemove] = null;
 
 
     }
@@ -58,8 +58,8 @@ public class Inventory {
 
 
         for (int i = 0; i < InventorySize; i++) {
-            if (items[i] == null) {
-                items[i] = item;
+            if (Items[i] == null) {
+                Items[i] = item;
                 Debug.Log("Item Added Successfully");
                 break;
             }
@@ -71,7 +71,7 @@ public class Inventory {
     }
 
     public List<Item> GetItemList() {
-        return items;
+        return Items;
     }
 
 
@@ -117,9 +117,9 @@ public class Inventory {
     }
 
     public void SetItems(List<Item> items) {
-        this.items.Clear();
+        this.Items.Clear();
         foreach (Item item in items) {
-            this.items.Add(item);
+            this.Items.Add(item);
         }
 
 
@@ -132,8 +132,8 @@ public class Inventory {
         }
 
         //Removes item from item list but does not drop it from the lookup
-        if (items.IndexOf(itemToSet) != -1) {
-            items[items.IndexOf(itemToSet)] = null;
+        if (Items.IndexOf(itemToSet) != -1) {
+            Items[Items.IndexOf(itemToSet)] = null;
         }
         equippedItem = itemToSet;
     }

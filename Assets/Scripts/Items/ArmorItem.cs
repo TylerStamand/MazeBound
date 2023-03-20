@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ArmorItem : Item, ICanLevel {
-    public ArmorItem(ItemData itemData) : base(itemData)
-    {
+    public ArmorItem(string itemName) : base(itemName) {
 
     }
 

@@ -166,7 +166,8 @@ public class InventoryUIController : MonoBehaviour {
         if (currentHeldUIItem == null) return;
 
         //Item is not a weapon
-        if (currentHeldItem.ItemData.ItemType != ItemType.Weapon) return;
+        ItemData itemData = ResourceManager.Instance.GetItemData(currentHeldItem.ItemName);
+        if (itemData.ItemType != ItemType.Weapon) return;
 
         Item oldWeapon = slot.Item;
 
@@ -197,7 +198,7 @@ public class InventoryUIController : MonoBehaviour {
         UIItem.transform.SetParent(mainPanel.transform);
         UIItem.transform.SetAsLastSibling();
         UIItem.GetComponent<RectTransform>().position = slot.GetComponent<RectTransform>().position;
-        UIItem.GetComponent<Image>().sprite = slot.Item.ItemData.Sprite;
+        UIItem.GetComponent<Image>().sprite = ResourceManager.Instance.GetItemData(slot.Item.ItemName).Sprite;
 
 
         return UIItem;

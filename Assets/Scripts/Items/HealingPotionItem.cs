@@ -6,12 +6,10 @@ public class HealingPotionItem : Item, IConsumable {
 
     public int HealPoints { get; private set; }
 
-    public HealingPotionItem(ItemData itemData, int healPoints) : base(itemData) {
+    public HealingPotionItem(string itemName, int healPoints) : base(itemName) {
         HealPoints = healPoints;
     }
-
-    public new HealingPotionData ItemData { get; private set; }
-
+    
     public void Consume(PlayerCharacter playerCharacter) {
         playerCharacter.Heal(HealPoints);
     }

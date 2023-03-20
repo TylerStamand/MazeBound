@@ -19,6 +19,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     DescriptionBox currentDescriptionObject;
 
+    ItemData itemData;
 
     void Awake() {
         // if (TryGetComponent<Button>(out Button button)) {
@@ -37,8 +38,9 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     public void SetItem(Item item) {
         Debug.Log("Got Item: " + item);
-        if (item == null){
+        if (item == null) {
             this.Item = null;
+            itemData = null;
             itemImageSlot.sprite = null;
             itemImageSlot.color = Color.clear;
             ItemSet = false;
@@ -46,7 +48,8 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         };
 
         this.Item = item;
-        Sprite itemSprite = item.ItemData.Sprite;
+        itemData = ResourceManager.Instance.GetItemData(item.ItemName);
+        Sprite itemSprite = itemData.Sprite;
         itemImageSlot.sprite = itemSprite;
         itemImageSlot.color = Color.white;
 
@@ -65,7 +68,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         currentDescriptionObject = Instantiate(DescriptionBoxPrefab);
         currentDescriptionObject.transform.SetParent(canvas.transform);
         currentDescriptionObject.transform.SetAsLastSibling();
-        currentDescriptionObject.Title.text = Item.ItemData.Name;
+        currentDescriptionObject.Title.text = itemData.Name;
         currentDescriptionObject.Description.text = Item.GetDescription();
     }
 

@@ -5,8 +5,6 @@ using System.Globalization;
 [Serializable]
 public class WeaponItem : Item, IUpgradeable {
 
-    public new WeaponData ItemData { get; private set; }
-
     public UpgradeableStat Damage { get; private set; }
     public UpgradeableStat Speed { get; private set; }
     public UpgradeableStat CriticalChance { get; private set; }
@@ -17,11 +15,11 @@ public class WeaponItem : Item, IUpgradeable {
     private float baseCriticalChance;
 
 
-    public WeaponItem(WeaponData itemData, int damage, float speed, float criticalChance, int upgradeCostBase) : base(itemData) {
+    public WeaponItem(string itemName, int damage, float speed, float criticalChance, int upgradeCostBase ) : base(itemName) {
+        WeaponData itemData = (WeaponData)ResourceManager.Instance.GetItemData(itemName);
         Damage = new UpgradeableStat("Damage", damage, upgradeCostBase, itemData.UpgradeValueMultiplier, itemData.UpgradeCostMultiplier);
         Speed = new UpgradeableStat("Speed", speed, upgradeCostBase, itemData.UpgradeValueMultiplier, itemData.UpgradeCostMultiplier);
         CriticalChance = new UpgradeableStat("Critical Chance", criticalChance, upgradeCostBase, itemData.UpgradeValueMultiplier, itemData.UpgradeCostMultiplier);
-        ItemData = itemData;
     }
 
 
@@ -35,8 +33,7 @@ public class WeaponItem : Item, IUpgradeable {
         return description;
     }
 
-    public List<UpgradeableStat> GetUpgradeableStats()
-    {
+    public List<UpgradeableStat> GetUpgradeableStats() {
         List<UpgradeableStat> stats = new List<UpgradeableStat>();
         stats.Add(Damage);
         stats.Add(Speed);

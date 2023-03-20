@@ -6,7 +6,12 @@ using UnityEngine.SceneManagement;
 
 
 
-//TODO: ADD A BETTER WAY TO MANAGE STATE
+class PlayerSaveData {
+    public int WeaponScraps;
+    public Inventory Inventory;
+
+}
+
 
 public class PlayerCharacter : MonoBehaviour, IDamageable {
 
@@ -51,7 +56,6 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         WeaponItem starterWeapon = (WeaponItem)weaponData.CreateItem(1);
         Inventory.SetWeapon(starterWeapon);
         BaseHealth = CurrentHealth;
-
     }
 
     void Update() {
@@ -110,6 +114,9 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         Debug.Log("Exiting Menu");
         Destroy(currentMenu);
         currentMenu = null;
+
+        SaveManager.Instance.SetData("Player", new PlayerSaveData() { Inventory = Inventory, WeaponScraps = WeaponScraps });
+        SaveManager.Instance.Save();
     }
 
 
@@ -128,7 +135,9 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         if (weaponInstance != null) {
             Destroy(weaponInstance.gameObject);
         }
-        weaponInstance = Instantiate(weaponItem.ItemData.WeaponPrefab, weaponHolder.transform);
+
+        WeaponData itemData = (WeaponData)ResourceManager.Instance.GetItemData(weaponItem.ItemName);
+        weaponInstance = Instantiate(itemData.WeaponPrefab, weaponHolder.transform);
         weaponHolder.transform.localPosition = Vector3.zero;
         weaponHolder.transform.localRotation = Quaternion.identity;
         weaponInstance.transform.localPosition = Vector3.zero;

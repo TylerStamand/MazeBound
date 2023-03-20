@@ -21,7 +21,10 @@ MonoBehaviour:
   <IsChoice>k__BackingField: 1
   YesDialog:
   - "Jolly good work. As I am old, I will not be accompanying you but \r\nI can outfit
-    you with potions if you bring me materials. \n(Coming Soon)"
-  - 
+    you with potions if you bring me materials. \n"
+  - '(Coming Soon)
+
+
+'
   NoDialog:
   - Well thats to bad. I'll just be here then making mushroom juice!

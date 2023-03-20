@@ -7,13 +7,13 @@ public class Item {
 
     public string ItemID { get; private set; }
 
-    public ItemData ItemData { get; private set; }
+    public string ItemName { get; private set; }
 
     public int Quantity { get; set; }
 
-    public Item(ItemData itemData) {
+    public Item(string itemName) {
         ItemID = Guid.NewGuid().ToString();
-        ItemData = itemData;
+        ItemName = itemName;
         Quantity = 1;
     }
 
@@ -22,8 +22,9 @@ public class Item {
     }
 
     public void AddQuantity(int quantity) {
-        if(ItemData.StackAble && Quantity + quantity <= ItemData.MaxStackSize)
-        Quantity += quantity;
+        ItemData itemData = ResourceManager.Instance.GetItemData(ItemName);
+        if (itemData.StackAble && Quantity + quantity <= itemData.MaxStackSize)
+            Quantity += quantity;
     }
 
 }

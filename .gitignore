@@ -145,3 +145,5 @@ PackageBackups/
 .vscode/settings.json
 
 .VSCodeCounter
+Assets/save.json
+Assets/save.json.meta
