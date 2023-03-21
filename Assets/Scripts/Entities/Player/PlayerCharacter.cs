@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 
 class PlayerSaveData {
+    public Vector3 Position;
     public int WeaponScraps;
     public Inventory Inventory;
 

@@ -21,7 +21,7 @@ public class Chest : MonoBehaviour, IInteractable {
     public void Interact(PlayerCharacter playerCharacter) {
         Debug.Log("Interacted");
 
-        inventoryUI = playerCharacter.ShowMenu(ResourceManager.ChestInventoryPrefab);
+        inventoryUI = playerCharacter.ShowMenu(ResourceManager.Instance.ChestInventoryPrefab);
         if (inventoryUI != null) {
             inventoryUI.GetComponentInChildren<ChestInventoryUI>().SetChest(this);
         }

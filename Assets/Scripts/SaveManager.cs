@@ -14,7 +14,7 @@ public class SaveManager {
     public event Action OnSave;
 
     /// <summary>
-    /// Called after file write
+    /// Called after file read
     /// </summary>
     public event Action OnLoad;
 
@@ -42,6 +42,14 @@ public class SaveManager {
         saveData[key] = value;
     }
 
+
+    /// <summary>
+    /// Retrieves save data using key identifier
+    /// Returns default value if not found
+    /// </summary>
+    /// <param name="key"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
     public T GetData<T>(string key) {
         T value = default(T);
         if (saveData.ContainsKey(key)) {
@@ -52,11 +60,12 @@ public class SaveManager {
         return value;
     }
 
-    public void Load() {
+    public bool Load() {
         if (File.Exists(UnityEngine.Application.dataPath + "/save.json")) {
             saveData = JsonConvert.DeserializeObject<Dictionary<string, object>>(File.ReadAllText(UnityEngine.Application.dataPath + "/save.json"));
+            return true;
         }
-        OnLoad?.Invoke();
+        return false;
     }
 
     public void Clear() {

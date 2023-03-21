@@ -4,9 +4,21 @@ using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
 
-public class NPC : MonoBehaviour, IInteractable {
+class NPCSaveData {
+    public bool MazeEncounterComplete;
+    public bool HubFirstEncounterComplete;
+    public bool InHub;
+
+    //new game defaults
+    public NPCSaveData() {
+        MazeEncounterComplete = false;
+        HubFirstEncounterComplete = false;
+        InHub = false;
+    }
+}
+
+public class NPC : MonoBehaviour, IInteractable, ISaveLoad {
     [field: SerializeField] public string Name { get; private set; }
-    [SerializeField] NPCState npcState;
     [SerializeField] Dialog MazeEncounterDialog;
     [SerializeField] Dialog HubFirstEncounterDialog;
     [SerializeField] Dialog[] PuzzlePieceDialog = new Dialog[3];
@@ -16,12 +28,14 @@ public class NPC : MonoBehaviour, IInteractable {
     [ShowIf("isVendor")]
     [SerializeField] GameObject shop;
 
+    public bool InHub => npcState.InHub;
 
-    //REMOVE THIS LATER
-    void Awake() {
-        npcState?.Reset();
+    NPCSaveData npcState = new NPCSaveData();
 
-    }
+
+    // void Awake() {
+    //     //This is the default if you just instantiate an npc without loading from save data
+    // }
 
     public virtual void Interact(PlayerCharacter playerCharacter) {
         DialogManager dialogManager;
@@ -77,7 +91,7 @@ public class NPC : MonoBehaviour, IInteractable {
     }
 
     DialogManager ShowDialog(Dialog dialog, PlayerCharacter playerCharacter) {
-        DialogManager dialogManager = playerCharacter.ShowMenu(ResourceManager.DialogManagerPrefab, false)?.GetComponent<DialogManager>();
+        DialogManager dialogManager = playerCharacter.ShowMenu(ResourceManager.Instance.DialogManagerPrefab, false)?.GetComponent<DialogManager>();
         if (dialogManager == null) return null;
         dialogManager.SetDialog(dialog, Name);
         dialogManager.OnDialogComplete += (x) => {
@@ -85,5 +99,16 @@ public class NPC : MonoBehaviour, IInteractable {
             playerCharacter.ExitMenu();
         };
         return dialogManager;
+    }
+
+    public void Save() {
+        SaveManager.Instance.SetData(Name, npcState);
+    }
+
+    public void Load() {
+        npcState = SaveManager.Instance.GetData<NPCSaveData>(Name);
+        if (npcState == null) {
+            npcState = new NPCSaveData();
+        }
     }
 }
