@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14bd16babba1ce74795d9253f8ea5b04, type: 3}
   m_Name: DefaultHammer
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Default Hammer
+  <Name>k__BackingField: Beaten Hammer
   <ItemType>k__BackingField: 0
   <StackAble>k__BackingField: 0
   <MaxStackSize>k__BackingField: 0
   <Consumable>k__BackingField: 0
   <Description>k__BackingField: 
-  <Sprite>k__BackingField: {fileID: 79121101, guid: 01f1aab206b3e2a46af56cb0c76a30ac, type: 3}
+  <Sprite>k__BackingField: {fileID: 21300000, guid: bd2481ab35a215b438755cbeb2d78b6e, type: 3}
   <WeaponPrefab>k__BackingField: {fileID: 7063205943396213531, guid: eea8384336c1c344b893129eebde44de, type: 3}
   <WeaponType>k__BackingField: 0
   <Damage>k__BackingField:
