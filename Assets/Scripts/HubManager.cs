@@ -59,6 +59,7 @@ public class HubManager : MonoBehaviour {
 
     public void Load() {
 
+        Debug.Log("Loading Hub");
         //Load Hub data
         hubSaveData = SaveManager.Instance.GetData<HubSaveData>("Hub");
         if (hubSaveData == null) {
@@ -67,6 +68,7 @@ public class HubManager : MonoBehaviour {
 
         //Load anything inside the scene
         List<ISaveLoad> saveLoadObjects = FindObjectsOfType<MonoBehaviour>().OfType<ISaveLoad>().ToList();
+        Debug.Log("Loading " + saveLoadObjects.Count + " objects");
         foreach (ISaveLoad saveLoadObject in saveLoadObjects) {
             saveLoadObject.Load();
         }

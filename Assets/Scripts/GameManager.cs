@@ -11,7 +11,7 @@ public enum GameState {
 class GameSaveData {
     public GameState GameState;
 
-    int PuzzlePiecesCollected;
+    public int PuzzlePiecesCollected;
 
     //These should be new game defaults
     public GameSaveData() {
@@ -27,9 +27,9 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance { get; private set; }
 
     public GameState CurrentGameState { get; private set; }
+    public int PuzzlePiecesCollected { get; private set; }
 
-
-    GameSaveData gameSaveData;
+    string SaveDataID = "GameSaveData";
 
     void Awake() {
         if (Instance == null) {
@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour {
         } else {
             Destroy(gameObject);
         }
+
+        SaveManager.Instance.OnSave += Save;
     }
 
 
@@ -57,7 +59,7 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
-        gameSaveData = SaveManager.Instance.GetData<GameSaveData>("GameSaveData");
+        GameSaveData gameSaveData = SaveManager.Instance.GetData<GameSaveData>(SaveDataID);
         if (gameSaveData == null) {
             Debug.Log("No game state save data found");
             Debug.Log("Starting new game");
@@ -72,11 +74,20 @@ public class GameManager : MonoBehaviour {
 
     void NewGame() {
         Debug.Log("New Game");
-        gameSaveData = new GameSaveData();
-        SaveManager.Instance.SetData("GameSaveData", gameSaveData);
+        GameSaveData gameSaveData = new GameSaveData();
+        SaveManager.Instance.SetData(SaveDataID, gameSaveData);
         SaveManager.Instance.Save();
         SceneManager.LoadSceneAsync("Hub");
         CurrentGameState = GameState.Hub;
+    }
+
+    void Save() {
+        Debug.Log("Saving Game Manager");
+        GameSaveData gameSaveData = new GameSaveData() {
+            GameState = CurrentGameState,
+            PuzzlePiecesCollected = PuzzlePiecesCollected
+        };
+        SaveManager.Instance.SetData(SaveDataID, gameSaveData);
     }
 
 

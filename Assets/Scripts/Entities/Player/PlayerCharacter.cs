@@ -7,14 +7,11 @@ using UnityEngine.SceneManagement;
 
 
 class PlayerSaveData {
-    public Vector3 Position;
     public int WeaponScraps;
-    public Inventory Inventory;
-
 }
 
 
-public class PlayerCharacter : MonoBehaviour, IDamageable {
+public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
 
     [SerializeField] bool canDie = true;
     [field: SerializeField] public int CurrentHealth { get; private set; }
@@ -53,7 +50,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         controller.OnExitMenu += ExitMenu;
         controller.OnInteract += HandleInteract;
         Inventory = new Inventory();
-        Inventory.OnWeaponChange += HandleWeaponChange;
+        Inventory.OnWeaponChange += SpawnWeapon;
         WeaponItem starterWeapon = (WeaponItem)weaponData.CreateItem(1);
         Inventory.SetWeapon(starterWeapon);
         BaseHealth = CurrentHealth;
@@ -123,7 +120,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         Destroy(currentMenu);
         currentMenu = null;
 
-        SaveManager.Instance.SetData("Player", new PlayerSaveData() { Inventory = Inventory, WeaponScraps = WeaponScraps });
+        Save();
         SaveManager.Instance.Save();
     }
 
@@ -147,7 +144,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     /// Spawns the weapon as a gameobject and initializes it based on the corresponding weapon item
     /// </summary>
     /// <param name="weaponItem"></param>
-    void HandleWeaponChange(WeaponItem weaponItem) {
+    void SpawnWeapon(WeaponItem weaponItem) {
         if (weaponInstance != null) {
             Destroy(weaponInstance.gameObject);
         }
@@ -194,7 +191,21 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         currentDirection = Utilities.GetDirectionFromAngle(angle);
     }
 
+    public void Save() {
+        Debug.Log("Saving Player");
+        SaveManager.Instance.SetData("Player", new PlayerSaveData() { WeaponScraps = WeaponScraps });
+    }
 
-
+    public void Load() {
+        Debug.Log("Loading Player");
+        PlayerSaveData data = SaveManager.Instance.GetData<PlayerSaveData>("Player");
+        if (data != null) {
+            WeaponScraps = data.WeaponScraps;
+            Inventory.Load();
+            if (Inventory.CurrentWeapon != null) {
+                SpawnWeapon(Inventory.CurrentWeapon);
+            }
+        }
+    }
 }
 

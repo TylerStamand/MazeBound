@@ -87,6 +87,7 @@ public class NPC : MonoBehaviour, IInteractable, ISaveLoad {
     void OnDestroy() {
         if (npcState.HubFirstEncounterComplete) {
             npcState.InHub = true;
+            SaveManager.Instance.SetData(Name, npcState);
         }
     }
 

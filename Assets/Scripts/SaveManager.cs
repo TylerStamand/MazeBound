@@ -6,6 +6,7 @@ using System;
 
 public class SaveManager {
 
+    static readonly string savePath = UnityEngine.Application.dataPath + "/save.json";
     static SaveManager instance;
 
     /// <summary>
@@ -34,8 +35,8 @@ public class SaveManager {
 
     public void Save() {
         OnSave?.Invoke();
-        File.WriteAllText(UnityEngine.Application.dataPath + "/save.json", JsonConvert.SerializeObject(saveData, Formatting.Indented));
-        Debug.Log("Saved to " + UnityEngine.Application.dataPath + "/save.json");
+        File.WriteAllText(savePath, JsonConvert.SerializeObject(saveData, Formatting.Indented, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All }));
+        Debug.Log("Saved to " + savePath);
     }
 
     public void SetData(string key, object value) {
@@ -61,8 +62,11 @@ public class SaveManager {
     }
 
     public bool Load() {
-        if (File.Exists(UnityEngine.Application.dataPath + "/save.json")) {
-            saveData = JsonConvert.DeserializeObject<Dictionary<string, object>>(File.ReadAllText(UnityEngine.Application.dataPath + "/save.json"));
+        if (File.Exists(savePath)) {
+            saveData = JsonConvert.DeserializeObject<Dictionary<string, object>>(File.ReadAllText(savePath), new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
+            foreach (var item in saveData) {
+                Debug.Log(item.Key + " : " + item.Value);
+            }
             return true;
         }
         return false;
@@ -73,8 +77,8 @@ public class SaveManager {
     }
 
     public void Delete() {
-        if (File.Exists(UnityEngine.Application.dataPath + "/save.json")) {
-            File.Delete(UnityEngine.Application.dataPath + "/save.json");
+        if (File.Exists(savePath)) {
+            File.Delete(savePath);
         }
     }
 
