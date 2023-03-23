@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14bd16babba1ce74795d9253f8ea5b04, type: 3}
   m_Name: DefaultSword
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Default Sword
+  <Name>k__BackingField: Rusty Sword
   <ItemType>k__BackingField: 0
   <StackAble>k__BackingField: 0
   <MaxStackSize>k__BackingField: 0
