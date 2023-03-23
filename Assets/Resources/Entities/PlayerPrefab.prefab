@@ -154,7 +154,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8.4375
+  orthographic size: 6.15625
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 8465680535696588502}
   - component: {fileID: 8465680535696588501}
   - component: {fileID: 4386611266634642433}
-  - component: {fileID: 6280798176804349967}
+  - component: {fileID: 2768855211937966384}
   m_Layer: 8
   m_Name: PlayerPrefab
   m_TagString: Untagged
@@ -515,7 +515,7 @@ Transform:
   - {fileID: 1355734299057574700}
   - {fileID: 1457837259}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8465680535696588504
 SpriteRenderer:
@@ -582,12 +582,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canDie: 1
-  <CurrentHealth>k__BackingField: 50
+  <CurrentHealth>k__BackingField: 100
   weaponData: {fileID: 11400000, guid: 397813e5c4a277342b312eb980c7af29, type: 2}
   weaponHolder: {fileID: 8465680535385425422}
-  inventoryUIPrefab: {fileID: 2712004918303161845, guid: b119acbfb21c0f24cb2751d56cf0e7be, type: 3}
-  inventoryChestUIPrefab: {fileID: 2712004918303161845, guid: ac45762d3907fa142be6bbb138fa3086, type: 3}
-  dialogManagerPrefab: {fileID: 4510234046706368905, guid: 4e92d3f4c84e4634d8038eb9babf8ea9, type: 3}
   aimArrow: {fileID: 1664547637}
 --- !u!114 &8465680535696588499
 MonoBehaviour:
@@ -648,7 +645,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8465680535696588499}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: Click
+        m_MethodName: LeftClick
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -764,6 +761,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 80cd4887-cfc0-46b8-b273-902fafab2f33
     m_ActionName: Player/ExitMenu[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8465680535696588499}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: RightClick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 330baea5-68fd-4172-9df9-45b3cd3249f5
+    m_ActionName: Player/Consume[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8465680535696588499}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8343d134-1f72-42ee-aa2c-e7b20330b9e0
+    m_ActionName: Player/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -861,7 +890,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!114 &6280798176804349967
+--- !u!114 &2768855211937966384
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

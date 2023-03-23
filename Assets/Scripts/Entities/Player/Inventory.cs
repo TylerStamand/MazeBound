@@ -3,7 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory {
+
+class InventorySaveData {
+    public List<Item> Items;
+    public WeaponItem CurrentWeapon;
+    public ArmorItem Head;
+    public ArmorItem Chest;
+    public ArmorItem Leg;
+    public ArmorItem Boot;
+}
+
+public class Inventory : ISaveLoad {
+
 
     public static int InventorySize = 15;
 
@@ -35,6 +46,8 @@ public class Inventory {
             Items.Add(null);
         }
     }
+
+
 
 
     public int GetDefenseFromArmor() {
@@ -138,5 +151,38 @@ public class Inventory {
         equippedItem = itemToSet;
     }
 
+    public void Save() {
+        Debug.Log("Saving Inventory");
+        InventorySaveData saveData = new InventorySaveData();
+        saveData.Items = Items;
+        saveData.CurrentWeapon = CurrentWeapon;
+        saveData.Head = Head;
+        saveData.Chest = Chest;
+        saveData.Leg = Leg;
+        saveData.Boot = Boot;
 
+        SaveManager.Instance.SetData("Inventory", saveData);
+       
+    }
+
+    public void Load() {
+        Debug.Log("Loading Inventory");
+        InventorySaveData saveData = SaveManager.Instance.GetData<InventorySaveData>("Inventory");
+        if (saveData != null) {
+            Items = saveData.Items;
+            CurrentWeapon = saveData.CurrentWeapon;
+            Head = saveData.Head;
+            Chest = saveData.Chest;
+            Leg = saveData.Leg;
+            Boot = saveData.Boot;
+
+            foreach (Item item in Items) {
+                if (item != null) {
+                    itemLookup.Add(item.ItemID, item);
+                }
+            }
+        }
+
+        
+    }
 }

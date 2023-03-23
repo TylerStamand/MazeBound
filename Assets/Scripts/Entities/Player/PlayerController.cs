@@ -40,7 +40,11 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
+
+
         rigidbody.velocity = inputVector * moveSpeed;
+
+
         if (inputVector.x > 0) {
             direction = Direction.East;
         } else if (inputVector.x < 0) {
@@ -59,6 +63,8 @@ public class PlayerController : MonoBehaviour {
     void OnDestroy() {
         StopAllCoroutines();
     }
+
+    
 
     public void OnMove(InputAction.CallbackContext context) {
         inputVector = context.ReadValue<Vector2>();

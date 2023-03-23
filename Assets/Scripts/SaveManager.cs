@@ -6,17 +6,9 @@ using System;
 
 public class SaveManager {
 
+    static readonly string savePath = UnityEngine.Application.dataPath + "/save.json";
     static SaveManager instance;
 
-    /// <summary>
-    /// Called before file write
-    /// </summary>
-    public event Action OnSave;
-
-    /// <summary>
-    /// Called after file write
-    /// </summary>
-    public event Action OnLoad;
 
     Dictionary<string, object> saveData = new Dictionary<string, object>();
 
@@ -33,15 +25,22 @@ public class SaveManager {
 
 
     public void Save() {
-        OnSave?.Invoke();
-        File.WriteAllText(UnityEngine.Application.dataPath + "/save.json", JsonConvert.SerializeObject(saveData, Formatting.Indented));
-        Debug.Log("Saved to " + UnityEngine.Application.dataPath + "/save.json");
+        File.WriteAllText(savePath, JsonConvert.SerializeObject(saveData, Formatting.Indented, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All }));
+        Debug.Log("Saved to " + savePath);
     }
 
     public void SetData(string key, object value) {
         saveData[key] = value;
     }
 
+
+    /// <summary>
+    /// Retrieves save data using key identifier
+    /// Returns default value if not found
+    /// </summary>
+    /// <param name="key"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
     public T GetData<T>(string key) {
         T value = default(T);
         if (saveData.ContainsKey(key)) {
@@ -52,11 +51,15 @@ public class SaveManager {
         return value;
     }
 
-    public void Load() {
-        if (File.Exists(UnityEngine.Application.dataPath + "/save.json")) {
-            saveData = JsonConvert.DeserializeObject<Dictionary<string, object>>(File.ReadAllText(UnityEngine.Application.dataPath + "/save.json"));
+    public bool Load() {
+        if (File.Exists(savePath)) {
+            saveData = JsonConvert.DeserializeObject<Dictionary<string, object>>(File.ReadAllText(savePath), new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
+            foreach (var item in saveData) {
+                Debug.Log(item.Key + " : " + item.Value);
+            }
+            return true;
         }
-        OnLoad?.Invoke();
+        return false;
     }
 
     public void Clear() {
@@ -64,8 +67,8 @@ public class SaveManager {
     }
 
     public void Delete() {
-        if (File.Exists(UnityEngine.Application.dataPath + "/save.json")) {
-            File.Delete(UnityEngine.Application.dataPath + "/save.json");
+        if (File.Exists(savePath)) {
+            File.Delete(savePath);
         }
     }
 

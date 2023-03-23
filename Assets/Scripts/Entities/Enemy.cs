@@ -64,6 +64,7 @@ public class Enemy : MonoBehaviour, IDamageable {
 
     public void Initialize(int scale) {
         this.scale = scale;
+        
         EquipWeapon();
     }
 

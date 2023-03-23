@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArmorItem : Item, ICanLevel {
+public class ArmorItem : Item, IUpgradeable {
     public ArmorItem(string itemName) : base(itemName) {
 
     }
@@ -21,20 +21,8 @@ public class ArmorItem : Item, ICanLevel {
     //Formula for how to scale to level
     public int CurrentDefense { get => BaseDefense; }
 
-    public bool CanLevel() {
+    public List<UpgradeableStat> GetUpgradeableStats()
+    {
         throw new System.NotImplementedException();
     }
-
-    public int GetCurrentLevel() {
-        throw new System.NotImplementedException();
-    }
-
-    public int GetMaxLevel() {
-        throw new System.NotImplementedException();
-    }
-
-    public void IncreaseLevel() {
-        throw new System.NotImplementedException();
-    }
-
 }

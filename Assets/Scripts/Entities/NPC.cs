@@ -4,9 +4,21 @@ using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
 
-public class NPC : MonoBehaviour, IInteractable {
+class NPCSaveData {
+    public bool MazeEncounterComplete;
+    public bool HubFirstEncounterComplete;
+    public bool InHub;
+
+    //new game defaults
+    public NPCSaveData() {
+        MazeEncounterComplete = false;
+        HubFirstEncounterComplete = false;
+        InHub = false;
+    }
+}
+
+public class NPC : MonoBehaviour, IInteractable, ISaveLoad {
     [field: SerializeField] public string Name { get; private set; }
-    [SerializeField] NPCState npcState;
     [SerializeField] Dialog MazeEncounterDialog;
     [SerializeField] Dialog HubFirstEncounterDialog;
     [SerializeField] Dialog[] PuzzlePieceDialog = new Dialog[3];
@@ -16,25 +28,33 @@ public class NPC : MonoBehaviour, IInteractable {
     [ShowIf("isVendor")]
     [SerializeField] GameObject shop;
 
+    public event Action<NPC> OnFound;
 
-    //REMOVE THIS LATER
-    void Awake() {
-        npcState?.Reset();
+    public bool InHub => npcState.InHub;
+    public bool MazeEncounterComplete => npcState.MazeEncounterComplete;
 
-    }
+    NPCSaveData npcState = new NPCSaveData();
+
 
     public virtual void Interact(PlayerCharacter playerCharacter) {
         DialogManager dialogManager;
 
-        if (!npcState.MazeEncounterComplete && MazeEncounterDialog != null) {
+        if (!npcState.MazeEncounterComplete) {
+            OnFound?.Invoke(this);
+            if (MazeEncounterDialog != null) {
+                //Create the dialog manager and set the dialog
+                dialogManager = ShowDialog(MazeEncounterDialog, playerCharacter);
+                if (dialogManager != null)
+                    dialogManager.OnDialogComplete += (x) => {
+                        npcState.MazeEncounterComplete = true;
+                        Save();
+                    };
 
-            //Create the dialog manager and set the dialog
-            dialogManager = ShowDialog(MazeEncounterDialog, playerCharacter);
-            if (dialogManager != null)
-                dialogManager.OnDialogComplete += (x) => npcState.MazeEncounterComplete = true;
+                //End early, so as not to show any shop if there is one
+                return;
+            }
 
-            //End early, so as not to show any shop if there is one
-            return;
+
         }
 
         if (!npcState.HubFirstEncounterComplete && HubFirstEncounterDialog != null) {
@@ -44,7 +64,10 @@ public class NPC : MonoBehaviour, IInteractable {
             //Create the dialog manager and set the dialog
             dialogManager = ShowDialog(HubFirstEncounterDialog, playerCharacter);
             if (dialogManager != null)
-                dialogManager.OnDialogComplete += (x) => npcState.HubFirstEncounterComplete = true;
+                dialogManager.OnDialogComplete += (x) => {
+                    npcState.HubFirstEncounterComplete = true;
+                    Save();
+                };
         }
         // else if (playerCharacter.PuzzlePiecesCollected < 3) {
         //     Instantiate(dialogManagerPrefab).GetComponent<DialogManager>().SetDialog(PuzzlePieceDialog[playerCharacter.PuzzlePiecesCollected]);
@@ -61,6 +84,7 @@ public class NPC : MonoBehaviour, IInteractable {
                 playerCharacter.ShowMenu(shop, true);
             }
         };
+
     }
 
     void OnValidate() {
@@ -70,14 +94,10 @@ public class NPC : MonoBehaviour, IInteractable {
         }
     }
 
-    void OnDestroy() {
-        if (npcState.HubFirstEncounterComplete) {
-            npcState.InHub = true;
-        }
-    }
+  
 
     DialogManager ShowDialog(Dialog dialog, PlayerCharacter playerCharacter) {
-        DialogManager dialogManager = playerCharacter.ShowMenu(ResourceManager.DialogManagerPrefab, false)?.GetComponent<DialogManager>();
+        DialogManager dialogManager = playerCharacter.ShowMenu(ResourceManager.Instance.DialogManagerPrefab, false)?.GetComponent<DialogManager>();
         if (dialogManager == null) return null;
         dialogManager.SetDialog(dialog, Name);
         dialogManager.OnDialogComplete += (x) => {
@@ -85,5 +105,19 @@ public class NPC : MonoBehaviour, IInteractable {
             playerCharacter.ExitMenu();
         };
         return dialogManager;
+    }
+
+    public void Save() {
+        Debug.Log("Saving NPC: " + Name);
+        SaveManager.Instance.SetData(Name, npcState);
+    }
+
+    public void Load() {
+        Debug.Log("Loading NPC: " + Name);
+        npcState = SaveManager.Instance.GetData<NPCSaveData>(Name);
+        if (npcState == null) {
+            Debug.Log("No save data found for NPC: " + Name);
+            npcState = new NPCSaveData();
+        }
     }
 }

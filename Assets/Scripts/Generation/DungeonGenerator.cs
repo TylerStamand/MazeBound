@@ -46,6 +46,17 @@ public class DungeonGenerator : MonoBehaviour {
 
     public Dictionary<RoomRarity, List<Room>> roomDic;
 
+    public event Action<NPC> OnNPCFound;
+
+    public Vector2 SpawnPoint {
+        get {
+            Vector3Int tileCenter = new Vector3Int(startRoom.FloorTileSet.cellBounds.x / 2, startRoom.FloorTileSet.cellBounds.y / 2);
+            return startRoom.FloorTileSet.CellToWorld(tileCenter);
+        }
+    }
+
+    Room startRoom;
+
 
     void Awake() {
 
@@ -60,15 +71,18 @@ public class DungeonGenerator : MonoBehaviour {
 
     void Initialize() {
         Debug.Log("Initializing Dungeon");
+
         Room room = Instantiate(initalRoomPrefab, Vector3.zero, Quaternion.identity, dungeonGrid.transform);
         room.Initialize(0, spawnRates);
         List<Tilemap> tilemaps = new List<Tilemap>(room.GetComponentsInChildren<Tilemap>());
 
         room.OnRoomCompletion += HandleRoomCompletion;
-
-
+        room.OnNPCFound += (x) => OnNPCFound?.Invoke(x);
         roomDic = ResourceManager.Instance.GetRoomDic();
+        startRoom = room;
+
     }
+
 
 
 
@@ -109,6 +123,8 @@ public class DungeonGenerator : MonoBehaviour {
         additionCenterWorld.y -= .5f;
         additionCenterWorld.x -= .5f;
         spawnedAddition = Instantiate(addedRoomPrefab, additionCenterWorld, Quaternion.identity, dungeonGrid.transform);
+        spawnedAddition.OnNPCFound += (x) => OnNPCFound?.Invoke(x);
+
 
         //Turns colliders off to avoid messing with collision detection of already existing room
         foreach (Collider2D collider2D in spawnedAddition.GetComponentsInChildren<Collider2D>()) {
@@ -127,7 +143,7 @@ public class DungeonGenerator : MonoBehaviour {
 
                         Vector2 cellPos = tilemap.CellToWorld(new Vector3Int(x + bounds.xMin, y + bounds.yMin));
                         Vector2 worldCellPos = new Vector2(cellPos.x - .5f + 1, cellPos.y - .5f);
-                        
+
                         Collider2D collider = Physics2D.OverlapBox(worldCellPos, Vector2.one, buildingLayer);
                         Room collidedRoom = collider?.GetComponentInParent<Room>();
 

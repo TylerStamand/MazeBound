@@ -17,6 +17,7 @@ public class Room : MonoBehaviour {
     [SerializeField] List<GameObject> enemySpawnLocations;
 
     public event Action<Room> OnRoomCompletion;
+    public event Action<NPC> OnNPCFound;
 
     public int RoomLevel { get; private set; }
 
@@ -39,7 +40,6 @@ public class Room : MonoBehaviour {
         }
     }
 
-    //Change itemForChest to SpawnRates object in future
     public void Initialize(int roomLevel, SpawnRates spawnRates) {
 
         RoomLevel = roomLevel;
@@ -54,6 +54,9 @@ public class Room : MonoBehaviour {
 
         InitializeEnemies(enemyPrefabs);
         //Spawns the enemies for the room
+
+
+        InitializeNPCs();
 
     }
 
@@ -102,6 +105,21 @@ public class Room : MonoBehaviour {
             } else Destroy(chest.gameObject);
         }
     }
+
+    void InitializeNPCs() {
+
+        //This checks if the npc in a room is already in the hub, if it is, it destroys it
+        foreach (NPC npc in FindObjectsOfType<NPC>()) {
+            npc.Load();
+            if (npc.MazeEncounterComplete) Destroy(npc.gameObject);
+            else {
+                //Adds a listener that will destroy the npc if it is found and its not the one actually found
+                npc.OnFound += (x) => OnNPCFound?.Invoke(x);
+            }
+        }
+    }
+
+
 }
 
 // Chest tile Link

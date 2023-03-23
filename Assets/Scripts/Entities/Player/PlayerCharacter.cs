@@ -8,12 +8,10 @@ using UnityEngine.SceneManagement;
 
 class PlayerSaveData {
     public int WeaponScraps;
-    public Inventory Inventory;
-
 }
 
 
-public class PlayerCharacter : MonoBehaviour, IDamageable {
+public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
 
     [SerializeField] bool canDie = true;
     [field: SerializeField] public int CurrentHealth { get; private set; }
@@ -21,13 +19,9 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     [Required]
     [SerializeField] WeaponData weaponData;
     [SerializeField] GameObject weaponHolder;
-    [SerializeField] GameObject inventoryUIPrefab;
-    [SerializeField] GameObject inventoryChestUIPrefab;
-    [SerializeField] GameObject dialogManagerPrefab;
     [SerializeField] GameObject aimArrow;
 
 
-    public event Action OnExitMenu;
     public event Action<int> OnHealthChange;
     public event Action OnDie;
 
@@ -52,7 +46,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         controller.OnExitMenu += ExitMenu;
         controller.OnInteract += HandleInteract;
         Inventory = new Inventory();
-        Inventory.OnWeaponChange += HandleWeaponChange;
+        Inventory.OnWeaponChange += SpawnWeapon;
         WeaponItem starterWeapon = (WeaponItem)weaponData.CreateItem(1);
         Inventory.SetWeapon(starterWeapon);
         BaseHealth = CurrentHealth;
@@ -111,6 +105,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     public void ExitMenu() {
         //Return if there is no menu
         if (currentMenu == null) {
+            Pause();
             return;
         }
         //Return if the menu cannot be exited by using esc
@@ -122,8 +117,6 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         Destroy(currentMenu);
         currentMenu = null;
 
-        SaveManager.Instance.SetData("Player", new PlayerSaveData() { Inventory = Inventory, WeaponScraps = WeaponScraps });
-        SaveManager.Instance.Save();
     }
 
 
@@ -146,7 +139,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     /// Spawns the weapon as a gameobject and initializes it based on the corresponding weapon item
     /// </summary>
     /// <param name="weaponItem"></param>
-    void HandleWeaponChange(WeaponItem weaponItem) {
+    void SpawnWeapon(WeaponItem weaponItem) {
         if (weaponInstance != null) {
             Destroy(weaponInstance.gameObject);
         }
@@ -164,13 +157,26 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
     //Handles the inventory button being pressed
     void HandleInventory() {
         if (currentMenu == null) {
-            ShowMenu(inventoryUIPrefab);
+            ShowMenu(ResourceManager.Instance.InventoryPrefab);
         }
 
     }
 
     void HandleInteract(IInteractable interactable) {
         interactable.Interact(this);
+    }
+
+    void Pause() {
+        Debug.Log("Pause");
+        if (GameManager.Instance != null) {
+            if (currentMenu == null) {
+                if (GameManager.Instance.CurrentGameState == GameState.Maze)
+                    ShowMenu(ResourceManager.Instance.MazePauseMenuPrefab);
+                else if (GameManager.Instance.CurrentGameState == GameState.Hub)
+                    ShowMenu(ResourceManager.Instance.HubPauseMenuPrefab);
+            }
+        }
+
     }
 
 
@@ -193,7 +199,22 @@ public class PlayerCharacter : MonoBehaviour, IDamageable {
         currentDirection = Utilities.GetDirectionFromAngle(angle);
     }
 
+    public void Save() {
+        Debug.Log("Saving Player");
+        SaveManager.Instance.SetData("Player", new PlayerSaveData() { WeaponScraps = WeaponScraps });
+        Inventory.Save();
+    }
 
-
+    public void Load() {
+        Debug.Log("Loading Player");
+        PlayerSaveData data = SaveManager.Instance.GetData<PlayerSaveData>("Player");
+        if (data != null) {
+            WeaponScraps = data.WeaponScraps;
+            Inventory.Load();
+            if (Inventory.CurrentWeapon != null) {
+                SpawnWeapon(Inventory.CurrentWeapon);
+            }
+        }
+    }
 }
 
