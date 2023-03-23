@@ -64,6 +64,8 @@ public class PlayerController : MonoBehaviour {
         StopAllCoroutines();
     }
 
+    
+
     public void OnMove(InputAction.CallbackContext context) {
         inputVector = context.ReadValue<Vector2>();
     }

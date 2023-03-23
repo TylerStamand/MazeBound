@@ -45,7 +45,6 @@ public class Inventory : ISaveLoad {
         for (int i = 0; i < InventorySize; i++) {
             Items.Add(null);
         }
-        SaveManager.Instance.OnSave += Save;
     }
 
 

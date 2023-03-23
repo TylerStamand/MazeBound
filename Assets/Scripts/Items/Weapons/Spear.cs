@@ -41,7 +41,6 @@ public class Spear : Weapon {
 
         sequence.onComplete +=
             () => {
-                Debug.Log("Spear Complete");
                 transform.parent.localPosition = Vector3.zero;
                 spriteRenderer.enabled = false;
                 collider.enabled = false;
@@ -53,8 +52,6 @@ public class Spear : Weapon {
                     collider.enabled = false;
                 }
             };
-        Debug.Log("Spear Sequence Playing");
-        Debug.Log(Speed);
         sequence.Play();
         return true;
     }

@@ -9,15 +9,6 @@ public class SaveManager {
     static readonly string savePath = UnityEngine.Application.dataPath + "/save.json";
     static SaveManager instance;
 
-    /// <summary>
-    /// Called before file write
-    /// </summary>
-    public event Action OnSave;
-
-    /// <summary>
-    /// Called after file read
-    /// </summary>
-    public event Action OnLoad;
 
     Dictionary<string, object> saveData = new Dictionary<string, object>();
 
@@ -34,7 +25,6 @@ public class SaveManager {
 
 
     public void Save() {
-        OnSave?.Invoke();
         File.WriteAllText(savePath, JsonConvert.SerializeObject(saveData, Formatting.Indented, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All }));
         Debug.Log("Saved to " + savePath);
     }

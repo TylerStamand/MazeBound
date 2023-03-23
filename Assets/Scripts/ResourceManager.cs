@@ -12,6 +12,9 @@ public class ResourceManager {
 
     public GameObject DialogManagerPrefab { get; private set; }
     public GameObject ChestInventoryPrefab { get; private set; }
+    public GameObject InventoryPrefab { get; private set; }
+    public GameObject MazePauseMenuPrefab { get; private set; }
+    public GameObject HubPauseMenuPrefab { get; private set; }
     public GameObject LoadMenuPrefab { get; private set; }
     public GameObject PlayerPrefab { get; private set; }
 
@@ -60,7 +63,10 @@ public class ResourceManager {
         //load ui prefabs
         DialogManagerPrefab = Resources.Load<GameObject>("UI/Dialog/DialogManager");
         ChestInventoryPrefab = Resources.Load<GameObject>("UI/Inventory/ChestInventory");
-        LoadMenuPrefab = Resources.Load<GameObject>("UI/LoadMenu");
+        LoadMenuPrefab = Resources.Load<GameObject>("UI/Menu/LoadMenu");
+        MazePauseMenuPrefab = Resources.Load<GameObject>("UI/Menu/MazePauseMenu");
+        HubPauseMenuPrefab = Resources.Load<GameObject>("UI/Menu/HubPauseMenu");
+        InventoryPrefab = Resources.Load<GameObject>("UI/Inventory/Inventory");
 
         //load item data
         List<ItemData> itemDataList = Resources.LoadAll<ItemData>("Items").ToList();

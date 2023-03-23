@@ -33,16 +33,21 @@ public class HubManager : MonoBehaviour {
             Destroy(gameObject);
         }
 
+        GameManager.Instance.OnSceneChange += Save;
 
         //Sets up maze entrance triggers
         dungeon1Trigger.OnTriggerEnter += () => {
-            SceneManager.LoadSceneAsync("Prototype", LoadSceneMode.Single);
+            GameManager.Instance.LoadMaze(1);
         };
 
         //Load player
         Instantiate(ResourceManager.Instance.PlayerPrefab, playerSpawn.transform.position, Quaternion.identity);
 
 
+    }
+
+    void OnDestroy() {
+        GameManager.Instance.OnSceneChange -= Save;
     }
 
     void Start() {
@@ -52,7 +57,7 @@ public class HubManager : MonoBehaviour {
 
         //Show only NPCs that have been found
         foreach (NPC npc in FindObjectsOfType<NPC>()) {
-            npc.gameObject.SetActive(npc.InHub);
+            npc.gameObject.SetActive(npc.MazeEncounterComplete);
         }
 
     }

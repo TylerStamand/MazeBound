@@ -19,13 +19,9 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
     [Required]
     [SerializeField] WeaponData weaponData;
     [SerializeField] GameObject weaponHolder;
-    [SerializeField] GameObject inventoryUIPrefab;
-    [SerializeField] GameObject inventoryChestUIPrefab;
-    [SerializeField] GameObject dialogManagerPrefab;
     [SerializeField] GameObject aimArrow;
 
 
-    public event Action OnExitMenu;
     public event Action<int> OnHealthChange;
     public event Action OnDie;
 
@@ -109,6 +105,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
     public void ExitMenu() {
         //Return if there is no menu
         if (currentMenu == null) {
+            Pause();
             return;
         }
         //Return if the menu cannot be exited by using esc
@@ -120,8 +117,6 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
         Destroy(currentMenu);
         currentMenu = null;
 
-        Save();
-        SaveManager.Instance.Save();
     }
 
 
@@ -162,13 +157,23 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
     //Handles the inventory button being pressed
     void HandleInventory() {
         if (currentMenu == null) {
-            ShowMenu(inventoryUIPrefab);
+            ShowMenu(ResourceManager.Instance.InventoryPrefab);
         }
 
     }
 
     void HandleInteract(IInteractable interactable) {
         interactable.Interact(this);
+    }
+
+    void Pause() {
+        Debug.Log("Pause");
+        if (currentMenu == null) {
+            if (GameManager.Instance.CurrentGameState == GameState.Maze)
+                ShowMenu(ResourceManager.Instance.MazePauseMenuPrefab);
+            else if (GameManager.Instance.CurrentGameState == GameState.Hub)
+                ShowMenu(ResourceManager.Instance.HubPauseMenuPrefab);
+        }
     }
 
 
@@ -194,6 +199,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
     public void Save() {
         Debug.Log("Saving Player");
         SaveManager.Instance.SetData("Player", new PlayerSaveData() { WeaponScraps = WeaponScraps });
+        Inventory.Save();
     }
 
     public void Load() {
