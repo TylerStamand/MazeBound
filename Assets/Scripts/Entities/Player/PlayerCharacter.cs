@@ -168,12 +168,15 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
 
     void Pause() {
         Debug.Log("Pause");
-        if (currentMenu == null) {
-            if (GameManager.Instance.CurrentGameState == GameState.Maze)
-                ShowMenu(ResourceManager.Instance.MazePauseMenuPrefab);
-            else if (GameManager.Instance.CurrentGameState == GameState.Hub)
-                ShowMenu(ResourceManager.Instance.HubPauseMenuPrefab);
+        if (GameManager.Instance != null) {
+            if (currentMenu == null) {
+                if (GameManager.Instance.CurrentGameState == GameState.Maze)
+                    ShowMenu(ResourceManager.Instance.MazePauseMenuPrefab);
+                else if (GameManager.Instance.CurrentGameState == GameState.Hub)
+                    ShowMenu(ResourceManager.Instance.HubPauseMenuPrefab);
+            }
         }
+
     }
 
 
