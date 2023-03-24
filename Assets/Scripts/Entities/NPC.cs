@@ -94,7 +94,7 @@ public class NPC : MonoBehaviour, IInteractable, ISaveLoad {
         }
     }
 
-  
+
 
     DialogManager ShowDialog(Dialog dialog, PlayerCharacter playerCharacter) {
         DialogManager dialogManager = playerCharacter.ShowMenu(ResourceManager.Instance.DialogManagerPrefab, false)?.GetComponent<DialogManager>();
