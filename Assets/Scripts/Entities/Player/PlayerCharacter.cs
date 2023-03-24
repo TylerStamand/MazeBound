@@ -66,8 +66,9 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
         //TODO: Add damage type
 
         CurrentHealth -= damageDealt;
+        if (CurrentHealth < 0) CurrentHealth = 0;
         OnHealthChange?.Invoke(CurrentHealth);
-        if (CurrentHealth <= 0 && canDie) {
+        if (CurrentHealth == 0 && canDie) {
             Die();
         }
     }
@@ -201,7 +202,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
 
     void Die() {
         OnDie?.Invoke();
-        SceneManager.LoadScene("Prototype");
+        GameManager.Instance.LoadHub();
     }
 
 

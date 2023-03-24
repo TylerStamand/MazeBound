@@ -941,7 +941,7 @@ GameObject:
   - component: {fileID: 3019569823993504563}
   - component: {fileID: 6404912301436864349}
   m_Layer: 0
-  m_Name: Dungeon1
+  m_Name: Dungeon2Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
