@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: TestHubEncounter
   m_EditorClassIdentifier: 
   Sentences:
-  - 'I am the blacksmith, welcome to my shop!
-
-'
-  <IsChoice>k__BackingField: 0
+  - "(clanking) It seems like your the only one trying to get us out so whatever
+    you need is free of charge, \r"
+  - 'although I will needs those bits and bobs to start forging. '
+  - You bring me those and you got yourself a Blacksmith. Got any on ya?
+  <IsChoice>k__BackingField: 1
   YesDialog: []
-  NoDialog: []
+  NoDialog:
+  - A shame btu I'll be here. (continues clanking)

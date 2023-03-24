@@ -13,9 +13,19 @@ MonoBehaviour:
   m_Name: TestFirstEncounter
   m_EditorClassIdentifier: 
   Sentences:
-  - 'I am the blacksmith, thank you for finding me
+  - 'Hail friend!
 
 '
-  <IsChoice>k__BackingField: 0
+  - 'I was just on my way back home through the portal but now I seem to be all turned
+    around.
+
+'
+  - You know of any way outta here?
+  <IsChoice>k__BackingField: 1
   YesDialog: []
-  NoDialog: []
+  NoDialog:
+  - Well that's too bad, I was looking forward to getting back to my forge at home.
+  - A safe place you say? Well I guess that's a start.
+  - 'I''ll set up my portable forge. '
+  - Bring me bits and bobs and I'll set you up right.
+  - 'I''ll meet you there after I''m done checking inventory. '
