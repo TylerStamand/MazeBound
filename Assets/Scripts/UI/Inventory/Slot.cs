@@ -65,8 +65,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         if (currentDescriptionObject != null) {
             Destroy(currentDescriptionObject.gameObject);
         }
-        currentDescriptionObject = Instantiate(DescriptionBoxPrefab);
-        currentDescriptionObject.transform.SetParent(canvas.transform);
+        currentDescriptionObject = Instantiate(DescriptionBoxPrefab, canvas.transform, false);
         currentDescriptionObject.transform.SetAsLastSibling();
         currentDescriptionObject.Title.text = itemData.Name;
         currentDescriptionObject.Description.text = Item.GetDescription();

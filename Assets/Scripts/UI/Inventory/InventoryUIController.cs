@@ -194,8 +194,7 @@ public class InventoryUIController : MonoBehaviour {
     }
 
     protected MouseFollower CreateHeldUIItem(Slot slot) {
-        MouseFollower UIItem = Instantiate(heldUIItemPrefab);
-        UIItem.transform.SetParent(mainPanel.transform);
+        MouseFollower UIItem = Instantiate(heldUIItemPrefab, mainPanel.transform, false);
         UIItem.transform.SetAsLastSibling();
         UIItem.GetComponent<RectTransform>().position = slot.GetComponent<RectTransform>().position;
         UIItem.GetComponent<Image>().sprite = ResourceManager.Instance.GetItemData(slot.Item.ItemName).Sprite;
