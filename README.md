@@ -6,7 +6,7 @@
  ### Mia Beahm
  ### Graesyn Tefft
  ### Joey Gardiner
- ### Joseph Tomas
+ ### Joseph Thomas
  ### Tyler St. Amand
 
 # Dungeon Runner
