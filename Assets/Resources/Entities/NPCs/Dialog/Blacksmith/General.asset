@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sentences:
   - Welcome back. How the weapons holden up?
-  <IsChoice>k__BackingField: 1
+  <IsChoice>k__BackingField: 0
   YesDialog:
-  - '[opens invant]Good bye now.'
+  - Good bye now.
   NoDialog:
   - Once you bring those bits and bobs, I'll whip ya something up.

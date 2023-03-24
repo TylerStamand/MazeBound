@@ -14,15 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sentences:
   - "Watch your step! You nearly stepped on this perfect speciment. \r"
-  - 'These mushrooms are a rare breed but they''re everwhere.! Quite facinating it''s
-    it?
+  - 'These mushrooms are a rare breed but they''re everwhere! Quite facinating isn''t?
 
 '
-  - I am a Archwizard but I seem to have misplaced my spell book.
+  - I am an Archwizard but I seem to have misplaced my spell book.
   - I would assume we aren't the only ones. Do you know of any save places?
   <IsChoice>k__BackingField: 1
   YesDialog:
-  - "Wonderful! After I finish here I will make my way there post haste. \r\n"
-  - 'I will see you there after I am done. Stay safe till then. '
+  - "Wonderful! After I finish here I will make my way there post haste. \r"
   NoDialog:
   - If I find one I will come find you but for the time being I need these samples.

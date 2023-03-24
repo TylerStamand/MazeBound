@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9e9ca972247eb541bf0d4cbd58874a4, type: 3}
   m_Name: MazeAfterFirst
   m_EditorClassIdentifier: 
-  Sentences: []
+  Sentences:
+  - I will see you there after I am done. Stay safe till then.
   <IsChoice>k__BackingField: 0
   YesDialog: []
   NoDialog: []

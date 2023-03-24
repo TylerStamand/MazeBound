@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: General
   m_EditorClassIdentifier: 
   Sentences:
-  - Oh, your back!vHave any mushrooms for me?
-  <IsChoice>k__BackingField: 1
+  - Oh, your back! Have any mushrooms for me?
+  <IsChoice>k__BackingField: 0
   YesDialog:
   - '[Opens Invantory]
 

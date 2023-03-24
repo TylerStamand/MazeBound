@@ -23,10 +23,8 @@ MonoBehaviour:
   - You know of any way outta here?
   <IsChoice>k__BackingField: 1
   YesDialog:
-  - 
+  - A safe place you say? Well I guess that's a start.
+  - 'I''ll meet you there after I''m done checking inventory. '
+  - Bring me back some weapon scraps and I'll set you up right.
   NoDialog:
   - Well that's too bad, I was looking forward to getting back to my forge at home.
-  - A safe place you say? Well I guess that's a start.
-  - 'I''ll set up my portable forge. '
-  - Bring me bits and bobs and I'll set you up right.
-  - 'I''ll meet you there after I''m done checking inventory. '

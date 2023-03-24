@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: FirstHubEncounter
   m_EditorClassIdentifier: 
   Sentences:
-  - "(clanking) It seems like your the only one trying to get us out so whatever
-    you need is free of charge, \r"
-  - 'although I will needs those bits and bobs to start forging. '
+  - "(clanking) It seems like you're the only one trying to get us out so whatever
+    you need is free of charge, \ralthough I will need those weapon scraps to start
+    forging. "
   - You bring me those and you got yourself a Blacksmith. Got any on ya?
   <IsChoice>k__BackingField: 1
   YesDialog: []
