@@ -536,7 +536,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3873990133628319289, guid: b4392815f21e3684c8c066bfa115fbe9, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3873990133628319289, guid: b4392815f21e3684c8c066bfa115fbe9, type: 3}
       propertyPath: m_LocalScale.x
@@ -545,10 +545,6 @@ PrefabInstance:
     - target: {fileID: 3873990133628319289, guid: b4392815f21e3684c8c066bfa115fbe9, type: 3}
       propertyPath: m_LocalScale.y
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873990133628319289, guid: b4392815f21e3684c8c066bfa115fbe9, type: 3}
-      propertyPath: m_RootOrder
-      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3873990133628319289, guid: b4392815f21e3684c8c066bfa115fbe9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -781,8 +777,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Health: 100'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b0db49c17b6dce64a927d2462b0f539c, type: 2}
+  m_sharedMaterial: {fileID: -2237550342884416795, guid: b0db49c17b6dce64a927d2462b0f539c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -812,7 +808,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -1063,7 +1059,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 491152714, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
       propertyPath: orthographic size
-      value: 6.578125
+      value: 8.4375
       objectReference: {fileID: 0}
     - target: {fileID: 8465680535696588503, guid: b656f7cb89679f24fa242c60b203f35d, type: 3}
       propertyPath: m_RootOrder

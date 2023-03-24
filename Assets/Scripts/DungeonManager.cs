@@ -15,14 +15,16 @@ public class DungeonManager : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        GameManager.Instance.OnSceneChange += Save;
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnSceneChange += Save;
         DungeonGenerator.Instance.OnNPCFound += HandleNPCFound;
         FindObjectsOfType<PlayerCharacter>().ToList().ForEach(x => Destroy(x.gameObject));
 
     }
 
     void OnDestroy() {
-        GameManager.Instance.OnSceneChange -= Save;
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnSceneChange -= Save;
     }
 
 
