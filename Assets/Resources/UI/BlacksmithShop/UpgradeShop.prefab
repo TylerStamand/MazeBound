@@ -953,8 +953,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -627, y: 193}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -667, y: 193}
+  m_SizeDelta: {x: 643.4, y: 375.7}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2475180699223029347
 MonoBehaviour:
@@ -976,7 +976,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
@@ -1578,7 +1578,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7662328117141892895, guid: 2fe604bbcde846b44b4c8c6e0f14b3ef, type: 3}
       propertyPath: m_fontSize
-      value: 35.65
+      value: 47.5
       objectReference: {fileID: 0}
     - target: {fileID: 7662328117141892895, guid: 2fe604bbcde846b44b4c8c6e0f14b3ef, type: 3}
       propertyPath: m_fontAsset
@@ -2407,7 +2407,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7662328117141892895, guid: 2fe604bbcde846b44b4c8c6e0f14b3ef, type: 3}
       propertyPath: m_fontSize
-      value: 35.65
+      value: 47.5
       objectReference: {fileID: 0}
     - target: {fileID: 7662328117141892895, guid: 2fe604bbcde846b44b4c8c6e0f14b3ef, type: 3}
       propertyPath: m_fontAsset
@@ -2581,7 +2581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7662328117141892895, guid: 2fe604bbcde846b44b4c8c6e0f14b3ef, type: 3}
       propertyPath: m_fontSize
-      value: 35.65
+      value: 47.5
       objectReference: {fileID: 0}
     - target: {fileID: 7662328117141892895, guid: 2fe604bbcde846b44b4c8c6e0f14b3ef, type: 3}
       propertyPath: m_fontAsset
