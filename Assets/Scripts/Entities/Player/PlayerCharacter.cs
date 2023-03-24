@@ -23,6 +23,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
 
 
     public event Action<int> OnHealthChange;
+    public event Action<int> OnWeaponScrapChange;
     public event Action OnDie;
 
     public int WeaponScraps { get; private set; }
@@ -50,6 +51,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
         WeaponItem starterWeapon = (WeaponItem)weaponData.CreateItem(1);
         Inventory.SetWeapon(starterWeapon);
         BaseHealth = CurrentHealth;
+        WeaponScraps = 0;
     }
 
     void Update() {
@@ -76,6 +78,18 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
         }
         OnHealthChange?.Invoke(CurrentHealth);
     }
+
+    public void AddWeaponScraps(int amount) {
+        WeaponScraps += amount;
+        OnWeaponScrapChange?.Invoke(WeaponScraps);
+    }
+
+    public void RemoveWeaponScraps(int amount) {
+        WeaponScraps -= amount;
+        OnWeaponScrapChange?.Invoke(WeaponScraps);
+    }
+
+
 
 
 

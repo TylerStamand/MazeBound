@@ -14,7 +14,10 @@ public class UpgradeUIManager : InventoryUIController {
     protected override void Awake() {
         base.Awake();
         scrapsText.text = "Scraps: " + playerCharacter.WeaponScraps;
+        playerCharacter.OnWeaponScrapChange += HandleWeaponScrapsChange;
         upgradeSlot.OnLeftClick += HandleUpgradeSlotClick;
+
+        HandleWeaponScrapsChange(playerCharacter.WeaponScraps);
 
         foreach (Transform child in upgradeBarsParent.transform) {
             Destroy(child.gameObject);
@@ -36,6 +39,10 @@ public class UpgradeUIManager : InventoryUIController {
         //Wait to call base.OnDestroy() because it calls SetInventory 
         base.OnDestroy();
 
+    }
+
+    void HandleWeaponScrapsChange(int weaponScraps) {
+        scrapsText.text = "Scraps: " + weaponScraps;
     }
 
     void HandleUpgradeSlotClick(Slot slot) {

@@ -64,7 +64,7 @@ public class Enemy : MonoBehaviour, IDamageable {
 
     public void Initialize(int scale) {
         this.scale = scale;
-        
+
         EquipWeapon();
     }
 
@@ -81,6 +81,7 @@ public class Enemy : MonoBehaviour, IDamageable {
             Destroy(gameObject);
         }
     }
+
 
     void EquipWeapon() {
         WeaponItem weaponItem = (WeaponItem)weaponData.CreateItem(scale);

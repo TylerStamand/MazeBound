@@ -10,16 +10,30 @@ public class UpgradeBarUI : MonoBehaviour {
     [SerializeField] Button upgradeButton;
 
     UpgradeableStat stat;
+    PlayerCharacter playerCharacter;
 
     public void Initialize(UpgradeableStat stat) {
         this.stat = stat;
-        upgradeButton.onClick.AddListener(() => stat.Upgrade());
+        playerCharacter = FindObjectOfType<PlayerCharacter>();
+        upgradeButton.onClick.AddListener(HandleButtonClick);
         stat.OnUpgrade += PopulateFields;
+
         PopulateFields();
     }
     void PopulateFields() {
         statNameLevelText.text = $"{stat.Name} ({stat.Level}/{UpgradeableStat.MaxLevel})  Cost: {stat.UpgradeCost}";
         statCostText.text = stat.UpgradeCost.ToString();
+    }
+
+    void HandleButtonClick() {
+        if (playerCharacter.WeaponScraps >= stat.UpgradeCost) {
+            stat.Upgrade();
+            playerCharacter.RemoveWeaponScraps(stat.UpgradeCost);
+        }
+    }
+
+    void OnDestroy() {
+        stat.OnUpgrade -= PopulateFields;
     }
 
 }

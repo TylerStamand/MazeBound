@@ -33,6 +33,8 @@ public class WeaponItem : Item, IUpgradeable {
         description += $"Damage: {Damage.CurrentValue.ToString("N", CultureInfo.CurrentCulture)} Lvl: {Damage.Level}\n";
         description += $"Speed: {Speed.CurrentValue} Lvl: {Speed.Level}\n";
         description += $"CriticalChance: {CriticalChance.CurrentValue} Lvl: {CriticalChance.Level}\n";
+        description += "\n";
+        description += $"Scrap Value: {GetScrapValue()}\n";
 
         return description;
     }
@@ -43,6 +45,10 @@ public class WeaponItem : Item, IUpgradeable {
         stats.Add(Speed);
         stats.Add(CriticalChance);
         return stats;
+    }
+
+    public int GetScrapValue() {
+        return (int)(Damage.CurrentValue + Speed.CurrentValue + CriticalChance.CurrentValue) * 30;
     }
 
 
