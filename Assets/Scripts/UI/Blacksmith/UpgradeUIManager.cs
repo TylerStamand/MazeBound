@@ -53,6 +53,9 @@ public class UpgradeUIManager : InventoryUIController {
         if (slot.Item != null) {
             currentHeldUIItem = CreateHeldUIItem(slot);
             currentHeldItem = slot.Item;
+            foreach (Transform child in upgradeBarsParent.transform) {
+                Destroy(child.gameObject);
+            }
         }
 
         //set the slot to whatever was held before, which could be null
