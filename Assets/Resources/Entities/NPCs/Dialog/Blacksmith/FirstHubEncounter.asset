@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9e9ca972247eb541bf0d4cbd58874a4, type: 3}
-  m_Name: TestHubEncounter
+  m_Name: FirstHubEncounter
   m_EditorClassIdentifier: 
   Sentences:
   - "(clanking) It seems like your the only one trying to get us out so whatever

@@ -47,14 +47,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Wizard
-  MazeEncounterDialog: {fileID: 11400000, guid: 653d1ee7c0645134098f4a631050e620, type: 2}
-  HubFirstEncounterDialog: {fileID: 11400000, guid: 653d1ee7c0645134098f4a631050e620, type: 2}
+  MazeEncounterDialog: {fileID: 11400000, guid: 6cb8f770cf7a6b64d9c883c5f87ca53b, type: 2}
+  MazeAfterEncounterDialog: {fileID: 11400000, guid: 4e0c3de25f662424ab9aeb3cd87d917e, type: 2}
+  HubFirstEncounterDialog: {fileID: 11400000, guid: 581d1b3778d0e4d4a9575238de02f344, type: 2}
   PuzzlePieceDialog:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   GeneralDialog:
-  - {fileID: 11400000, guid: 69b0e1e0e40874c4e8a6feb613be6687, type: 2}
+  - {fileID: 11400000, guid: ad87e37906a648640b0231737da4eacf, type: 2}
   isVendor: 0
   shop: {fileID: 0}
 --- !u!212 &1191952967
@@ -145,7 +146,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.5, y: 1.5}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

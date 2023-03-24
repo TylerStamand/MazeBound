@@ -47,15 +47,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Blacksmith
-  npcState: {fileID: 11400000, guid: a630b36fa0d68ac43a967d752f4bbbe8, type: 2}
   MazeEncounterDialog: {fileID: 11400000, guid: 3c985da3a527b524880ad62d1f61f7fc, type: 2}
+  MazeAfterEncounterDialog: {fileID: 11400000, guid: d29ca519391d7984b8a2c031ba3dac90, type: 2}
   HubFirstEncounterDialog: {fileID: 11400000, guid: 64bb561e14553fc4ca1e736fda2770b9, type: 2}
   PuzzlePieceDialog:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   GeneralDialog:
-  - {fileID: 11400000, guid: 64bb561e14553fc4ca1e736fda2770b9, type: 2}
+  - {fileID: 11400000, guid: c08a191b611ff3a4abedd2093362be97, type: 2}
   isVendor: 1
   shop: {fileID: 1711880255580445780, guid: 2f71723e4aae3be479ad116912e9ec5b, type: 3}
 --- !u!212 &1191952967

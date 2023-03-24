@@ -20,6 +20,7 @@ class NPCSaveData {
 public class NPC : MonoBehaviour, IInteractable, ISaveLoad {
     [field: SerializeField] public string Name { get; private set; }
     [SerializeField] Dialog MazeEncounterDialog;
+    [SerializeField] Dialog MazeAfterEncounterDialog;
     [SerializeField] Dialog HubFirstEncounterDialog;
     [SerializeField] Dialog[] PuzzlePieceDialog = new Dialog[3];
     [SerializeField] List<Dialog> GeneralDialog = new List<Dialog>();
@@ -44,11 +45,12 @@ public class NPC : MonoBehaviour, IInteractable, ISaveLoad {
             if (MazeEncounterDialog != null) {
                 //Create the dialog manager and set the dialog
                 dialogManager = ShowDialog(MazeEncounterDialog, playerCharacter);
-                if (dialogManager != null)
+                if (dialogManager != null) {
                     dialogManager.OnDialogComplete += (x) => {
                         npcState.MazeEncounterComplete = true;
                         Save();
                     };
+                }
 
                 //End early, so as not to show any shop if there is one
                 return;
@@ -57,25 +59,47 @@ public class NPC : MonoBehaviour, IInteractable, ISaveLoad {
 
         }
 
-        if (!npcState.HubFirstEncounterComplete && HubFirstEncounterDialog != null) {
-            //Check if there is dialog to show
-            if (HubFirstEncounterDialog == null) return;
-
-            //Create the dialog manager and set the dialog
-            dialogManager = ShowDialog(HubFirstEncounterDialog, playerCharacter);
-            if (dialogManager != null)
+        //If the NPC is not in hub after first encounter, show a dialog to say they'll go to the hub
+        if (GameManager.Instance.CurrentGameState != GameState.Hub) {
+            dialogManager = ShowDialog(MazeAfterEncounterDialog, playerCharacter);
+            if (dialogManager != null) {
                 dialogManager.OnDialogComplete += (x) => {
-                    npcState.HubFirstEncounterComplete = true;
+                    npcState.MazeEncounterComplete = true;
                     Save();
                 };
+            }
+            return;
         }
-        // else if (playerCharacter.PuzzlePiecesCollected < 3) {
-        //     Instantiate(dialogManagerPrefab).GetComponent<DialogManager>().SetDialog(PuzzlePieceDialog[playerCharacter.PuzzlePiecesCollected]);
-        // }
+
+        //Otherwise, show Dialog like normal
         else {
-            if (GeneralDialog.Count == 0) return;
-            dialogManager = ShowDialog(GeneralDialog[UnityEngine.Random.Range(0, GeneralDialog.Count)], playerCharacter);
+
+            //Hub first encounter
+            if (!npcState.HubFirstEncounterComplete) {
+                //Check if there is dialog to show
+                if (HubFirstEncounterDialog == null) return;
+
+                //Create the dialog manager and set the dialog
+                dialogManager = ShowDialog(HubFirstEncounterDialog, playerCharacter);
+                if (dialogManager != null)
+                    dialogManager.OnDialogComplete += (x) => {
+                        npcState.HubFirstEncounterComplete = true;
+                        Save();
+                    };
+            }
+
+            //Puzzle Piece Dialog
+            // else if (playerCharacter.PuzzlePiecesCollected < 3) {
+            //     Instantiate(dialogManagerPrefab).GetComponent<DialogManager>().SetDialog(PuzzlePieceDialog[playerCharacter.PuzzlePiecesCollected]);
+            // }
+
+            //General Dialog
+            else {
+                if (GeneralDialog.Count == 0) return;
+                dialogManager = ShowDialog(GeneralDialog[UnityEngine.Random.Range(0, GeneralDialog.Count)], playerCharacter);
+            }
         }
+
 
         if (dialogManager == null) return;
 

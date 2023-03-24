@@ -374,4 +374,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78297449ab1a1c84ba41ff7830b20188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HubButton: {fileID: 0}
+  HubButton: {fileID: 6388526599085117470}
