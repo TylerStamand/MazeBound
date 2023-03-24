@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e9ca972247eb541bf0d4cbd58874a4, type: 3}
+  m_Name: TestFirstEncounter
+  m_EditorClassIdentifier: 
+  Sentences:
+  - "Watch your step! You nearly stepped on this perfect speciment. \r"
+  - 'These mushrooms are a rare breed but they''re everwhere.! Quite facinating it''s
+    it?
+
+'
+  - I am a Archwizard but I seem to have misplaced my spell book.
+  - I would assume we aren't the only ones. Do you know of any save places?
+  <IsChoice>k__BackingField: 1
+  YesDialog:
+  - "Wonderful! After I finish here I will make my way there post haste. \r\n"
+  - 'I will see you there after I am done. Stay safe till then. '
+  NoDialog:
+  - If I find one I will come find you but for the time being I need these samples.

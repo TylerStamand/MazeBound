@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9e9ca972247eb541bf0d4cbd58874a4, type: 3}
-  m_Name: TestHubEncounter
+  m_Name: General
   m_EditorClassIdentifier: 
   Sentences:
-  - "(clanking) It seems like your the only one trying to get us out so whatever
-    you need is free of charge, \r"
-  - 'although I will needs those bits and bobs to start forging. '
-  - You bring me those and you got yourself a Blacksmith. Got any on ya?
+  - Oh, your back!vHave any mushrooms for me?
   <IsChoice>k__BackingField: 1
-  YesDialog: []
+  YesDialog:
+  - '[Opens Invantory]
+
+    Its always a pleasure. '
   NoDialog:
-  - A shame but I'll be here. (continues clanking)
+  - If you find any, you know where I will be.
