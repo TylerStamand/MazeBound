@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour {
 
     public event Action OnLeftClick;
     public event Action OnRightClick;
-    public event Action OnExitMenu;
+    public event Action OnToggleMenu;
     public event Action<IInteractable> OnInteract;
     public event Action OnInventory;
 
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour {
         StopAllCoroutines();
     }
 
-    
+
 
     public void OnMove(InputAction.CallbackContext context) {
         inputVector = context.ReadValue<Vector2>();
@@ -118,7 +118,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void ExitMenu(InputAction.CallbackContext context) {
-        OnExitMenu?.Invoke();
+        if (context.performed) {
+            OnToggleMenu?.Invoke();
+        }
     }
 
 

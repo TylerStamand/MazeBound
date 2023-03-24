@@ -45,7 +45,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
         controller = GetComponent<PlayerController>();
         controller.OnLeftClick += HandleAttack;
         controller.OnInventory += HandleInventory;
-        controller.OnExitMenu += ExitMenu;
+        controller.OnToggleMenu += HandleToggleMenu;
         controller.OnInteract += HandleInteract;
         Inventory = new Inventory();
         Inventory.OnWeaponChange += SpawnWeapon;
@@ -101,7 +101,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
     /// <param name="menuPrefab"></param>
     /// <returns></returns>
     public GameObject ShowMenu(GameObject menuPrefab, bool canExit = true) {
-
+        
         //Return if there is already a menu being displayed
         if (currentMenu != null) {
             ExitMenu();
@@ -115,10 +115,8 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
     }
 
 
-    /// <summary>
-    /// This is used to exit the current menu on the player
-    /// </summary>
-    public void ExitMenu() {
+    void HandleToggleMenu() {
+        Debug.Log("Toggle Menu");
         //Return if there is no menu
         if (currentMenu == null) {
             Pause();
@@ -129,9 +127,22 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
             return;
         }
 
-        Debug.Log("Exiting Menu");
+        ExitMenu();
+    }
+
+    /// <summary>
+    /// This is used to exit the current menu on the player
+    /// </summary>
+    public void ExitMenu() {
+        if (currentMenu == null) {
+            return;
+        }
+
+
+        Debug.Log("Exiting Menu: " + currentMenu.name);
         Destroy(currentMenu);
         currentMenu = null;
+
 
     }
 
