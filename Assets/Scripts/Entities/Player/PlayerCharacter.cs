@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 class PlayerSaveData {
     public int WeaponScraps;
+    public int CurrentHealth;
 }
 
 
@@ -158,6 +159,10 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
             Destroy(weaponInstance.gameObject);
         }
 
+        if (weaponItem == null) {
+            return;
+        }
+
         WeaponData itemData = (WeaponData)ResourceManager.Instance.GetItemData(weaponItem.ItemName);
         weaponInstance = Instantiate(itemData.WeaponPrefab, weaponHolder.transform);
         weaponHolder.transform.localPosition = Vector3.zero;
@@ -223,7 +228,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
         Debug.Log("Loading Player");
         PlayerSaveData data = SaveManager.Instance.GetData<PlayerSaveData>("Player");
         if (data != null) {
-            WeaponScraps = data.WeaponScraps;
+            AddWeaponScraps(data.WeaponScraps);
             Inventory.Load();
             if (Inventory.CurrentWeapon != null) {
                 SpawnWeapon(Inventory.CurrentWeapon);

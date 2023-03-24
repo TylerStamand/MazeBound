@@ -89,6 +89,7 @@ public class Inventory : ISaveLoad {
 
 
     public void SetWeapon(WeaponItem newWeapon) {
+
         Debug.Log("Setting Weapon");
 
         Item temp = CurrentWeapon;
@@ -139,16 +140,18 @@ public class Inventory : ISaveLoad {
 
     }
 
-    void EquipItem(ref Item equippedItem, Item itemToSet) {
-        if (equippedItem != null) {
-            AddItem(equippedItem);
+
+    //This is super confusing, change the logic 
+    void EquipItem(ref Item oldEquippedItem, Item newItemToSet) {
+        if (oldEquippedItem != null) {
+            AddItem(oldEquippedItem);
         }
 
         //Removes item from item list but does not drop it from the lookup
-        if (Items.IndexOf(itemToSet) != -1) {
-            Items[Items.IndexOf(itemToSet)] = null;
+        if (Items.IndexOf(newItemToSet) != -1) {
+            Items[Items.IndexOf(newItemToSet)] = null;
         }
-        equippedItem = itemToSet;
+        oldEquippedItem = newItemToSet;
     }
 
     public void Save() {

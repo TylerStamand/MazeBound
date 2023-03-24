@@ -14,6 +14,8 @@ public class InventoryUIController : MonoBehaviour {
     [SerializeField] GameObject mainPanel;
     [SerializeField] Slot slotPrefab;
 
+    [SerializeField] Slot scrapSlot;
+
     [Header("Equip Slots")]
     [SerializeField] Slot weaponSlot;
     [SerializeField] Slot headSlot;
@@ -40,8 +42,13 @@ public class InventoryUIController : MonoBehaviour {
         currentHeldUIItem = null;
 
 
-        weaponSlot.OnLeftClick += HandleWeaponSlotClick;
         //Setup Armor Slots here
+        weaponSlot.OnLeftClick += HandleWeaponSlotClick;
+
+        //Incase other inventories dont have scrap slots
+        if (scrapSlot != null) {
+            scrapSlot.OnLeftClick += HandleScrapSlotClick;
+        }
 
         if (inventory != null) {
             PopulateItemList();
@@ -104,10 +111,7 @@ public class InventoryUIController : MonoBehaviour {
             }
         }
 
-        //Maybe move this 
-        if (weapon != null) {
-            weaponSlot.SetItem(weapon);
-        }
+        weaponSlot.SetItem(weapon);
     }
 
     void HandleSlotRightClick(Slot slot) {
@@ -162,35 +166,64 @@ public class InventoryUIController : MonoBehaviour {
 
 
     void HandleWeaponSlotClick(Slot slot) {
-        //Debug.Log("Handling Weapon Slot Click");
-        if (currentHeldUIItem == null) return;
+
+        //Prevents the player from unequipping their last weapon
+        // if (currentHeldUIItem == null) return;
 
         //Item is not a weapon
-        ItemData itemData = ResourceManager.Instance.GetItemData(currentHeldItem.ItemName);
-        if (itemData.ItemType != ItemType.Weapon) return;
 
-        Item oldWeapon = slot.Item;
+        Item slotItem = slot.Item;
 
-        Destroy(currentHeldUIItem.gameObject);
-        currentHeldUIItem = null;
-
-        //Checks if the weapon slot had an item in it
-        if (oldWeapon != null) {
-            currentHeldUIItem = CreateHeldUIItem(slot);
+        if (currentHeldItem == null) {
+            weapon = null;
+        } else {
+            ItemData itemData = ResourceManager.Instance.GetItemData(currentHeldItem.ItemName);
+            if (itemData.ItemType == ItemType.Weapon) {
+                weapon = currentHeldItem;
+                Destroy(currentHeldUIItem.gameObject);
+            }
         }
 
-        weapon = currentHeldItem;
+        if (slotItem != null) {
+            currentHeldItem = slotItem;
+            currentHeldUIItem = CreateHeldUIItem(slot);
+        } else {
+            currentHeldUIItem = null;
+            currentHeldItem = null;
+        }
 
 
-        currentHeldItem = oldWeapon;
 
-        slot.SetItem(weapon);
+        //slot.SetItem(weapon);
 
         SetInventoryOrder();
 
         inventory.SetWeapon((WeaponItem)weapon);
 
         Display(slots, items, HandleSlotLeftClick, HandleSlotRightClick, inventorySlotsParent.transform);
+    }
+
+    void HandleScrapSlotClick(Slot slot) {
+        if (currentHeldUIItem == null) return;
+
+
+        ItemData itemData = ResourceManager.Instance.GetItemData(currentHeldItem.ItemName);
+
+        //Cant scrap your last weapon
+        if (itemData.ItemType == ItemType.Weapon && !ItemsContainWeapon()) return;
+
+
+        //Item is not a weapon or armor
+        if (itemData.ItemType != ItemType.Weapon && itemData.ItemType != ItemType.Armor) return;
+
+
+        Destroy(currentHeldUIItem.gameObject);
+        currentHeldUIItem = null;
+
+        WeaponItem weaponItem = (WeaponItem)currentHeldItem;
+        playerCharacter.AddWeaponScraps(weaponItem.GetScrapValue());
+
+        currentHeldItem = null;
     }
 
     protected MouseFollower CreateHeldUIItem(Slot slot) {
@@ -207,6 +240,20 @@ public class InventoryUIController : MonoBehaviour {
     void SetInventoryOrder() {
         Debug.Log("Setting Inventory Order");
         inventory.SetItems(items);
+    }
+
+    bool ItemsContainWeapon() {
+        if (weapon != null) return true;
+
+        foreach (Item item in items) {
+            if (item != null) {
+                ItemData itemData = ResourceManager.Instance.GetItemData(item.ItemName);
+                if (itemData.ItemType == ItemType.Weapon) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

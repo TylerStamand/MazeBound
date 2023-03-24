@@ -27,13 +27,10 @@ public class UpgradeBarUI : MonoBehaviour {
 
     void HandleButtonClick() {
         if (playerCharacter.WeaponScraps >= stat.UpgradeCost) {
-            stat.Upgrade();
             playerCharacter.RemoveWeaponScraps(stat.UpgradeCost);
+            stat.Upgrade();
         }
     }
 
-    void OnDestroy() {
-        stat.OnUpgrade -= PopulateFields;
-    }
 
 }
