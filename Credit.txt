@@ -13,5 +13,14 @@ https://cyberrumor.itch.io/16-bit-assassin
 Armor Sprites:
 https://zeno.itch.io/armor-icons
 
+Chest sprite:
+https://opengameart.org/content/treasure-chests-32x32
+
+Potion sprites:
+https://stealthix.itch.io/pixel-item-pack
+
+Spear and sword weapon: 
+https://admurin.itch.io/pixel-armory
+
 Font:
 https://www.dafont.com/alagard.font
