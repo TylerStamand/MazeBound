@@ -9,10 +9,25 @@ EditorBuildSettings:
     path: Assets/Scenes/Initialize.unity
     guid: 41957eb02d1a45448b5e0528ca6ea246
   - enabled: 1
-    path: Assets/Scenes/Prototype.unity
+    path: Assets/Scenes/Mazes/Maze1.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/Scenes/Hub.unity
+    path: Assets/Scenes/Hubs/Hub1.unity
     guid: a462cdbd397bc7a438b2de5cc370ab1f
+  - enabled: 1
+    path: Assets/Scenes/Mazes/Maze2.unity
+    guid: b2ae9fe6944aae54da6c4538a08f491b
+  - enabled: 1
+    path: Assets/Scenes/Mazes/Maze3.unity
+    guid: 19c358cf44464be498e73c0daf0d1aab
+  - enabled: 1
+    path: Assets/Scenes/Hubs/Hub2.unity
+    guid: f83a31ee3f141cc419a2d4d1eab5862c
+  - enabled: 1
+    path: Assets/Scenes/Hubs/Hub3.unity
+    guid: 99cdcbc392287b84e9d45533032ee9c5
+  - enabled: 1
+    path: Assets/Scenes/Hubs/Hub0.unity
+    guid: 546df976deedde44ca303b782a03b836
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 2b00f6f149d782f41ada33eb14c1841b, type: 2}

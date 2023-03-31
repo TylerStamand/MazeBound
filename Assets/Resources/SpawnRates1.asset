@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1af238d493cd15642bef68ca63050f08, type: 3}
-  m_Name: SpawnRates
+  m_Name: SpawnRates1
   m_EditorClassIdentifier: 
   ItemSpawnRates:
   - itemData: {fileID: 11400000, guid: 463c08f524fa14f48a529bb931456743, type: 2}
