@@ -46,9 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23a010e3bc8ad4d4fb35c36b0839798a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimationLength: 0.3
-  <CoolDown>k__BackingField: 0.7
-  <BaseDamage>k__BackingField: 1
+  knockBack: 3
 --- !u!61 &3987714513966776829
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -165,7 +163,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -977925959
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: -615606087, guid: 01f1aab206b3e2a46af56cb0c76a30ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

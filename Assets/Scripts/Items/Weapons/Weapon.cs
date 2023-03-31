@@ -1,10 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-//Weapon Stats
-//NEeds a way to set them according to parameters
-//Attack
-//Critical change (Defense doesnt count)
+
 
 public enum DamageType {
     Default

@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 043668ec0367f774fa4385e9fac2ce06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockBack: 5
+  knockBack: 1.5
   moveDistance: 2
 --- !u!1 &7844844302757814419
 GameObject:
