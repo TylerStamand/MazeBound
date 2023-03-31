@@ -106,7 +106,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 463c08f524fa14f48a529bb931456743, type: 2}
   weaponHolder: {fileID: 8472314102887975750}
-  <MaxHealth>k__BackingField: 7
+  <MaxHealth>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 8.49057
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.411474
+      value: 25.834032
+      inSlope: 56.194557
+      outSlope: 56.194557
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.25640318
+    - serializedVersion: 3
+      time: 0.69828534
+      value: 48.655968
+      inSlope: 118.18334
+      outSlope: 118.18334
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 103.301895
+      inSlope: 400
+      outSlope: 400
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   moveSpeed: 0.05
   alertRadius: 4
   stopDistance: 2

@@ -3,6 +3,7 @@ using System.Collections;
 using DG.Tweening;
 using Unity.Collections;
 using UnityEngine;
+using NaughtyAttributes;
 
 [RequireComponent(typeof(SpriteRenderer), typeof(Rigidbody2D))]
 public class Enemy : MonoBehaviour, IDamageable {
@@ -10,8 +11,8 @@ public class Enemy : MonoBehaviour, IDamageable {
     [SerializeField] WeaponData weaponData;
     [SerializeField] GameObject weaponHolder;
 
-    [field: Header("Stats")]
-    [field: SerializeField] public float MaxHealth { get; private set; }
+    [field: Header("Stats"), CurveRange(0, 0, 1, 200)]
+    [field: SerializeField] public AnimationCurve MaxHealth { get; private set; }
 
     [Header("Movement")]
     [SerializeField] float moveSpeed = 1;
@@ -35,7 +36,6 @@ public class Enemy : MonoBehaviour, IDamageable {
 
 
     protected virtual void Awake() {
-        CurrentHealth = MaxHealth;
 
         collider = GetComponent<Collider2D>();
         rigidbody = GetComponent<Rigidbody2D>();
@@ -53,7 +53,6 @@ public class Enemy : MonoBehaviour, IDamageable {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, alertRadius, LayerMask.GetMask(new string[] { "Player" }));
         if (colliders.Length > 0) {
             GameObject target = colliders[0].gameObject;
-
         }
 
         if (!inKnockback) {
@@ -64,7 +63,8 @@ public class Enemy : MonoBehaviour, IDamageable {
 
     public void Initialize(int scale) {
         this.scale = scale;
-
+        CurrentHealth = MaxHealth.Evaluate((float)scale / DungeonGenerator.MaxRoomScale);
+        Debug.Log("Enemy health: " + CurrentHealth);
         EquipWeapon();
     }
 
