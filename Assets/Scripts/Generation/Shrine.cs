@@ -7,8 +7,15 @@ public class Shrine : MonoBehaviour, IInteractable {
 
     public event Action<Shrine> OnInteract;
 
+    bool activated = false;
+
+
     public void Interact(PlayerCharacter playerCharacter) {
-        throw new System.NotImplementedException();
+        if (!activated) {
+            activated = true;
+            ShowActivated();
+            OnInteract?.Invoke(this);
+        }
     }
 
     public void ShowActivated() {

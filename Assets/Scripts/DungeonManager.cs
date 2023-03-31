@@ -20,6 +20,10 @@ public class DungeonManager : MonoBehaviour {
 
         if (GameManager.Instance != null)
             GameManager.Instance.OnSceneChange += Save;
+        else {
+            Debug.LogError("GameManager not found");
+        }
+
 
         DungeonGenerator.Instance.OnNPCFound += HandleNPCFound;
         DungeonGenerator.Instance.OnShrineFound += HandleShrineFound;
@@ -30,8 +34,13 @@ public class DungeonManager : MonoBehaviour {
     void HandleShrineFound(int mazeLevel, Shrine shrine) {
         shrinesFound++;
         if (shrinesFound == 3) {
+            if (GameManager.Instance == null) {
+                Debug.LogError("GameManager not found");
+                return;
+            }
             GameManager.Instance.SetPuzzlePieceCollected(mazeLevel - 1);
             shrine.ShowPuzzlePiece();
+
         }
     }
 

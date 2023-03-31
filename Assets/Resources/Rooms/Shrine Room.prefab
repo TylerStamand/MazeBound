@@ -633,7 +633,7 @@ GameObject:
   - component: {fileID: 384430485695785473}
   - component: {fileID: -3161064276194253662}
   m_Layer: 6
-  m_Name: Room 3
+  m_Name: Shrine Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -655,6 +655,7 @@ Transform:
   - {fileID: 384430485776953748}
   - {fileID: 3162404772296274144}
   - {fileID: 3273770757334194633}
+  - {fileID: 1820638540383087309}
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1492,7 +1493,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000b908b6c5
+  m_ApplyToSortingLayers: 00000000b908b6c57f993c88
   m_LightCookieSprite: {fileID: 21300000, guid: 119f93d0bcbf1e743bf5fcf237507d39, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -1646,3 +1647,85 @@ Transform:
   m_Father: {fileID: 384430485695785478}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2638211034612075610
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 384430485695785478}
+    m_Modifications:
+    - target: {fileID: 2550837207613340101, guid: a107957dc9ec17148937dbcde635c6bd, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550837207613340101, guid: a107957dc9ec17148937dbcde635c6bd, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -2009294465
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550837207613340101, guid: a107957dc9ec17148937dbcde635c6bd, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 4294967294
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550837207613340101, guid: a107957dc9ec17148937dbcde635c6bd, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+    - target: {fileID: 4456588833042654871, guid: a107957dc9ec17148937dbcde635c6bd, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456588833042654871, guid: a107957dc9ec17148937dbcde635c6bd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456588833042654871, guid: a107957dc9ec17148937dbcde635c6bd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456588833042654871, guid: a107957dc9ec17148937dbcde635c6bd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456588833042654871, guid: a107957dc9ec17148937dbcde635c6bd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456588833042654871, guid: a107957dc9ec17148937dbcde635c6bd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456588833042654871, guid: a107957dc9ec17148937dbcde635c6bd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456588833042654871, guid: a107957dc9ec17148937dbcde635c6bd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456588833042654871, guid: a107957dc9ec17148937dbcde635c6bd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456588833042654871, guid: a107957dc9ec17148937dbcde635c6bd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456588833042654871, guid: a107957dc9ec17148937dbcde635c6bd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7494932318192450587, guid: a107957dc9ec17148937dbcde635c6bd, type: 3}
+      propertyPath: m_Name
+      value: Shrine
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a107957dc9ec17148937dbcde635c6bd, type: 3}
+--- !u!4 &1820638540383087309 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4456588833042654871, guid: a107957dc9ec17148937dbcde635c6bd, type: 3}
+  m_PrefabInstance: {fileID: 2638211034612075610}
+  m_PrefabAsset: {fileID: 0}

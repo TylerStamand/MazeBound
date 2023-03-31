@@ -613,7 +613,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf3e26f4868c0544920da6c7f5fa8f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mazeLevel: 1
   spawnRates: {fileID: 11400000, guid: a6d68ff79e7f1fe44a93d86a31081dd1, type: 2}
+  shrineMinDistance: 5
+  shrineSpawnRate: 0.3
   dungeonGrid: {fileID: 583224667}
   hallTilemapFloors: {fileID: 1613930230}
   hallTilemapWalls: {fileID: 416813677}

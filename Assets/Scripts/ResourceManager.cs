@@ -28,14 +28,13 @@ public class ResourceManager {
         }
     }
 
-    private Dictionary<RoomRarity, List<Room>> roomDataDic = new Dictionary<RoomRarity, List<Room>>();
+    private List<Room> roomList1 = new List<Room>();
+    private Room shrineRoom1;
     private Dictionary<string, ItemData> itemDataDic;
     private List<Enemy> enemiesList = new List<Enemy>();
 
     private ResourceManager() {
-        foreach (RoomRarity rarity in Enum.GetValues(typeof(RoomRarity))) {
-            roomDataDic.Add(rarity, new List<Room>());
-        }
+
 
         AssembleResources();
     }
@@ -53,7 +52,11 @@ public class ResourceManager {
         List<Room> roomPrefabList = Resources.LoadAll<Room>("Rooms").ToList();
         Debug.Log($"Rooms Found: {roomPrefabList.Count}");
         foreach (Room room in roomPrefabList) {
-            roomDataDic[room.Rarity].Add(room);
+
+            if (room.name != "Shrine Room")
+                roomList1.Add(room);
+            else
+                shrineRoom1 = room;
         }
 
         //load enemy prefabs
@@ -91,8 +94,12 @@ public class ResourceManager {
     }
 
 
-    public Dictionary<RoomRarity, List<Room>> GetRoomDic() {
-        return roomDataDic;
+    public List<Room> GetRoomDic(int level) {
+        return roomList1;
+    }
+
+    public Room GetShrineRoom(int level) {
+        return shrineRoom1;
     }
 
     public List<Enemy> GetEnemies() {

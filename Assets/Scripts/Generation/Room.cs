@@ -9,7 +9,6 @@ public class Room : MonoBehaviour {
     public static readonly float EnemySpawnRate = .5f;
 
 
-    [field: SerializeField] public RoomRarity Rarity { get; private set; }
     [field: SerializeField] public Tilemap FloorTileSet { get; private set; }
 
     [SerializeField] bool CompleteRoom;

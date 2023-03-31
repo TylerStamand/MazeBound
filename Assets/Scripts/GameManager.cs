@@ -31,7 +31,17 @@ public class GameManager : MonoBehaviour {
     public event Action OnSceneChange;
 
     public GameState CurrentGameState { get; private set; }
-    public bool[] PuzzlePiecesCollected { get; private set; }
+    public bool[] PuzzlePiecesCollected { get; private set; } = new bool[3];
+
+    public int PuzzlePiecesCollectedCount {
+        get {
+            int count = 0;
+            foreach (bool b in PuzzlePiecesCollected) {
+                if (b) count++;
+            }
+            return count;
+        }
+    }
 
     string SaveDataID = "GameSaveData";
 

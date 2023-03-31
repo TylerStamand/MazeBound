@@ -9,10 +9,6 @@ public enum Direction {
     North, South, East, West
 }
 
-public enum RoomRarity {
-    Common
-}
-
 
 
 public class DungeonGenerator : MonoBehaviour {
@@ -21,6 +17,11 @@ public class DungeonGenerator : MonoBehaviour {
 
     [SerializeField] SpawnRates spawnRates;
 
+    [Header("Shrine Settings")]
+    [SerializeField] int shrineMinDistance;
+    [SerializeField] float shrineSpawnRate;
+
+    [Header("Room Settings")]
     [SerializeField] Grid dungeonGrid;
     [SerializeField] Tilemap hallTilemapFloors;
     [SerializeField] Tilemap hallTilemapWalls;
@@ -47,7 +48,6 @@ public class DungeonGenerator : MonoBehaviour {
 
     public static int MaxRoomScale { get; private set; } = 15;
 
-    public Dictionary<RoomRarity, List<Room>> roomDic;
 
     public event Action<NPC> OnNPCFound;
 
@@ -62,6 +62,9 @@ public class DungeonGenerator : MonoBehaviour {
 
     Room startRoom;
 
+    List<Room> roomList;
+
+    Room shrineRoom;
 
     void Awake() {
 
@@ -83,7 +86,8 @@ public class DungeonGenerator : MonoBehaviour {
 
         room.OnRoomCompletion += HandleRoomCompletion;
         room.OnNPCFound += (x) => OnNPCFound?.Invoke(x);
-        roomDic = ResourceManager.Instance.GetRoomDic();
+        roomList = ResourceManager.Instance.GetRoomDic(mazeLevel);
+        shrineRoom = ResourceManager.Instance.GetShrineRoom(mazeLevel);
         startRoom = room;
 
     }
@@ -224,8 +228,17 @@ public class DungeonGenerator : MonoBehaviour {
 
 
     Room GetNextRoom(int roomLevel) {
-        List<Room> commonRooms = roomDic[RoomRarity.Common];
-        return commonRooms[Random.Range(0, commonRooms.Count)];
+        Debug.Log("Room Level: " + roomLevel);
+        //Checks if the player is deep enough in the dungeon to spawn a shrine
+        if (roomLevel > shrineMinDistance) {
+            //Chance to spawn a shrine
+            if (Random.value < shrineSpawnRate) {
+                return shrineRoom;
+            }
+        }
+
+        //Otherwise spawn a normal room
+        return roomList[Random.Range(0, roomList.Count)];
     }
 
 
