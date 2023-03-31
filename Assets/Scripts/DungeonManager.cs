@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class DungeonManager : MonoBehaviour {
     public static DungeonManager Instance { get; private set; }
+
+    int shrinesFound = 0;
 
     PlayerCharacter player;
 
@@ -17,9 +20,19 @@ public class DungeonManager : MonoBehaviour {
 
         if (GameManager.Instance != null)
             GameManager.Instance.OnSceneChange += Save;
+
         DungeonGenerator.Instance.OnNPCFound += HandleNPCFound;
+        DungeonGenerator.Instance.OnShrineFound += HandleShrineFound;
         FindObjectsOfType<PlayerCharacter>().ToList().ForEach(x => Destroy(x.gameObject));
 
+    }
+
+    void HandleShrineFound(int mazeLevel, Shrine shrine) {
+        shrinesFound++;
+        if (shrinesFound == 3) {
+            GameManager.Instance.SetPuzzlePieceCollected(mazeLevel - 1);
+            shrine.ShowPuzzlePiece();
+        }
     }
 
     void OnDestroy() {

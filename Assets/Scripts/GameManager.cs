@@ -12,14 +12,14 @@ public enum GameState {
 class GameSaveData {
     public GameState GameState;
 
-    public int PuzzlePiecesCollected;
+    public bool[] PuzzlePiecesCollected = new bool[3];
 
 
     //These should be new game defaults
     public GameSaveData() {
 
         GameState = GameState.Hub;
-        PuzzlePiecesCollected = 0;
+        PuzzlePiecesCollected = new bool[3];
     }
 
 
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour {
     public event Action OnSceneChange;
 
     public GameState CurrentGameState { get; private set; }
-    public int PuzzlePiecesCollected { get; private set; }
+    public bool[] PuzzlePiecesCollected { get; private set; }
 
     string SaveDataID = "GameSaveData";
 
@@ -117,6 +117,10 @@ public class GameManager : MonoBehaviour {
         SceneManager.LoadSceneAsync("Prototype").completed += (AsyncOperation obj) => {
             CurrentGameState = GameState.Maze;
         };
+    }
+
+    public void SetPuzzlePieceCollected(int index) {
+        PuzzlePiecesCollected[index] = true;
     }
 
 

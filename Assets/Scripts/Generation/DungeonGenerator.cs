@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using Random = UnityEngine.Random;
+using NaughtyAttributes;
 
 public enum Direction {
     North, South, East, West
@@ -13,9 +14,11 @@ public enum RoomRarity {
 }
 
 
-public class DungeonGenerator : MonoBehaviour {
 
-    //Change this to spawnrates in the future
+public class DungeonGenerator : MonoBehaviour {
+    [MinValue(1), MaxValue(3)]
+    [SerializeField] int mazeLevel;
+
     [SerializeField] SpawnRates spawnRates;
 
     [SerializeField] Grid dungeonGrid;
@@ -48,6 +51,8 @@ public class DungeonGenerator : MonoBehaviour {
 
     public event Action<NPC> OnNPCFound;
 
+    public event Action<int, Shrine> OnShrineFound;
+
     public Vector2 SpawnPoint {
         get {
             Vector3Int tileCenter = new Vector3Int(startRoom.FloorTileSet.cellBounds.x / 2, startRoom.FloorTileSet.cellBounds.y / 2);
@@ -69,7 +74,7 @@ public class DungeonGenerator : MonoBehaviour {
 
     }
 
-    void Initialize() {
+    public void Initialize() {
         Debug.Log("Initializing Dungeon");
 
         Room room = Instantiate(initalRoomPrefab, Vector3.zero, Quaternion.identity, dungeonGrid.transform);
@@ -124,6 +129,7 @@ public class DungeonGenerator : MonoBehaviour {
         additionCenterWorld.x -= .5f;
         spawnedAddition = Instantiate(addedRoomPrefab, additionCenterWorld, Quaternion.identity, dungeonGrid.transform);
         spawnedAddition.OnNPCFound += (x) => OnNPCFound?.Invoke(x);
+        spawnedAddition.OnShrineFound += (x) => OnShrineFound?.Invoke(mazeLevel, x);
 
 
         //Turns colliders off to avoid messing with collision detection of already existing room

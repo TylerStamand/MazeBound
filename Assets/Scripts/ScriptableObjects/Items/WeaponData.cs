@@ -6,7 +6,6 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "WeaponData", menuName = "ScriptableObjects/WeaponData")]
 public class WeaponData : ItemData{
-    //TODO: Change visibility to match ItemData
 
     [field: SerializeField] public Weapon WeaponPrefab { get; private set; }
 

@@ -18,6 +18,7 @@ public class Room : MonoBehaviour {
 
     public event Action<Room> OnRoomCompletion;
     public event Action<NPC> OnNPCFound;
+    public event Action<Shrine> OnShrineFound;
 
     public int RoomLevel { get; private set; }
 
@@ -57,6 +58,8 @@ public class Room : MonoBehaviour {
 
 
         InitializeNPCs();
+
+        InitializeShrine();
 
     }
 
@@ -116,6 +119,13 @@ public class Room : MonoBehaviour {
                 //Adds a listener that will destroy the npc if it is found and its not the one actually found
                 npc.OnFound += (x) => OnNPCFound?.Invoke(x);
             }
+        }
+    }
+
+    void InitializeShrine() {
+        Shrine shrine = GetComponentInChildren<Shrine>();
+        if (shrine != null) {
+            shrine.OnInteract += (x) => OnShrineFound?.Invoke(x);
         }
     }
 
