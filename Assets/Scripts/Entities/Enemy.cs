@@ -87,7 +87,9 @@ public class Enemy : MonoBehaviour, IDamageable {
         WeaponItem weaponItem = (WeaponItem)weaponData.CreateItem(scale);
         currentWeapon = Instantiate(weaponData.WeaponPrefab, weaponHolder.transform);
         currentWeapon.transform.localPosition = Vector3.zero;
-        currentWeapon.Initialize(false, weaponData.Damage.GetRandomValue(), weaponData.Speed.GetRandomValue(), weaponData.CriticalChance.GetRandomValue());
+        currentWeapon.Initialize(false, (int)(weaponData.Damage.GetRandomValue() * scale) + weaponData.Damage.MinValue,
+            (float)(Math.Truncate(weaponData.Speed.GetRandomValue() * 100 * scale) / 100) + weaponData.Speed.MinValue,
+            (float)(Math.Truncate(weaponData.CriticalChance.GetRandomValue() * 100 * scale) / 100) + weaponData.CriticalChance.MinValue);
     }
 
     void Move() {
