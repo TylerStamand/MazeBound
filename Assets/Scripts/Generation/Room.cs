@@ -100,7 +100,7 @@ public class Room : MonoBehaviour {
                 if (cumulativeProbablity >= randomValue) {
                     //Spawn the enemy
                     Enemy enemy = Instantiate(enemySpawnRate.enemyData.EnemyPrefab, enemySpawn.transform.position, Quaternion.identity);
-                    enemy.Initialize(RoomLevel);
+                    enemy.Initialize(enemySpawnRate.enemyData.Scale, enemySpawnRate.enemyData.MaxHealth);
                     enemy.enabled = false;
                     roomEnemies.Add(enemy);
                 }

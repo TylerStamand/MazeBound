@@ -10,10 +10,7 @@ public class Enemy : MonoBehaviour, IDamageable {
 
     [SerializeField] WeaponData weaponData;
     [SerializeField] GameObject weaponHolder;
-
-    [field: Header("Stats"), CurveRange(0, 0, 1, 200)]
-    [field: SerializeField] public AnimationCurve MaxHealth { get; private set; }
-
+    
     [Header("Movement")]
     [SerializeField] float moveSpeed = 1;
     [SerializeField] float alertRadius = 1;
@@ -32,7 +29,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     protected Weapon currentWeapon;
     protected Animator anim;
     protected bool inKnockback;
-    protected int scale;
+    protected float scale;
 
 
     protected virtual void Awake() {
@@ -61,10 +58,9 @@ public class Enemy : MonoBehaviour, IDamageable {
         }
     }
 
-    public void Initialize(int scale) {
+    public void Initialize(float scale, int health) {
         this.scale = scale;
-        CurrentHealth = MaxHealth.Evaluate((float)scale / DungeonGenerator.MaxRoomScale);
-        Debug.Log("Enemy health: " + CurrentHealth);
+        CurrentHealth = health;
         EquipWeapon();
     }
 

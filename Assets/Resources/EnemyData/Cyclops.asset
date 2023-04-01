@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20a85ef2d5c66a4fb60adb24fd80949, type: 3}
   m_Name: Cyclops
   m_EditorClassIdentifier: 
-  EnemyName: 
-  MaxHealth: 0
-  Scale: 0
-  EnemyPrefab: {fileID: 0}
+  EnemyName: Cyclops
+  MaxHealth: 10
+  Scale: 0.1
+  EnemyPrefab: {fileID: -2914886117922418386, guid: 33cfc1042c8eca44e9760ebe6fa1067d, type: 3}
