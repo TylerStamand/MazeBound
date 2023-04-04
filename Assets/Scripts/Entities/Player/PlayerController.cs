@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour {
     public event Action OnInventory;
 
     public Vector2 ScreenMousePos { get; private set; }
-    public Direction CurrentDirection { get => Utilities.DirectionFromVector2(inputVector); }
     public Vector2 WorldMousePos { get; private set; }
     new Rigidbody2D rigidbody;
     Animator animator;

@@ -8,9 +8,8 @@ using NaughtyAttributes;
 [RequireComponent(typeof(SpriteRenderer), typeof(Rigidbody2D))]
 public class Enemy : MonoBehaviour, IDamageable {
 
-    [SerializeField] WeaponData weaponData;
     [SerializeField] GameObject weaponHolder;
-    
+
     [Header("Movement")]
     [SerializeField] float moveSpeed = 1;
     [SerializeField] float alertRadius = 1;
@@ -29,7 +28,8 @@ public class Enemy : MonoBehaviour, IDamageable {
     protected Weapon currentWeapon;
     protected Animator anim;
     protected bool inKnockback;
-    protected float scale;
+
+    protected EnemyData enemyData;
 
 
     protected virtual void Awake() {
@@ -58,9 +58,8 @@ public class Enemy : MonoBehaviour, IDamageable {
         }
     }
 
-    public void Initialize(float scale, int health) {
-        this.scale = scale;
-        CurrentHealth = health;
+    public void Initialize(EnemyData enemyData) {
+        this.enemyData = enemyData;
         EquipWeapon();
     }
 
@@ -80,12 +79,9 @@ public class Enemy : MonoBehaviour, IDamageable {
 
 
     void EquipWeapon() {
-        WeaponItem weaponItem = (WeaponItem)weaponData.CreateItem(scale);
-        currentWeapon = Instantiate(weaponData.WeaponPrefab, weaponHolder.transform);
+        currentWeapon = Instantiate(enemyData.WeaponPrefab, weaponHolder.transform);
         currentWeapon.transform.localPosition = Vector3.zero;
-        currentWeapon.Initialize(false, (int)(weaponData.Damage.GetRandomValue() * scale) + weaponData.Damage.MinValue,
-            (float)(Math.Truncate(weaponData.Speed.GetRandomValue() * 100 * scale) / 100) + weaponData.Speed.MinValue,
-            (float)(Math.Truncate(weaponData.CriticalChance.GetRandomValue() * 100 * scale) / 100) + weaponData.CriticalChance.MinValue);
+        currentWeapon.Initialize(false, enemyData.Damage, enemyData.AttackSpeed, enemyData.CriticalChance);
     }
 
     void Move() {
@@ -151,7 +147,9 @@ public class Enemy : MonoBehaviour, IDamageable {
     }
 
     void Attack() {
-        currentWeapon.Use(Utilities.DirectionFromVector2(target.transform.position - transform.position));
+        Direction directionToAttack = Utilities.DirectionFromVector2(target.transform.position - transform.position);
+        Debug.Log(directionToAttack);
+        currentWeapon.Use(directionToAttack);
     }
 
 }

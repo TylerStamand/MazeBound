@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 7063205943396213531}
   - component: {fileID: 2403253806053126280}
   m_Layer: 0
-  m_Name: DefaultHammer
+  m_Name: HammerPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

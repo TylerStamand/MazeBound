@@ -54,23 +54,12 @@ public static class Utilities {
         }
     }
     public static Direction DirectionFromVector2(Vector2 vector) {
-        if (vector.x != 0) {
-            if (vector.x > 0) {
-                return Direction.East;
-            } else {
-                return Direction.West;
-            }
+        float angle = (int)Vector2.Angle(vector, Vector2.right);
+        if (vector.y < 0) {
+            angle = -angle;
         }
-        if (vector.y != 0) {
-            if (vector.y > 0) {
-                return Direction.North;
-            } else {
-                return Direction.South;
-            }
-        }
+        return Utilities.GetDirectionFromAngle(angle);
 
-        //Default
-        return Direction.East;
     }
 
 

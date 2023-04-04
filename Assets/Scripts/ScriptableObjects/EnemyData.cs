@@ -5,12 +5,18 @@ using NaughtyAttributes;
 
 [CreateAssetMenu(fileName = "EnemyData", menuName = "ScriptableObjects/EnemyData")]
 public class EnemyData : ScriptableObject {
-    public string EnemyName;
-    public int MaxHealth;
+    [field: Header("Enemy Properties")]
+    [field: SerializeField] public string EnemyName { get; private set; }
+    [field: SerializeField] public int Health { get; private set; }
+    [field: SerializeField] public Enemy EnemyPrefab { get; private set; }
 
-    [Range(0, 1)]
-    public float Scale;
+    [field: Header("Weapon Properties")]
+    [field: SerializeField] public Weapon WeaponPrefab { get; private set; }
+    [field: SerializeField] public int Damage { get; private set; }
+    [field: SerializeField] public float AttackSpeed { get; private set; }
+    [field: SerializeField] public float CriticalChance { get; private set; }
 
-    public Enemy EnemyPrefab;
+
+    //Possibly add range/movement properties
 
 }

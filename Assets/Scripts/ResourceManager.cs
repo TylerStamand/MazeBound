@@ -36,7 +36,11 @@ public class ResourceManager {
     List<Enemy>[] enemiesLists = new List<Enemy>[3];
 
     ResourceManager() {
-
+        for (int i = 0; i < 3; i++) {
+            roomLists[i] = new List<Room>();
+            enemiesLists[i] = new List<Enemy>();
+            itemDataDics[i] = new Dictionary<string, ItemData>();
+        }
 
         AssembleResources();
     }
@@ -67,7 +71,7 @@ public class ResourceManager {
 
     void LoadRooms() {
         for (int i = 0; i < 3; i++) {
-            List<Room> roomPrefabList = Resources.LoadAll<Room>("Rooms/Maze" + i).ToList();
+            List<Room> roomPrefabList = Resources.LoadAll<Room>("Rooms/Maze" + (i + 1)).ToList();
             Debug.Log($"Rooms Found: {roomPrefabList.Count}");
             foreach (Room room in roomPrefabList) {
 
@@ -82,13 +86,15 @@ public class ResourceManager {
 
     void LoadEnemies() {
         for (int i = 0; i < 3; i++) {
-            enemiesLists[i] = Resources.LoadAll<Enemy>("Entities/Enemies/Maze" + i).ToList();
+            enemiesLists[i] = Resources.LoadAll<Enemy>("Entities/Enemies/Maze" + (i + 1)).ToList();
         }
     }
 
     void LoadItems() {
+        Debug.Log("Loading Items");
         for (int i = 0; i < 3; i++) {
-            List<ItemData> itemDataList = Resources.LoadAll<ItemData>("Items/Maze" + i).ToList();
+            List<ItemData> itemDataList = Resources.LoadAll<ItemData>("Items/Maze" + (i + 1)).ToList();
+            Debug.Log($"Items Found Maze {i + 1}: {itemDataList.Count}");
             itemDataDics[i] = itemDataList.ToDictionary(r => {
                 if (r.Name != ItemData.DefaultName) {
                     return r.Name;
@@ -119,6 +125,7 @@ public class ResourceManager {
                 return itemDataDic[name];
             }
         }
+        Debug.LogError("Item not found");
         return null;
 
     }

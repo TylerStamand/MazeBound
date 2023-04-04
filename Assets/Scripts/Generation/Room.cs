@@ -12,7 +12,6 @@ public class Room : MonoBehaviour {
     [field: SerializeField] public Tilemap FloorTileSet { get; private set; }
 
     [SerializeField] bool CompleteRoom;
-    [SerializeField] bool TrapRoom;
     [SerializeField] List<GameObject> enemySpawnLocations;
 
     public event Action<Room> OnRoomCompletion;
@@ -66,9 +65,7 @@ public class Room : MonoBehaviour {
         PlayerCharacter player = collider.GetComponentInParent<PlayerCharacter>();
         if (player != null && !playerEnteredRoom) {
             playerEnteredRoom = true;
-            if (!TrapRoom) {
-                OnRoomCompletion?.Invoke(this);
-            }
+            OnRoomCompletion?.Invoke(this);
             foreach (Enemy enemy in roomEnemies) {
                 enemy.enabled = true;
             }
@@ -100,7 +97,7 @@ public class Room : MonoBehaviour {
                 if (cumulativeProbablity >= randomValue) {
                     //Spawn the enemy
                     Enemy enemy = Instantiate(enemySpawnRate.enemyData.EnemyPrefab, enemySpawn.transform.position, Quaternion.identity);
-                    enemy.Initialize(enemySpawnRate.enemyData.Scale, enemySpawnRate.enemyData.MaxHealth);
+                    enemy.Initialize(enemySpawnRate.enemyData);
                     enemy.enabled = false;
                     roomEnemies.Add(enemy);
                 }
