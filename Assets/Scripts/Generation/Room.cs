@@ -12,7 +12,6 @@ public class Room : MonoBehaviour {
     [field: SerializeField] public Tilemap FloorTileSet { get; private set; }
 
     [SerializeField] bool CompleteRoom;
-    [SerializeField] bool TrapRoom;
     [SerializeField] List<GameObject> enemySpawnLocations;
 
     public event Action<Room> OnRoomCompletion;
@@ -43,7 +42,6 @@ public class Room : MonoBehaviour {
     public void Initialize(int roomLevel, SpawnRates spawnRates) {
 
         RoomLevel = roomLevel;
-        List<Enemy> enemyPrefabs = ResourceManager.Instance.GetEnemies();
 
         //Spawns the chests for the room
         InitializeChests(spawnRates);
@@ -52,7 +50,7 @@ public class Room : MonoBehaviour {
         //Prevents Enemies from spawning in base room
         if (roomLevel == 0) return;
 
-        InitializeEnemies(enemyPrefabs);
+        InitializeEnemies(spawnRates);
         //Spawns the enemies for the room
 
 
@@ -67,9 +65,7 @@ public class Room : MonoBehaviour {
         PlayerCharacter player = collider.GetComponentInParent<PlayerCharacter>();
         if (player != null && !playerEnteredRoom) {
             playerEnteredRoom = true;
-            if (!TrapRoom) {
-                OnRoomCompletion?.Invoke(this);
-            }
+            OnRoomCompletion?.Invoke(this);
             foreach (Enemy enemy in roomEnemies) {
                 enemy.enabled = true;
             }
@@ -77,14 +73,36 @@ public class Room : MonoBehaviour {
         }
     }
 
-    void InitializeEnemies(List<Enemy> enemyPrefabs) {
+    void InitializeEnemies(SpawnRates spawnRates) {
+
+
         foreach (GameObject enemySpawn in enemySpawnLocations) {
+            //Decides if the enemy will spawn
             if (UnityEngine.Random.Range(0, 1f) > .5) continue;
-            Enemy enemyPrefab = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Count)];
-            Enemy enemy = Instantiate(enemyPrefab, enemySpawn.transform.position, Quaternion.identity);
-            enemy.Initialize(RoomLevel);
-            enemy.enabled = false;
-            roomEnemies.Add(enemy);
+
+            float totalProbability = 0;
+            float cumulativeProbablity = 0;
+
+
+            //Gets the total probability of all enemies in the spawnRates object
+            spawnRates.EnemySpawnRates.ForEach(x => totalProbability += x.spawnRateCurve.Evaluate(MathF.Min((float)RoomLevel, DungeonGenerator.MaxRoomScale)));
+
+
+            float randomValue = UnityEngine.Random.Range(0, totalProbability);
+
+            foreach (SpawnRates.EnemySpawnRate enemySpawnRate in spawnRates.EnemySpawnRates) {
+                cumulativeProbablity += enemySpawnRate.spawnRateCurve.Evaluate(MathF.Min((float)RoomLevel, DungeonGenerator.MaxRoomScale));
+
+                //Does this enemy get a chance to spawn
+                if (cumulativeProbablity >= randomValue) {
+                    //Spawn the enemy
+                    Enemy enemy = Instantiate(enemySpawnRate.enemyData.EnemyPrefab, enemySpawn.transform.position, Quaternion.identity);
+                    enemy.Initialize(enemySpawnRate.enemyData);
+                    enemy.enabled = false;
+                    roomEnemies.Add(enemy);
+                }
+
+            }
         }
     }
 
