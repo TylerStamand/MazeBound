@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using NaughtyAttributes;
 
 public enum GameState {
     Hub,
@@ -10,15 +11,11 @@ public enum GameState {
 }
 
 class GameSaveData {
-    public GameState GameState;
-
     public bool[] PuzzlePiecesCollected = new bool[3];
 
 
     //These should be new game defaults
     public GameSaveData() {
-
-        GameState = GameState.Hub;
         PuzzlePiecesCollected = new bool[3];
     }
 
@@ -26,6 +23,26 @@ class GameSaveData {
 }
 
 public class GameManager : MonoBehaviour {
+    [Header("Maze Scenes")]
+    [Scene]
+    [SerializeField] string maze1;
+    [Scene]
+    [SerializeField] string maze2;
+    [Scene]
+    [SerializeField] string maze3;
+
+    [Header("Hub Scenes")]
+    [Scene]
+    [SerializeField] string hub0;
+    [Scene]
+    [SerializeField] string hub1;
+    [Scene]
+    [SerializeField] string hub2;
+    [Scene]
+    [SerializeField] string hub3;
+
+
+
     public static GameManager Instance { get; private set; }
 
     public event Action OnSceneChange;
@@ -79,8 +96,11 @@ public class GameManager : MonoBehaviour {
             NewGame();
         }
 
-        SceneManager.LoadSceneAsync("Hub");
-        CurrentGameState = GameState.Hub;
+
+        PuzzlePiecesCollected = gameSaveData.PuzzlePiecesCollected;
+        Debug.Log("Current Puzzle Pieces Collected: " + PuzzlePiecesCollectedCount);
+
+        LoadHub();
 
 
     }
@@ -98,7 +118,6 @@ public class GameManager : MonoBehaviour {
     void Save() {
         Debug.Log("Saving Game Manager");
         GameSaveData gameSaveData = new GameSaveData() {
-            GameState = CurrentGameState,
             PuzzlePiecesCollected = PuzzlePiecesCollected
         };
         SaveManager.Instance.SetData(SaveDataID, gameSaveData);
@@ -113,8 +132,26 @@ public class GameManager : MonoBehaviour {
 
     public void LoadHub() {
 
+        string sceneName;
+        switch (PuzzlePiecesCollectedCount) {
+            case 0:
+                sceneName = hub0;
+                break;
+            case 1:
+                sceneName = hub1;
+                break;
+            case 2:
+                sceneName = hub2;
+                break;
+            case 3:
+                sceneName = hub3;
+                break;
+            default:
+                Debug.LogError("Invalid hub index");
+                return;
+        }
         OnSceneChange?.Invoke();
-        SceneManager.LoadSceneAsync("Hub").completed += (AsyncOperation obj) => {
+        SceneManager.LoadSceneAsync(sceneName).completed += (AsyncOperation obj) => {
             CurrentGameState = GameState.Hub;
         };
 
@@ -123,13 +160,30 @@ public class GameManager : MonoBehaviour {
 
     public void LoadMaze(int mazeIndex) {
 
+        string sceneName;
+        switch (mazeIndex) {
+            case 1:
+                sceneName = maze1;
+                break;
+            case 2:
+                sceneName = maze2;
+                break;
+            case 3:
+                sceneName = maze3;
+                break;
+            default:
+                Debug.LogError("Invalid maze index");
+                return;
+        }
+
         OnSceneChange?.Invoke();
-        SceneManager.LoadSceneAsync("Prototype").completed += (AsyncOperation obj) => {
+        SceneManager.LoadSceneAsync(sceneName).completed += (AsyncOperation obj) => {
             CurrentGameState = GameState.Maze;
         };
     }
 
     public void SetPuzzlePieceCollected(int index) {
+        Debug.Log("Puzzle Piece Collected " + index);
         PuzzlePiecesCollected[index] = true;
     }
 

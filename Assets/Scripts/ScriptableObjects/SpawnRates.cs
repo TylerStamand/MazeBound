@@ -11,7 +11,7 @@ public class SpawnRates : ScriptableObject {
 
     [System.Serializable]
     public class EnemySpawnRate {
-        public Enemy enemy;
+        public EnemyData enemyData;
         [CurveRange(0, 0, 1, 1)]
         public AnimationCurve spawnRateCurve;
     }

@@ -36,9 +36,20 @@ public class HubManager : MonoBehaviour {
         GameManager.Instance.OnSceneChange += Save;
 
         //Sets up maze entrance triggers
-        dungeon1Trigger.OnTriggerEnter += () => {
-            GameManager.Instance.LoadMaze(1);
-        };
+
+        if (dungeon1Trigger != null)
+            dungeon1Trigger.OnTriggerEnter += () => {
+                GameManager.Instance.LoadMaze(1);
+            };
+        if (dungeon2Trigger != null)
+            dungeon2Trigger.OnTriggerEnter += () => {
+                GameManager.Instance.LoadMaze(2);
+            };
+
+        if (dungeon3Trigger != null)
+            dungeon3Trigger.OnTriggerEnter += () => {
+                GameManager.Instance.LoadMaze(3);
+            };
 
         //Load player
         Instantiate(ResourceManager.Instance.PlayerPrefab, playerSpawn.transform.position, Quaternion.identity);

@@ -293,6 +293,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 297839e00b59be1478e4e48fadb1e23f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maze1: Maze1
+  maze2: Maze2
+  maze3: Maze3
+  hub0: Hub0
+  hub1: Hub1
+  hub2: Hub2
+  hub3: Hub3
 --- !u!4 &549839484
 Transform:
   m_ObjectHideFlags: 0

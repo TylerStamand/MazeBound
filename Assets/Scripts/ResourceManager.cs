@@ -28,13 +28,19 @@ public class ResourceManager {
         }
     }
 
-    private List<Room> roomList1 = new List<Room>();
-    private Room shrineRoom1;
-    private Dictionary<string, ItemData> itemDataDic;
-    private List<Enemy> enemiesList = new List<Enemy>();
 
-    private ResourceManager() {
+    List<Room>[] roomLists = new List<Room>[3];
+    Room[] shrineRooms = new Room[3];
 
+    Dictionary<string, ItemData>[] itemDataDics = new Dictionary<string, ItemData>[3];
+    List<Enemy>[] enemiesLists = new List<Enemy>[3];
+
+    ResourceManager() {
+        for (int i = 0; i < 3; i++) {
+            roomLists[i] = new List<Room>();
+            enemiesLists[i] = new List<Enemy>();
+            itemDataDics[i] = new Dictionary<string, ItemData>();
+        }
 
         AssembleResources();
     }
@@ -42,28 +48,67 @@ public class ResourceManager {
     /// <summary>
     /// This loads certain resources in the Resource folder and makes them easily available to classes that need them 
     /// </summary>
-    private void AssembleResources() {
+    void AssembleResources() {
         Debug.Log("Assembling Resources");
 
         //Load player prefab
         PlayerPrefab = Resources.Load<GameObject>("Entities/PlayerPrefab");
 
-        //Load room prefabs
-        List<Room> roomPrefabList = Resources.LoadAll<Room>("Rooms").ToList();
-        Debug.Log($"Rooms Found: {roomPrefabList.Count}");
-        foreach (Room room in roomPrefabList) {
-
-            if (room.name != "Shrine Room")
-                roomList1.Add(room);
-            else
-                shrineRoom1 = room;
-        }
+        //Load room prefabs 
+        LoadRooms();
 
         //load enemy prefabs
-        enemiesList = Resources.LoadAll<Enemy>("Entities/Enemies").ToList();
-        Debug.Log($"Enemies Found: {enemiesList.Count}");
+        LoadEnemies();
 
         //load ui prefabs
+        LoadUI();
+
+        //load item data
+        LoadItems();
+
+    }
+
+
+    void LoadRooms() {
+        for (int i = 0; i < 3; i++) {
+            List<Room> roomPrefabList = Resources.LoadAll<Room>("Rooms/Maze" + (i + 1)).ToList();
+            Debug.Log($"Rooms Found: {roomPrefabList.Count}");
+            foreach (Room room in roomPrefabList) {
+
+                if (room.name != "Shrine Room")
+                    roomLists[i].Add(room);
+                else
+                    shrineRooms[i] = room;
+            }
+        }
+
+    }
+
+    void LoadEnemies() {
+        for (int i = 0; i < 3; i++) {
+            enemiesLists[i] = Resources.LoadAll<Enemy>("Entities/Enemies/Maze" + (i + 1)).ToList();
+        }
+    }
+
+    void LoadItems() {
+        Debug.Log("Loading Items");
+        for (int i = 0; i < 3; i++) {
+            List<ItemData> itemDataList = Resources.LoadAll<ItemData>("Items/Maze" + (i + 1)).ToList();
+            Debug.Log($"Items Found Maze {i + 1}: {itemDataList.Count}");
+            itemDataDics[i] = itemDataList.ToDictionary(r => {
+                if (r.Name != ItemData.DefaultName) {
+                    return r.Name;
+                } else {
+                    Debug.LogError("Weapon not given a name");
+                    return "";
+                }
+            },
+                r => r
+            );
+        }
+    }
+
+    void LoadUI() {
         DialogManagerPrefab = Resources.Load<GameObject>("UI/Dialog/DialogManager");
         ChestInventoryPrefab = Resources.Load<GameObject>("UI/Inventory/ChestInventory");
         LoadMenuPrefab = Resources.Load<GameObject>("UI/Menu/LoadMenu");
@@ -71,39 +116,41 @@ public class ResourceManager {
         HubPauseMenuPrefab = Resources.Load<GameObject>("UI/Menu/HubPauseMenu");
         InventoryPrefab = Resources.Load<GameObject>("UI/Inventory/Inventory");
 
-        //load item data
-        List<ItemData> itemDataList = Resources.LoadAll<ItemData>("Items").ToList();
-        itemDataDic = itemDataList.ToDictionary(r => {
-            if (r.Name != ItemData.DefaultName) {
-                return r.Name;
-            } else {
-                Debug.LogError("Weapon not given a name");
-                return "";
-            }
-        },
-            r => r
-        );
-
     }
 
 
     public ItemData GetItemData(string name) {
-        itemDataDic.TryGetValue(name, out ItemData value);
-        return value;
+        foreach (Dictionary<string, ItemData> itemDataDic in itemDataDics) {
+            if (itemDataDic.ContainsKey(name)) {
+                return itemDataDic[name];
+            }
+        }
+        Debug.LogError("Item not found");
+        return null;
 
     }
 
 
     public List<Room> GetRoomDic(int level) {
-        return roomList1;
+        if (level < 1 || level > 3) {
+            Debug.LogError("Level out of range");
+            return null;
+        }
+
+        return roomLists[level - 1];
     }
 
     public Room GetShrineRoom(int level) {
-        return shrineRoom1;
+        if (level < 1 || level > 3) {
+            Debug.LogError("Level out of range");
+            return null;
+        }
+
+        return shrineRooms[level - 1];
     }
 
-    public List<Enemy> GetEnemies() {
-        return enemiesList;
+    public List<Enemy> GetEnemies(int level) {
+        return enemiesLists[level - 1];
     }
 
 

@@ -101,7 +101,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
     /// <param name="menuPrefab"></param>
     /// <returns></returns>
     public GameObject ShowMenu(GameObject menuPrefab, bool canExit = true) {
-        
+
         //Return if there is already a menu being displayed
         if (currentMenu != null) {
             ExitMenu();
@@ -223,11 +223,8 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
     /// </summary>
     void UpdateDirection() {
         Vector2 difference = controller.WorldMousePos.Difference(transform.position);
-        float angle = (int)Vector2.Angle(difference, Vector2.right);
-        if (difference.y < 0) {
-            angle = -angle;
-        }
-        currentDirection = Utilities.GetDirectionFromAngle(angle);
+
+        currentDirection = Utilities.DirectionFromVector2(difference);
     }
 
     public void Save() {
