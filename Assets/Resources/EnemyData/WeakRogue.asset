@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f20a85ef2d5c66a4fb60adb24fd80949, type: 3}
-  m_Name: WeakSkeleton
+  m_Name: WeakRogue
   m_EditorClassIdentifier: 
-  <EnemyName>k__BackingField: Weak Cyclops
+  <EnemyName>k__BackingField: WeakRogue
   <Health>k__BackingField: 10
-  <EnemyPrefab>k__BackingField: {fileID: -2914886117922418386, guid: 90351ead4d5d6394dbdf837d293954d5, type: 3}
-  <WeaponPrefab>k__BackingField: {fileID: 7404189788588101358, guid: a7b340e35960b8c4b8632648f8290c0c, type: 3}
-  <Damage>k__BackingField: 4
-  <AttackSpeed>k__BackingField: 2
+  <EnemyPrefab>k__BackingField: {fileID: -2914886117922418386, guid: 5241d6ad6289af6408826c24b4c3d9ff, type: 3}
+  <WeaponPrefab>k__BackingField: {fileID: 2957765833364229571, guid: 41d48f1abbd8ee64fba8ecdb18573a73, type: 3}
+  <Damage>k__BackingField: 5
+  <AttackSpeed>k__BackingField: 4
   <CriticalChance>k__BackingField: 3

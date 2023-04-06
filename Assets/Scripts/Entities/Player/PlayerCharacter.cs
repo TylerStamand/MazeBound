@@ -49,7 +49,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
         controller.OnInteract += HandleInteract;
         Inventory = new Inventory();
         Inventory.OnWeaponChange += SpawnWeapon;
-        WeaponItem starterWeapon = (WeaponItem)weaponData.CreateItem(1);
+        WeaponItem starterWeapon = (WeaponItem)weaponData.CreateItem(0);
         Inventory.SetWeapon(starterWeapon);
         BaseHealth = CurrentHealth;
         WeaponScraps = 0;

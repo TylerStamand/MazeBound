@@ -23,7 +23,7 @@ MonoBehaviour:
   <WeaponType>k__BackingField: 0
   <Damage>k__BackingField:
     MaxValue: 20
-    MinValue: 5
+    MinValue: 4
   <Speed>k__BackingField:
     MaxValue: 5
     MinValue: 1

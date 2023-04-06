@@ -75,18 +75,15 @@ public class Room : MonoBehaviour {
 
     void InitializeEnemies(SpawnRates spawnRates) {
 
+        float totalProbability = 0;
+        //Gets the total probability of all enemies in the spawnRates object
+        spawnRates.EnemySpawnRates.ForEach(x => totalProbability += x.spawnRateCurve.Evaluate(MathF.Min((float)RoomLevel, DungeonGenerator.MaxRoomScale)));
 
         foreach (GameObject enemySpawn in enemySpawnLocations) {
             //Decides if the enemy will spawn
             if (UnityEngine.Random.Range(0, 1f) > .5) continue;
 
-            float totalProbability = 0;
             float cumulativeProbablity = 0;
-
-
-            //Gets the total probability of all enemies in the spawnRates object
-            spawnRates.EnemySpawnRates.ForEach(x => totalProbability += x.spawnRateCurve.Evaluate(MathF.Min((float)RoomLevel, DungeonGenerator.MaxRoomScale)));
-
 
             float randomValue = UnityEngine.Random.Range(0, totalProbability);
 

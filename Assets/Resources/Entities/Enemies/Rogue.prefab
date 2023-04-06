@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -919419817980857617}
   - component: {fileID: -597183530224077111}
   m_Layer: 7
-  m_Name: Enemy_Default 3
+  m_Name: Rogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
