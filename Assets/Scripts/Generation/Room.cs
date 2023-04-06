@@ -81,7 +81,10 @@ public class Room : MonoBehaviour {
 
         foreach (GameObject enemySpawn in enemySpawnLocations) {
             //Decides if the enemy will spawn
+            Debug.Log("Deciding if enemy will spawn");
             if (UnityEngine.Random.Range(0, 1f) > .5) continue;
+            Debug.Log("Enemy will spawn");
+
 
             float cumulativeProbablity = 0;
 
@@ -91,12 +94,14 @@ public class Room : MonoBehaviour {
                 cumulativeProbablity += enemySpawnRate.spawnRateCurve.Evaluate(MathF.Min((float)RoomLevel, DungeonGenerator.MaxRoomScale));
 
                 //Does this enemy get a chance to spawn
+                Debug.Log("Cumulative Probability: " + cumulativeProbablity + " Random Value: " + randomValue + " Enemy: " + enemySpawnRate.enemyData.EnemyPrefab.name);
                 if (cumulativeProbablity >= randomValue) {
                     //Spawn the enemy
                     Enemy enemy = Instantiate(enemySpawnRate.enemyData.EnemyPrefab, enemySpawn.transform.position, Quaternion.identity);
                     enemy.Initialize(enemySpawnRate.enemyData);
                     enemy.enabled = false;
                     roomEnemies.Add(enemy);
+                    break;
                 }
 
             }
