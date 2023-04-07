@@ -613,14 +613,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf3e26f4868c0544920da6c7f5fa8f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mazeLevel: 2
+  mazeLevel: 1
   spawnRates: {fileID: 11400000, guid: a6d68ff79e7f1fe44a93d86a31081dd1, type: 2}
   shrineMinDistance: 5
   shrineSpawnRate: 0.3
   dungeonGrid: {fileID: 583224667}
   hallTilemapFloors: {fileID: 1613930230}
   hallTilemapWalls: {fileID: 416813677}
-  initalRoomPrefab: {fileID: 384430485695785473, guid: ca4cf05308a0b124a86788a9ea7c14cc, type: 3}
+  initalRoomPrefab: {fileID: 384430485695785473, guid: 3c801d5c65d06ba4fb2c1a1cd1120df2, type: 3}
   buildingLayer:
     serializedVersion: 2
     m_Bits: 64
