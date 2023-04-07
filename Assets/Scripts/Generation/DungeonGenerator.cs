@@ -204,7 +204,6 @@ public class DungeonGenerator : MonoBehaviour {
 
 
     void HandleRoomCompletion(Room room) {
-
         Room roomSpawn;
         Room roomBuilding = room.GetComponent<Room>();
 
@@ -369,12 +368,20 @@ public class DungeonGenerator : MonoBehaviour {
                         //Removes the room tile
                         collidedTilemap.SetTile(collidedTilemap.WorldToCell(worldCellPos), null);
 
-                        //Do a second check for collision a tile ahead to determine if it should put down a corner
-                        worldCellPos = new Vector2(worldCellPos.x + inc.x, worldCellPos.y + inc.y);
+
+                        if (direction != Direction.South) {
+                            //Do a second check for collision a tile ahead to determine if it should put down a corner
+                            worldCellPos = new Vector2(worldCellPos.x + inc.x, worldCellPos.y + inc.y);
+                        } else {
+                            //if south, go three tiles ahead to check for collision
+                            worldCellPos = new Vector2(worldCellPos.x + inc.x, worldCellPos.y + inc.y - 2);
+                        }
+
                         collider = Physics2D.OverlapBox(worldCellPos, new Vector2(0.5f, 0.5f), buildingLayer);
 
                         //If it hit a floor tile, then it draws a corner tile and skips the rest of the loop
                         if (collider != null && collider.name == "FloorTile") {
+
                             if (laneIndex == 0) {
                                 hallTilemapWalls.SetTile(currentPosition, leftOrBottomCorner);
                             } else if (laneIndex == activeLanes.Length - 1) {

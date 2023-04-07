@@ -620,7 +620,7 @@ MonoBehaviour:
   dungeonGrid: {fileID: 583224667}
   hallTilemapFloors: {fileID: 1613930230}
   hallTilemapWalls: {fileID: 416813677}
-  initalRoomPrefab: {fileID: 384430485695785473, guid: 68e321ecfe2828c4cb2c31775b9b4472, type: 3}
+  initalRoomPrefab: {fileID: 384430485695785473, guid: ca4cf05308a0b124a86788a9ea7c14cc, type: 3}
   buildingLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -633,9 +633,9 @@ MonoBehaviour:
   topHorizontal: {fileID: 11400000, guid: f37264380d6ab11428991446ccf19075, type: 2}
   topHorizontalWall: {fileID: 11400000, guid: 3007025dc86c67146bf573f2a75eea16, type: 2}
   LeftExterior: {fileID: 11400000, guid: 0a599002caa81fc42ab2f73474619b6f, type: 2}
-  LeftInterior: {fileID: 11400000, guid: b494a2cf3db64fe40858c959e4b87583, type: 2}
+  LeftInterior: {fileID: 11400000, guid: a122cb5056cc1844d92bf80a32518a05, type: 2}
   RightExterior: {fileID: 11400000, guid: 1902f1ae4e8e7204cbb62ca86df9f2d6, type: 2}
-  RightInterior: {fileID: 11400000, guid: 298c33a29c3d6d043a221eba090b9a9e, type: 2}
+  RightInterior: {fileID: 11400000, guid: 48d67a34260ec1142a27f9611927a87f, type: 2}
 --- !u!4 &1410699962
 Transform:
   m_ObjectHideFlags: 0
