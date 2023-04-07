@@ -92,6 +92,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockBack: 1.5
+  hitSound: {fileID: 8300000, guid: dd240c822764ebf4d84d03656303cf05, type: 3}
+  useSound: {fileID: 8300000, guid: 0841e27f9619d814abd9b71b5d72b086, type: 3}
   moveDistance: 2
 --- !u!1 &7844844302757814419
 GameObject:

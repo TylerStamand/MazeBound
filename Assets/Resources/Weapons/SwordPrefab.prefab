@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockBack: 3
+  hitSound: {fileID: 8300000, guid: 4080bcbe9511e024fa488a365dfed48e, type: 3}
+  useSound: {fileID: 8300000, guid: 0149fa7c98b38654eb8a9b1680b17430, type: 3}
 --- !u!61 &3987714513966776829
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -16,6 +16,8 @@ public class Spear : Weapon {
                 return;
 
             damageable.TakeDamage(Damage, DamageType.Default, knockBack);
+            if (hitSound != null)
+                AudioSource.PlayClipAtPoint(hitSound, transform.position, GameManager.Instance.GetVolume());
         }
     }
 
@@ -24,6 +26,11 @@ public class Spear : Weapon {
     public override bool Use(Direction direction) {
 
         if (!base.Use(direction)) return false;
+
+        if (useSound != null) {
+            AudioSource.PlayClipAtPoint(useSound, transform.position, GameManager.Instance.GetVolume());
+        }
+
 
         spriteRenderer.enabled = true;
         collider.enabled = true;

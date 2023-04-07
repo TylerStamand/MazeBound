@@ -21,6 +21,9 @@ public class Hammer : Weapon {
         //Stops any previous animations from playing so the animation end function isn't called during a new animation
         StopAllCoroutines();
 
+        if (useSound != null)
+            AudioSource.PlayClipAtPoint(useSound, transform.position, GameManager.Instance.GetVolume());
+
         inUse = true;
 
         //Turns on the sprite
@@ -81,7 +84,7 @@ public class Hammer : Weapon {
 
         inUse = false;
 
-
+        bool hit = false;
         foreach (Collider2D collider in colliders) {
             IDamageable damageable = collider.gameObject.GetComponent<IDamageable>();
 
@@ -96,7 +99,15 @@ public class Hammer : Weapon {
                     continue;
 
                 damageable.TakeDamage(Damage, DamageType.Default, knockBack);
+                hit = true;
             }
+
+
+        }
+
+        //Plays the hit sound if it hit something
+        if (hitSound != null && hit) {
+            AudioSource.PlayClipAtPoint(hitSound, transform.position, GameManager.Instance.GetVolume());
         }
     }
 
