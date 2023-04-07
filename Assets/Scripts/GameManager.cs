@@ -182,9 +182,9 @@ public class GameManager : MonoBehaviour {
         };
     }
 
-    public void SetPuzzlePieceCollected(int index) {
-        Debug.Log("Puzzle Piece Collected " + index);
-        PuzzlePiecesCollected[index] = true;
+    public void SetPuzzlePieceCollected(int level) {
+        Debug.Log("Puzzle Piece Collected " + level);
+        PuzzlePiecesCollected[level - 1] = true;
     }
 
 

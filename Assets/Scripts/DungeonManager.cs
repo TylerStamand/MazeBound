@@ -38,8 +38,8 @@ public class DungeonManager : MonoBehaviour {
                 Debug.LogError("GameManager not found");
                 return;
             }
-            GameManager.Instance.SetPuzzlePieceCollected(mazeLevel - 1);
-            shrine.ShowPuzzlePiece();
+            GameManager.Instance.SetPuzzlePieceCollected(mazeLevel);
+            shrine.ShowPuzzlePiece(mazeLevel);
 
         }
     }
