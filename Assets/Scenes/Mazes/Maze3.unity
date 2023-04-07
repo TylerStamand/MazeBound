@@ -620,7 +620,7 @@ MonoBehaviour:
   dungeonGrid: {fileID: 583224667}
   hallTilemapFloors: {fileID: 1613930230}
   hallTilemapWalls: {fileID: 416813677}
-  initalRoomPrefab: {fileID: 384430485695785473, guid: 68e321ecfe2828c4cb2c31775b9b4472, type: 3}
+  initalRoomPrefab: {fileID: 384430485695785473, guid: 54aaaaed0d51f014891f6b9cf66e984c, type: 3}
   buildingLayer:
     serializedVersion: 2
     m_Bits: 64
