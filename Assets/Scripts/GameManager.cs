@@ -24,7 +24,6 @@ class GameSaveData {
 
 public class GameManager : MonoBehaviour {
 
-    public static float Volume = .5f;
 
     [Header("Maze Scenes")]
     [Scene]

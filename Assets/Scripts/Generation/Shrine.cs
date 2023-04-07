@@ -7,6 +7,8 @@ using UnityEngine.Rendering.Universal;
 public class Shrine : MonoBehaviour, IInteractable {
 
     [SerializeField] Light2D light2D;
+    [SerializeField] AudioClip itemObtainedSound;
+    [SerializeField] AudioClip shrineActivatedSound;
 
     [SerializeField] GameObject puzzlePiece1;
     [SerializeField] GameObject puzzlePiece2;
@@ -60,6 +62,11 @@ public class Shrine : MonoBehaviour, IInteractable {
     }
 
     public IEnumerator TurnOnLight() {
+
+        //Shrine activated sound
+        if (shrineActivatedSound != null)
+            AudioSource.PlayClipAtPoint(shrineActivatedSound, transform.position, GameManager.Instance.GetVolume());
+
         float time = 0;
         float duration = 1;
         while (time < duration) {
@@ -78,6 +85,10 @@ public class Shrine : MonoBehaviour, IInteractable {
             puzzlePiece.transform.position = new Vector3(transform.position.x, Mathf.Lerp(startHight, endHight, time / puzzlePieceDuration), transform.position.z);
             yield return null;
         }
+
+        if (itemObtainedSound != null)
+            AudioSource.PlayClipAtPoint(itemObtainedSound, transform.position, GameManager.Instance.GetVolume());
+
 
         while (time < puzzlePieceDuration + 2) {
             time += Time.deltaTime;

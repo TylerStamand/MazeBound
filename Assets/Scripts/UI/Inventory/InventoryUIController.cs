@@ -120,10 +120,12 @@ public class InventoryUIController : MonoBehaviour {
 
         IConsumable consumable = slotItem as IConsumable;
         if (consumable != null) {
-            consumable.Consume(playerCharacter);
-            slotItem.Quantity--;
-            if (slotItem.Quantity <= 0) {
-                items[slots.IndexOf(slot)] = null;
+            if(consumable.Consume(playerCharacter)) {
+                slotItem.Quantity--;
+                if (slotItem.Quantity <= 0) {
+                    items[slots.IndexOf(slot)] = null;
+                }
+
             }
         }
 

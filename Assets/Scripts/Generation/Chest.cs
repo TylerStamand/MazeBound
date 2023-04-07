@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Chest : MonoBehaviour, IInteractable {
 
+    [SerializeField] AudioClip openSound;
+
     public static int ChestSize = 15;
 
     public List<Item> Items { get; set; } = new List<Item>();
@@ -20,6 +22,9 @@ public class Chest : MonoBehaviour, IInteractable {
 
     public void Interact(PlayerCharacter playerCharacter) {
         Debug.Log("Interacted");
+
+        if (openSound != null)
+            AudioSource.PlayClipAtPoint(openSound, playerCharacter.transform.position, GameManager.Instance.GetVolume());
 
         inventoryUI = playerCharacter.ShowMenu(ResourceManager.Instance.ChestInventoryPrefab);
         if (inventoryUI != null) {

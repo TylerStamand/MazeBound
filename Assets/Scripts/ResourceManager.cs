@@ -18,6 +18,8 @@ public class ResourceManager {
     public GameObject LoadMenuPrefab { get; private set; }
     public GameObject PlayerPrefab { get; private set; }
 
+    public AudioClip ButtonClickSound { get; private set; }
+
     static private ResourceManager instance;
     public static ResourceManager Instance {
         get {
@@ -66,8 +68,14 @@ public class ResourceManager {
         //load item data
         LoadItems();
 
+        //load sounds
+        LoadSounds();
+
     }
 
+    void LoadSounds() {
+        ButtonClickSound = Resources.Load<AudioClip>("Sounds/ButtonClick");
+    }
 
     void LoadRooms() {
         for (int i = 0; i < 3; i++) {

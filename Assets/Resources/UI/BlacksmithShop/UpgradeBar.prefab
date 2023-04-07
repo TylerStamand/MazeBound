@@ -55,6 +55,7 @@ MonoBehaviour:
   statNameLevelText: {fileID: 7662328117141892895}
   statCostText: {fileID: 3525195692172355581}
   upgradeButton: {fileID: 921129502791300610}
+  upgradeSound: {fileID: 8300000, guid: 4b34f2427b9320a4eae457b5fba6137e, type: 3}
 --- !u!1 &3637765870727418916
 GameObject:
   m_ObjectHideFlags: 0

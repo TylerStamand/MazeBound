@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IConsumable
 {
-    void Consume(PlayerCharacter playerCharacter);
+    bool Consume(PlayerCharacter playerCharacter);
 }

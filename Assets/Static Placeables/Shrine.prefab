@@ -101,6 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   light2D: {fileID: 1732074109534633905}
+  itemObtainedSound: {fileID: 8300000, guid: e0856db74ccf6c54c86193ae83f1db6e, type: 3}
+  shrineActivatedSound: {fileID: 8300000, guid: 07d9c804d9969c64983338e84f498809, type: 3}
   puzzlePiece1: {fileID: 7951074075619210578, guid: 1c0c6e0c0a7b92c4a8c82fb1e22b56c1, type: 3}
   puzzlePiece2: {fileID: 50471359722335424, guid: 55a21806df7666d4a903b72cf790c61f, type: 3}
   puzzlePiece3: {fileID: 2383421376973908018, guid: 6eed9173fbba8e4479db3e35e370ebe2, type: 3}

@@ -5,6 +5,8 @@ using TMPro;
 using System;
 
 public class UpgradeUIManager : InventoryUIController {
+    
+
     [SerializeField] TextMeshProUGUI scrapsText;
     [SerializeField] GameObject upgradeBarsParent;
     [SerializeField] UpgradeBarUI upgradeBarUIPrefab;

@@ -7,6 +7,8 @@ public class HubPauseMenu : MonoBehaviour {
 
     void Awake() {
         QuitButton.onClick.AddListener(() => {
+
+            AudioSource.PlayClipAtPoint(ResourceManager.Instance.ButtonClickSound, Camera.main.transform.position, GameManager.Instance.GetVolume());
             GameManager.Instance.Quit();
         });
     }

@@ -10,8 +10,14 @@ public class LoadMenuManager : MonoBehaviour {
     public event Action OnNewPressed;
 
     void Awake() {
-        loadButton.onClick.AddListener(() => OnLoadPressed?.Invoke());
-        newButton.onClick.AddListener(() => OnNewPressed?.Invoke());
+        loadButton.onClick.AddListener(() => {
+            AudioSource.PlayClipAtPoint(ResourceManager.Instance.ButtonClickSound, Camera.main.transform.position, GameManager.Instance.GetVolume());
+            OnLoadPressed?.Invoke();
+        });
+        newButton.onClick.AddListener(() => {
+            AudioSource.PlayClipAtPoint(ResourceManager.Instance.ButtonClickSound, Camera.main.transform.position, GameManager.Instance.GetVolume());
+            OnNewPressed?.Invoke();
+        });
     }
 
     void OnDestroy() {

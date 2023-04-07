@@ -8,6 +8,7 @@ public class MazePauseMenu : MonoBehaviour {
 
     void Awake() {
         HubButton.onClick.AddListener(() => {
+            AudioSource.PlayClipAtPoint(ResourceManager.Instance.ButtonClickSound, Camera.main.transform.position, GameManager.Instance.GetVolume()); 
             GameManager.Instance.LoadHub();
         });
     }

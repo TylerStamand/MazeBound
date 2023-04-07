@@ -14,6 +14,11 @@ class PlayerSaveData {
 
 public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
 
+    [SerializeField] AudioClip hitSound;
+    [SerializeField] AudioClip deathSound;
+    [SerializeField] AudioClip healSound;
+    [SerializeField] AudioClip interactSound;
+
     [SerializeField] bool canDie = true;
     [field: SerializeField] public int CurrentHealth { get; private set; }
 
@@ -63,17 +68,34 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
 
 
     public void TakeDamage(int damageDealt, DamageType damageType, float knockback = 1) {
-        //TODO: Add damage type
 
+
+        //Hit Sound
+        if (hitSound != null)
+            AudioSource.PlayClipAtPoint(hitSound, transform.position, GameManager.Instance.GetVolume());
+
+
+        //Damage
         CurrentHealth -= damageDealt;
         if (CurrentHealth < 0) CurrentHealth = 0;
         OnHealthChange?.Invoke(CurrentHealth);
+
+
+        //Death
         if (CurrentHealth == 0 && canDie) {
+            if (deathSound != null)
+                AudioSource.PlayClipAtPoint(deathSound, transform.position, GameManager.Instance.GetVolume());
+
             Die();
         }
     }
 
     public void Heal(int healAmount) {
+
+        //Heal Sound
+        if (healSound != null)
+            AudioSource.PlayClipAtPoint(healSound, transform.position, GameManager.Instance.GetVolume());
+
         CurrentHealth += healAmount;
         if (CurrentHealth > BaseHealth) {
             CurrentHealth = BaseHealth;
@@ -118,6 +140,11 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
     void HandleToggleMenu() {
         Debug.Log("Toggle Menu");
         //Return if there is no menu
+
+        if (interactSound != null)
+            AudioSource.PlayClipAtPoint(interactSound, transform.position, GameManager.Instance.GetVolume());
+
+
         if (currentMenu == null) {
             Pause();
             return;
@@ -188,12 +215,17 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
     //Handles the inventory button being pressed
     void HandleInventory() {
         if (currentMenu == null) {
+            if (interactSound != null)
+                AudioSource.PlayClipAtPoint(interactSound, transform.position, GameManager.Instance.GetVolume());
+
             ShowMenu(ResourceManager.Instance.InventoryPrefab);
         }
 
     }
 
     void HandleInteract(IInteractable interactable) {
+
+
         interactable.Interact(this);
     }
 

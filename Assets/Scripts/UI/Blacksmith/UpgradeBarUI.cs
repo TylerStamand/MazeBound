@@ -9,6 +9,8 @@ public class UpgradeBarUI : MonoBehaviour {
     [SerializeField] TextMeshProUGUI statCostText;
     [SerializeField] Button upgradeButton;
 
+    [SerializeField] AudioClip upgradeSound;
+
     UpgradeableStat stat;
     PlayerCharacter playerCharacter;
 
@@ -27,6 +29,10 @@ public class UpgradeBarUI : MonoBehaviour {
 
     void HandleButtonClick() {
         if (playerCharacter.WeaponScraps >= stat.UpgradeCost) {
+            //Play upgrade sound
+            if (upgradeSound != null)
+                AudioSource.PlayClipAtPoint(upgradeSound, playerCharacter.transform.position, GameManager.Instance.GetVolume());
+
             playerCharacter.RemoveWeaponScraps(stat.UpgradeCost);
             stat.Upgrade();
         }

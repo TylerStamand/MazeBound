@@ -468,6 +468,7 @@ MonoBehaviour:
   dialogText: {fileID: 4510234046295421035}
   typingSpeed: 0.01
   choiceButtonsPrefab: {fileID: 8239026160492091964, guid: 9854b7bbdf7d1e344b1bc9c21826f476, type: 3}
+  clickSound: {fileID: 8300000, guid: 81f47726c2f250040b19f466523fc3c1, type: 3}
 --- !u!1 &4510234047040000818
 GameObject:
   m_ObjectHideFlags: 0

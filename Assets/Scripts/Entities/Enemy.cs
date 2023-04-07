@@ -8,7 +8,10 @@ using NaughtyAttributes;
 [RequireComponent(typeof(SpriteRenderer), typeof(Rigidbody2D))]
 public class Enemy : MonoBehaviour, IDamageable {
 
+
     [SerializeField] GameObject weaponHolder;
+
+    [SerializeField] AudioClip deathSound;
 
     [Header("Movement")]
     [SerializeField] float moveSpeed = 1;
@@ -72,6 +75,8 @@ public class Enemy : MonoBehaviour, IDamageable {
         }
 
         if (CurrentHealth <= 0) {
+            if (deathSound != null)
+                AudioSource.PlayClipAtPoint(deathSound, transform.position, GameManager.Instance.GetVolume());
             OnDie?.Invoke(this);
             Destroy(gameObject);
         }

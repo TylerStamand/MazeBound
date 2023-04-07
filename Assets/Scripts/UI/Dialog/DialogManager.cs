@@ -13,6 +13,8 @@ public class DialogManager : MonoBehaviour {
     [SerializeField] float typingSpeed;
     [SerializeField] GameObject choiceButtonsPrefab;
 
+    [SerializeField] AudioClip clickSound;
+
     public event Action<bool> OnDialogComplete;
 
 
@@ -128,6 +130,10 @@ public class DialogManager : MonoBehaviour {
     void HandlePlayerClick() {
         //If showing dialog buttons, return
         if (showingChoice) return;
+
+        //Play click sound
+        if (clickSound != null)
+            AudioSource.PlayClipAtPoint(clickSound, playerController.transform.position, GameManager.Instance.GetVolume());
 
         //If the player clicks and not all characters on page are displayed, display all characters on page
         if (dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex + 1 != dialogText.maxVisibleCharacters) {

@@ -970,6 +970,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 144310248ebda794d8cd06cbfad7a8ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitSound: {fileID: 8300000, guid: 2a7019bcc0ca5e149abfd8907a76d126, type: 3}
+  deathSound: {fileID: 8300000, guid: 9b1ee6a5566cc044db98832d0d473665, type: 3}
+  healSound: {fileID: 8300000, guid: 064989c54a8e5a9488747bb64a115ce5, type: 3}
+  interactSound: {fileID: 8300000, guid: 81f47726c2f250040b19f466523fc3c1, type: 3}
   canDie: 1
   <CurrentHealth>k__BackingField: 100
   weaponData: {fileID: 11400000, guid: 397813e5c4a277342b312eb980c7af29, type: 2}
