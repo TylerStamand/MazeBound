@@ -136,20 +136,20 @@ public class GameManager : MonoBehaviour {
 
         string sceneName;
         switch (PuzzlePiecesCollectedCount) {
-            case 0:
+            case -1:
                 sceneName = hub0;
                 break;
-            case 1:
+            case 0:
                 sceneName = hub1;
                 break;
-            case 2:
+            case 1:
                 sceneName = hub2;
                 break;
-            case 3:
+            case 2:
                 sceneName = hub3;
                 break;
             default:
-                Debug.LogError("Invalid hub index");
+                sceneName = hub3;
                 return;
         }
         OnSceneChange?.Invoke();
