@@ -304,9 +304,9 @@ public class DungeonGenerator : MonoBehaviour {
         } else if (direction == Direction.South) {
             Draw(direction, start, new Vector2Int(0, yInc), LeftInterior, RightInterior, leftVertical, rightVertical);
         } else if (direction == Direction.East) {
-            Draw(direction, start, new Vector2Int(xInc, 0), LeftExterior, topHorizontal, bottomHorizontal, topHorizontal);
+            Draw(direction, start, new Vector2Int(xInc, 0), LeftExterior, LeftInterior, bottomHorizontal, topHorizontal);
         } else if (direction == Direction.West) {
-            Draw(direction, start, new Vector2Int(xInc, 0), RightExterior, topHorizontal, bottomHorizontal, topHorizontal);
+            Draw(direction, start, new Vector2Int(xInc, 0), RightExterior, RightInterior, bottomHorizontal, topHorizontal);
         }
     }
 
@@ -381,7 +381,8 @@ public class DungeonGenerator : MonoBehaviour {
 
                         //If it hit a floor tile, then it draws a corner tile and skips the rest of the loop
                         if (collider != null && collider.name == "FloorTile") {
-
+                            if (direction == Direction.East || direction == Direction.West) {
+                            }
                             if (laneIndex == 0) {
                                 hallTilemapWalls.SetTile(currentPosition, leftOrBottomCorner);
                             } else if (laneIndex == activeLanes.Length - 1) {

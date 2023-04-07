@@ -630,7 +630,7 @@ MonoBehaviour:
   leftVertical: {fileID: 11400000, guid: c6f1cb2342d298d4b9628f3b7a830fae, type: 2}
   rightVertical: {fileID: 11400000, guid: 338ed23b034b7294eb7359c38ffa053c, type: 2}
   bottomHorizontal: {fileID: 11400000, guid: 330a60904f6e76946905c5a500e44a9f, type: 2}
-  topHorizontal: {fileID: 11400000, guid: f37264380d6ab11428991446ccf19075, type: 2}
+  topHorizontal: {fileID: 11400000, guid: 06f9b0f0b8f4586469249d7ce5c9746a, type: 2}
   topHorizontalWall: {fileID: 11400000, guid: 3007025dc86c67146bf573f2a75eea16, type: 2}
   LeftExterior: {fileID: 11400000, guid: 0a599002caa81fc42ab2f73474619b6f, type: 2}
   LeftInterior: {fileID: 11400000, guid: a122cb5056cc1844d92bf80a32518a05, type: 2}
