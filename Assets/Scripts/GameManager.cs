@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance { get; private set; }
 
     public event Action OnSceneChange;
+    public event Action<float> OnVolumeChange;
+
 
     public GameState CurrentGameState { get; private set; }
     public bool[] PuzzlePiecesCollected { get; private set; } = new bool[3];
@@ -192,6 +194,7 @@ public class GameManager : MonoBehaviour {
 
     public void SetVolume(float volume) {
         PlayerPrefs.SetFloat("Volume", volume);
+        OnVolumeChange?.Invoke(volume);
     }
 
     public float GetVolume() {

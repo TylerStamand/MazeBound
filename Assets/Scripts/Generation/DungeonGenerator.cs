@@ -229,10 +229,14 @@ public class DungeonGenerator : MonoBehaviour {
     Room GetNextRoom(int roomLevel) {
         Debug.Log("Room Level: " + roomLevel);
         //Checks if the player is deep enough in the dungeon to spawn a shrine
-        if (roomLevel > shrineMinDistance) {
-            //Chance to spawn a shrine
-            if (Random.value < shrineSpawnRate) {
-                return shrineRoom;
+        if (GameManager.Instance != null) {
+
+            //Prevents shrines from spawning if puzzle piece is already obtained
+            if (roomLevel > shrineMinDistance && mazeLevel > GameManager.Instance.PuzzlePiecesCollectedCount) {
+                //Chance to spawn a shrine
+                if (Random.value < shrineSpawnRate) {
+                    return shrineRoom;
+                }
             }
         }
 

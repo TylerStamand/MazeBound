@@ -583,6 +583,75 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1246629720
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1157758843341596368, guid: ea4a7f84ccf884841a015284cca4eaa0, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1157758843341596368, guid: ea4a7f84ccf884841a015284cca4eaa0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.2745147
+      objectReference: {fileID: 0}
+    - target: {fileID: 1157758843341596368, guid: ea4a7f84ccf884841a015284cca4eaa0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -6.0864124
+      objectReference: {fileID: 0}
+    - target: {fileID: 1157758843341596368, guid: ea4a7f84ccf884841a015284cca4eaa0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.022650639
+      objectReference: {fileID: 0}
+    - target: {fileID: 1157758843341596368, guid: ea4a7f84ccf884841a015284cca4eaa0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1157758843341596368, guid: ea4a7f84ccf884841a015284cca4eaa0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1157758843341596368, guid: ea4a7f84ccf884841a015284cca4eaa0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1157758843341596368, guid: ea4a7f84ccf884841a015284cca4eaa0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1157758843341596368, guid: ea4a7f84ccf884841a015284cca4eaa0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1157758843341596368, guid: ea4a7f84ccf884841a015284cca4eaa0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1157758843341596368, guid: ea4a7f84ccf884841a015284cca4eaa0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1157758843341596369, guid: ea4a7f84ccf884841a015284cca4eaa0, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8f7fb972a34fe134db3558c91aa4450e, type: 3}
+    - target: {fileID: 1157758843341596382, guid: ea4a7f84ccf884841a015284cca4eaa0, type: 3}
+      propertyPath: volumeMultiplier
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1157758843341596383, guid: ea4a7f84ccf884841a015284cca4eaa0, type: 3}
+      propertyPath: m_Name
+      value: Background Music
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ea4a7f84ccf884841a015284cca4eaa0, type: 3}
 --- !u!1 &1410699960
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,7 +684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mazeLevel: 3
   spawnRates: {fileID: 11400000, guid: a6d68ff79e7f1fe44a93d86a31081dd1, type: 2}
-  shrineMinDistance: 5
+  shrineMinDistance: 3
   shrineSpawnRate: 0.3
   dungeonGrid: {fileID: 583224667}
   hallTilemapFloors: {fileID: 1613930230}

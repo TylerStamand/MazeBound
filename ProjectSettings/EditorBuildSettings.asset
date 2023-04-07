@@ -28,9 +28,6 @@ EditorBuildSettings:
     guid: f83a31ee3f141cc419a2d4d1eab5862c
   - enabled: 1
     path: Assets/Scenes/Hubs/Hub3.unity
-    guid: 99cdcbc392287b84e9d45533032ee9c5
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+    guid: 596f2de6492030a4dbc1e69649b144f4
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 2b00f6f149d782f41ada33eb14c1841b, type: 2}
