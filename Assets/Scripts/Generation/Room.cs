@@ -82,7 +82,7 @@ public class Room : MonoBehaviour {
         foreach (GameObject enemySpawn in enemySpawnLocations) {
             //Decides if the enemy will spawn
             Debug.Log("Deciding if enemy will spawn");
-            if (UnityEngine.Random.Range(0, 1f) > .5) continue;
+            if (UnityEngine.Random.Range(0, 1f) > .75) continue;
             Debug.Log("Enemy will spawn");
 
 
