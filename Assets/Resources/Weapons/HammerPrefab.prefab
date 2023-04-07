@@ -80,6 +80,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockBack: 5
+  hitSound: {fileID: 8300000, guid: 1f2ef254df7766d4cb16a25b9632c3c3, type: 3}
+  useSound: {fileID: 8300000, guid: bcca532e403113947810db1857e2b9b1, type: 3}
   colliderObject: {fileID: 7063205943773538514}
 --- !u!95 &2403253806053126280
 Animator:

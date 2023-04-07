@@ -10,7 +10,8 @@ public enum DamageType {
 public abstract class Weapon : MonoBehaviour {
 
     [SerializeField] protected float knockBack = 5;
-
+    [SerializeField] protected AudioClip hitSound;
+    [SerializeField] protected AudioClip useSound;
 
     public float Speed { get; private set; }
     public int Damage { get; private set; }

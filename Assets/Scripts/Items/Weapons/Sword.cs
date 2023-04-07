@@ -14,6 +14,8 @@ public class Sword : Weapon {
                 return;
 
             damageable.TakeDamage(Damage, DamageType.Default, knockBack);
+            if (hitSound != null)
+                AudioSource.PlayClipAtPoint(hitSound, transform.position, GameManager.Instance.GetVolume());
         }
     }
 
@@ -23,6 +25,10 @@ public class Sword : Weapon {
 
         if (!base.Use(direction)) return false;
 
+        if (useSound != null) {
+            AudioSource.PlayClipAtPoint(useSound, transform.position, GameManager.Instance.GetVolume());
+        }
+
         spriteRenderer.enabled = true;
         collider.enabled = true;
         inUse = true;
@@ -30,7 +36,7 @@ public class Sword : Weapon {
         //Gets Angle from direction, then subtracts 90 degrees to make it a wider rotation
         transform.parent.DOKill();
         transform.parent.eulerAngles = Utilities.GetAngleFromDirection(direction) - new Vector3(0, 0, 90);
-        transform.parent.DORotate(new Vector3(0, 0, transform.parent.eulerAngles.z + 179), 1/Speed).onComplete +=
+        transform.parent.DORotate(new Vector3(0, 0, transform.parent.eulerAngles.z + 179), 1 / Speed).onComplete +=
             () => {
                 transform.parent.eulerAngles = Utilities.GetAngleFromDirection(direction);
                 spriteRenderer.enabled = false;

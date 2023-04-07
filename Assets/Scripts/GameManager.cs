@@ -23,6 +23,9 @@ class GameSaveData {
 }
 
 public class GameManager : MonoBehaviour {
+
+    public static float Volume = .5f;
+
     [Header("Maze Scenes")]
     [Scene]
     [SerializeField] string maze1;
@@ -185,6 +188,15 @@ public class GameManager : MonoBehaviour {
     public void SetPuzzlePieceCollected(int level) {
         Debug.Log("Puzzle Piece Collected " + level);
         PuzzlePiecesCollected[level - 1] = true;
+    }
+
+
+    public void SetVolume(float volume) {
+        PlayerPrefs.SetFloat("Volume", volume);
+    }
+
+    public float GetVolume() {
+        return PlayerPrefs.GetFloat("Volume", .5f);
     }
 
 
