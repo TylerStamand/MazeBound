@@ -305,9 +305,9 @@ public class DungeonGenerator : MonoBehaviour {
         } else if (direction == Direction.South) {
             Draw(direction, start, new Vector2Int(0, yInc), LeftInterior, RightInterior, leftVertical, rightVertical);
         } else if (direction == Direction.East) {
-            Draw(direction, start, new Vector2Int(xInc, 0), RightExterior, topHorizontal, bottomHorizontal, topHorizontal);
-        } else if (direction == Direction.West) {
             Draw(direction, start, new Vector2Int(xInc, 0), LeftExterior, topHorizontal, bottomHorizontal, topHorizontal);
+        } else if (direction == Direction.West) {
+            Draw(direction, start, new Vector2Int(xInc, 0), RightExterior, topHorizontal, bottomHorizontal, topHorizontal);
         }
     }
 

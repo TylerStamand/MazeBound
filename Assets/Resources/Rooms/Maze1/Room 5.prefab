@@ -1303,7 +1303,6 @@ MonoBehaviour:
   CompleteRoom: 0
   enemySpawnLocations:
   - {fileID: 4823538263560037288}
-  - {fileID: 0}
   - {fileID: 595968701539131518}
 --- !u!50 &-3161064276194253662
 Rigidbody2D:
