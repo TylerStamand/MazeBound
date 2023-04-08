@@ -5,12 +5,12 @@ using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "WeaponData", menuName = "ScriptableObjects/WeaponData")]
-public class WeaponData : ItemData{
+public class WeaponData : ItemData {
 
     [field: SerializeField] public Weapon WeaponPrefab { get; private set; }
 
     [field: SerializeField] public WeaponType WeaponType { get; private set; }
-    
+
     [field: SerializeField] public MinMaxInt Damage { get; private set; }
     [field: SerializeField] public MinMaxFloat Speed { get; private set; }
     [field: SerializeField] public MinMaxFloat CriticalChance { get; private set; }
@@ -22,9 +22,9 @@ public class WeaponData : ItemData{
 
     public override Item CreateItem(float scale) {
         return new WeaponItem(Name,
-        (int)(Damage.GetRandomValue() * scale) + Damage.MinValue,
-        (float)(Math.Truncate(Speed.GetRandomValue() * 100 * scale) / 100) + Speed.MinValue,
-        (float)(Math.Truncate(CriticalChance.GetRandomValue() * 100 * scale) / 100) + CriticalChance.MinValue,
+        (int)(Damage.GetRandomValue() * scale),
+        (float)(Math.Truncate(Speed.GetRandomValue() * 100 * scale) / 100),
+        (float)(Math.Truncate(CriticalChance.GetRandomValue() * 100 * scale) / 100),
         UpgradeCostBase + (int)(UpgradeCostBase * UpgradeCostBaseMultiplier * scale - 1));
     }
 }
