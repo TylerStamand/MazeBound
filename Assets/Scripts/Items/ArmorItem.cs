@@ -1,28 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 
 public class ArmorItem : Item, IUpgradeable {
-    public ArmorItem(string itemName) : base(itemName) {
 
+    public ArmorPiece Piece { get; private set; }
+    public UpgradeableStat Defense { get; private set; }
+    public UpgradeableStat Health { get; private set; }
+
+    [JsonConstructor]
+    public ArmorItem(string itemName, UpgradeableStat defense, UpgradeableStat health) : base(itemName) {
+        Defense = defense;
+        Health = health;
+    }
+
+    public ArmorItem(string itemName, int defense, int health, int upgradeCostBase) : base(itemName) {
+        ArmorData itemData = (ArmorData)ResourceManager.Instance.GetItemData(itemName);
+        Defense = new UpgradeableStat("Defense", defense, upgradeCostBase, itemData.UpgradeValueMultiplier, itemData.UpgradeCostMultiplier);
+        Health = new UpgradeableStat("Health", health, upgradeCostBase, itemData.UpgradeValueMultiplier, itemData.UpgradeCostMultiplier);
     }
 
     public enum ArmorPiece {
-        Head, Chest, Leg, Boot
+        Head, Chest,  Boot
     }
 
-    //Stats
-    public int BaseDefense { get; private set; }
-
-    public int Level { get; private set; }
-
-    public ArmorPiece Piece { get; private set; }
-
-    //Formula for how to scale to level
-    public int CurrentDefense { get => BaseDefense; }
-
-    public List<UpgradeableStat> GetUpgradeableStats()
-    {
+    public List<UpgradeableStat> GetUpgradeableStats() {
         throw new System.NotImplementedException();
     }
 }

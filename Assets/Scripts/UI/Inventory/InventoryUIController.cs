@@ -59,6 +59,10 @@ public class InventoryUIController : MonoBehaviour {
 
     }
 
+    protected virtual void Start() {
+
+    }
+
     protected virtual void OnDestroy() {
         if (inventory != null) {
 
@@ -115,12 +119,11 @@ public class InventoryUIController : MonoBehaviour {
     }
 
     void HandleSlotRightClick(Slot slot) {
-        Debug.Log("Handle slot right click");
         Item slotItem = slot.Item;
 
         IConsumable consumable = slotItem as IConsumable;
         if (consumable != null) {
-            if(consumable.Consume(playerCharacter)) {
+            if (consumable.Consume(playerCharacter)) {
                 slotItem.Quantity--;
                 if (slotItem.Quantity <= 0) {
                     items[slots.IndexOf(slot)] = null;
@@ -135,7 +138,6 @@ public class InventoryUIController : MonoBehaviour {
     }
 
     void HandleSlotLeftClick(Slot slot) {
-        Debug.Log("Handle slot click");
         Item slotItem = slot.Item;
 
         //Removes the old item info from the slot
@@ -169,10 +171,6 @@ public class InventoryUIController : MonoBehaviour {
 
     void HandleWeaponSlotClick(Slot slot) {
 
-        //Prevents the player from unequipping their last weapon
-        // if (currentHeldUIItem == null) return;
-
-        //Item is not a weapon
 
         Item slotItem = slot.Item;
 

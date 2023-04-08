@@ -54,8 +54,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
         controller.OnInteract += HandleInteract;
         Inventory = new Inventory();
         Inventory.OnWeaponChange += SpawnWeapon;
-        WeaponItem starterWeapon = (WeaponItem)weaponData.CreateItem(0);
-        Inventory.SetWeapon(starterWeapon);
+
         BaseHealth = CurrentHealth;
         WeaponScraps = 0;
     }
@@ -129,10 +128,10 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
             ExitMenu();
         }
 
+        Debug.Log(menuPrefab.name);
         GameObject menu = Instantiate(menuPrefab);
         currentMenu = menu;
         canExitMenu = canExit;
-        Debug.Log(menu.name);
         return menu;
     }
 
@@ -274,6 +273,9 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
             if (Inventory.CurrentWeapon != null) {
                 SpawnWeapon(Inventory.CurrentWeapon);
             }
+        } else {
+            WeaponItem starterWeapon = (WeaponItem)weaponData.CreateItem(0);
+            Inventory.SetWeapon(starterWeapon);
         }
     }
 }

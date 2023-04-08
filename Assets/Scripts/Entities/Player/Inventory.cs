@@ -9,7 +9,6 @@ class InventorySaveData {
     public WeaponItem CurrentWeapon;
     public ArmorItem Head;
     public ArmorItem Chest;
-    public ArmorItem Leg;
     public ArmorItem Boot;
 }
 
@@ -31,7 +30,6 @@ public class Inventory : ISaveLoad {
 
     public ArmorItem Head { get; private set; }
     public ArmorItem Chest { get; private set; }
-    public ArmorItem Leg { get; private set; }
     public ArmorItem Boot { get; private set; }
 
     public List<Potion> Potions { get; set; }
@@ -51,10 +49,7 @@ public class Inventory : ISaveLoad {
 
 
     public int GetDefenseFromArmor() {
-        return Head.CurrentDefense
-        + Chest.CurrentDefense
-        + Leg.CurrentDefense
-        + Boot.CurrentDefense;
+        return 0;
     }
 
     public void RemoveItem(string itemID) {
@@ -114,11 +109,6 @@ public class Inventory : ISaveLoad {
                 EquipItem(ref temp, armorItem);
                 Chest = (ArmorItem)temp;
                 break;
-            case ArmorItem.ArmorPiece.Leg:
-                temp = Leg;
-                EquipItem(ref temp, armorItem);
-                Leg = (ArmorItem)temp;
-                break;
             case ArmorItem.ArmorPiece.Boot:
                 temp = Boot;
                 EquipItem(ref temp, armorItem);
@@ -161,11 +151,10 @@ public class Inventory : ISaveLoad {
         saveData.CurrentWeapon = CurrentWeapon;
         saveData.Head = Head;
         saveData.Chest = Chest;
-        saveData.Leg = Leg;
         saveData.Boot = Boot;
 
         SaveManager.Instance.SetData("Inventory", saveData);
-       
+
     }
 
     public void Load() {
@@ -176,7 +165,6 @@ public class Inventory : ISaveLoad {
             CurrentWeapon = saveData.CurrentWeapon;
             Head = saveData.Head;
             Chest = saveData.Chest;
-            Leg = saveData.Leg;
             Boot = saveData.Boot;
 
             foreach (Item item in Items) {
@@ -186,6 +174,6 @@ public class Inventory : ISaveLoad {
             }
         }
 
-        
+
     }
 }

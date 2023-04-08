@@ -6,7 +6,9 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
+
     [SerializeField] Image itemImageSlot;
+    [SerializeField] Sprite itemSilhouette;
     [SerializeField] DescriptionBox DescriptionBoxPrefab;
 
     public bool ItemSet;
@@ -22,12 +24,14 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     ItemData itemData;
 
     void Awake() {
-        // if (TryGetComponent<Button>(out Button button)) {
-        //     button.onClick.AddListener(HandleButtonClick);
-        // }
-        ItemSet = false;
-
         canvas = GetComponentInParent<Canvas>();
+
+
+        if (itemSilhouette != null && ItemSet == false) {
+            itemImageSlot.sprite = itemSilhouette;
+            itemImageSlot.color = new Color(1, 1, 1, 0.6f);
+        }
+
     }
 
     void OnDestroy() {
@@ -37,15 +41,22 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     }
 
     public void SetItem(Item item) {
-        Debug.Log("Got Item: " + item);
+        Debug.Log("Got Item: " + item?.ItemName);
         if (item == null) {
+            Debug.Log("Item is null");
             this.Item = null;
             itemData = null;
-            itemImageSlot.sprite = null;
-            itemImageSlot.color = Color.clear;
             ItemSet = false;
+
+            if (itemSilhouette != null) {
+                itemImageSlot.sprite = itemSilhouette;
+                itemImageSlot.color = new Color(1, 1, 1, 0.6f);
+            } else {
+                itemImageSlot.sprite = null;
+                itemImageSlot.color = Color.clear;
+            }
             return;
-        };
+        }
 
         this.Item = item;
         itemData = ResourceManager.Instance.GetItemData(item.ItemName);
