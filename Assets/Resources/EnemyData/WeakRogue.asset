@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WeakRogue
   m_EditorClassIdentifier: 
   <EnemyName>k__BackingField: WeakRogue
-  <Health>k__BackingField: 20
+  <Health>k__BackingField: 10
   <EnemyPrefab>k__BackingField: {fileID: -2914886117922418386, guid: 5241d6ad6289af6408826c24b4c3d9ff, type: 3}
   <WeaponPrefab>k__BackingField: {fileID: 2957765833364229571, guid: 41d48f1abbd8ee64fba8ecdb18573a73, type: 3}
   <Damage>k__BackingField: 7

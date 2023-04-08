@@ -22,7 +22,7 @@ MonoBehaviour:
   <WeaponPrefab>k__BackingField: {fileID: 7063205943396213531, guid: eea8384336c1c344b893129eebde44de, type: 3}
   <WeaponType>k__BackingField: 0
   <Damage>k__BackingField:
-    MaxValue: 20
+    MaxValue: 12
     MinValue: 4
   <Speed>k__BackingField:
     MaxValue: 5
@@ -32,5 +32,5 @@ MonoBehaviour:
     MinValue: 0
   <UpgradeCostBase>k__BackingField: 300
   <UpgradeCostBaseMultiplier>k__BackingField: 0.1
-  <UpgradeValueMultiplier>k__BackingField: 0.1
+  <UpgradeValueMultiplier>k__BackingField: 0.3
   <UpgradeCostMultiplier>k__BackingField: 0.1

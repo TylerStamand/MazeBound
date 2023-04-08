@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WeakSkeleton
   m_EditorClassIdentifier: 
   <EnemyName>k__BackingField: Weak Cyclops
-  <Health>k__BackingField: 20
+  <Health>k__BackingField: 10
   <EnemyPrefab>k__BackingField: {fileID: -2914886117922418386, guid: 90351ead4d5d6394dbdf837d293954d5, type: 3}
   <WeaponPrefab>k__BackingField: {fileID: 7404189788588101358, guid: a7b340e35960b8c4b8632648f8290c0c, type: 3}
   <Damage>k__BackingField: 6

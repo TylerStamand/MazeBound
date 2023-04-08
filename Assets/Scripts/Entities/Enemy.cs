@@ -63,6 +63,7 @@ public class Enemy : MonoBehaviour, IDamageable {
 
     public void Initialize(EnemyData enemyData) {
         this.enemyData = enemyData;
+        CurrentHealth = enemyData.Health;
         EquipWeapon();
     }
 
