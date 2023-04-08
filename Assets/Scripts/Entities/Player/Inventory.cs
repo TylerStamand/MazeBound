@@ -49,7 +49,7 @@ public class Inventory : ISaveLoad {
 
 
     public int GetDefenseFromArmor() {
-        return 0;
+        return (int)(Head.Defense.CurrentValue + Chest.Defense.CurrentValue + Boot.Defense.CurrentValue);
     }
 
     public void RemoveItem(string itemID) {
@@ -118,6 +118,30 @@ public class Inventory : ISaveLoad {
 
         Debug.Log("Armor Set");
         OnArmorChange?.Invoke(armorItem);
+    }
+
+    public void RemoveArmorPiece(ArmorItem.ArmorPiece piece) {
+        Item temp;
+        switch (piece) {
+            case ArmorItem.ArmorPiece.Head:
+                temp = Head;
+                EquipItem(ref temp, null);
+                Head = (ArmorItem)temp;
+                break;
+            case ArmorItem.ArmorPiece.Chest:
+                temp = Chest;
+                EquipItem(ref temp, null);
+                Chest = (ArmorItem)temp;
+                break;
+            case ArmorItem.ArmorPiece.Boot:
+                temp = Boot;
+                EquipItem(ref temp, null);
+                Boot = (ArmorItem)temp;
+                break;
+        }
+
+        Debug.Log("Armor Removed");
+        OnArmorChange?.Invoke(null);
     }
 
     public void SetItems(List<Item> items) {

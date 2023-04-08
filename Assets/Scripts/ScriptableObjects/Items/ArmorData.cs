@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "ArmorData", menuName = "Items/ArmorData")]
 public class ArmorData : ItemData {
     [field: SerializeField] public ArmorItem.ArmorPiece Piece { get; private set; }
     [field: SerializeField] public MinMaxInt Health { get; private set; }

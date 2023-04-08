@@ -20,7 +20,6 @@ public class InventoryUIController : MonoBehaviour {
     [SerializeField] Slot weaponSlot;
     [SerializeField] Slot headSlot;
     [SerializeField] Slot chestSlot;
-    [SerializeField] Slot legSlot;
     [SerializeField] Slot bootSlot;
 
     Inventory inventory;
@@ -193,15 +192,54 @@ public class InventoryUIController : MonoBehaviour {
         }
 
 
-
-        //slot.SetItem(weapon);
-
         SetInventoryOrder();
 
         inventory.SetWeapon((WeaponItem)weapon);
 
         Display(slots, items, HandleSlotLeftClick, HandleSlotRightClick, inventorySlotsParent.transform);
     }
+
+    void HandleArmorSlotClick(Slot slot) {
+        Item slotItem = slot.Item;
+
+        if (currentHeldItem == null) {
+            //Remove the item from the slot
+            if (slot == headSlot) {
+                inventory.RemoveArmorPiece(ArmorItem.ArmorPiece.Head);
+            } else if (slot == chestSlot) {
+                inventory.RemoveArmorPiece(ArmorItem.ArmorPiece.Chest);
+            } else if (slot == bootSlot) {
+                inventory.RemoveArmorPiece(ArmorItem.ArmorPiece.Boot);
+            }
+        } else {
+            //Add the item to the slot
+            ItemData itemData = ResourceManager.Instance.GetItemData(currentHeldItem.ItemName);
+            if (itemData.ItemType == ItemType.Armor) {
+                if (slot == headSlot) {
+                    inventory.SetArmorPiece((ArmorItem)currentHeldItem);
+                } else if (slot == chestSlot) {
+                    inventory.SetArmorPiece((ArmorItem)currentHeldItem);
+                } else if (slot == bootSlot) {
+                    inventory.SetArmorPiece((ArmorItem)currentHeldItem);
+                }
+
+                Destroy(currentHeldUIItem.gameObject);
+            }
+        }
+
+        if (slotItem != null) {
+            currentHeldItem = slotItem;
+            currentHeldUIItem = CreateHeldUIItem(slot);
+        } else {
+            currentHeldUIItem = null;
+            currentHeldItem = null;
+        }
+
+        SetInventoryOrder();
+
+        Display(slots, items, HandleSlotLeftClick, HandleSlotRightClick, inventorySlotsParent.transform);
+    }
+
 
     void HandleScrapSlotClick(Slot slot) {
         if (currentHeldUIItem == null) return;

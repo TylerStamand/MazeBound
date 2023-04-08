@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-[CreateAssetMenu(fileName = "WeaponData", menuName = "ScriptableObjects/WeaponData")]
+[CreateAssetMenu(fileName = "WeaponData", menuName = "Items/WeaponData")]
 public class WeaponData : ItemData {
 
     [field: SerializeField] public Weapon WeaponPrefab { get; private set; }

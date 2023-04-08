@@ -31,16 +31,20 @@ public class ChestInventoryUI : InventoryUIController {
         Display(chestSlots, chestItems, HandleSlotLeftClick, HandleSlotRightClick, chestSlotsParent.transform);
     }
 
+    //If there is time, fix this so that it is not a copy paste of the other method fromm InventoryUIController
     void HandleSlotRightClick(Slot slot) {
         Debug.Log("Handle slot right click");
         Item slotItem = slot.Item;
 
+
         IConsumable consumable = slotItem as IConsumable;
         if (consumable != null) {
-            consumable.Consume(playerCharacter);
-            slotItem.Quantity--;
-            if (slotItem.Quantity <= 0) {
-                chestItems[chestSlots.IndexOf(slot)] = null;
+            if (consumable.Consume(playerCharacter)) {
+                slotItem.Quantity--;
+                if (slotItem.Quantity <= 0) {
+                    chestItems[chestSlots.IndexOf(slot)] = null;
+                }
+
             }
         }
 
