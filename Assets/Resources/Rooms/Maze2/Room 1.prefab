@@ -1712,7 +1712,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FloorTileSet>k__BackingField: {fileID: 384430484093107437}
   CompleteRoom: 0
-  TrapRoom: 0
   enemySpawnLocations:
   - {fileID: 4491061501799972728}
   - {fileID: 4825332252027274150}
