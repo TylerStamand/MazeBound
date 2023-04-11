@@ -17,7 +17,7 @@ MonoBehaviour:
   - 'These mushrooms are a rare breed but they''re everwhere! Quite facinating isn''t?
 
 '
-  - I am an Archwizard but I seem to have misplaced my spell book.
+  - 'I am an Archwizard and Historian but I seem to have misplaced my spell book. '
   - I would assume we aren't the only ones. Do you know of any save places?
   <IsChoice>k__BackingField: 1
   YesDialog:

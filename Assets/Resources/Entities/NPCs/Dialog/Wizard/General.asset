@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: General
   m_EditorClassIdentifier: 
   Sentences:
-  - Oh, your back! Have any mushrooms for me?
+  - Huh hu hu! I knew you would make it back.
+  - 'Thanks to you I found this place. Thank you for the help.
+
+'
+  - "As I said, I lost my spell book but If you find anything of note in these ruins,
+    \rI might be able to dicipher their meaning or past."
   <IsChoice>k__BackingField: 0
   YesDialog:
   - '[Opens Invantory]
