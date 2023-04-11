@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e9ca972247eb541bf0d4cbd58874a4, type: 3}
+  m_Name: MazeFirstEncounter
+  m_EditorClassIdentifier: 
+  Sentences:
+  - "Hello, are you a person? \rAre you okay?"
+  - "I've been hear for years! You stick with me, you'll life long. \r\nTo survive,
+    you gotta go into the mazes to get materials.\r"
+  - You know how to swing a sword? Lets run through the basics.
+  - "To open your invantory press 'I'.\r\nTo attack, 'aim' your mouse and 'click'\r\nTo
+    Move, sure 'WASD or the Arrow pad'\r"
+  - 'Grap items using ''F'', click and drag.  (Interact prompt)
+
+    To use a potioin
+    by ''right clicking it'''
+  - Alright, you seem ready. Lets go. *goes into maze*
+  - 'Alright these things are chests. They are boxes with loot.
+
+    I think I see
+    one over there. You go grab that one.'
+  - "*After you interact witht the chest and add the item to your invantory*\r\n\nAHHHHHHHH!!!!\r\n\n*Goes
+    back to see the Guide *\r *Guide is killed by mobs*\r *You get item to go back*"
+  <IsChoice>k__BackingField: 0
+  YesDialog: []
+  NoDialog: []

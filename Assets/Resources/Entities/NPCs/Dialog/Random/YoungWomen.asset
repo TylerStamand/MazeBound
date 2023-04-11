@@ -10,15 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9e9ca972247eb541bf0d4cbd58874a4, type: 3}
-  m_Name: General
+  m_Name: YoungWomen
   m_EditorClassIdentifier: 
   Sentences:
-  - Huh hu hu! I knew you would make it back.
-  - 'Thanks to you I found this place. Thank you for the help.
+  - Grandpa just took me to the zoo!
+  - 'My grandpa has the heart of the lion and a lifetime ban from the zoo.
+
+    (giggles)'
+  - 'Some aquatic mammals at the zoo escaped. It was otter chaos!
+
+    (chuckles)
 
 '
-  - "As I said, I lost my spell book but If you find anything of note in these ruins,
-    \rI might be able to dicipher their meaning or past."
   <IsChoice>k__BackingField: 0
   YesDialog:
   - '[Opens Invantory]
