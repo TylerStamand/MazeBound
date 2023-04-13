@@ -9,7 +9,7 @@
  ### Joseph Thomas
  ### Tyler St. Amand
 
-# Dungeon Runner
+# Maze Bound: The Shattered Portal
 
 ## Game Concept
 
