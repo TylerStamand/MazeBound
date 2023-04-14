@@ -66,7 +66,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
     }
 
 
-    public void TakeDamage(int damageDealt, DamageType damageType, float knockback = 1) {
+    public void TakeDamage(int damageDealt, DamageType damageType = DamageType.Default, float knockback = 1) {
 
 
         //Hit Sound
