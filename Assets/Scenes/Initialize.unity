@@ -155,9 +155,9 @@ MonoBehaviour:
   maze1: Maze1
   maze2: Maze2
   maze3: Maze3
-  hub0: Initialize
-  hub1: Initialize
-  hub2: Initialize
+  hub0: Tutorial
+  hub1: Hub1
+  hub2: Hub2
   hub3: Hub3
 --- !u!4 &549839484
 Transform:
