@@ -16,11 +16,6 @@ MonoBehaviour:
   - 'Are you sure this place is perfectly safe? Or at least safe-ish.?
 
 '
-  - 'Time flies like an arrow. Fruit flies like a banana.
-
-'
-  - "Ladies, if he can\u2019t appreciate your fruit jokes, you need to let that mango.\r\n"
-  - The wizard gave us mushrooms so I'm making soup.
   <IsChoice>k__BackingField: 0
   YesDialog:
   - '[Opens Invantory]

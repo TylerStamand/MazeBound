@@ -50,13 +50,15 @@ MonoBehaviour:
   <Name>k__BackingField: Eager Man
   MazeEncounterDialog: {fileID: 11400000, guid: a771b03371020e845ac3449281cbd2a5, type: 2}
   MazeAfterEncounterDialog: {fileID: 11400000, guid: c6c93b7cc0c89434e8cf8e1e593251f7, type: 2}
-  HubFirstEncounterDialog: {fileID: 0}
+  HubFirstEncounterDialog: {fileID: 11400000, guid: 65572f7fc51760a47922d7ae281848d3, type: 2}
   PuzzlePieceDialog:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   GeneralDialog:
   - {fileID: 11400000, guid: 418b639d3b9a81e44a5869c3f125d96e, type: 2}
+  - {fileID: 11400000, guid: 94c915b9f6a430f42a558fa63f394564, type: 2}
+  - {fileID: 11400000, guid: a2ab547b49f2d5348ae4049ac5a1afa2, type: 2}
   isVendor: 0
   shop: {fileID: 0}
 --- !u!212 &1191952967

@@ -50,13 +50,16 @@ MonoBehaviour:
   <Name>k__BackingField: Old Man
   MazeEncounterDialog: {fileID: 11400000, guid: 8b3b5b2b938228a40af45d11e3e782a8, type: 2}
   MazeAfterEncounterDialog: {fileID: 11400000, guid: 3c1dc4c9f83c5474fa124aa25e5418fd, type: 2}
-  HubFirstEncounterDialog: {fileID: 0}
+  HubFirstEncounterDialog: {fileID: 11400000, guid: cb9e6f572b5439247ac7c8857fab4592, type: 2}
   PuzzlePieceDialog:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   GeneralDialog:
   - {fileID: 11400000, guid: 70cd88e654ba8094989239ab80130c67, type: 2}
+  - {fileID: 11400000, guid: 0709800f9b8e42a4885cba0ead73cf92, type: 2}
+  - {fileID: 11400000, guid: 620a1325a0464434fbf916654e87bbe2, type: 2}
+  - {fileID: 11400000, guid: 17833e69e90d48944880f021375fe861, type: 2}
   isVendor: 0
   shop: {fileID: 0}
 --- !u!212 &1191952967

@@ -50,13 +50,16 @@ MonoBehaviour:
   <Name>k__BackingField: Weary Woman
   MazeEncounterDialog: {fileID: 11400000, guid: f3894e7964ee8194496e0332cf03d7eb, type: 2}
   MazeAfterEncounterDialog: {fileID: 11400000, guid: 90bd9bd0873c7c945a8f2a7059e28dbf, type: 2}
-  HubFirstEncounterDialog: {fileID: 0}
+  HubFirstEncounterDialog: {fileID: 11400000, guid: 89380ba8fe6de4145bf7976965dd5dc4, type: 2}
   PuzzlePieceDialog:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   GeneralDialog:
   - {fileID: 11400000, guid: 50b99966a77385a45ac411a3b556217e, type: 2}
+  - {fileID: 11400000, guid: 5b8616a0ade928d49b4a3313ae46e4af, type: 2}
+  - {fileID: 11400000, guid: ee89f032d6dccd34a89034e6bd53c1e8, type: 2}
+  - {fileID: 11400000, guid: 32eb94c4829a97f4b8a83fe236e38722, type: 2}
   isVendor: 0
   shop: {fileID: 0}
 --- !u!212 &1191952967

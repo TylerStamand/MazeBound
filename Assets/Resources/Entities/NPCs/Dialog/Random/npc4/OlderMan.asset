@@ -16,14 +16,6 @@ MonoBehaviour:
   - 'I''m getting to old for these things.
 
 '
-  - 'Keep up the good work.
-
-'
-  - 'If we don''t make it out, I want to be cremated. It''s my last chance for a
-    smoking body. Ha
-
-'
-  - Don't worry about me. I have the heart of a lion.
   <IsChoice>k__BackingField: 0
   YesDialog:
   - '[Opens Invantory]

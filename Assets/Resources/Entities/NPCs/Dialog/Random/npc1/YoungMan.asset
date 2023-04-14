@@ -16,8 +16,6 @@ MonoBehaviour:
   - 'Don''t worry, I can protect people while your away!
 
 '
-  - "I don\u2019t trust stairs because they\u2019re always up to something.\r\n"
-  - I'm tired of just having soup. When can we leave?
   <IsChoice>k__BackingField: 0
   YesDialog:
   - '[Opens Invantory]

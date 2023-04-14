@@ -50,13 +50,15 @@ MonoBehaviour:
   <Name>k__BackingField: Concerned Man
   MazeEncounterDialog: {fileID: 11400000, guid: a9e6be5605537244abfa16da38c3317a, type: 2}
   MazeAfterEncounterDialog: {fileID: 11400000, guid: 667215a1be8051a43ae08d24fdf89cac, type: 2}
-  HubFirstEncounterDialog: {fileID: 0}
+  HubFirstEncounterDialog: {fileID: 11400000, guid: 0ac143ef871e3894e9cc1b70eb21f8a3, type: 2}
   PuzzlePieceDialog:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   GeneralDialog:
   - {fileID: 11400000, guid: 096c159cd8107484cb927d070ff2fa2a, type: 2}
+  - {fileID: 11400000, guid: 855df205190892249b69550efdc77c51, type: 2}
+  - {fileID: 11400000, guid: 61b60571ee9f3c34497b28859d8a5c50, type: 2}
   isVendor: 0
   shop: {fileID: 0}
 --- !u!212 &1191952967
