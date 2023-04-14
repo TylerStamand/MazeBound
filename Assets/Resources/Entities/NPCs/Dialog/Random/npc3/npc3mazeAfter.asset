@@ -10,19 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9e9ca972247eb541bf0d4cbd58874a4, type: 3}
-  m_Name: OlderWomen
+  m_Name: npc3mazeAfter
   m_EditorClassIdentifier: 
   Sentences:
-  - 'Oh! Guess I''m a bit jumpy.
-
-'
-  - 'Don''t forget to rest every now and again.
-
-'
+  - I hope we can get out...
   <IsChoice>k__BackingField: 0
-  YesDialog:
-  - '[Opens Invantory]
-
-    Its always a pleasure. '
-  NoDialog:
-  - If you find any, you know where I will be.
+  YesDialog: []
+  NoDialog: []

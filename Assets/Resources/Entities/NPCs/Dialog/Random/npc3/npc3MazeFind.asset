@@ -10,24 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9e9ca972247eb541bf0d4cbd58874a4, type: 3}
-  m_Name: OlderMan
+  m_Name: npc3MazeFind
   m_EditorClassIdentifier: 
   Sentences:
-  - 'Im getting to old for these things.
-
-'
-  - 'Keep up the good work.
-
-'
-  - 'If we dont make it out, I want to be cremated. It''s my last chance for a smoking
-    body. Ha
-
-'
-  - Don't worry about me. I have the heart of a lion.
-  <IsChoice>k__BackingField: 0
+  - "There are so many monsters, \n"
+  - You know of any way outta here?
+  <IsChoice>k__BackingField: 1
   YesDialog:
-  - '[Opens Invantory]
-
-    Its always a pleasure. '
+  - A safe place you say? Well I guess that's a start.
   NoDialog:
-  - If you find any, you know where I will be.
+  - Well that's too bad, I was looking forward to getting back to my forge at home.

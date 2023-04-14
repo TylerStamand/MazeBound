@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3873990133628319291}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 796.46674, y: 585.12195, z: -7.6849437}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -47,15 +47,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2e8eac36984b74a8adada6bfd906ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 
-  MazeEncounterDialog: {fileID: 0}
-  MazeAfterEncounterDialog: {fileID: 0}
+  <Name>k__BackingField: Concerned Man
+  MazeEncounterDialog: {fileID: 11400000, guid: a9e6be5605537244abfa16da38c3317a, type: 2}
+  MazeAfterEncounterDialog: {fileID: 11400000, guid: 667215a1be8051a43ae08d24fdf89cac, type: 2}
   HubFirstEncounterDialog: {fileID: 0}
   PuzzlePieceDialog:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  GeneralDialog: []
+  GeneralDialog:
+  - {fileID: 11400000, guid: 096c159cd8107484cb927d070ff2fa2a, type: 2}
   isVendor: 0
   shop: {fileID: 0}
 --- !u!212 &1191952967
@@ -165,7 +166,7 @@ Animator:
   m_GameObject: {fileID: 3873990133628319291}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6d362a970006bd149b5ecf169b97e48c, type: 2}
+  m_Controller: {fileID: 9100000, guid: c10914ad124cb5d4490c3c1240f73fc6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
