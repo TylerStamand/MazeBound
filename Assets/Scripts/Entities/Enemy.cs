@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     [Header("Movement")]
     [SerializeField] float moveSpeed = 1;
     [SerializeField] float alertRadius = 1;
+    [SerializeField] float attackRadius = 1;
     [SerializeField] float stopDistance = 2;
     [SerializeField] ContactFilter2D contactFilter;
 
@@ -41,7 +42,6 @@ public class Enemy : MonoBehaviour, IDamageable {
         rigidbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-
     }
 
     protected virtual void OnDestroy() {
@@ -52,7 +52,11 @@ public class Enemy : MonoBehaviour, IDamageable {
     protected virtual void FixedUpdate() {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, alertRadius, LayerMask.GetMask(new string[] { "Player" }));
         if (colliders.Length > 0) {
-            GameObject target = colliders[0].gameObject;
+
+            if (colliders[0].GetComponent<PlayerCharacter>() != null) {
+                target = colliders[0].GetComponent<PlayerCharacter>();
+
+            }
         }
 
         if (!inKnockback) {
@@ -90,13 +94,26 @@ public class Enemy : MonoBehaviour, IDamageable {
         currentWeapon.Initialize(false, enemyData.Damage, enemyData.AttackSpeed, enemyData.CriticalChance);
     }
 
+
+    //Collider that alerts enemy
+    //collider is then checked every frame to see if it is within stop distance
+    //if it is, the enemy moves towards the player
+    //if not, set collider to null
+    //if collider is not null, check if within attack distance
+    //if yes attack
+
     void Move() {
 
-        Collider2D collider = Physics2D.OverlapCircle(transform.position, alertRadius, LayerMask.GetMask(new string[] { "Player" }));
-        if (collider != null) {
-            target = collider.GetComponentInParent<PlayerCharacter>();
 
-            if (Vector2.Distance(target.transform.position, transform.position) > stopDistance) {
+        if (target != null) {
+            float distance = Vector2.Distance(target.transform.position, transform.position);
+            if (distance <= attackRadius) {
+                anim.SetBool("isMoving", false);
+                Attack();
+                return;
+            }
+
+            if (distance <= stopDistance) {
                 Vector2 positionToMoveTowards = Vector2.MoveTowards(transform.position, target.transform.position, moveSpeed);
                 Vector2 differenceInPosition = new Vector2(positionToMoveTowards.x - transform.position.x, positionToMoveTowards.y - transform.position.y);
 
@@ -116,13 +133,10 @@ public class Enemy : MonoBehaviour, IDamageable {
                     anim.SetBool("isMoving", false);
 
             } else {
-                //Fix logic in here, enemy will attack before moving to player because it is technically in alert radius
-                Attack();
+                target = null;
                 anim.SetBool("isMoving", false);
 
             }
-        } else {
-            target = null;
         }
     }
 
