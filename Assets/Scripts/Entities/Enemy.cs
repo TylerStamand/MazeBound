@@ -136,7 +136,13 @@ public class Enemy : MonoBehaviour, IDamageable {
 
     IEnumerator Knockback(float knockback) {
         inKnockback = true;
-        Vector3 knockBackDirection = (transform.position - target.transform.position).normalized;
+        Vector3 knockBackDirection;
+        if (target != null) {
+            knockBackDirection = (transform.position - target.transform.position).normalized;
+
+        } else {
+            knockBackDirection = Vector3.zero;
+        }
 
         //Add the knockback force to the rigidbody
         rigidbody.AddForce(new Vector2(knockBackDirection.x, knockBackDirection.y) * knockback, ForceMode2D.Impulse);

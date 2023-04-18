@@ -101,7 +101,7 @@ public class ResourceManager {
     void LoadItems() {
         Debug.Log("Loading Items");
         for (int i = 0; i < 3; i++) {
-            List<ItemData> itemDataList = Resources.LoadAll<ItemData>("Items/Maze" + (i + 1)).ToList();
+            List<ItemData> itemDataList = Resources.LoadAll<ItemData>("MazeData/Maze" + (i + 1)).ToList();
             Debug.Log($"Items Found Maze {i + 1}: {itemDataList.Count}");
             itemDataDics[i] = itemDataList.ToDictionary(r => {
                 if (r.Name != ItemData.DefaultName) {

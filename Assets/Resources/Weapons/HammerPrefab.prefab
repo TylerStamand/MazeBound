@@ -83,6 +83,7 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: 1f2ef254df7766d4cb16a25b9632c3c3, type: 3}
   useSound: {fileID: 8300000, guid: bcca532e403113947810db1857e2b9b1, type: 3}
   colliderObject: {fileID: 7063205943773538514}
+  offset: 1.6
 --- !u!95 &2403253806053126280
 Animator:
   serializedVersion: 5
@@ -127,8 +128,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7063205943773538514}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 2, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7063205944544726876}

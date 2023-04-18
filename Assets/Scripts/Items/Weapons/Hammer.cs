@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Hammer : Weapon {
     [SerializeField] GameObject colliderObject;
+    [SerializeField] float offset;
 
     Animator animator;
 
@@ -33,7 +34,7 @@ public class Hammer : Weapon {
 
 
         //set collider position and rotation
-        colliderObject.transform.localPosition = directionVector;
+        colliderObject.transform.localPosition = directionVector * offset;
         colliderObject.transform.eulerAngles = Utilities.GetAngleFromDirection(direction);
 
         //Sets the attack animation, then subsequently calls OnAttackAnimationEnd
