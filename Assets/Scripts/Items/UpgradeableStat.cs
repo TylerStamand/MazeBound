@@ -41,14 +41,15 @@ public class UpgradeableStat {
         UpgradeValueMultiplier = upgradeValueMultiplier;
     }
 
-    public void Upgrade() {
+    public bool Upgrade() {
         if (Level >= MaxLevel) {
-            return;
+            return false;
         }
 
         Level++;
         CurrentValue += BaseValue * UpgradeValueMultiplier;
         UpgradeCost += (int)(UpgradeCostBase * UpgradeCostMultiplier);
         OnUpgrade?.Invoke();
+        return true;
     }
 }
