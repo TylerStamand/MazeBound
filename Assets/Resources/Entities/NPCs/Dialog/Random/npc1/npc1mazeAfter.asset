@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: npc1mazeAfter
   m_EditorClassIdentifier: 
   Sentences:
-  - I hope we can get out...
+  - Thank you. I was able to find my grandpa. I think he'd like thank you.
   <IsChoice>k__BackingField: 0
   YesDialog: []
   NoDialog: []

@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: npc4MazeFind
   m_EditorClassIdentifier: 
   Sentences:
-  - "There are so many monsters, \n"
-  - You know of any way outta here?
+  - I'm looking for my grandson. Have you seen them?
   <IsChoice>k__BackingField: 1
   YesDialog:
-  - A safe place you say? Well I guess that's a start.
+  - To a safe place you say? I hope he is okay.
   NoDialog:
-  - Well that's too bad, I was looking forward to getting back to my forge at home.
+  - If you see him help him would you?

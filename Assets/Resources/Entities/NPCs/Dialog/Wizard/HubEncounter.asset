@@ -18,13 +18,13 @@ MonoBehaviour:
 
 '
   - "I do not have the neccesary materials to escape this place but I \r\ndo believe
-    that the dungeons holds the key to our escape.\r"
+    that the dungeons may hold the key to our escape.\r"
   - Will you aid me in this quest?
   <IsChoice>k__BackingField: 1
   YesDialog:
   - 'Jolly good work. As I am old, I will not be accompanying you but
 
     bring
-    me anythnig '
+    me anything interesting. '
   NoDialog:
   - Well thats to bad. I'll just be here then making mushroom juice!

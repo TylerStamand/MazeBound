@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: npc4HubEncounter
   m_EditorClassIdentifier: 
   Sentences:
-  - This is unlike any other part of the maze.
+  - I havent walked that far in a while. Let me catch my breath.
   <IsChoice>k__BackingField: 0
   YesDialog: []
   NoDialog:

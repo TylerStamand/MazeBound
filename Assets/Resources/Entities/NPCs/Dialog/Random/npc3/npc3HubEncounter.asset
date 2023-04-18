@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: npc3HubEncounter
   m_EditorClassIdentifier: 
   Sentences:
-  - This is unlike any other part of the maze.
+  - Definitely less creepy here. Thanks for sharing.
   <IsChoice>k__BackingField: 0
   YesDialog: []
   NoDialog:

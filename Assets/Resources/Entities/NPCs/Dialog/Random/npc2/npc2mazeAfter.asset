@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: npc2mazeAfter
   m_EditorClassIdentifier: 
   Sentences:
-  - I hope we can get out...
+  - 'What use is a wizard without a book?! '
   <IsChoice>k__BackingField: 0
   YesDialog: []
   NoDialog: []

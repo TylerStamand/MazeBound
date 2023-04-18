@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: npc4mazeAfter
   m_EditorClassIdentifier: 
   Sentences:
-  - I hope we can get out...
+  - I'll slou down, go ahead.
   <IsChoice>k__BackingField: 0
   YesDialog: []
   NoDialog: []

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sentences:
   - "Hello, are you a person? \rAre you okay?"
-  - "I've been hear for years! You stick with me, you'll life long. \r\nTo survive,
+  - "I've been hear for years! You listen to me, you'll life long. \r\nTo survive,
     you gotta go into the mazes to get materials.\r"
   - You know how to swing a sword? Lets run through the basics.
   - "To open your invantory press 'I'.\r\nTo attack, 'aim' your mouse and 'click'\r\nTo
@@ -23,13 +23,10 @@ MonoBehaviour:
 
     To use a potioin
     by ''right clicking it'''
-  - Alright, you seem ready. Lets go. *goes into maze*
-  - 'Alright these things are chests. They are boxes with loot.
+  - Alright, you seem ready to head into maze.
+  - 'Oh right, there  are chests too. They are full with loot.
 
-    I think I see
-    one over there. You go grab that one.'
-  - "*After you interact witht the chest and add the item to your invantory*\r\n\nAHHHHHHHH!!!!\r\n\n*Goes
-    back to see the Guide *\r *Guide is killed by mobs*\r *You get item to go back*"
+'
   <IsChoice>k__BackingField: 0
   YesDialog: []
   NoDialog: []

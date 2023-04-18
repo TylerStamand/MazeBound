@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MiddleWomen 2
   m_EditorClassIdentifier: 
   Sentences:
-  - "Ladies, if he can\u2019t appreciate your fruit jokes, you need to let that mango.\r\n"
+  - 'I want to take a shower. '
   <IsChoice>k__BackingField: 0
   YesDialog:
   - '[Opens Invantory]

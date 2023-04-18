@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: npc2HubEncounter
   m_EditorClassIdentifier: 
   Sentences:
-  - This is unlike any other part of the maze.
-  <IsChoice>k__BackingField: 0
-  YesDialog: []
+  - Do you have some sort of plan to get out of here?
+  <IsChoice>k__BackingField: 1
+  YesDialog:
+  - I leave it to you then. Good luck.
   NoDialog:
-  - A shame but I'll be here. (continues clanking)
+  - We're doomed aren't we?
