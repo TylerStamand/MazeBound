@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour {
 
     public Vector2 ScreenMousePos { get; private set; }
     public Vector2 WorldMousePos { get; private set; }
+    public bool CanMove { get; set; } = true;
     new Rigidbody2D rigidbody;
     Animator animator;
     Vector2 inputVector;
@@ -40,8 +41,9 @@ public class PlayerController : MonoBehaviour {
 
     void Update() {
 
+        if (CanMove)
+            rigidbody.velocity = inputVector * moveSpeed;
 
-        rigidbody.velocity = inputVector * moveSpeed;
 
 
         if (inputVector.x > 0) {

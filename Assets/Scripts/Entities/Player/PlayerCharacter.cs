@@ -132,6 +132,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
         GameObject menu = Instantiate(menuPrefab);
         currentMenu = menu;
         canExitMenu = canExit;
+        controller.CanMove = false;
         return menu;
     }
 
@@ -168,7 +169,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
         Debug.Log("Exiting Menu: " + currentMenu.name);
         Destroy(currentMenu);
         currentMenu = null;
-
+        controller.CanMove = true;
 
     }
 
