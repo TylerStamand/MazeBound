@@ -2,6 +2,8 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
+using System.Collections;
 
 class HubSaveData {
 
@@ -16,7 +18,12 @@ public class HubManager : MonoBehaviour {
     [SerializeField] TriggerObject dungeon1Trigger;
     [SerializeField] TriggerObject dungeon2Trigger;
     [SerializeField] TriggerObject dungeon3Trigger;
+    [SerializeField] TriggerObject portalTrigger;
 
+    [Header("Portal Stuff")]
+    [SerializeField] Tilemap deactivatedPortal;
+    [SerializeField] Tilemap activatedPortal;
+    [SerializeField] Dialog portalDialog;
     public static HubManager Instance { get; private set; }
 
     HubSaveData hubSaveData;
@@ -49,6 +56,11 @@ public class HubManager : MonoBehaviour {
         if (dungeon3Trigger != null)
             dungeon3Trigger.OnTriggerEnter += () => {
                 GameManager.Instance.LoadMaze(3);
+            };
+
+        if (portalTrigger != null)
+            portalTrigger.OnTriggerEnter += () => {
+                GameManager.Instance.LoadBoss();
             };
 
         //Load player
@@ -96,6 +108,33 @@ public class HubManager : MonoBehaviour {
         foreach (ISaveLoad saveLoadObject in saveLoadObjects) {
             saveLoadObject.Save();
         }
+    }
+
+    IEnumerator HandlePortalTriggered() {
+        if (GameManager.Instance.PuzzlePiecesCollectedCount != 3) yield break;
+        deactivatedPortal.enabled = false;
+        activatedPortal.enabled = true;
+        yield return new WaitForSeconds(2);
+
+        DialogManager dialogManager = ShowDialog(portalDialog, FindObjectOfType<PlayerCharacter>());
+        if (dialogManager != null) {
+            dialogManager.OnDialogComplete += (x) => {
+
+                GameManager.Instance.LoadBoss();
+            };
+        }
+
+    }
+
+    DialogManager ShowDialog(Dialog dialog, PlayerCharacter playerCharacter) {
+        DialogManager dialogManager = playerCharacter.ShowMenu(ResourceManager.Instance.DialogManagerPrefab, false)?.GetComponent<DialogManager>();
+        if (dialogManager == null) return null;
+        dialogManager.SetDialog(dialog, "---");
+        dialogManager.OnDialogComplete += (x) => {
+            Destroy(dialogManager.gameObject);
+            playerCharacter.ExitMenu();
+        };
+        return dialogManager;
     }
 
 }

@@ -192,8 +192,14 @@ public class GameManager : MonoBehaviour {
     }
 
     public void LoadBoss() {
-        OnSceneChange?.Invoke();
+
+        if(PuzzlePiecesCollectedCount != 3) {
+            Debug.LogError("Cannot load boss scene without all puzzle pieces");
+            return;
+        }
         
+        OnSceneChange?.Invoke();
+
         SceneFader fader = Instantiate(ResourceManager.Instance.FaderPrefab).GetComponent<SceneFader>();
         fader.FadeAndLoadScene(bossScene);
         fader.OnFadeComplete += () => {
