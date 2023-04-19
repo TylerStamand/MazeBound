@@ -10,8 +10,12 @@ using UnityEngine.UI;
 public class Boss : MonoBehaviour {
 
 
-
     [SerializeField] List<Tentacle> tentacles;
+
+
+    [Header("Boss Dialog")]
+    [SerializeField] Dialog bossIntroDialog;
+    [SerializeField] Dialog bossDefeatedDialog;
 
     [Header("Boss Settings")]
     [SerializeField] int tentacleHealth;
@@ -63,6 +67,7 @@ public class Boss : MonoBehaviour {
     [Label("Speed Of Walls")][SerializeField] int wallSpeed3;
 
 
+    PlayerCharacter playerCharacter;
 
     bool tileAttack = false;
     bool wallAttack = false;
@@ -78,6 +83,8 @@ public class Boss : MonoBehaviour {
     int phase = 0;
 
     void Awake() {
+        playerCharacter = FindObjectOfType<PlayerCharacter>();
+
         foreach (Tentacle tentacle in tentacles) {
             tentacle.CurrentHealth = tentacleHealth;
             tentacle.enabled = false;
@@ -104,10 +111,15 @@ public class Boss : MonoBehaviour {
     void Start() {
 
         //Dialog
+        DialogManager dialogManager = ShowDialog(bossIntroDialog, playerCharacter);
+        if (dialogManager != null) {
+            dialogManager.OnDialogComplete += (x) => {
 
+                StartCoroutine(Transform(bossSprite));
+                StartCoroutine(BossFight());
+            };
+        }
 
-
-        StartCoroutine(BossFight());
 
     }
 
@@ -278,7 +290,7 @@ public class Boss : MonoBehaviour {
 
     }
 
-    private Vector3Int GetRandomTilePosition() {
+    Vector3Int GetRandomTilePosition() {
         BoundsInt bounds = floorTilemap.cellBounds;
         int randomX = Random.Range(bounds.min.x, bounds.max.x);
         int randomY = Random.Range(bounds.min.y, bounds.max.y);
@@ -287,7 +299,7 @@ public class Boss : MonoBehaviour {
         return new Vector3Int(randomX, randomY, randomZ);
     }
 
-    private Sprite GetRandomTileSprite() {
+    Sprite GetRandomTileSprite() {
         Vector3Int randomTilePosition = GetRandomTilePosition();
         Tile tile = floorTilemap.GetTile<Tile>(randomTilePosition);
         Sprite tileSprite = tile.sprite;
@@ -295,6 +307,18 @@ public class Boss : MonoBehaviour {
         // floorTilemap.RefreshTile(randomTilePosition);
         return tileSprite;
 
+    }
+
+
+    DialogManager ShowDialog(Dialog dialog, PlayerCharacter playerCharacter) {
+        DialogManager dialogManager = playerCharacter.ShowMenu(ResourceManager.Instance.DialogManagerPrefab, false)?.GetComponent<DialogManager>();
+        if (dialogManager == null) return null;
+        dialogManager.SetDialog(dialog, "Guide");
+        dialogManager.OnDialogComplete += (x) => {
+            Destroy(dialogManager.gameObject);
+            playerCharacter.ExitMenu();
+        };
+        return dialogManager;
     }
 
 
