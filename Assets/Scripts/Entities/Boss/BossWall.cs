@@ -8,12 +8,17 @@ public class BossWall : MonoBehaviour {
     [SerializeField] Direction direction;
 
     public bool Completed { get; private set; }
-
     bool closing;
+    Vector2 startPosition;
+
+    void Awake() {
+        startPosition = transform.position;
+    }
+
     public IEnumerator CloseWall(float speed) {
         closing = true;
         Completed = false;
-        float startX = transform.position.x;
+        float startX = startPosition.x;
 
         while (closing) {
             if (direction == Direction.East) {
@@ -47,6 +52,10 @@ public class BossWall : MonoBehaviour {
         if (TryGetComponent<BossWall>(out BossWall wall)) {
             closing = false;
         }
+    }
+
+    public void ResetToStartPosition() {
+        transform.position = startPosition;
     }
 
 }
