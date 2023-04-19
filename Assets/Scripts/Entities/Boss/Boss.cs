@@ -108,8 +108,18 @@ public class Boss : MonoBehaviour {
 
     }
 
-    void Start() {
+    void Update() {
+        //Move left and right DOTWEEN
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.Append(transform.DOMove(new Vector3(bossStartPosition.x - 2, bossStartPosition.y), 2f));
+        mySequence.Append(transform.DOMove(new Vector3(bossStartPosition.x + 2, bossStartPosition.y), 2f));
+        mySequence.SetLoops(-1, LoopType.Yoyo);
+        mySequence.Play();
 
+    }
+
+
+    public void StartBossFight() {
         //Dialog
         DialogManager dialogManager = ShowDialog(bossIntroDialog, playerCharacter);
         if (dialogManager != null) {
@@ -119,18 +129,6 @@ public class Boss : MonoBehaviour {
                 StartCoroutine(BossFight());
             };
         }
-
-
-    }
-
-    void Update() {
-        //Move left and right DOTWEEN
-        Sequence mySequence = DOTween.Sequence();
-        mySequence.Append(transform.DOMove(new Vector3(bossStartPosition.x - 2, bossStartPosition.y), 2f));
-        mySequence.Append(transform.DOMove(new Vector3(bossStartPosition.x + 2, bossStartPosition.y), 2f));
-        mySequence.SetLoops(-1, LoopType.Yoyo);
-        mySequence.Play();
-
     }
 
     IEnumerator BossFight() {

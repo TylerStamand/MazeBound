@@ -17,6 +17,7 @@ public class ResourceManager {
     public GameObject HubPauseMenuPrefab { get; private set; }
     public GameObject LoadMenuPrefab { get; private set; }
     public GameObject PlayerPrefab { get; private set; }
+    public GameObject FaderPrefab { get; private set; }
 
     public AudioClip ButtonClickSound { get; private set; }
 
@@ -123,6 +124,7 @@ public class ResourceManager {
         MazePauseMenuPrefab = Resources.Load<GameObject>("UI/Menu/MazePauseMenu");
         HubPauseMenuPrefab = Resources.Load<GameObject>("UI/Menu/HubPauseMenu");
         InventoryPrefab = Resources.Load<GameObject>("UI/Inventory/Inventory");
+        FaderPrefab = Resources.Load<GameObject>("UI/Fader");   
 
     }
 

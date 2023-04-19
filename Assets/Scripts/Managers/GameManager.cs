@@ -7,7 +7,9 @@ using NaughtyAttributes;
 
 public enum GameState {
     Hub,
-    Maze
+    Maze,
+    Fade,
+    Boss
 }
 
 class GameSaveData {
@@ -42,6 +44,9 @@ public class GameManager : MonoBehaviour {
     [SerializeField] string hub2;
     [Scene]
     [SerializeField] string hub3;
+
+    [Scene]
+    [SerializeField] string bossScene;
 
 
 
@@ -184,6 +189,17 @@ public class GameManager : MonoBehaviour {
         SceneManager.LoadSceneAsync(sceneName).completed += (AsyncOperation obj) => {
             CurrentGameState = GameState.Maze;
         };
+    }
+
+    public void LoadBoss() {
+        OnSceneChange?.Invoke();
+        
+        SceneFader fader = Instantiate(ResourceManager.Instance.FaderPrefab).GetComponent<SceneFader>();
+        fader.FadeAndLoadScene(bossScene);
+        fader.OnFadeComplete += () => {
+            CurrentGameState = GameState.Boss;
+        };
+        CurrentGameState = GameState.Fade;
     }
 
     public void SetPuzzlePieceCollected(int level) {
