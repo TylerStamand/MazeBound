@@ -13,12 +13,13 @@ public enum GameState {
 }
 
 class GameSaveData {
-    public bool[] PuzzlePiecesCollected = new bool[3];
-
+    public bool[] PuzzlePiecesCollected;
+    public bool IsGuy;
 
     //These should be new game defaults
     public GameSaveData() {
         PuzzlePiecesCollected = new bool[3];
+        IsGuy = true;
     }
 
 
@@ -58,6 +59,9 @@ public class GameManager : MonoBehaviour {
 
     public GameState CurrentGameState { get; private set; }
     public bool[] PuzzlePiecesCollected { get; private set; } = new bool[3];
+    public bool IsGuy { get; private set; } = true;
+
+
 
     public int PuzzlePiecesCollectedCount {
         get {
@@ -70,6 +74,7 @@ public class GameManager : MonoBehaviour {
     }
 
     string SaveDataID = "GameSaveData";
+
 
     void Awake() {
         if (Instance == null) {
@@ -84,8 +89,9 @@ public class GameManager : MonoBehaviour {
 
     void Start() {
         LoadMenuManager loadMenu = Instantiate(ResourceManager.Instance.LoadMenuPrefab).GetComponent<LoadMenuManager>();
-        loadMenu.OnLoadPressed += LoadGame;
-        loadMenu.OnNewPressed += NewGame;
+        loadMenu.OnLoadPressed += () => { Destroy(loadMenu.gameObject); LoadGame(); };
+        loadMenu.OnNewPressed += () => { Destroy(loadMenu.gameObject); NewGame(); };
+
     }
 
     void LoadGame() {
@@ -107,6 +113,7 @@ public class GameManager : MonoBehaviour {
 
 
         PuzzlePiecesCollected = gameSaveData.PuzzlePiecesCollected;
+        IsGuy = gameSaveData.IsGuy;
         Debug.Log("Current Puzzle Pieces Collected: " + PuzzlePiecesCollectedCount);
 
         LoadHub();
@@ -121,13 +128,14 @@ public class GameManager : MonoBehaviour {
         //This wipes the file and saves a new gamemanager save data
         SaveManager.Instance.SetData(SaveDataID, gameSaveData);
         SaveManager.Instance.Save();
-        LoadHub();
+        LoadCharacterSelect();
     }
 
     void Save() {
         Debug.Log("Saving Game Manager");
         GameSaveData gameSaveData = new GameSaveData() {
-            PuzzlePiecesCollected = PuzzlePiecesCollected
+            PuzzlePiecesCollected = PuzzlePiecesCollected,
+            IsGuy = IsGuy
         };
         SaveManager.Instance.SetData(SaveDataID, gameSaveData);
     }
@@ -137,6 +145,15 @@ public class GameManager : MonoBehaviour {
         Save();
         SaveManager.Instance.Save();
         Application.Quit();
+    }
+
+    public void LoadCharacterSelect() {
+        CharacterSelectMenu charSelect = Instantiate(ResourceManager.Instance.CharacterSelectPrefab).GetComponent<CharacterSelectMenu>();
+        charSelect.OnCharacterSelect += (bool isGuy) => {
+            this.IsGuy = isGuy;
+            Destroy(charSelect.gameObject);
+            LoadHub();
+        };
     }
 
     public void LoadHub() {
@@ -193,11 +210,11 @@ public class GameManager : MonoBehaviour {
 
     public void LoadBoss() {
 
-        if(PuzzlePiecesCollectedCount != 3) {
+        if (PuzzlePiecesCollectedCount != 3) {
             Debug.LogError("Cannot load boss scene without all puzzle pieces");
             return;
         }
-        
+
         OnSceneChange?.Invoke();
 
         SceneFader fader = Instantiate(ResourceManager.Instance.FaderPrefab).GetComponent<SceneFader>();
@@ -221,6 +238,10 @@ public class GameManager : MonoBehaviour {
 
     public float GetVolume() {
         return PlayerPrefs.GetFloat("Volume", .5f);
+    }
+
+    public void SetCharacter(bool isGuy) {
+        this.IsGuy = isGuy;
     }
 
 

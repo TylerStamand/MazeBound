@@ -970,6 +970,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 144310248ebda794d8cd06cbfad7a8ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maleAnimator: {fileID: 9100000, guid: 56d6c529ef27d9040a9983ad5a215098, type: 2}
+  femaleAnimator: {fileID: 9100000, guid: af393fc4ed8cbd345aeedf055d548adf, type: 2}
   hitSound: {fileID: 8300000, guid: 2a7019bcc0ca5e149abfd8907a76d126, type: 3}
   deathSound: {fileID: 8300000, guid: 9b1ee6a5566cc044db98832d0d473665, type: 3}
   healSound: {fileID: 8300000, guid: 064989c54a8e5a9488747bb64a115ce5, type: 3}

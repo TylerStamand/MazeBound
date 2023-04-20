@@ -14,6 +14,11 @@ class PlayerSaveData {
 
 public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
 
+    [Header("Male/Female")]
+    [SerializeField] RuntimeAnimatorController maleAnimator;
+    [SerializeField] RuntimeAnimatorController femaleAnimator;
+
+    [Header("Sounds")]
     [SerializeField] AudioClip hitSound;
     [SerializeField] AudioClip deathSound;
     [SerializeField] AudioClip healSound;
@@ -278,6 +283,16 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
             WeaponItem starterWeapon = (WeaponItem)weaponData.CreateItem(0);
             Inventory.SetWeapon(starterWeapon);
         }
+
+        if (GameManager.Instance != null) {
+            if (GameManager.Instance.IsGuy) {
+                GetComponent<Animator>().runtimeAnimatorController = maleAnimator;
+            } else {
+                GetComponent<Animator>().runtimeAnimatorController = femaleAnimator;
+            }
+
+        }
+
     }
 }
 
