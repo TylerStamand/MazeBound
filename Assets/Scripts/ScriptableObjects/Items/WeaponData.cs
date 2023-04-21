@@ -21,7 +21,7 @@ public class WeaponData : ItemData {
         Debug.Log("Creating WeaponItem with scale: " + scale);
         return new WeaponItem(Name,
         (int)((Damage.GetRandomValue() - Damage.MinValue) * scale) + Damage.MinValue,
-        (float)(Math.Truncate((Speed.GetRandomValue() - Damage.MinValue) * 100 * scale) / 100) + Speed.MinValue,
+        (float)(Math.Truncate((Speed.GetRandomValue() - Speed.MinValue) * 100 * scale) / 100) + Speed.MinValue,
         (float)(Math.Truncate((CriticalChance.GetRandomValue() - CriticalChance.MinValue) * 100 * scale) / 100) + CriticalChance.MinValue,
         UpgradeCostBase + (int)(UpgradeCostBase * UpgradeCostBaseMultiplier * scale - 1));
     }
