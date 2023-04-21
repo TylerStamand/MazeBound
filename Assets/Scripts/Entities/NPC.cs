@@ -25,6 +25,7 @@ public class NPC : MonoBehaviour, IInteractable, ISaveLoad {
     [SerializeField] Dialog[] PuzzlePieceDialog = new Dialog[3];
     [SerializeField] List<Dialog> GeneralDialog = new List<Dialog>();
 
+    [field: SerializeField] public bool IsGuide { get; private set; } = false;
     [SerializeField] bool isVendor = false;
     [ShowIf("isVendor")]
     [SerializeField] GameObject shop;

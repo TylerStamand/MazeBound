@@ -14,6 +14,7 @@ class HubSaveData {
 
 public class HubManager : MonoBehaviour {
 
+    [SerializeField] GameObject tutorialSpawn;
     [SerializeField] GameObject playerSpawn;
     [SerializeField] TriggerObject dungeon1Trigger;
     [SerializeField] TriggerObject dungeon2Trigger;
@@ -24,11 +25,13 @@ public class HubManager : MonoBehaviour {
     [SerializeField] Tilemap deactivatedPortal;
     [SerializeField] Tilemap activatedPortal;
     [SerializeField] Dialog portalDialog;
+    [SerializeField] Dialog introDialog;
     public static HubManager Instance { get; private set; }
 
     HubSaveData hubSaveData;
 
 
+    PlayerCharacter player;
 
 
     void Awake() {
@@ -64,7 +67,7 @@ public class HubManager : MonoBehaviour {
             };
 
         //Load player
-        Instantiate(ResourceManager.Instance.PlayerPrefab, playerSpawn.transform.position, Quaternion.identity);
+        player = Instantiate(ResourceManager.Instance.PlayerPrefab, playerSpawn.transform.position, Quaternion.identity).GetComponent<PlayerCharacter>();
 
 
     }
@@ -80,7 +83,13 @@ public class HubManager : MonoBehaviour {
 
         //Show only NPCs that have been found
         foreach (NPC npc in FindObjectsOfType<NPC>()) {
-            npc.gameObject.SetActive(npc.MazeEncounterComplete);
+            if (!npc.IsGuide)
+                npc.gameObject.SetActive(npc.MazeEncounterComplete);
+        }
+
+
+        if (!GameManager.Instance.IntroCompleted) {
+            PlayIntro();
         }
 
     }
@@ -116,7 +125,7 @@ public class HubManager : MonoBehaviour {
         activatedPortal.enabled = true;
         yield return new WaitForSeconds(2);
 
-        DialogManager dialogManager = ShowDialog(portalDialog, FindObjectOfType<PlayerCharacter>());
+        DialogManager dialogManager = ShowDialog(portalDialog, FindObjectOfType<PlayerCharacter>(), "---");
         if (dialogManager != null) {
             dialogManager.OnDialogComplete += (x) => {
 
@@ -126,15 +135,31 @@ public class HubManager : MonoBehaviour {
 
     }
 
-    DialogManager ShowDialog(Dialog dialog, PlayerCharacter playerCharacter) {
+    DialogManager ShowDialog(Dialog dialog, PlayerCharacter playerCharacter, string name) {
         DialogManager dialogManager = playerCharacter.ShowMenu(ResourceManager.Instance.DialogManagerPrefab, false)?.GetComponent<DialogManager>();
         if (dialogManager == null) return null;
-        dialogManager.SetDialog(dialog, "---");
+        dialogManager.SetDialog(dialog, name);
         dialogManager.OnDialogComplete += (x) => {
             Destroy(dialogManager.gameObject);
             playerCharacter.ExitMenu();
         };
         return dialogManager;
+    }
+
+    void PlayIntro() {
+        player.transform.position = tutorialSpawn.transform.position;
+
+
+        DialogManager dialogManager = ShowDialog(introDialog, FindObjectOfType<PlayerCharacter>(), "Guide");
+        if (dialogManager != null) {
+            dialogManager.OnDialogComplete += (x) => {
+                GameManager.Instance.SetIntroCompleted();
+                Destroy(dialogManager.gameObject);
+                FindObjectOfType<PlayerCharacter>().ExitMenu();
+
+
+            };
+        }
     }
 
 }

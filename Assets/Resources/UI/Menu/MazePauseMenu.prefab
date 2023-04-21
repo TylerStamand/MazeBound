@@ -26,7 +26,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 416411415284569552}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 175}
+  m_AnchoredPosition: {x: 324, y: -196}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5570939567331078825
@@ -291,8 +291,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3317329730875263266}
   - {fileID: 7298277661148053320}
+  - {fileID: 3317329730875263266}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -384,41 +384,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 26488782899188590}
     m_Modifications:
-    - target: {fileID: 132362782659778189, guid: ada66991bee8c764b8673b55207bc2bd, type: 3}
-      propertyPath: m_text
-      value: "Guide:\n\n    - Your goal is to obtain three pieces of the puzzle\n\n   
-        - One piece can be found in each maze\n\n    - A piece is retrieved after
-        interacting with three shrines within a maze\n\n    - Retrieving a piece
-        in one maze will unlock the entrance to the next maze\n\nKeys: \n\n    -
-        Moving is done with WASD\n    \r\n    - Attacking is done with mouse button,
-        aiming is done with the mouse position\n    \r\n    - To close any UI screens,
-        press \"ESC\"\n    \r\n    - You can open your inventory by pressing \"I\"\n 
-        \n    - Interact with \"F\"\n\n    - To consume a healing potion, right click
-        on it in your inventory\n\n    "
-      objectReference: {fileID: 0}
-    - target: {fileID: 132362782659778189, guid: ada66991bee8c764b8673b55207bc2bd, type: 3}
-      propertyPath: m_fontSize
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 132362782659778189, guid: ada66991bee8c764b8673b55207bc2bd, type: 3}
-      propertyPath: m_fontStyle
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 132362782659778189, guid: ada66991bee8c764b8673b55207bc2bd, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 18
-      objectReference: {fileID: 0}
     - target: {fileID: 1969770384599142271, guid: ada66991bee8c764b8673b55207bc2bd, type: 3}
       propertyPath: m_Name
       value: SharedPause
-      objectReference: {fileID: 0}
-    - target: {fileID: 3699102451349718252, guid: ada66991bee8c764b8673b55207bc2bd, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 744
-      objectReference: {fileID: 0}
-    - target: {fileID: 3699102451349718252, guid: ada66991bee8c764b8673b55207bc2bd, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 30.8
       objectReference: {fileID: 0}
     - target: {fileID: 4674706388194490610, guid: ada66991bee8c764b8673b55207bc2bd, type: 3}
       propertyPath: m_AnchorMax.y
