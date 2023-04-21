@@ -8,9 +8,6 @@ using UnityEngine;
 public class WeaponData : ItemData {
 
     [field: SerializeField] public Weapon WeaponPrefab { get; private set; }
-
-    [field: SerializeField] public WeaponType WeaponType { get; private set; }
-
     [field: SerializeField] public MinMaxInt Damage { get; private set; }
     [field: SerializeField] public MinMaxFloat Speed { get; private set; }
     [field: SerializeField] public MinMaxFloat CriticalChance { get; private set; }
@@ -28,9 +25,4 @@ public class WeaponData : ItemData {
         (float)(Math.Truncate((CriticalChance.GetRandomValue() - CriticalChance.MinValue) * 100 * scale) / 100) + CriticalChance.MinValue,
         UpgradeCostBase + (int)(UpgradeCostBase * UpgradeCostBaseMultiplier * scale - 1));
     }
-}
-
-
-public enum WeaponType {
-    Sword, Spear, Hammer
 }
