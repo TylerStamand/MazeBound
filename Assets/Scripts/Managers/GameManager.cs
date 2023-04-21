@@ -15,11 +15,13 @@ public enum GameState {
 class GameSaveData {
     public bool[] PuzzlePiecesCollected;
     public bool IsGuy;
+    public bool IntroCompleted;
 
     //These should be new game defaults
     public GameSaveData() {
         PuzzlePiecesCollected = new bool[3];
         IsGuy = true;
+        IntroCompleted = false;
     }
 
 
@@ -63,6 +65,7 @@ public class GameManager : MonoBehaviour {
     public GameState CurrentGameState { get; private set; }
     public bool[] PuzzlePiecesCollected { get; private set; } = new bool[3];
     public bool IsGuy { get; private set; } = true;
+    public bool IntroCompleted { get; private set; } = false;
 
 
 
@@ -90,7 +93,7 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        
+
 
     }
 
@@ -122,6 +125,7 @@ public class GameManager : MonoBehaviour {
 
         PuzzlePiecesCollected = gameSaveData.PuzzlePiecesCollected;
         IsGuy = gameSaveData.IsGuy;
+        IntroCompleted = gameSaveData.IntroCompleted;
         Debug.Log("Current Puzzle Pieces Collected: " + PuzzlePiecesCollectedCount);
 
         LoadHub();
@@ -255,6 +259,10 @@ public class GameManager : MonoBehaviour {
 
     public void SetCharacter(bool isGuy) {
         this.IsGuy = isGuy;
+    }
+
+    public void SetIntroCompleted() {
+        IntroCompleted = true;
     }
 
 

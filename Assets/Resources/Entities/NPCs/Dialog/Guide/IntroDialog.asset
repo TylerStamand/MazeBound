@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e9ca972247eb541bf0d4cbd58874a4, type: 3}
+  m_Name: IntroDialog
+  m_EditorClassIdentifier: 
+  Sentences:
+  - "Hello, are you a person? \rAre you okay?"
+  - "I've been hear for years! You listen to me, you'll life long. \r\n"
+  - This room seems to be a safe area, free of the monsters on the outside. I have
+    been hiding here since I found it. This thing next to me seems to be a way out,
+    but it looks like it's missing something.
+  - I think the pieces are somewhere in the mazes outside of this room. If you could
+    find the pieces, we might be able to make it out.
+  - I have a sword I found in the mazes, it's not very good but it'll get you started.
+    Lets run through the basics.
+  - 'To attack, ''aim'' your mouse and ''click''
+
+'
+  - "To move, use 'WASD'\r"
+  - "To open your invantory press 'I'.\r Here you'll find your sword. Press 'ESC'
+    to close any menu you might find yourself in.\n"
+  - Press F to interact If you find anyone else in the maze or see any chests and
+    other suspicious objects.
+  - Alright, you seem ready to head into maze. There is an entrance at the back of
+    this room. See what you can find! If you forget any of the things I told you,
+    press 'ESC' to open your pause menu to see the instructions on the left.
+  <IsChoice>k__BackingField: 0
+  YesDialog: []
+  NoDialog: []

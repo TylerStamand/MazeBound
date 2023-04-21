@@ -978,7 +978,7 @@ MonoBehaviour:
   interactSound: {fileID: 8300000, guid: 81f47726c2f250040b19f466523fc3c1, type: 3}
   canDie: 1
   <CurrentHealth>k__BackingField: 100
-  weaponData: {fileID: 11400000, guid: 397813e5c4a277342b312eb980c7af29, type: 2}
+  weaponData: {fileID: 11400000, guid: 463c08f524fa14f48a529bb931456743, type: 2}
   weaponHolder: {fileID: 8465680535385425422}
   aimArrow: {fileID: 1664547637}
 --- !u!114 &8465680535696588499

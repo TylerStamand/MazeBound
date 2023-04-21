@@ -67,7 +67,13 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
 
     void Update() {
         UpdateDirection();
-        aimArrow.transform.eulerAngles = Utilities.GetAngleFromDirection(currentDirection);
+
+        if (currentMenu != null) {
+            aimArrow.SetActive(false);
+        } else {
+            aimArrow.SetActive(true);
+            aimArrow.transform.eulerAngles = Utilities.GetAngleFromDirection(currentDirection);
+        }
 
     }
 
@@ -298,8 +304,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
 
     }
 
-    public int GetMaxHealth()
-    {
+    public int GetMaxHealth() {
         return BaseHealth;
     }
 }
