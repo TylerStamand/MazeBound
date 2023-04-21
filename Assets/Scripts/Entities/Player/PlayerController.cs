@@ -41,8 +41,12 @@ public class PlayerController : MonoBehaviour {
 
     void Update() {
 
-        if (CanMove)
+        if (CanMove) {
             rigidbody.velocity = inputVector * moveSpeed;
+
+        } else {
+            rigidbody.velocity = Vector2.zero;
+        }
 
 
 

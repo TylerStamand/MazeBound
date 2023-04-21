@@ -1,5 +1,89 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1458957183
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1458957184}
+  - component: {fileID: 1458957185}
+  m_Layer: 0
+  m_Name: Shadow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1458957184
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458957183}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -4.55, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5811093299063718906}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1458957185
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458957183}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -977925959
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.49019608}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &8002414171089232896
 GameObject:
   m_ObjectHideFlags: 0
@@ -27,9 +111,10 @@ Transform:
   m_GameObject: {fileID: 8002414171089232896}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1, y: -0.56, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1458957184}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -73,13 +158,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -977925959
   m_SortingLayer: 2
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 2084903103, guid: 74807727a550a4847a1c5d30c87debac, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 312346648, guid: 65d922d0a5f5a214a8af76ef2ab83457, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5625, y: 0.90625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -97,24 +182,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c92e0b5037d65ec4c874313fa0022339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tentacles: []
+  tentacles:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  bossIntroDialog: {fileID: 0}
+  bossDefeatedDialog: {fileID: 0}
+  tentacleHealth: 15
+  tileAttackDamage: 5
+  wallAttackDamage: 5
+  timeBetweenAttackSwitch: 5
+  timeForTileAttack: 5
+  spawnRates: {fileID: 11400000, guid: a6d68ff79e7f1fe44a93d86a31081dd1, type: 2}
   floorTilemap: {fileID: 0}
-  throwTilePrefab: {fileID: 0}
-  spawnRates: {fileID: 0}
-  tentacleHealth: 0
-  tileAttackDamage: 0
-  wallAttackDamage: 0
-  timeBetweenAttackSwitch: 0
-  timeForTileAttack: 0
-  timeBetweenTileAttacks1: 0
-  tileSpeed1: 0
-  numberOfEnemies1: 0
-  wallSpeed1: 0
-  timeBetweenTileAttacks2: 0
-  tileSpeed2: 0
-  numberOfEnemies2: 0
-  wallSpeed2: 0
-  timeBetweenTileAttacks3: 0
-  tileSpeed3: 0
-  numberOfEnemies3: 0
-  wallSpeed3: 0
+  floorTilemapPrefab: {fileID: 0}
+  emptyTileSprite: {fileID: 0}
+  throwTilePrefab: {fileID: 8837182708867348198, guid: da986994aa0654c4ea598cab84b308c1, type: 3}
+  tileSpeed: 0
+  screenFlashImage: {fileID: 0}
+  transformTime: 4
+  bossSprite: {fileID: 2084903103, guid: 74807727a550a4847a1c5d30c87debac, type: 3}
+  guideSprite: {fileID: 312346648, guid: 65d922d0a5f5a214a8af76ef2ab83457, type: 3}
+  bossStartPosition: {x: 1.5, y: -6.66}
+  bossEndPosition: {x: 0, y: 0}
+  topRightWall: {fileID: 0}
+  topLeftWall: {fileID: 0}
+  bottomLeftWall: {fileID: 0}
+  bottomRightWall: {fileID: 0}
+  timeBetweenTileAttacks1: 5
+  tileSpeed1: 5
+  numberOfEnemies1: 5
+  wallSpeed1: 5
+  timeBetweenTileAttacks2: 5
+  tileSpeed2: 5
+  numberOfEnemies2: 5
+  wallSpeed2: 5
+  timeBetweenTileAttacks3: 5
+  tileSpeed3: 5
+  numberOfEnemies3: 5
+  wallSpeed3: 5
