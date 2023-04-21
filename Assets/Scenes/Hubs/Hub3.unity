@@ -157,6 +157,7 @@ Transform:
   - {fileID: 408299394}
   - {fileID: 217961663}
   - {fileID: 262710819}
+  - {fileID: 765135066}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1554,6 +1555,112 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &765135065
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 82953355}
+    m_Modifications:
+    - target: {fileID: -4135013102777559973, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4135013102777559973, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191952967, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 312346648, guid: 65d922d0a5f5a214a8af76ef2ab83457, type: 3}
+    - target: {fileID: 1191952968, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.5625
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191952968, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.90625
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873990133628319289, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873990133628319289, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.816918
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873990133628319289, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.377809
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873990133628319289, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.787195
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873990133628319289, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873990133628319289, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873990133628319289, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873990133628319289, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873990133628319289, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873990133628319289, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873990133628319289, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873990133628319290, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: MazeEncounterDialog
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873990133628319290, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: <Name>k__BackingField
+      value: Guide
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873990133628319290, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: HubFirstEncounterDialog
+      value: 
+      objectReference: {fileID: 11400000, guid: 2580cfed70db4734d99fb1d599a47d1b, type: 2}
+    - target: {fileID: 3873990133628319290, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: <IsGuide>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873990133628319290, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: MazeAfterEncounterDialog
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873990133628319291, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+      propertyPath: m_Name
+      value: Guide
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+--- !u!4 &765135066 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3873990133628319289, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
+  m_PrefabInstance: {fileID: 765135065}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &952328250
 GameObject:
   m_ObjectHideFlags: 0
@@ -1583,6 +1690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ae7b93db9d2644e92e2c371ba16129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialSpawn: {fileID: 0}
   playerSpawn: {fileID: 163238109}
   dungeon1Trigger: {fileID: 1752776192}
   dungeon2Trigger: {fileID: 1960388300}
@@ -1591,6 +1699,7 @@ MonoBehaviour:
   deactivatedPortal: {fileID: 1809392111}
   activatedPortal: {fileID: 178298014}
   portalDialog: {fileID: 11400000, guid: 3e1e2132bbc6d6443a9f421bbac26ff3, type: 2}
+  introDialog: {fileID: 0}
 --- !u!4 &952328252
 Transform:
   m_ObjectHideFlags: 0
