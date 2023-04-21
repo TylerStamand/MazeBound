@@ -8,11 +8,14 @@ public class ThrowTile : MonoBehaviour {
 
     public event Action OnDestroyed;
 
+    public bool Destroyed { get; private set; }
+
     PlayerCharacter player;
 
     float height;
     float speed;
     int damage;
+
 
     void Awake() {
         player = FindObjectOfType<PlayerCharacter>();
@@ -37,13 +40,14 @@ public class ThrowTile : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        if (damageHeight > 1.5) {
+        if (height > damageHeight) {
             return;
         }
-        if (TryGetComponent<PlayerCharacter>(out PlayerCharacter player)) {
+        if (other.gameObject.TryGetComponent<PlayerCharacter>(out PlayerCharacter player)) {
             player.TakeDamage(damage);
             OnDestroyed?.Invoke();
-            Destroy(gameObject);
+            Destroyed = true;
+            gameObject.SetActive(false);
         }
     }
 }

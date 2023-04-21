@@ -27,6 +27,9 @@ class GameSaveData {
 
 public class GameManager : MonoBehaviour {
 
+    [SerializeField] bool overridePuzzlePieceCount = false;
+    [SerializeField] int puzzlePieceOverride = -1;
+
 
     [Header("Maze Scenes")]
     [Scene]
@@ -65,6 +68,9 @@ public class GameManager : MonoBehaviour {
 
     public int PuzzlePiecesCollectedCount {
         get {
+
+            if (overridePuzzlePieceCount) return puzzlePieceOverride;
+
             int count = 0;
             foreach (bool b in PuzzlePiecesCollected) {
                 if (b) count++;
@@ -83,6 +89,8 @@ public class GameManager : MonoBehaviour {
         } else {
             Destroy(gameObject);
         }
+
+        
 
     }
 
@@ -151,12 +159,15 @@ public class GameManager : MonoBehaviour {
         CharacterSelectMenu charSelect = Instantiate(ResourceManager.Instance.CharacterSelectPrefab).GetComponent<CharacterSelectMenu>();
         charSelect.OnCharacterSelect += (bool isGuy) => {
             this.IsGuy = isGuy;
-            Destroy(charSelect.gameObject);
             LoadHub();
+            Destroy(charSelect.gameObject);
         };
     }
 
     public void LoadHub() {
+
+
+
 
         string sceneName;
         switch (PuzzlePiecesCollectedCount) {
@@ -174,8 +185,9 @@ public class GameManager : MonoBehaviour {
                 break;
             default:
                 sceneName = hub3;
-                return;
+                break;
         }
+        Debug.Log("Loading Hub Scene: " + sceneName);
         OnSceneChange?.Invoke();
         SceneManager.LoadSceneAsync(sceneName).completed += (AsyncOperation obj) => {
             CurrentGameState = GameState.Hub;
@@ -218,7 +230,8 @@ public class GameManager : MonoBehaviour {
         OnSceneChange?.Invoke();
 
         SceneFader fader = Instantiate(ResourceManager.Instance.FaderPrefab).GetComponent<SceneFader>();
-        fader.FadeAndLoadScene(bossScene);
+        Debug.Log("Setting Fader");
+        StartCoroutine(fader.FadeAndLoadScene(bossScene));
         fader.OnFadeComplete += () => {
             CurrentGameState = GameState.Boss;
         };

@@ -34,7 +34,6 @@ public class Boss : MonoBehaviour {
     [SerializeField] float tileSpeed;
 
     [Header("Transforming")]
-    [SerializeField] Image screenFlashImage;
     [SerializeField] float transformTime;
     [SerializeField] Sprite bossSprite;
     [SerializeField] Sprite guideSprite;
@@ -50,21 +49,21 @@ public class Boss : MonoBehaviour {
 
     [Header("Phase 1")]
     [Label("Time Between Tile Attacks")][SerializeField] int timeBetweenTileAttacks1;
-    [Label("Tile Speed")][SerializeField] int tileSpeed1;
+    [Label("Tile Speed")][SerializeField] float tileSpeed1;
     [Label("Number Of Enemies")][SerializeField] int numberOfEnemies1;
-    [Label("Speed Of Walls")][SerializeField] int wallSpeed1;
+    [Label("Speed Of Walls")][SerializeField] float wallSpeed1;
 
     [Header("Phase 2")]
     [Label("Time Between Tile Attacks")][SerializeField] int timeBetweenTileAttacks2;
-    [Label("Tile Speed")][SerializeField] int tileSpeed2;
+    [Label("Tile Speed")][SerializeField] float tileSpeed2;
     [Label("Number Of Enemies")][SerializeField] int numberOfEnemies2;
-    [Label("Speed Of Walls")][SerializeField] int wallSpeed2;
+    [Label("Speed Of Walls")][SerializeField] float wallSpeed2;
 
     [Header("Phase 3")]
     [Label("Time Between Tile Attacks")][SerializeField] int timeBetweenTileAttacks3;
-    [Label("Tile Speed")][SerializeField] int tileSpeed3;
+    [Label("Tile Speed")][SerializeField] float tileSpeed3;
     [Label("Number Of Enemies")][SerializeField] int numberOfEnemies3;
-    [Label("Speed Of Walls")][SerializeField] int wallSpeed3;
+    [Label("Speed Of Walls")][SerializeField] float wallSpeed3;
 
 
     PlayerCharacter playerCharacter;
@@ -75,22 +74,24 @@ public class Boss : MonoBehaviour {
 
     List<GameObject> enemySpawns;
     List<int> timeBetweenTileAttackList = new List<int>();
-    List<int> tileSpeedList = new List<int>();
-    List<int> wallSpeedList = new List<int>();
+    List<float> tileSpeedList = new List<float>();
+    List<float> wallSpeedList = new List<float>();
 
     List<Enemy> enemies = new List<Enemy>();
 
     int phase = 0;
+    bool dead;
 
     void Awake() {
-        playerCharacter = FindObjectOfType<PlayerCharacter>();
+
 
         foreach (Tentacle tentacle in tentacles) {
             tentacle.CurrentHealth = tentacleHealth;
-            tentacle.enabled = false;
+            tentacle.gameObject.SetActive(false);
             tentacle.OnDeath += HandleTentacleDeath;
         }
 
+        dead = false;
         enemySpawns = GameObject.FindGameObjectsWithTag("EnemySpawn").ToList();
 
         //Initialize phase variables
@@ -107,59 +108,66 @@ public class Boss : MonoBehaviour {
         wallSpeedList.Add(wallSpeed3);
 
     }
+    void Start() {
+        playerCharacter = FindObjectOfType<PlayerCharacter>();
+    }
 
     void Update() {
         //Move left and right DOTWEEN
-        Sequence mySequence = DOTween.Sequence();
-        mySequence.Append(transform.DOMove(new Vector3(bossStartPosition.x - 2, bossStartPosition.y), 2f));
-        mySequence.Append(transform.DOMove(new Vector3(bossStartPosition.x + 2, bossStartPosition.y), 2f));
-        mySequence.SetLoops(-1, LoopType.Yoyo);
-        mySequence.Play();
+        // Sequence mySequence = DOTween.Sequence();
+        // mySequence.Append(transform.DOMove(new Vector3(bossStartPosition.x - 2, bossStartPosition.y), 2f));
+        // mySequence.Append(transform.DOMove(new Vector3(bossStartPosition.x + 2, bossStartPosition.y), 2f));
+        // mySequence.SetLoops(-1, LoopType.Yoyo);
+        // mySequence.Play();
 
     }
 
-
     public void StartBossFight() {
         //Dialog
+        Debug.Log("Starting boss dialog");
         DialogManager dialogManager = ShowDialog(bossIntroDialog, playerCharacter);
         if (dialogManager != null) {
             dialogManager.OnDialogComplete += (x) => {
-
-                StartCoroutine(Transform(bossSprite));
                 StartCoroutine(BossFight());
             };
         }
     }
 
     IEnumerator BossFight() {
-        yield return StartCoroutine(MoveToStartPosition());
+        Debug.Log("Starting boss fight");
+        yield return StartCoroutine(Transform(bossSprite));
+        yield return StartCoroutine(MoveToPosition(bossStartPosition));
         yield return StartCoroutine(AttackCycle());
     }
 
-    IEnumerator MoveToStartPosition() {
+    IEnumerator MoveToPosition(Vector2 position) {
+        Debug.Log("Moving to start position");
         while ((Vector2)transform.position != bossStartPosition) {
-            transform.position = Vector3.MoveTowards(transform.position, bossStartPosition, 1f * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, position, 3 * Time.deltaTime);
             yield return null;
         }
+        Debug.Log("Done moving to start position");
     }
+
 
 
     IEnumerator AttackCycle() {
         while (true) {
+            Debug.Log("Starting attack cycle");
 
-            //Enemy Attack
-            enemyAttack = true;
-            StartCoroutine(EnemyAttack(phase));
-            while (enemyAttack) {
-                yield return null;
-            }
+            // //Enemy Attack
+            // enemyAttack = true;
+            // StartCoroutine(EnemyAttack(phase));
+            // while (enemyAttack) {
+            //     yield return null;
+            // }
 
-            //Wall Attack
-            wallAttack = true;
-            StartCoroutine(WallAttack(phase));
-            while (wallAttack) {
-                yield return null;
-            }
+            // //Wall Attack
+            // wallAttack = true;
+            // StartCoroutine(WallAttack(phase));
+            // while (wallAttack) {
+            //     yield return null;
+            // }
 
             //Tile Attack
             tileAttack = true;
@@ -170,29 +178,53 @@ public class Boss : MonoBehaviour {
         }
     }
 
-
-
-
     IEnumerator TileAttack(int phase) {
-        int startTime = (int)Time.time;
+        Debug.Log("Starting tile attack");
+
+        foreach (Tentacle tentacle in tentacles) {
+            tentacle.gameObject.SetActive(true);
+        }
+
+        float startTime = Time.time;
+        float lastThrowTime = 0;
         ThrowTile lastTile = null;
         while (Time.time - startTime < timeForTileAttack) {
-            if (Time.time - startTime % timeBetweenTileAttackList[phase] == 0) {
+            Debug.Log("Dead: " + dead);
+            if (dead) yield break;
+
+            if (Time.time - lastThrowTime >= timeBetweenTileAttackList[phase]) {
+                lastThrowTime = Time.time;
                 lastTile = CreateTile();
+                lastTile.OnDestroyed += () => {
+                    Destroy(lastTile.gameObject);
+                    lastTile = null;
+                };
             }
             yield return null;
         }
-        lastTile.OnDestroyed += () => tileAttack = false;
+
+        while (lastTile != null) {
+            yield return null;
+
+        }
+
+        foreach (Tentacle tentacle in tentacles) {
+            tentacle.gameObject.SetActive(false);
+        }
+
+        tileAttack = false;
+
 
     }
 
     IEnumerator WallAttack(int phase) {
+        Debug.Log("Starting wall attack");
         wallAttack = true;
 
-        topLeftWall.CloseWall(wallSpeedList[phase]);
-        topRightWall.CloseWall(wallSpeedList[phase]);
-        bottomLeftWall.CloseWall(wallSpeedList[phase]);
-        bottomRightWall.CloseWall(wallSpeedList[phase]);
+        StartCoroutine(topLeftWall.CloseWall(wallSpeedList[phase]));
+        StartCoroutine(topRightWall.CloseWall(wallSpeedList[phase]));
+        StartCoroutine(bottomLeftWall.CloseWall(wallSpeedList[phase]));
+        StartCoroutine(bottomRightWall.CloseWall(wallSpeedList[phase]));
 
 
         while (!topLeftWall.Completed || !topRightWall.Completed || !bottomLeftWall.Completed || !bottomRightWall.Completed)
@@ -202,6 +234,7 @@ public class Boss : MonoBehaviour {
     }
 
     IEnumerator EnemyAttack(int phase) {
+        Debug.Log("Starting enemy attack");
         enemyAttack = true;
         enemies.Clear();
         List<GameObject> spawns = new List<GameObject>(enemySpawns);
@@ -226,9 +259,8 @@ public class Boss : MonoBehaviour {
     ThrowTile CreateTile() {
 
         //Add pulling tile from tilemap and adding the empty collider tile
-
         ThrowTile throwTile = Instantiate(throwTilePrefab, transform.position, Quaternion.identity);
-        throwTile.Initialize(tileAttackDamage, tileSpeedList[phase], GetRandomTileSprite());
+        throwTile.Initialize(tileSpeedList[phase], tileAttackDamage, GetRandomTileSprite());
         return throwTile;
     }
 
@@ -241,14 +273,13 @@ public class Boss : MonoBehaviour {
     void HandleTentacleDeath() {
         phase++;
         if (phase == 3) {
-            Die();
+            StartCoroutine(Die());
         }
     }
 
 
     IEnumerator Die() {
-
-        StopAllCoroutines();
+        dead = true;
 
         //Reset everything boss has done
         FindObjectsOfType<Enemy>().ToList().ForEach(e => Destroy(e));
@@ -260,32 +291,24 @@ public class Boss : MonoBehaviour {
 
         yield return new WaitForSeconds(3f);
 
-        Transform(guideSprite);
+        yield return Transform(guideSprite);
+
+        yield return StartCoroutine(MoveToPosition(bossEndPosition));
+
+        DialogManager dialogManager = ShowDialog(bossDefeatedDialog, playerCharacter);
 
     }
 
 
     IEnumerator Transform(Sprite sprite) {
-        float startTime = Time.time;
-        while (Time.time - startTime < transformTime) {
-            float t = (Time.time - startTime) / transformTime;
-            screenFlashImage.color = new Color(1, 1, 1, t);
-            yield return null;
-        }
-        screenFlashImage.color = new Color(1, 1, 1, 1);
-
-
+        SceneFader fader = Instantiate(ResourceManager.Instance.FaderPrefab).GetComponent<SceneFader>();
+        yield return StartCoroutine(fader.Fade(SceneFader.FadeDirection.In));
 
         GetComponent<SpriteRenderer>().sprite = sprite;
 
-        startTime = Time.time;
-        while (Time.time - startTime < transformTime) {
-            float t = (Time.time - startTime) / transformTime;
-            screenFlashImage.color = new Color(1, 1, 1, 1 - t);
-            yield return null;
-        }
-        screenFlashImage.color = new Color(1, 1, 1, 0);
-
+        yield return StartCoroutine(fader.Fade(SceneFader.FadeDirection.Out));
+        Destroy(fader.gameObject);
+        yield return new WaitForSeconds(3f);
     }
 
     Vector3Int GetRandomTilePosition() {
@@ -309,6 +332,7 @@ public class Boss : MonoBehaviour {
 
 
     DialogManager ShowDialog(Dialog dialog, PlayerCharacter playerCharacter) {
+
         DialogManager dialogManager = playerCharacter.ShowMenu(ResourceManager.Instance.DialogManagerPrefab, false)?.GetComponent<DialogManager>();
         if (dialogManager == null) return null;
         dialogManager.SetDialog(dialog, "Guide");

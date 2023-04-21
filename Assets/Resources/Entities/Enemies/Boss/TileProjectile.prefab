@@ -4923,6 +4923,7 @@ GameObject:
   - component: {fileID: 1478440489420642691}
   - component: {fileID: 7963193394954870086}
   - component: {fileID: 1697224208826436949}
+  - component: {fileID: 8837182708867348198}
   m_Layer: 0
   m_Name: TileProjectile
   m_TagString: Untagged
@@ -4945,7 +4946,7 @@ Transform:
   - {fileID: 8764537349436782999}
   - {fileID: 1663815981}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7963193394954870086
 SpriteRenderer:
@@ -5028,7 +5029,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -5044,3 +5045,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &8837182708867348198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2208503765840026382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7075e5f1b471f245948997d1d39a818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shadowSprite: {fileID: 1663815980}
+  damageHeight: 1.5

@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class BossWall : MonoBehaviour {
     [SerializeField] Tilemap wallTilemap;
+    [SerializeField] TriggerObject edge;
     [SerializeField] Direction direction;
 
     public bool Completed { get; private set; }
@@ -13,6 +14,7 @@ public class BossWall : MonoBehaviour {
 
     void Awake() {
         startPosition = transform.position;
+        edge.OnTriggerEnterAll += HandleTrigger;
     }
 
     public IEnumerator CloseWall(float speed) {
@@ -32,13 +34,17 @@ public class BossWall : MonoBehaviour {
 
         }
 
+        Debug.Log("Closing wall");
         if (direction == Direction.East) {
             while (transform.position.x > startX) {
+                Debug.Log($"StartX: {startX}, CurrentX: {transform.position.x}");
                 transform.position = new Vector3(transform.position.x - speed * Time.deltaTime, transform.position.y, 0);
                 yield return null;
             }
         } else {
             while (transform.position.x < startX) {
+                Debug.Log($"StartX: {startX}, CurrentX: {transform.position.x}");
+
                 transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y, 0);
                 yield return null;
             }
@@ -49,7 +55,12 @@ public class BossWall : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D other) {
-        if (TryGetComponent<BossWall>(out BossWall wall)) {
+
+    }
+
+    void HandleTrigger(GameObject other) {
+        Debug.Log("Collision" + other.gameObject.name);
+        if (other.gameObject.TryGetComponent<BossWall>(out BossWall wall)) {
             closing = false;
         }
     }
