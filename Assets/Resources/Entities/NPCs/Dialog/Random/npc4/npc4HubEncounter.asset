@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: npc4HubEncounter
   m_EditorClassIdentifier: 
   Sentences:
-  - I havent walked that far in a while. Let me catch my breath.
+  - I haven't walked that far in a while. Let me catch my breath.
   <IsChoice>k__BackingField: 0
   YesDialog: []
   NoDialog:

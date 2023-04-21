@@ -20,5 +20,5 @@ MonoBehaviour:
   <Description>k__BackingField: Heals the player
   <Sprite>k__BackingField: {fileID: 21300000, guid: 4d0e324c5a347db4ca7fa27f1be72102, type: 3}
   <HealPoints>k__BackingField:
-    MaxValue: 5
+    MaxValue: 15
     MinValue: 5

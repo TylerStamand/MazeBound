@@ -20,10 +20,9 @@ MonoBehaviour:
   <Description>k__BackingField: A test spear
   <Sprite>k__BackingField: {fileID: -491204215, guid: 01f1aab206b3e2a46af56cb0c76a30ac, type: 3}
   <WeaponPrefab>k__BackingField: {fileID: 7404189788588101358, guid: a7b340e35960b8c4b8632648f8290c0c, type: 3}
-  <WeaponType>k__BackingField: 1
   <Damage>k__BackingField:
     MaxValue: 7
-    MinValue: 2
+    MinValue: 3
   <Speed>k__BackingField:
     MaxValue: 7
     MinValue: 3

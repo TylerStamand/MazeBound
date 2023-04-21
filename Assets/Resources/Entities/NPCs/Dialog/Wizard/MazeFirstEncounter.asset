@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MazeFirstEncounter
   m_EditorClassIdentifier: 
   Sentences:
-  - "Watch your step! You nearly trampled  this perfect speciment. \r"
+  - "Watch your step! You nearly trampled this perfect speciment. \r"
   - 'These mushrooms are a rare breed but they''re everwhere! Quite facinating isn''t?
 
 '

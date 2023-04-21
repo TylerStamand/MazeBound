@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: npc4MazeFind
   m_EditorClassIdentifier: 
   Sentences:
-  - I'm looking for my grandson. Have you seen them?
+  - I'm looking for my grandson. Have you seen him?
   <IsChoice>k__BackingField: 1
   YesDialog:
-  - To a safe place you say? I hope he is okay.
+  - You know a safe place you say? I hope he is okay.
   NoDialog:
-  - If you see him help him would you?
+  - If you see him help him out would you?

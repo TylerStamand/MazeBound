@@ -683,7 +683,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mazeLevel: 2
-  spawnRates: {fileID: 11400000, guid: a6d68ff79e7f1fe44a93d86a31081dd1, type: 2}
+  spawnRates: {fileID: 11400000, guid: 4ce265b8ebc202747be1c1c20e979747, type: 2}
   shrineMinDistance: 3
   shrineSpawnRate: 0.3
   dungeonGrid: {fileID: 583224667}

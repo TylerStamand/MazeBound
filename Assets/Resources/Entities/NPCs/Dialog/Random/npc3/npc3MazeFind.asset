@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sentences:
   - Oh goodness! You scared me. I though you were a monster.
-  - please tell me you know where you are going?
+  - Please tell me you know where you are going?
   <IsChoice>k__BackingField: 1
   YesDialog:
-  - I'm so glad you weren't a monster.
+  - I'm so glad you aren't a monster.
   NoDialog:
-  - Atleast you weren't a monster.
+  - At least you aren't a monster.

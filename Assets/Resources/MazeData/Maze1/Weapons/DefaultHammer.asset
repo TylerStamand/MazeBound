@@ -20,7 +20,6 @@ MonoBehaviour:
   <Description>k__BackingField: 
   <Sprite>k__BackingField: {fileID: 21300000, guid: bd2481ab35a215b438755cbeb2d78b6e, type: 3}
   <WeaponPrefab>k__BackingField: {fileID: 7063205943396213531, guid: eea8384336c1c344b893129eebde44de, type: 3}
-  <WeaponType>k__BackingField: 0
   <Damage>k__BackingField:
     MaxValue: 12
     MinValue: 4

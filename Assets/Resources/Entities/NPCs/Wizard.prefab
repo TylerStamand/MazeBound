@@ -57,6 +57,8 @@ MonoBehaviour:
   - {fileID: 0}
   GeneralDialog:
   - {fileID: 11400000, guid: ad87e37906a648640b0231737da4eacf, type: 2}
+  - {fileID: 11400000, guid: c4aa43bcc01b9924a9a08118daa00910, type: 2}
+  - {fileID: 11400000, guid: 64312476148178f4eb66d0ca82f4aa0f, type: 2}
   isVendor: 0
   shop: {fileID: 0}
 --- !u!212 &1191952967

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: npc4mazeAfter
   m_EditorClassIdentifier: 
   Sentences:
-  - I'll slou down, go ahead.
+  - I'll you slow down, go ahead.
   <IsChoice>k__BackingField: 0
   YesDialog: []
   NoDialog: []

@@ -25,7 +25,7 @@ MonoBehaviour:
     MaxValue: 9
     MinValue: 3
   <Speed>k__BackingField:
-    MaxValue: 4
+    MaxValue: 6
     MinValue: 2
   <CriticalChance>k__BackingField:
     MaxValue: 0
