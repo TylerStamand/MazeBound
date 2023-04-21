@@ -33,9 +33,10 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
     [SerializeField] GameObject aimArrow;
 
 
-    public event Action<int> OnHealthChange;
+    public event Action<IDamageable, int> OnHealthChange;
     public event Action<int> OnWeaponScrapChange;
-    public event Action OnDie;
+
+    public event Action<IDamageable> OnDeath;
 
     public int WeaponScraps { get; private set; }
     public int BaseHealth { get; private set; }
@@ -81,8 +82,10 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
 
         //Damage
         CurrentHealth -= damageDealt;
+
+
         if (CurrentHealth < 0) CurrentHealth = 0;
-        OnHealthChange?.Invoke(CurrentHealth);
+        OnHealthChange?.Invoke(this, CurrentHealth);
 
 
         //Death
@@ -104,7 +107,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
         if (CurrentHealth > BaseHealth) {
             CurrentHealth = BaseHealth;
         }
-        OnHealthChange?.Invoke(CurrentHealth);
+        OnHealthChange?.Invoke(this, CurrentHealth);
     }
 
     public void AddWeaponScraps(int amount) {
@@ -249,7 +252,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
 
 
     void Die() {
-        OnDie?.Invoke();
+        OnDeath?.Invoke(this);
         GameManager.Instance.LoadHub();
     }
 
@@ -293,6 +296,11 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
 
         }
 
+    }
+
+    public int GetMaxHealth()
+    {
+        return BaseHealth;
     }
 }
 

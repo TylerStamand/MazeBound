@@ -20,9 +20,11 @@ public class Enemy : MonoBehaviour, IDamageable {
     [SerializeField] float stopDistance = 2;
     [SerializeField] ContactFilter2D contactFilter;
 
-    public float CurrentHealth { get; private set; }
+    public int CurrentHealth { get; private set; }
+    public string Name => enemyData.EnemyName;
 
-    public Action<Enemy> OnDie;
+    public event Action<IDamageable> OnDeath;
+    public event Action<IDamageable, int> OnHealthChange;
 
 
     protected new Collider2D collider;
@@ -74,7 +76,9 @@ public class Enemy : MonoBehaviour, IDamageable {
 
     public void TakeDamage(int damageDealt, DamageType damageType, float knockback) {
         if (inKnockback) return;
+        Debug.Log($"{gameObject.name} took {damageDealt} damage");
         CurrentHealth -= damageDealt;
+        OnHealthChange?.Invoke(this, CurrentHealth);
         if (knockback > 0) {
             StartCoroutine(Knockback(knockback));
         }
@@ -82,7 +86,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         if (CurrentHealth <= 0) {
             if (deathSound != null)
                 AudioSource.PlayClipAtPoint(deathSound, transform.position, GameManager.Instance.GetVolume());
-            OnDie?.Invoke(this);
+            OnDeath?.Invoke(this);
             Destroy(gameObject);
         }
     }
@@ -178,4 +182,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         currentWeapon.Use(directionToAttack);
     }
 
+    public int GetMaxHealth() {
+        return enemyData.Health;
+    }
 }

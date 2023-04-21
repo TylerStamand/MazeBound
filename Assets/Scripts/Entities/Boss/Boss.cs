@@ -86,7 +86,7 @@ public class Boss : MonoBehaviour {
 
 
         foreach (Tentacle tentacle in tentacles) {
-            tentacle.CurrentHealth = tentacleHealth;
+            tentacle.Initialize(tentacleHealth);
             tentacle.gameObject.SetActive(false);
             tentacle.OnDeath += HandleTentacleDeath;
         }
@@ -246,7 +246,7 @@ public class Boss : MonoBehaviour {
             SpawnRates.EnemySpawnRate enemySpawnRate = spawnRates.EnemySpawnRates[enemyIndex];
             Enemy enemy = Instantiate(enemySpawnRate.enemyData.EnemyPrefab, spawn.transform.position, Quaternion.identity);
             enemy.Initialize(enemySpawnRate.enemyData);
-            enemy.OnDie += HandleEnemyDeath;
+            enemy.OnDeath += HandleEnemyDeath;
             enemies.Add(enemy);
         }
 
@@ -264,13 +264,14 @@ public class Boss : MonoBehaviour {
         return throwTile;
     }
 
-    void HandleEnemyDeath(Enemy enemy) {
+    void HandleEnemyDeath(IDamageable enemy) {
 
-        enemies.Remove(enemy);
+        if (enemy is Enemy e)
+            enemies.Remove(e);
 
     }
 
-    void HandleTentacleDeath() {
+    void HandleTentacleDeath(IDamageable tentacle) {
         phase++;
         if (phase == 3) {
             StartCoroutine(Die());

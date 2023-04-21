@@ -98,6 +98,7 @@ public class Room : MonoBehaviour {
                     enemy.Initialize(enemySpawnRate.enemyData);
                     enemy.enabled = false;
                     roomEnemies.Add(enemy);
+                    EnemyManager.Instance.AddEnemy(enemy);
                     break;
                 }
 

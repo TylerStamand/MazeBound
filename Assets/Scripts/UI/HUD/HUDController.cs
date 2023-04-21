@@ -12,7 +12,7 @@ public class HUDController : MonoBehaviour {
         playerCharacter = FindObjectOfType<PlayerCharacter>();
         playerCharacter.OnHealthChange += HandleHealthChange;
         playerCharacter.OnWeaponScrapChange += HandleWeaponScrapChange;
-        HandleHealthChange(playerCharacter.CurrentHealth);
+        HandleHealthChange(playerCharacter, playerCharacter.CurrentHealth);
         HandleWeaponScrapChange(playerCharacter.WeaponScraps);
     }
 
@@ -21,7 +21,7 @@ public class HUDController : MonoBehaviour {
         playerCharacter.OnWeaponScrapChange -= HandleWeaponScrapChange;
     }
 
-    void HandleHealthChange(int health) {
+    void HandleHealthChange(IDamageable damageable, int health) {
         healthText.text = "Health: " + health;
     }
 
