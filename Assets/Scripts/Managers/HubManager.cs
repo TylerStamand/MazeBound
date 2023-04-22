@@ -19,7 +19,6 @@ public class HubManager : MonoBehaviour {
     [SerializeField] TriggerObject dungeon1Trigger;
     [SerializeField] TriggerObject dungeon2Trigger;
     [SerializeField] TriggerObject dungeon3Trigger;
-    [SerializeField] TriggerObject portalTrigger;
 
     [Header("Portal Stuff")]
     [SerializeField] Tilemap deactivatedPortal;
@@ -61,10 +60,7 @@ public class HubManager : MonoBehaviour {
                 GameManager.Instance.LoadMaze(3);
             };
 
-        if (portalTrigger != null)
-            portalTrigger.OnTriggerEnter += () => {
-                GameManager.Instance.LoadBoss();
-            };
+
 
         //Load player
         player = Instantiate(ResourceManager.Instance.PlayerPrefab, playerSpawn.transform.position, Quaternion.identity).GetComponent<PlayerCharacter>();
@@ -119,10 +115,15 @@ public class HubManager : MonoBehaviour {
         }
     }
 
+    public void OnPortalTriggered() {
+        StartCoroutine(HandlePortalTriggered());
+    }
+
     IEnumerator HandlePortalTriggered() {
         if (GameManager.Instance.PuzzlePiecesCollectedCount != 3) yield break;
-        deactivatedPortal.enabled = false;
-        activatedPortal.enabled = true;
+        deactivatedPortal.gameObject.SetActive(false);
+        activatedPortal.gameObject.SetActive(true);
+
         yield return new WaitForSeconds(2);
 
         DialogManager dialogManager = ShowDialog(portalDialog, FindObjectOfType<PlayerCharacter>(), "---");

@@ -13,7 +13,7 @@ public class HealthBarUI : MonoBehaviour {
     RectTransform rectTransform;
 
     IDamageable damageable;
-    Camera camera;
+    new Camera camera;
 
     public void Initialize(IDamageable damageable) {
         this.damageable = damageable;
@@ -24,14 +24,11 @@ public class HealthBarUI : MonoBehaviour {
 
     }
 
-
-
     void Update() {
         if (camera == null) {
             camera = Camera.main;
         } else {
             SetPosition();
-
         }
     }
 

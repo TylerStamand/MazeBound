@@ -239,7 +239,6 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
 
     void HandleInteract(IInteractable interactable) {
 
-
         interactable.Interact(this);
     }
 
