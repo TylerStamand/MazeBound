@@ -84,7 +84,7 @@ public class HubManager : MonoBehaviour {
         }
 
 
-        if (!GameManager.Instance.IntroCompleted) {
+        if (!GameManager.Instance.IntroCompleted && GameManager.Instance.PuzzlePiecesCollectedCount == 0) {
             PlayIntro();
         }
 
