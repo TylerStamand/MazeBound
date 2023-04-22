@@ -15,6 +15,7 @@ public class ThrowTile : MonoBehaviour {
     float height;
     float speed;
     int damage;
+    bool hurtPlayer;
 
 
     void Awake() {
@@ -29,6 +30,9 @@ public class ThrowTile : MonoBehaviour {
         shadowSprite.transform.position = new Vector3(transform.position.x, transform.position.y - height, transform.position.z);
 
         if (height <= 0) {
+            if (hurtPlayer) {
+                player.TakeDamage(damage);
+            }
             Destroy(gameObject);
         }
     }
@@ -40,6 +44,7 @@ public class ThrowTile : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D other) {
+        hurtPlayer = true;
         if (height > damageHeight) {
             return;
         }
@@ -49,5 +54,9 @@ public class ThrowTile : MonoBehaviour {
             Destroyed = true;
             gameObject.SetActive(false);
         }
+    }
+
+    void OnTriggerExit2D(Collider2D other) {
+        hurtPlayer = false;
     }
 }

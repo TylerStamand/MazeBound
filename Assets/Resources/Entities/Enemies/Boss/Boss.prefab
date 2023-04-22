@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 5811093299063718906}
   - component: {fileID: 4215890703673514614}
   - component: {fileID: 7330988020895121117}
+  - component: {fileID: 3673020018436565169}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -198,13 +199,12 @@ MonoBehaviour:
   floorTilemapPrefab: {fileID: 0}
   emptyTileSprite: {fileID: 0}
   throwTilePrefab: {fileID: 8837182708867348198, guid: da986994aa0654c4ea598cab84b308c1, type: 3}
-  tileSpeed: 0
-  screenFlashImage: {fileID: 0}
-  transformTime: 4
+  moveSpeed: 0
+  hightForShadow: 0
+  shadow: {fileID: 0}
   bossSprite: {fileID: 2084903103, guid: 74807727a550a4847a1c5d30c87debac, type: 3}
   guideSprite: {fileID: 312346648, guid: 65d922d0a5f5a214a8af76ef2ab83457, type: 3}
-  bossStartPosition: {x: 1.5, y: -6.66}
-  bossEndPosition: {x: 0, y: 0}
+  bossStartPosition: {fileID: 0}
   topRightWall: {fileID: 0}
   topLeftWall: {fileID: 0}
   bottomLeftWall: {fileID: 0}
@@ -221,3 +221,23 @@ MonoBehaviour:
   tileSpeed3: 5
   numberOfEnemies3: 5
   wallSpeed3: 5
+--- !u!95 &3673020018436565169
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8002414171089232896}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ac9608330c571ff47b4ca4b333d65c1f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0

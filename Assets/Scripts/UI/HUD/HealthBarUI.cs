@@ -29,6 +29,14 @@ public class HealthBarUI : MonoBehaviour {
             camera = Camera.main;
         } else {
             SetPosition();
+
+            Debug.Log(((MonoBehaviour)damageable).isActiveAndEnabled);
+            if (((MonoBehaviour)damageable).isActiveAndEnabled && healthBar.isActiveAndEnabled == false) {
+                healthBar.gameObject.SetActive(true);
+            } else if (((MonoBehaviour)damageable).isActiveAndEnabled == false && healthBar.isActiveAndEnabled) {
+                healthBar.gameObject.SetActive(false);
+
+            }
         }
     }
 
@@ -50,6 +58,8 @@ public class HealthBarUI : MonoBehaviour {
         healthBar.value = newHeath / (float)damageable.GetMaxHealth();
         if (damageable is Enemy e) {
             healthText.text = $"{e.Name}: {newHeath}/{damageable.GetMaxHealth()}";
+        } else {
+            healthText.text = $"Tentacle: {newHeath}/{damageable.GetMaxHealth()}";
         }
 
     }

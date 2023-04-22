@@ -40,6 +40,7 @@ public class Tentacle : MonoBehaviour, IDamageable {
     void Die() {
         OnDeath?.Invoke(this);
         GetComponent<SpriteRenderer>().color = Color.gray;
+        GetComponent<Animator>().enabled = false;
         //Make sprite gray
     }
 

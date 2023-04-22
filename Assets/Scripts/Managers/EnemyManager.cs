@@ -6,11 +6,11 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour {
     public static EnemyManager Instance { get; private set; }
 
-    public event Action<Enemy> EnemyAdded;
-    public event Action<Enemy> EnemyRemoved;
+    public event Action<IDamageable> EnemyAdded;
+    public event Action<IDamageable> EnemyRemoved;
     public event Action EnemiesCleared;
 
-    [SerializeField] List<Enemy> enemies = new List<Enemy>();
+    [SerializeField] List<IDamageable> enemies = new List<IDamageable>();
 
     void Awake() {
         if (Instance == null)
@@ -20,22 +20,23 @@ public class EnemyManager : MonoBehaviour {
         }
     }
 
-    public void AddEnemy(Enemy enemy) {
+    public void AddEnemy(IDamageable enemy) {
+        Debug.Log("Enemy Added");
         enemies.Add(enemy);
         EnemyAdded?.Invoke(enemy);
         enemy.OnDeath += RemoveEnemy;
     }
 
     public void RemoveEnemy(IDamageable enemy) {
-        enemies.Remove((Enemy)enemy);
-        EnemyRemoved?.Invoke((Enemy)enemy);
+        enemies.Remove(enemy);
+        EnemyRemoved?.Invoke(enemy);
     }
 
     public void ClearEnemies() {
         enemies.Clear();
     }
 
-    public List<Enemy> GetEnemies() {
+    public List<IDamageable> GetEnemies() {
         return enemies;
     }
 }

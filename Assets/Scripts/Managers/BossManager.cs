@@ -9,6 +9,7 @@ public class BossManager : MonoBehaviour {
 
         PlayerCharacter playerCharacter = Instantiate(ResourceManager.Instance.PlayerPrefab, playerSpawn.transform.position, Quaternion.identity).GetComponent<PlayerCharacter>();
         playerCharacter.Load();
+        
     }
 
     void Start() {
@@ -25,8 +26,6 @@ public class BossManager : MonoBehaviour {
 
         }
 
-        Debug.Log("Waiting");
-        yield return new WaitForSeconds(2f);
         Debug.Log("Starting boss fight");
         FindObjectOfType<Boss>().StartBossFight();
     }

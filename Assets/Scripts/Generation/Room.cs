@@ -66,9 +66,9 @@ public class Room : MonoBehaviour {
         if (player != null && !playerEnteredRoom) {
             playerEnteredRoom = true;
             OnRoomCompletion?.Invoke(this);
-            foreach (Enemy enemy in roomEnemies) {
-                enemy.enabled = true;
-            }
+            // foreach (Enemy enemy in roomEnemies) {
+            //     enemy.enabled = true;
+            // }
 
         }
     }
@@ -96,7 +96,7 @@ public class Room : MonoBehaviour {
                     //Spawn the enemy
                     Enemy enemy = Instantiate(enemySpawnRate.enemyData.EnemyPrefab, enemySpawn.transform.position, Quaternion.identity);
                     enemy.Initialize(enemySpawnRate.enemyData);
-                    enemy.enabled = false;
+                    // enemy.enabled = false;
                     roomEnemies.Add(enemy);
                     EnemyManager.Instance.AddEnemy(enemy);
                     break;

@@ -17,9 +17,10 @@ public class HealthBarUIController : MonoBehaviour {
         enemyManager.GetEnemies().ForEach(Subscribe);
 
     }
-    
+
 
     public void Subscribe(IDamageable damageable) {
+        Debug.Log("Subscribing");
         if (healthBarDict.ContainsKey(damageable)) {
             return;
         }
