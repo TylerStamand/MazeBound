@@ -26,7 +26,7 @@ MonoBehaviour:
 
 '
   - "To move, use 'WASD'\r"
-  - "To open your invantory press 'I'.\r Here you'll find your sword. Press 'ESC'
+  - "To open your inventory press 'I'.\r Here you'll find your sword. Press 'ESC'
     to close any menu you might find yourself in.\n"
   - Press F to interact If you find anyone else in the maze or see any chests and
     other suspicious objects.
