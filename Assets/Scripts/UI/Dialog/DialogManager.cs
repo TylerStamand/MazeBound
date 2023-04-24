@@ -90,7 +90,6 @@ public class DialogManager : MonoBehaviour {
         yield return null;
 
         while (true) {
-            Debug.Log("Page: " + dialogText.pageToDisplay + " of " + dialogText.textInfo.pageCount + " | " + dialogText.maxVisibleCharacters + " of " + dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex + 1);
             //Exit coroutine when all pages are displayed
             if (dialogText.pageToDisplay >= dialogText.textInfo.pageCount && dialogText.maxVisibleCharacters >= dialogText.textInfo.pageInfo[dialogText.pageToDisplay - 1].lastCharacterIndex + 1) {
                 //Weird logic, if there needs to be a choice, we exit but keep the last page being displayed so its visible with choice buttons, 

@@ -95,16 +95,13 @@ public class DungeonGenerator : MonoBehaviour {
 
 
 
-    //try each side of room
-    //pick an edge floor tile
-    //check if room is within an area of floor tile in the direction chosen
+    //Pick an edge floor tile for each room
+    //Find the center of the room within the world
+    //Spawn the room and check if it conflicts with other rooms
+    //If it does, destroy it and skip to the next room
     //Build connection to it
-    //decide on a room to spawn
-    //decide on center of that room 
-    //make minimum distance for center 5 + half the length of the room in the direction
-    //make the other axis a random value from floor tile +- length of room in that axis
-    //Check if spawning the room conflicts with already placed rooms
-    //If not, Build connection to it
+
+
     Room SpawnRoom(Room baseRoom, Room addedRoomPrefab, Direction direction) {
         if (baseRoom == null || addedRoomPrefab == null) return null;
 
@@ -113,10 +110,12 @@ public class DungeonGenerator : MonoBehaviour {
         BoundsInt baseBounds = baseRoom.FloorTileSet.cellBounds;
         BoundsInt addBounds = addedRoomPrefab.FloorTileSet.cellBounds;
 
+        //Finds the connection point of the base room and the room to be added
         Vector3Int baseConnectionPoint = GetConnectionPoint(baseBounds, direction);
         Vector3Int additionConnectionPoint = GetConnectionPoint(addBounds, Utilities.GetOppDirection(direction));
-        Vector3Int additionCellCenterPoint;
 
+        //Finds where the center of the room would be in the tilemap of the base room
+        Vector3Int additionCellCenterPoint;
         if (direction == Direction.North) {
             additionCellCenterPoint = new Vector3Int(baseConnectionPoint.x - additionConnectionPoint.x, baseConnectionPoint.y + minimumRoomDistance - additionConnectionPoint.y);
         } else if (direction == Direction.South) {
@@ -131,6 +130,8 @@ public class DungeonGenerator : MonoBehaviour {
         Vector3 additionCenterWorld = baseRoom.FloorTileSet.GetCellCenterWorld(additionCellCenterPoint);
         additionCenterWorld.y -= .5f;
         additionCenterWorld.x -= .5f;
+
+        //Spawns the room
         spawnedAddition = Instantiate(addedRoomPrefab, additionCenterWorld, Quaternion.identity, dungeonGrid.transform);
         spawnedAddition.OnNPCFound += (x) => OnNPCFound?.Invoke(x);
         spawnedAddition.OnShrineFound += (x) => OnShrineFound?.Invoke(mazeLevel, x);
@@ -182,7 +183,6 @@ public class DungeonGenerator : MonoBehaviour {
         Vector3Int hallEnd = hallTilemapFloors.WorldToCell(spawnedAddition.FloorTileSet.CellToWorld(additionConnectionPoint));
 
 
-        //LOOK FOR REASON THIS IS HAPPENING
         if (direction == Direction.North || direction == Direction.South) {
             hallStart.x--;
             hallEnd.x--;
@@ -192,6 +192,7 @@ public class DungeonGenerator : MonoBehaviour {
             hallEnd.y--;
         }
 
+        //Finally, draw the hallway
         DrawHallway(hallStart, hallEnd, direction);
 
         return spawnedAddition;
