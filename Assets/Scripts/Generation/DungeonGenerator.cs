@@ -110,11 +110,11 @@ public class DungeonGenerator : MonoBehaviour {
         BoundsInt baseBounds = baseRoom.FloorTileSet.cellBounds;
         BoundsInt addBounds = addedRoomPrefab.FloorTileSet.cellBounds;
 
-        //Finds the connection point of the base room and the room to be added
+        //1. Finds the connection point of the base room and the room to be added
         Vector3Int baseConnectionPoint = GetConnectionPoint(baseBounds, direction);
         Vector3Int additionConnectionPoint = GetConnectionPoint(addBounds, Utilities.GetOppDirection(direction));
 
-        //Finds where the center of the room would be in the tilemap of the base room
+        //2.1 Finds where the center of the room would be in the tilemap of the base room
         Vector3Int additionCellCenterPoint;
         if (direction == Direction.North) {
             additionCellCenterPoint = new Vector3Int(baseConnectionPoint.x - additionConnectionPoint.x, baseConnectionPoint.y + minimumRoomDistance - additionConnectionPoint.y);
@@ -126,22 +126,22 @@ public class DungeonGenerator : MonoBehaviour {
             additionCellCenterPoint = new Vector3Int(baseConnectionPoint.x - minimumRoomDistance - additionConnectionPoint.x, baseConnectionPoint.y - additionConnectionPoint.y);
         }
 
-        //This cell coordinates based on the tilemap of the current base Room, not of the original spawned Room. Meaning they are all relative 
+        //2.2 This cell coordinates based on the tilemap of the current base Room, not of the original spawned Room. Meaning they are all relative 
         Vector3 additionCenterWorld = baseRoom.FloorTileSet.GetCellCenterWorld(additionCellCenterPoint);
         additionCenterWorld.y -= .5f;
         additionCenterWorld.x -= .5f;
 
-        //Spawns the room
+        //3. Spawns the room
         spawnedAddition = Instantiate(addedRoomPrefab, additionCenterWorld, Quaternion.identity, dungeonGrid.transform);
         spawnedAddition.OnNPCFound += (x) => OnNPCFound?.Invoke(x);
         spawnedAddition.OnShrineFound += (x) => OnShrineFound?.Invoke(mazeLevel, x);
 
 
-        //Turns colliders off to avoid messing with collision detection of already existing room
+        //4. Turns colliders off to avoid messing with collision detection of already existing room
         foreach (Collider2D collider2D in spawnedAddition.GetComponentsInChildren<Collider2D>()) {
             collider2D.enabled = false;
         }
-        //Check for already spawned buildings in the area it would be spawned
+        //4.1 Check for already spawned buildings in the area it would be spawned
         List<Tilemap> tilemaps = new List<Tilemap>(spawnedAddition.GetComponentsInChildren<Tilemap>());
         foreach (Tilemap tilemap in tilemaps) {
             BoundsInt bounds = tilemap.cellBounds;
@@ -172,7 +172,7 @@ public class DungeonGenerator : MonoBehaviour {
             }
         }
 
-        //Turns colliders back on for new room
+        //4.2 Turns colliders back on for new room
         foreach (Collider2D collider2D in spawnedAddition.GetComponentsInChildren<Collider2D>()) {
             collider2D.enabled = true;
         }
@@ -192,7 +192,7 @@ public class DungeonGenerator : MonoBehaviour {
             hallEnd.y--;
         }
 
-        //Finally, draw the hallway
+        //5 Finally, draw the hallway
         DrawHallway(hallStart, hallEnd, direction);
 
         return spawnedAddition;
