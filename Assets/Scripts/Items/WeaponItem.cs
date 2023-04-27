@@ -48,7 +48,7 @@ public class WeaponItem : Item, IUpgradeable {
     }
 
     public int GetScrapValue() {
-        return (int)(Damage.CurrentValue + Speed.CurrentValue + CriticalChance.CurrentValue) * 30;
+        return (int)(Damage.CurrentValue + Speed.CurrentValue + (CriticalChance.CurrentValue / 10f)) * 30;
     }
 
 
