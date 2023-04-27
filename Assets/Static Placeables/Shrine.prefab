@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -4371515176198822341}
   - component: {fileID: 7160230490507342556}
   - component: {fileID: -3890864642375923247}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shrine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7778236813125525786}
   - component: {fileID: 1732074109534633905}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
