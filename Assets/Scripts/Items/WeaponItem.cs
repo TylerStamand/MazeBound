@@ -32,7 +32,7 @@ public class WeaponItem : Item, IUpgradeable {
         string description = "";
         description += $"Damage: {Damage.CurrentValue.ToString("N", CultureInfo.CurrentCulture)} Lvl: {Damage.Level}\n";
         description += $"Speed: {Speed.CurrentValue} Lvl: {Speed.Level}\n";
-        description += $"CriticalChance: {CriticalChance.CurrentValue} Lvl: {CriticalChance.Level}\n";
+        description += $"CriticalChance: {Math.Min(CriticalChance.CurrentValue, 100)} Lvl: {CriticalChance.Level}\n";
         description += "\n";
         description += $"Scrap Value: {GetScrapValue()}\n";
 

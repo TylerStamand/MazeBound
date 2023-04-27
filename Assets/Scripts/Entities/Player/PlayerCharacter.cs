@@ -222,7 +222,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
         weaponHolder.transform.localRotation = Quaternion.identity;
         weaponInstance.transform.localPosition = Vector3.zero;
         weaponInstance.transform.localRotation = Quaternion.identity;
-        weaponInstance.Initialize(true, (int)weaponItem.Damage.CurrentValue, weaponItem.Speed.CurrentValue, weaponItem.CriticalChance.CurrentValue);
+        weaponInstance.Initialize(true, (int)weaponItem.Damage.CurrentValue, weaponItem.Speed.CurrentValue, Math.Min(weaponItem.CriticalChance.CurrentValue, 100));
 
     }
 

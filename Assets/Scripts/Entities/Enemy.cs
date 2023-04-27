@@ -95,7 +95,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     void EquipWeapon() {
         currentWeapon = Instantiate(enemyData.WeaponPrefab, weaponHolder.transform);
         currentWeapon.transform.localPosition = Vector3.zero;
-        currentWeapon.Initialize(false, enemyData.Damage, enemyData.AttackSpeed, enemyData.CriticalChance);
+        currentWeapon.Initialize(false, enemyData.Damage, enemyData.AttackSpeed, Math.Min(enemyData.CriticalChance, 100));
     }
 
 

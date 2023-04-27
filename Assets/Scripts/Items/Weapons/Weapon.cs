@@ -69,4 +69,11 @@ public abstract class Weapon : MonoBehaviour {
 
         initialized = true;
     }
+
+    protected int GetDamage() {
+        if (CriticalChange > Random.Range(0, 100)) {
+            return (int)(Damage * 1.5f);
+        }
+        return Damage;
+    }
 }
