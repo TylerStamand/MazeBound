@@ -19,7 +19,8 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
     [SerializeField] RuntimeAnimatorController femaleAnimator;
 
     [Header("Sounds")]
-    [SerializeField] AudioClip hitSound;
+    [SerializeField] AudioClip hitSoundMale;
+    [SerializeField] AudioClip hitSoundFemale;
     [SerializeField] AudioClip deathSound;
     [SerializeField] AudioClip healSound;
     [SerializeField] AudioClip interactSound;
@@ -82,8 +83,13 @@ public class PlayerCharacter : MonoBehaviour, IDamageable, ISaveLoad {
 
 
         //Hit Sound
-        if (hitSound != null)
-            AudioSource.PlayClipAtPoint(hitSound, transform.position, GameManager.Instance.GetVolume());
+        if (GameManager.Instance.IsGuy) {
+            if (hitSoundMale != null)
+                AudioSource.PlayClipAtPoint(hitSoundMale, transform.position, GameManager.Instance.GetVolume());
+        } else {
+            if (hitSoundFemale != null)
+                AudioSource.PlayClipAtPoint(hitSoundFemale, transform.position, GameManager.Instance.GetVolume());
+        }
 
 
         //Damage
