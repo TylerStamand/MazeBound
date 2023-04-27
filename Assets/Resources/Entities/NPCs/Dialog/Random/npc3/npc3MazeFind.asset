@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: npc3MazeFind
   m_EditorClassIdentifier: 
   Sentences:
-  - Oh goodness! You scared me. I though you were a monster.
+  - Oh goodness! You scared me. I thought you were a monster.
   - Please tell me you know where you are going?
   <IsChoice>k__BackingField: 1
   YesDialog:

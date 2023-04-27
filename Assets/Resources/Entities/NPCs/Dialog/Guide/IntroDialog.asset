@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IntroDialog
   m_EditorClassIdentifier: 
   Sentences:
-  - "Hello, are you a person? \rAre you okay?"
+  - "Hello, your a person? \rAre you okay?"
   - "I've been here for years! You listen to me, you'll live long. \r\n"
   - This room seems to be a safe area, free of the monsters on the outside. I have
     been hiding here since I found it. This thing next to me seems to be a way out,

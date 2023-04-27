@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9e9ca972247eb541bf0d4cbd58874a4, type: 3}
-  m_Name: BossFightIntro
+  m_Name: HubDialog7
   m_EditorClassIdentifier: 
   Sentences:
-  - I wish you would have just died in the maze!
+  - I see you didn't take my advice, but I suppose you'll learn from your mistakes.
   <IsChoice>k__BackingField: 0
   YesDialog: []
   NoDialog: []
