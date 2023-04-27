@@ -13,7 +13,7 @@ public class Sword : Weapon {
             if (!playerWeapon && collider.GetComponent<Enemy>() != null)
                 return;
 
-            damageable.TakeDamage(Damage, DamageType.Default, knockBack);
+            damageable.TakeDamage(GetDamage(), DamageType.Default, knockBack);
             if (hitSound != null)
                 AudioSource.PlayClipAtPoint(hitSound, transform.position, GameManager.Instance.GetVolume());
         }
