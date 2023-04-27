@@ -56,9 +56,15 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   GeneralDialog:
-  - {fileID: 11400000, guid: 418b639d3b9a81e44a5869c3f125d96e, type: 2}
-  - {fileID: 11400000, guid: 94c915b9f6a430f42a558fa63f394564, type: 2}
-  - {fileID: 11400000, guid: a2ab547b49f2d5348ae4049ac5a1afa2, type: 2}
+  - {fileID: 11400000, guid: d080d7fbf83d96746b16f81f56801413, type: 2}
+  - {fileID: 11400000, guid: 8dc03b46f992a9d46be9e848ef108c25, type: 2}
+  - {fileID: 11400000, guid: d6d76dbcfe5a6304a96f0c4f533a08ac, type: 2}
+  - {fileID: 11400000, guid: e64c1681e9e66ab408f8d62f49651982, type: 2}
+  - {fileID: 11400000, guid: 1a70050725a31fc43b662132d1cfb749, type: 2}
+  - {fileID: 11400000, guid: 197e8171526aa684983cf27608596aa1, type: 2}
+  - {fileID: 11400000, guid: de5de04ae1270554086596e7ede6e8ec, type: 2}
+  - {fileID: 11400000, guid: 04db117195007e54883f54cf16ef1f41, type: 2}
+  <IsGuide>k__BackingField: 0
   isVendor: 0
   shop: {fileID: 0}
 --- !u!212 &1191952967
