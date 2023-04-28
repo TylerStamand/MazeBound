@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3873990133628319290
 MonoBehaviour:
@@ -47,10 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2e8eac36984b74a8adada6bfd906ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Eager Man
-  MazeEncounterDialog: {fileID: 11400000, guid: a771b03371020e845ac3449281cbd2a5, type: 2}
-  MazeAfterEncounterDialog: {fileID: 11400000, guid: c6c93b7cc0c89434e8cf8e1e593251f7, type: 2}
-  HubFirstEncounterDialog: {fileID: 11400000, guid: 65572f7fc51760a47922d7ae281848d3, type: 2}
+  <Name>k__BackingField: Guide
+  MazeEncounterDialog: {fileID: 0}
+  MazeAfterEncounterDialog: {fileID: 0}
+  HubFirstEncounterDialog: {fileID: 0}
   PuzzlePieceDialog:
   - {fileID: 0}
   - {fileID: 0}
@@ -64,7 +64,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 197e8171526aa684983cf27608596aa1, type: 2}
   - {fileID: 11400000, guid: de5de04ae1270554086596e7ede6e8ec, type: 2}
   - {fileID: 11400000, guid: 04db117195007e54883f54cf16ef1f41, type: 2}
-  <IsGuide>k__BackingField: 0
+  <IsGuide>k__BackingField: 1
   isVendor: 0
   shop: {fileID: 0}
 --- !u!212 &1191952967
@@ -108,7 +108,7 @@ SpriteRenderer:
   m_SortingLayerID: -977925959
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1601212836, guid: 5eaf1a4ac095b3342abd6d71dfd81afd, type: 3}
+  m_Sprite: {fileID: 312346648, guid: 65d922d0a5f5a214a8af76ef2ab83457, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -155,7 +155,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.5625, y: 0.90625}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -172,9 +172,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3873990133628319291}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 71d6d7beb0e0ca14090775dd5cf4a713, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

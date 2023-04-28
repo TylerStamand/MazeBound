@@ -1563,26 +1563,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 82953355}
     m_Modifications:
-    - target: {fileID: -4135013102777559973, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4135013102777559973, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1191952967, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 312346648, guid: 65d922d0a5f5a214a8af76ef2ab83457, type: 3}
-    - target: {fileID: 1191952968, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.5625
-      objectReference: {fileID: 0}
-    - target: {fileID: 1191952968, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.90625
-      objectReference: {fileID: 0}
     - target: {fileID: 3873990133628319289, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -1626,26 +1606,6 @@ PrefabInstance:
     - target: {fileID: 3873990133628319289, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873990133628319290, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
-      propertyPath: MazeEncounterDialog
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873990133628319290, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
-      propertyPath: <Name>k__BackingField
-      value: Guide
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873990133628319290, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
-      propertyPath: HubFirstEncounterDialog
-      value: 
-      objectReference: {fileID: 11400000, guid: 2580cfed70db4734d99fb1d599a47d1b, type: 2}
-    - target: {fileID: 3873990133628319290, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
-      propertyPath: <IsGuide>k__BackingField
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873990133628319290, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
-      propertyPath: MazeAfterEncounterDialog
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3873990133628319291, guid: ffc49b96b8f074349abf88ef26422629, type: 3}
       propertyPath: m_Name
@@ -1695,7 +1655,6 @@ MonoBehaviour:
   dungeon1Trigger: {fileID: 1752776192}
   dungeon2Trigger: {fileID: 1960388300}
   dungeon3Trigger: {fileID: 1894035960}
-  portalTrigger: {fileID: 0}
   deactivatedPortal: {fileID: 1809392111}
   activatedPortal: {fileID: 178298014}
   portalDialog: {fileID: 11400000, guid: 3e1e2132bbc6d6443a9f421bbac26ff3, type: 2}
