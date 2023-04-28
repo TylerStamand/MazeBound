@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: StrongerCyclops 1
   m_EditorClassIdentifier: 
   <EnemyName>k__BackingField: Stronger Cyclops
-  <Health>k__BackingField: 40
+  <Health>k__BackingField: 60
   <EnemyPrefab>k__BackingField: {fileID: -2914886117922418386, guid: 33cfc1042c8eca44e9760ebe6fa1067d, type: 3}
   <WeaponPrefab>k__BackingField: {fileID: 7063205943396213531, guid: eea8384336c1c344b893129eebde44de, type: 3}
   <Damage>k__BackingField: 15
   <AttackSpeed>k__BackingField: 4
-  <CriticalChance>k__BackingField: 3
+  <CriticalChance>k__BackingField: 15

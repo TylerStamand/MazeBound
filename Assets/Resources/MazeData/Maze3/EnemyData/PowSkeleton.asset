@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: PowSkeleton
   m_EditorClassIdentifier: 
   <EnemyName>k__BackingField: Powerful Skeleton
-  <Health>k__BackingField: 45
+  <Health>k__BackingField: 70
   <EnemyPrefab>k__BackingField: {fileID: -2914886117922418386, guid: 90351ead4d5d6394dbdf837d293954d5, type: 3}
   <WeaponPrefab>k__BackingField: {fileID: 7404189788588101358, guid: a7b340e35960b8c4b8632648f8290c0c, type: 3}
   <Damage>k__BackingField: 10
   <AttackSpeed>k__BackingField: 15
-  <CriticalChance>k__BackingField: 3
+  <CriticalChance>k__BackingField: 20

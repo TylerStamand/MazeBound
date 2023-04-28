@@ -27,8 +27,8 @@ MonoBehaviour:
     MaxValue: 10
     MinValue: 6
   <CriticalChance>k__BackingField:
-    MaxValue: 0
-    MinValue: 0
+    MaxValue: 60
+    MinValue: 45
   <UpgradeCostBase>k__BackingField: 300
   <UpgradeCostBaseMultiplier>k__BackingField: 0.1
   <UpgradeValueMultiplier>k__BackingField: 0.3
