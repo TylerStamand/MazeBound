@@ -147,6 +147,7 @@ public class GameManager : MonoBehaviour {
         Debug.Log("Saving Game Manager");
         GameSaveData gameSaveData = new GameSaveData() {
             PuzzlePiecesCollected = PuzzlePiecesCollected,
+            IntroCompleted = IntroCompleted,
             IsGuy = IsGuy
         };
         SaveManager.Instance.SetData(SaveDataID, gameSaveData);
