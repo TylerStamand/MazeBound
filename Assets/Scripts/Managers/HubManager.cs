@@ -83,7 +83,7 @@ public class HubManager : MonoBehaviour {
                 npc.gameObject.SetActive(npc.MazeEncounterComplete);
         }
 
-
+        Debug.Log(GameManager.Instance.IntroCompleted + " " + GameManager.Instance.PuzzlePiecesCollectedCount);
         if (!GameManager.Instance.IntroCompleted && GameManager.Instance.PuzzlePiecesCollectedCount == 0) {
             PlayIntro();
         }
@@ -148,6 +148,7 @@ public class HubManager : MonoBehaviour {
     }
 
     void PlayIntro() {
+        Debug.Log("Playing Intro");
         player.transform.position = tutorialSpawn.transform.position;
 
 
@@ -157,7 +158,7 @@ public class HubManager : MonoBehaviour {
                 GameManager.Instance.SetIntroCompleted();
                 Destroy(dialogManager.gameObject);
                 FindObjectOfType<PlayerCharacter>().ExitMenu();
-
+                GameManager.Instance.SetIntroCompleted();
 
             };
         }

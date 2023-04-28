@@ -47,7 +47,11 @@ public class UpgradeableStat {
         }
 
         Level++;
-        CurrentValue += BaseValue * UpgradeValueMultiplier;
+        if (Name.Equals("Critical Chance")) {
+            CurrentValue += BaseValue * (UpgradeValueMultiplier / 5);
+        } else {
+            CurrentValue += BaseValue * UpgradeValueMultiplier;
+        }
         UpgradeCost += (int)(UpgradeCostBase * UpgradeCostMultiplier);
         OnUpgrade?.Invoke();
         return true;
