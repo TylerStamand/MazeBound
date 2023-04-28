@@ -30,7 +30,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 796.46674, y: 585.12195, z: -7.6849437}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -57,6 +57,7 @@ MonoBehaviour:
   - {fileID: 0}
   GeneralDialog:
   - {fileID: 11400000, guid: c08a191b611ff3a4abedd2093362be97, type: 2}
+  <IsGuide>k__BackingField: 0
   isVendor: 1
   shop: {fileID: 1711880255580445780, guid: 2f71723e4aae3be479ad116912e9ec5b, type: 3}
 --- !u!212 &1191952967

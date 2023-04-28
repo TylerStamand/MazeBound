@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MiddleMan 2
   m_EditorClassIdentifier: 
   Sentences:
-  - My son is an experienced wizard, he would of gotten us out of here by now...
+  - My son is an experienced wizard, he would have gotten us out of here by now...
   <IsChoice>k__BackingField: 0
   YesDialog:
   - 
