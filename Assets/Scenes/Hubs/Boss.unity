@@ -6968,10 +6968,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1458957183, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5811093299063718906, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -7017,26 +7013,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7330988020895121117, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
-      propertyPath: shadow
-      value: 
-      objectReference: {fileID: 8859756205998838745}
-    - target: {fileID: 7330988020895121117, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
-      propertyPath: moveSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7330988020895121117, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
-      propertyPath: tileSpeed1
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7330988020895121117, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
-      propertyPath: tileSpeed2
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7330988020895121117, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
-      propertyPath: tileSpeed3
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7330988020895121117, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
       propertyPath: topLeftWall
       value: 
       objectReference: {fileID: 1283412795}
@@ -7053,41 +7029,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1419377947}
     - target: {fileID: 7330988020895121117, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
-      propertyPath: hightForShadow
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7330988020895121117, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
-      propertyPath: bossIntroDialog
-      value: 
-      objectReference: {fileID: 11400000, guid: 00fcdf6fe0164a0498c55cbd7c5c0bd1, type: 2}
-    - target: {fileID: 7330988020895121117, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
       propertyPath: bottomRightWall
       value: 
       objectReference: {fileID: 364592236}
     - target: {fileID: 7330988020895121117, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
-      propertyPath: numberOfEnemies2
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7330988020895121117, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
-      propertyPath: numberOfEnemies3
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7330988020895121117, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
-      propertyPath: bossEndPosition.x
-      value: -0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7330988020895121117, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
       propertyPath: bossStartPosition
       value: 
       objectReference: {fileID: 541459672}
-    - target: {fileID: 7330988020895121117, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
-      propertyPath: timeForTileAttack
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7330988020895121117, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
-      propertyPath: bossDefeatedDialog
-      value: 
-      objectReference: {fileID: 11400000, guid: 5af042b4f1aace24bbf96ade565d829f, type: 2}
     - target: {fileID: 7330988020895121117, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
       propertyPath: tentacles.Array.data[0]
       value: 
@@ -7100,10 +7048,6 @@ PrefabInstance:
       propertyPath: tentacles.Array.data[2]
       value: 
       objectReference: {fileID: 90045317}
-    - target: {fileID: 7330988020895121117, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
-      propertyPath: timeBetweenAttackSwitch
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 8002414171089232896, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
       propertyPath: m_Name
       value: Boss
@@ -7113,11 +7057,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
---- !u!1 &8859756205998838745 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1458957183, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
-  m_PrefabInstance: {fileID: 8859756205998838744}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1839735485 &9176439950385068774
 Tilemap:
   m_ObjectHideFlags: 0

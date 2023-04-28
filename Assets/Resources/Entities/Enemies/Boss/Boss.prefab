@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1458957184
 Transform:
   m_ObjectHideFlags: 0
@@ -187,21 +187,22 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  bossIntroDialog: {fileID: 0}
-  bossDefeatedDialog: {fileID: 0}
-  tentacleHealth: 15
+  bossDie: {fileID: 8300000, guid: 6dd9666fbaf12a244b71744f9fb8fcd4, type: 3}
+  bossIntroDialog: {fileID: 11400000, guid: 00fcdf6fe0164a0498c55cbd7c5c0bd1, type: 2}
+  bossDefeatedDialog: {fileID: 11400000, guid: 5af042b4f1aace24bbf96ade565d829f, type: 2}
+  tentacleHealth: 75
   tileAttackDamage: 5
   wallAttackDamage: 5
-  timeBetweenAttackSwitch: 5
-  timeForTileAttack: 5
-  spawnRates: {fileID: 11400000, guid: a6d68ff79e7f1fe44a93d86a31081dd1, type: 2}
+  timeBetweenAttackSwitch: 3
+  timeForTileAttack: 15
+  spawnRates: {fileID: 11400000, guid: 7e4de733ffa9ddf4595b310d6ca9ff8f, type: 2}
   floorTilemap: {fileID: 0}
   floorTilemapPrefab: {fileID: 0}
   emptyTileSprite: {fileID: 0}
   throwTilePrefab: {fileID: 8837182708867348198, guid: da986994aa0654c4ea598cab84b308c1, type: 3}
-  moveSpeed: 0
-  hightForShadow: 0
-  shadow: {fileID: 0}
+  moveSpeed: 3
+  hightForShadow: 4.5
+  shadow: {fileID: 1458957183}
   bossSprite: {fileID: 2084903103, guid: 74807727a550a4847a1c5d30c87debac, type: 3}
   guideSprite: {fileID: 312346648, guid: 65d922d0a5f5a214a8af76ef2ab83457, type: 3}
   bossStartPosition: {fileID: 0}
@@ -210,16 +211,16 @@ MonoBehaviour:
   bottomLeftWall: {fileID: 0}
   bottomRightWall: {fileID: 0}
   timeBetweenTileAttacks1: 5
-  tileSpeed1: 5
+  tileSpeed1: 2
   numberOfEnemies1: 5
   wallSpeed1: 5
   timeBetweenTileAttacks2: 5
-  tileSpeed2: 5
-  numberOfEnemies2: 5
+  tileSpeed2: 3
+  numberOfEnemies2: 8
   wallSpeed2: 5
   timeBetweenTileAttacks3: 5
-  tileSpeed3: 5
-  numberOfEnemies3: 5
+  tileSpeed3: 4
+  numberOfEnemies3: 10
   wallSpeed3: 5
 --- !u!95 &3673020018436565169
 Animator:

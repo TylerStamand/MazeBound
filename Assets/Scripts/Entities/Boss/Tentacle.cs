@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Tentacle : MonoBehaviour, IDamageable {
 
+    [SerializeField] AudioClip bossHurt;
+
     public event Action<IDamageable> OnDeath;
     public event Action<IDamageable, int> OnHealthChange;
 
@@ -26,6 +28,9 @@ public class Tentacle : MonoBehaviour, IDamageable {
         if (dead) {
             return;
         }
+
+        if (bossHurt != null)
+            AudioSource.PlayClipAtPoint(bossHurt, transform.position, GameManager.Instance.GetVolume());
 
         CurrentHealth -= damageDealt;
         OnHealthChange?.Invoke(this, CurrentHealth);

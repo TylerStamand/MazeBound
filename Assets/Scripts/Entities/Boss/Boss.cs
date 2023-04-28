@@ -11,7 +11,7 @@ public class Boss : MonoBehaviour {
 
 
     [SerializeField] List<Tentacle> tentacles;
-
+    [SerializeField] AudioClip bossDie;
 
     [Header("Boss Dialog")]
     [SerializeField] Dialog bossIntroDialog;
@@ -25,7 +25,6 @@ public class Boss : MonoBehaviour {
     [SerializeField] int timeForTileAttack;
     [SerializeField] SpawnRates spawnRates;
 
-    [Header("Move Settings")]
 
     [Header("Tile Attack")]
     [SerializeField] Tilemap floorTilemap;
@@ -339,6 +338,10 @@ public class Boss : MonoBehaviour {
         topLeftWall.ResetToStartPosition();
         bottomLeftWall.ResetToStartPosition();
         bottomRightWall.ResetToStartPosition();
+
+        if (bossDie != null)
+            AudioSource.PlayClipAtPoint(bossDie, transform.position, GameManager.Instance.GetVolume());
+
 
         yield return new WaitForSeconds(3f);
 
