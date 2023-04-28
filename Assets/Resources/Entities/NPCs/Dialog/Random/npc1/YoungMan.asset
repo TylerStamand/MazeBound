@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: YoungMan
   m_EditorClassIdentifier: 
   Sentences:
-  - 'Don''t worry, I can protect people while your away!
+  - 'Don''t worry, I can protect people while you''re away!
 
 '
   <IsChoice>k__BackingField: 0
