@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sentences:
   - Thank you for helping me, now I am more powerful than ever!
+  - Now you will bear witness to my true form!
   <IsChoice>k__BackingField: 0
   YesDialog:
   - '[Opens Invantory]

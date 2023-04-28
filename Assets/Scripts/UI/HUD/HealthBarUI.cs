@@ -30,7 +30,6 @@ public class HealthBarUI : MonoBehaviour {
         } else {
             SetPosition();
 
-            Debug.Log(((MonoBehaviour)damageable).isActiveAndEnabled);
             if (((MonoBehaviour)damageable).isActiveAndEnabled && healthBar.isActiveAndEnabled == false) {
                 healthBar.gameObject.SetActive(true);
             } else if (((MonoBehaviour)damageable).isActiveAndEnabled == false && healthBar.isActiveAndEnabled) {

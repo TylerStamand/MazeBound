@@ -347,6 +347,9 @@ public class Boss : MonoBehaviour {
         yield return Transform(guideSprite);
 
         DialogManager dialogManager = ShowDialog(bossDefeatedDialog, playerCharacter);
+        dialogManager.OnDialogComplete += (x) => {
+            StartCoroutine(BossManager.Instance.HandleBossFightOver());
+        };
 
     }
 

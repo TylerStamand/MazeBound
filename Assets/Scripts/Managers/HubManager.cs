@@ -124,7 +124,7 @@ public class HubManager : MonoBehaviour {
         deactivatedPortal.gameObject.SetActive(false);
         activatedPortal.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
 
         DialogManager dialogManager = ShowDialog(portalDialog, FindObjectOfType<PlayerCharacter>(), "---");
         if (dialogManager != null) {

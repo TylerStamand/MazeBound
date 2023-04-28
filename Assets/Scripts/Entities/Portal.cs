@@ -5,6 +5,9 @@ using UnityEngine;
 public class Portal : MonoBehaviour, IInteractable {
     public void Interact(PlayerCharacter playerCharacter) {
         Debug.Log("Portal Interact");
-        HubManager.Instance.OnPortalTriggered();
+        if(HubManager.Instance != null)
+            HubManager.Instance.OnPortalTriggered();
+        else if(BossManager.Instance != null)
+            StartCoroutine(BossManager.Instance.HandlePortalTriggered());
     }
 }

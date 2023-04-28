@@ -32,5 +32,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Hubs/Boss.unity
     guid: 92589404cd7b73f4fb44b47425db9e0c
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 42447796c1c745447b2dbb7010328d3a
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 2b00f6f149d782f41ada33eb14c1841b, type: 2}

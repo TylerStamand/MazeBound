@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 297839e00b59be1478e4e48fadb1e23f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overridePuzzlePieceCount: 0
+  overridePuzzlePieceCount: 1
   puzzlePieceOverride: 3
   maze1: Maze1
   maze2: Maze2
@@ -162,6 +162,7 @@ MonoBehaviour:
   hub2: Hub2
   hub3: Hub3
   bossScene: Boss
+  endScreenScene: GameOver
 --- !u!4 &549839484
 Transform:
   m_ObjectHideFlags: 0

@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour {
 
     [Scene]
     [SerializeField] string bossScene;
+    [Scene]
+    [SerializeField] string endScreenScene;
 
 
 
@@ -99,9 +101,7 @@ public class GameManager : MonoBehaviour {
 
 
     void Start() {
-        LoadMenuManager loadMenu = Instantiate(ResourceManager.Instance.LoadMenuPrefab).GetComponent<LoadMenuManager>();
-        loadMenu.OnLoadPressed += () => { Destroy(loadMenu.gameObject); LoadGame(); };
-        loadMenu.OnNewPressed += () => { Destroy(loadMenu.gameObject); NewGame(); };
+        LoadMenu();
 
     }
 
@@ -166,6 +166,12 @@ public class GameManager : MonoBehaviour {
             LoadHub();
             Destroy(charSelect.gameObject);
         };
+    }
+
+    public void LoadMenu() {
+        LoadMenuManager loadMenu = Instantiate(ResourceManager.Instance.LoadMenuPrefab).GetComponent<LoadMenuManager>();
+        loadMenu.OnLoadPressed += () => { Destroy(loadMenu.gameObject); LoadGame(); };
+        loadMenu.OnNewPressed += () => { Destroy(loadMenu.gameObject); NewGame(); };
     }
 
     public void LoadHub() {
@@ -240,6 +246,12 @@ public class GameManager : MonoBehaviour {
             CurrentGameState = GameState.Boss;
         };
         CurrentGameState = GameState.Fade;
+    }
+
+    public void LoadEndScreen() {
+        OnSceneChange?.Invoke();
+        SceneFader fader = Instantiate(ResourceManager.Instance.FaderPrefab).GetComponent<SceneFader>();
+        StartCoroutine(fader.FadeAndLoadScene(endScreenScene));
     }
 
     public void SetPuzzlePieceCollected(int level) {
