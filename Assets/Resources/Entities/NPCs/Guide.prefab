@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1191952967}
   - component: {fileID: 1191952968}
   - component: {fileID: -4135013102777559973}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Guide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3873990133628319290
 MonoBehaviour:
@@ -107,7 +107,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -977925959
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 312346648, guid: 65d922d0a5f5a214a8af76ef2ab83457, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -162,7 +162,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.02, y: 1.18}
+  m_Size: {x: 1, y: 1.3}
   m_EdgeRadius: 0
 --- !u!95 &-4135013102777559973
 Animator:

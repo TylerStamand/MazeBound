@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1191952967}
   - component: {fileID: 1191952968}
   - component: {fileID: -4135013102777559973}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Wizard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,6 +59,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ad87e37906a648640b0231737da4eacf, type: 2}
   - {fileID: 11400000, guid: c4aa43bcc01b9924a9a08118daa00910, type: 2}
   - {fileID: 11400000, guid: 64312476148178f4eb66d0ca82f4aa0f, type: 2}
+  <IsGuide>k__BackingField: 0
   isVendor: 0
   shop: {fileID: 0}
 --- !u!212 &1191952967
@@ -101,7 +102,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -977925959
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: a2190dcfac2debd46a528d1360ba11c5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -145,7 +146,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.18}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -156,7 +157,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.02, y: 1.18}
+  m_Size: {x: 1.02, y: 1.8}
   m_EdgeRadius: 0
 --- !u!95 &-4135013102777559973
 Animator:

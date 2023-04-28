@@ -7029,6 +7029,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1419377947}
     - target: {fileID: 7330988020895121117, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
+      propertyPath: tentacleHealth
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330988020895121117, guid: 73ab326fa4bba9b4f99a9a385cdb5a63, type: 3}
       propertyPath: bottomRightWall
       value: 
       objectReference: {fileID: 364592236}
