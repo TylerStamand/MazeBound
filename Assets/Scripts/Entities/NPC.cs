@@ -76,9 +76,7 @@ public class NPC : MonoBehaviour, IInteractable, ISaveLoad {
         else {
 
             //Hub first encounter
-            if (!npcState.HubFirstEncounterComplete) {
-                //Check if there is dialog to show
-                if (HubFirstEncounterDialog == null) return;
+            if (!npcState.HubFirstEncounterComplete && HubFirstEncounterDialog != null) {
 
                 //Create the dialog manager and set the dialog
                 dialogManager = ShowDialog(HubFirstEncounterDialog, playerCharacter);

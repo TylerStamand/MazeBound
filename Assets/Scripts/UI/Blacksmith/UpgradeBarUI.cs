@@ -29,7 +29,6 @@ public class UpgradeBarUI : MonoBehaviour {
 
     void HandleButtonClick() {
         if (playerCharacter.WeaponScraps >= stat.UpgradeCost) {
-            //Play upgrade sound
             if (stat.Upgrade()) {
                 if (upgradeSound != null)
                     AudioSource.PlayClipAtPoint(upgradeSound, playerCharacter.transform.position, GameManager.Instance.GetVolume());

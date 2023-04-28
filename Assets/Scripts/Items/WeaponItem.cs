@@ -31,8 +31,8 @@ public class WeaponItem : Item, IUpgradeable {
     public override string GetDescription() {
         string description = "";
         description += $"Damage: {Damage.CurrentValue.ToString("N", CultureInfo.CurrentCulture)} Lvl: {Damage.Level}\n";
-        description += $"Speed: {Speed.CurrentValue} Lvl: {Speed.Level}\n";
-        description += $"CriticalChance: {Math.Min(CriticalChance.CurrentValue, 100)} Lvl: {CriticalChance.Level}\n";
+        description += $"Speed: {Math.Round(Speed.CurrentValue, 2, MidpointRounding.AwayFromZero)} Lvl: {Speed.Level}\n";
+        description += $"CriticalChance: {Math.Round(Math.Min(CriticalChance.CurrentValue, 100), 2, MidpointRounding.AwayFromZero)} Lvl: {CriticalChance.Level}\n";
         description += "\n";
         description += $"Scrap Value: {GetScrapValue()}\n";
 
