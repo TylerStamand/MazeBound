@@ -108,6 +108,7 @@ MonoBehaviour:
   deathSound: {fileID: 0}
   moveSpeed: 0.05
   alertRadius: 5
+  attackRadius: 2
   stopDistance: 8
   contactFilter:
     useTriggers: 0
@@ -254,7 +255,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3143329664891665207}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.403, y: -0.426, z: 0}
+  m_LocalPosition: {x: 0.001, y: -0.056, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -409,7 +410,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.2, y: 1.2}
   m_EdgeRadius: 0
 --- !u!1 &8472314102887975750
 GameObject:
