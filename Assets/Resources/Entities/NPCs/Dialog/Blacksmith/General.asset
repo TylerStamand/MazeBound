@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: General
   m_EditorClassIdentifier: 
   Sentences:
-  - Welcome back. How the weapons holden up?
+  - Welcome back. How are the weapons holdin' up?
   <IsChoice>k__BackingField: 0
   YesDialog:
   - Good bye now.

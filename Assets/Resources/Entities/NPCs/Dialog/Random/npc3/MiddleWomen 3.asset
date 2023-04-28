@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MiddleWomen 3
   m_EditorClassIdentifier: 
   Sentences:
-  - The wizard gave us mushrooms so I'm making soup.
+  - The wizard gave us some mushrooms, so I'm making soup.
   <IsChoice>k__BackingField: 0
   YesDialog:
   - '[Opens Invantory]

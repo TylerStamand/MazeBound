@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: OlderMan
   m_EditorClassIdentifier: 
   Sentences:
-  - 'I''m getting to old for these things.
+  - 'I''m getting too old for these things.
 
 '
   <IsChoice>k__BackingField: 0

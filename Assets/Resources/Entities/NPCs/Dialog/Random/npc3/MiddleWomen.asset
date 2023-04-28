@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MiddleWomen
   m_EditorClassIdentifier: 
   Sentences:
-  - 'Are you sure this place is perfectly safe? Or at least safe-ish.?
+  - 'Are you sure this place is perfectly safe? Or at least safe-ish?
 
 '
   <IsChoice>k__BackingField: 0
