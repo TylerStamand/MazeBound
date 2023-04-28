@@ -20,7 +20,6 @@ MonoBehaviour:
   <Description>k__BackingField: 
   <Sprite>k__BackingField: {fileID: -615606087, guid: 01f1aab206b3e2a46af56cb0c76a30ac, type: 3}
   <WeaponPrefab>k__BackingField: {fileID: 2957765833364229571, guid: 41d48f1abbd8ee64fba8ecdb18573a73, type: 3}
-  <WeaponType>k__BackingField: 0
   <Damage>k__BackingField:
     MaxValue: 9
     MinValue: 3
@@ -28,8 +27,8 @@ MonoBehaviour:
     MaxValue: 6
     MinValue: 2
   <CriticalChance>k__BackingField:
-    MaxValue: 0
-    MinValue: 0
+    MaxValue: 45
+    MinValue: 35
   <UpgradeCostBase>k__BackingField: 300
   <UpgradeCostBaseMultiplier>k__BackingField: 0.1
   <UpgradeValueMultiplier>k__BackingField: 0.3

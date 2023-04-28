@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: InsaneRogue 1
   m_EditorClassIdentifier: 
   <EnemyName>k__BackingField: Insane Rogue
-  <Health>k__BackingField: 60
+  <Health>k__BackingField: 90
   <EnemyPrefab>k__BackingField: {fileID: -2914886117922418386, guid: a644e351ab1dba643b48b0785d54f42b, type: 3}
   <WeaponPrefab>k__BackingField: {fileID: 2957765833364229571, guid: 41d48f1abbd8ee64fba8ecdb18573a73, type: 3}
   <Damage>k__BackingField: 15
   <AttackSpeed>k__BackingField: 10
-  <CriticalChance>k__BackingField: 3
+  <CriticalChance>k__BackingField: 25

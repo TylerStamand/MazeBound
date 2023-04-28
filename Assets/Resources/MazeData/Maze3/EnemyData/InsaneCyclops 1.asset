@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: InsaneCyclops 1
   m_EditorClassIdentifier: 
   <EnemyName>k__BackingField: Insane Cyclops
-  <Health>k__BackingField: 60
+  <Health>k__BackingField: 90
   <EnemyPrefab>k__BackingField: {fileID: -2914886117922418386, guid: 8efd33ad6fca07a4d91b4d14b4ca1b2b, type: 3}
   <WeaponPrefab>k__BackingField: {fileID: 7063205943396213531, guid: eea8384336c1c344b893129eebde44de, type: 3}
   <Damage>k__BackingField: 25
   <AttackSpeed>k__BackingField: 5
-  <CriticalChance>k__BackingField: 3
+  <CriticalChance>k__BackingField: 25
