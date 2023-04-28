@@ -108,7 +108,7 @@ MonoBehaviour:
   deathSound: {fileID: 0}
   moveSpeed: 0.05
   alertRadius: 5
-  attackRadius: 2
+  attackRadius: 1.6
   stopDistance: 8
   contactFilter:
     useTriggers: 0
