@@ -1,6 +1,8 @@
 ## Game 480
 
-# Team UnGuided (Group 3)
+# Maze Bound: The Shattered Portal
+
+#  By: Team UnGuided (Group 3)
 
 
  ### Mia Beahm
@@ -9,49 +11,144 @@
  ### Joseph Thomas
  ### Tyler St. Amand
 
-# Maze Bound: The Shattered Portal
 
-## Game Concept
 
-Dungeon crawler:
-</br>
-</br>
-You start in an unknown location (hub world) and your goal is to venture out into the dungeons to grow your base and progress the story to find answers and eventually escape. 
+______________________________________________________________________________
+
+## Full Game Design Document
+______________________________________________________________________________
+
+	For full and comprehensive details about the game, please take a look at our game design document.
+	
+https://docs.google.com/document/d/1CBBfuEcJ4pq2ULPTmVZE5otzxdZVks136QFnBIZIj4A/edit?usp=sharing
+
+
+
+______________________________________________________________________________
 
 ## Game Description
+______________________________________________________________________________
 
-Our game concept takes its main inspiration from the Maze Runner movies/books and combines aspects of town managing and dungeon crawler games into one. The player starts inside the main hub that serves as the town and main safe haven without knowing why they are there. Without much information it becomes obvious they are surrounded by dangerous dungeons. To survive, the player must take risks to venture out, obtain, and make do with what it has to offer.
+
+	
+	Our game concept takes its main inspiration from the Maze Runner movies/books and combines aspects of 
+ 	town managing and dungeon crawler games into one. 
+ 
+ 	The player starts inside the main hub that serves as the town and main safe haven without knowing why they are there. 
+ 
+  	Outside the hub are endless sprawling mazes 
+  	
+   	The only other person here is the tutorial guide. He gives guidence to the player when they start and progress the game. 
+  
+	The player will go on to find NPCs, loot items and find puzzle pieces in various 
+    maze levels to progress the game.
+
+
+
+
+______________________________________________________________________________
 
 ## Core Game Mechanics
+______________________________________________________________________________
 
-* Fighting enemies
-* Talking to NPCs
-* Exploring
-* Upgrading
+	* Fighting enemies
+	* Talking to NPCs
+	* Exploring
+	* Upgrading
 
-## Story
-Our player finds themselves in an unknown environment that is seemingly safe. The only other person here is the tutorial guide. He shows us around and accompanies us into the dungeon for the first time. On this mission, he dies and the player is left alone to their devices to figure out what to do for themselves. Later down the road, the tutorial guy is hinted at being “the big bad” and the player must discover whether he is as evil as it seems.
+_____________________________________________________________________________
 
-### Main questions to answer story wise: 
-<dl>
-  <dt>Why did we end up here?</dt>
-  <dd>Guide put us here for a mysterious reason</dd>
+## Getting started
+______________________________________________________________________________
 
-  <dt>Who is the big bad?</dt>
-  <dd>
-  Tutorial guy is the main antagonist and he “dies” but doesn’t really die in the beginning.
-  </br>
-  He comes back to face us at some point.
-  </dd>
-  
-  <dt>What is our end game goal?</dt>
-  <dd>To find out why we exist in this place and how we can potentially leave.</dd>
-  
-  <dt>How do we leave this place?</dt>
-  <dd>In the main hub world, there’s a puzzle engraved on the wall and the player needs to collect an amount of something to unlock the door/get out/leave the place.</dd>
-</dl>
+	- When starting a new game, you will begin in the hub with an old rusty 
+	  spear equipped.
+    
+	- To enter a maze, simply walk into one of the maze entrances in the hub
 
+	- Explore the mazes to find chests and NPCs in your quest to escape
+	  the maze!
+
+	- Use the scrap slot in the inventory to dismantle weapons to gain 
+	  scrap. Scrap can be used by the Blacksmith to upgrade your weapons.
+
+    
+
+    Goal: 
+
+	- Your goal is to obtain three pieces of the puzzle
+
+	- One piece can be found in each maze
+
+	- A piece is retrieved after interacting with three shrines within
+	  a maze
+
+	- Retrieving a piece in one maze will unlock the entrance to the 
+	  next maze
+
+______________________________________________________________________________
+
+ ## Controls
+______________________________________________________________________________
+		
+	* WASD - Walk Up, Left, Down, and Right respectively.
+	* L Mouse Click - To attack
+	* R Mouse Click - Use potion
+	* I - Inventory
+	* F - Interaction
+	* Esc - Exit Menu
+
+______________________________________________________________________________
+
+## Trello
+______________________________________________________________________________
+
+
+https://trello.com/b/DWZCgwtB/game-480-project-management
+
+______________________________________________________________________________
+
+## Credits (All assets are custom unless otherwise noted in additional assets)
+______________________________________________________________________________
       
+	Tyler 
+
+		All scripts
+	     
+	Mia
+
+		UI Art
+		Title Screen Art
+		Character Design and Animation
+
+	Joey
+
+		Tileset design
+		Room designs
+		Sprite Design and Animation
+        
+	Graesyn
+
+		Tileset design
+		Room designs
+
+	Joseph
+
+		Sound effects and Music
+		Dialogue and Lore
+		Room designs
+
+	Additional Assets
+
+		Font: https://www.dafont.com/alagard.font
+		Skeleton: https://snoblin.itch.io/pixel-rpg-skeleton-free
+		Various Enemy Sprites: https://totuslotus.itch.io/characterpack
+		Rogue: https://cyberrumor.itch.io/16-bit-assassin
+		Chests: https://opengameart.org/content/treasure-chests-32x32
+		Potion Sprites: https://stealthix.itch.io/pixel-item-pack
+		Spear and Sword: https://admurin.itch.io/pixel-armory
+
+
            
 	             
                 
