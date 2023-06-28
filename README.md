@@ -24,6 +24,14 @@ https://docs.google.com/document/d/1CBBfuEcJ4pq2ULPTmVZE5otzxdZVks136QFnBIZIj4A/
 
 
 
+
+______________________________________________________________________________
+
+## To Start the Game Inside the Editor
+______________________________________________________________________________
+
+	Open the "Initialize" scene inside Assets/Scenes and press play.
+
 ______________________________________________________________________________
 
 ## Game Description
